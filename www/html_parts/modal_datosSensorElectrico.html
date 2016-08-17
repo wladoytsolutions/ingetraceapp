@@ -1,0 +1,84 @@
+<style>
+#TablaDatosSensores thead{
+	display: none;
+}
+</style>
+<div id="DialogGraficoContenido" class="modal-body" style="padding: 0px;"> <!-- /.row -->
+	<link href="plugin/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.es.min.js"></script>
+	<div class="row">
+			<div style="border: none" class="panel panel-default">
+				<div class="panel-body">
+					<form onsubmit="return false;" action="" method="post" name="formularioBusqueda" id="formularioBusqueda" role="form">
+						<input type="submit" style="display:none" name="btnValidar" id="btnValidar">
+						<div class="row">	  
+						  <div class="col-xs-6" style="max-width: 100px; padding-left: 0px; padding-right: 0px;">
+							<div class="form-group" id="DivInicioOp">
+							  <label for="inicio_filtroDatosSensorElectrico" class="control-label"><b>(*) Inicio OP: </b></label>
+							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="inicio_filtroDatosSensorElectrico" name="inicio_filtroDatosSensorElectrico" value="" placeholder="dd/mm/YYYY" title="Ingrese inicio de operación del sensor" required="" readonly="readonly" style="max-width:100%">
+							</div>
+						  </div>
+						  <div class="col-xs-6" style="max-width: 100px; padding-left: 0px; padding-right: 0px; margin-left: 5px;">
+							<div class="form-group" id="DivTerminoOp">
+							  <label for="termino_filtroDatosSensorElectrico" class="control-label"><b>Termino OP: </b></label>
+							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="termino_filtroDatosSensorElectrico" name="termino_filtroDatosSensorElectrico" value="" placeholder="dd/mm/YYYY" title="Ingrese termino de operación del sensor" required="" readonly="readonly" style="max-width:100%">
+							</div>
+						  </div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6" style="max-width: 90px; padding-left: 5px; padding-right: 5px; padding-top: 0px;">
+								<button type="button" class="btn btn-primary" id="btn_buscarGraficoElectrico"><b> Buscar</b></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div data-example-id="togglable-tabs" role="tabpanel" class="bs-example bs-example-tabs" id="tabs">
+				<ul role="tablist" class="nav nav-tabs" id="myTab">
+					<li id="Li_Tabla" class="active" role="presentation">
+						<a aria-controls="Tabla_grafico" data-toggle="tab" id="Tabla_grafico-tab" role="tab" href="#Tabla_grafico" aria-expanded="false">
+						 Datos de Sensor </a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					  <div aria-labelledby="Tabla_grafico-tab" id="Tabla_grafico" class="tab-pane fade active in" role="tabpanel">
+						<div class="panel panel-default">
+							<div class="panel-body" id="PanelBodyTablaDatosSensor" style="height:280px">
+								<div id="DivCargandoTablaGrafico" style="display:none">
+									<center>
+										<img src="img/loading.gif" alt="cargando..." align="middle" />
+									</center>
+								</div>
+								<table class="table table-hover" id="TablaDatosSensores">
+									<thead>
+										<tr>
+											<th><center>FECHA</center></th>
+											<th><center>ESTADO </center></th>
+											<th><center>TIEMPO(hh:mm:ss)</center></th>
+										</tr>
+									</thead>
+									<tbody id="tBodyDatosGrafico">
+									</tbody>
+								</table>
+							</div>				
+						</div>
+					  </div>
+				</div>
+			</div>
+	</div>
+	<div style="display:none" id="DivHidden">
+		<div id="tbl_DataGra"></div>
+		<iframe src="#" name="IframeAuxDatosSensorElectricoDescarga" id="IframeAuxDatosSensorElectricoDescarga"></iframe>
+		<a style="display:none" id="link_descargaArchivoDatosSensor" href="">Descargar Archivo</a>  
+	</div>
+</div>
+<div id="DivHidden" style="display:none">
+	<input type="hidden" id="H_SENSOR_ELECTRICO" value="" />
+	<input type="hidden" id="H_NOMBRE_EQUIPO" value="" />
+	<input type="hidden" id="H_FEC_INI" value="" />
+	<input type="hidden" id="H_FEC_TERMINO" value="" />
+	<input type="hidden" id="H_RutaIframe" value="" />
+	<div id="tbl_DataGra"></div>
+</div>
+<script type="text/javascript" charset="UTF-8" src="js/modal_datosSensorElectrico.js"></script>

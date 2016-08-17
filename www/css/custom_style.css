@@ -1,0 +1,35 @@
+			.ErrorCarga
+			{
+				box-sizing: border-box;
+				background-color: #d9534f;
+				border-radius: 0.25em;
+				color: #fff;
+				display: inline;
+				font-size: 75%;
+				font-weight: 700;
+				line-height: 1;
+				padding: 0.2em 0.6em 0.3em;
+				text-align: center;
+				vertical-align: baseline;
+				white-space: nowrap;
+			}
+			div.marquee {
+				white-space:no-wrap;
+				overflow:hidden;
+			}
+			div.marquee > div.marquee-text {
+				white-space:nowrap;
+				display:inline;
+				width:auto;
+			}
+			.IconosPrincipales
+			{
+				font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+				font-size: 14px;
+				line-height: 1.42857;
+				font-size: 20px;box-sizing: border-box;
+				display: inline-block;
+				font-weight: 700;
+				margin-bottom: 5px;
+				max-width: 100%;
+			}
