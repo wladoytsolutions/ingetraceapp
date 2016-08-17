@@ -1,0 +1,94 @@
+<style>
+#TablaDatosAlarmas thead{
+	display: none;
+}
+</style>
+<div id="DialogGraficoContenido" class="modal-body" style="padding: 0px;"> <!-- /.row -->
+		<div class="row">
+			<div data-example-id="togglable-tabs" role="tabpanel" class="bs-example bs-example-tabs" id="tabs">
+				<ul role="tablist" class="nav nav-tabs" id="myTab">
+					<li id="Li_Tabla" class="active" role="presentation">
+						<a aria-controls="Tabla_grafico" data-toggle="tab" id="Tabla_grafico-tab" role="tab" href="#Tabla_grafico" aria-expanded="false">
+						 Alarmas</a>
+					</li>
+					<li id="Li_TablaTodasAlarmas" role="presentation">
+						 <span>
+							<button type="button" id="btnCargarTodasLasAlarmas" onclick="javascript:CargarTodasLasAlarmas(event)" class="btn btn-primary" style="border-top-width: 1px; margin-top: 3px; margin-left: 30px;">
+								Todas las alarmas
+							</button>
+						</span>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+				  <div aria-labelledby="Tabla_alarmas-tab" id="Tabla_alarmas" class="tab-pane fade active in" role="tabpanel">
+					<div class="panel panel-default">
+						<div class="panel-body" id="PanelBodyTablaDatosAlarma" style="height:280px">
+							<div id="DivCargandoTablaAlarmas" style="display:none">
+								<center>
+									<img src="img/loading.gif" alt="cargando..." align="middle" />
+								</center>
+							</div>
+							<table class="table table-hover" id="TablaDatosAlarmas" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th><center>ID ALARMA</center></th>
+										<th><center>FECHA</center></th>
+										<th><center>TIPO</center></th>
+										<th><center>T° </center></th>
+									</tr>
+								</thead>
+								<tbody id="tBodyDatosAlarmas">
+								</tbody>
+							</table>
+						</div>				
+					</div>
+					<br /><br />
+					<div id="DivCargandoBitacora" style="display:none">
+						<center>
+							<img src="img/loading.gif" alt="cargando..." align="middle" />
+						</center>
+					</div>
+					<div id="DivBitacora" style="display:none">
+						<a class="collapsed" id="VerBitacora" style="display:none" role="button" data-toggle="collapse" data-parent="#accordion" href="#DivDatosBitacora" aria-expanded="false" aria-controls="DivDatosBitacora"></a>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-primary" style="cursor:pointer" id="btnVerBitacora" onclick="javascript:MostrarBitacora();">
+							<div class="panel-heading" role="tab" id="BitacoraHeader">
+							  <h4 class="panel-title">
+								<label id="tituloBitacora">Bitacora</label>
+								<span id="registros_bitacora" class="badge" style="float: right; margin-top: -20px; margin-right: 16px;">2</span>
+							  </h4>
+							</div>
+							<div id="DivDatosBitacora" class="panel-collapse collapse" role="tabpanel" aria-labelledby="BitacoraHeader">
+							  <div class="panel-body" id="DivContenidoDeBitacoras">
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<div class="input-group">
+						<span id="FechaBitacoraHoy" class="input-group-addon"></span>
+						<form role="form" id="formularioIngresoBitacora" name="formularioIngresoBitacora" method="post" action="" onSubmit="return false;">
+							<input type="text" aria-describedby="basic-addon1" placeholder="Ingrese comentarios" required="required" id="txtcomentario_bitacora" class="form-control"/>
+							<input type="submit" id="btnValidarIngresoBitacora" name="btnValidarIngresoBitacora" style="display:none" />
+						</form>
+							<span class="input-group-btn">
+								<button type="button" id="btnGrabarBitacora" class="btn btn-default">Grabar</button>
+							</span>
+						</div>
+					</div>
+				  </div>
+				</div>
+			</div>
+		</div>
+	<div style="display:none" id="DivHidden">
+		<div id="tbl_DataGra"></div>
+	</div>
+</div>
+<div id="DivHidden" style="display:none">
+	<input type="hidden" id="H_SENSOR_ELECTRICO" value="" />
+	<input type="hidden" id="H_NOMBRE_EQUIPO" value="" />
+	<input type="hidden" id="H_FEC_INI" value="" />
+	<input type="hidden" id="H_FEC_TERMINO" value="" />
+	<input type="hidden" id="H_RutaIframe" value="" />
+	<div id="tbl_DataGra"></div>
+</div>
+<script type="text/javascript" charset="UTF-8" src="js/modal_alarmasSensor.js"></script>
