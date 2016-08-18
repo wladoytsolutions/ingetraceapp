@@ -1,0 +1,64 @@
+			<div data-role="content" data-theme="d" class="ui-corner-bottom ui-content" style="background: #FFFFFF;">
+				<style>
+					#Cbo_Cliente-button span
+					{
+						display:none;
+					}
+					#Cbo_Sucursal-button span
+					{
+						display:none;
+					}
+				</style>
+				<div class="modal-header">
+					<h4 class="modal-title">Cambiar Clave</h4>
+				</div>
+				<div class="modal-body">
+					<form role="form" id="formularioCambioClave" name="formularioCambioClave" method="post" action="" onSubmit="return false;">
+					<input type="submit" id="btnValidarCambioClave" name="btnValidarCambioClave" style="display:none" />
+						<div class="row">  			
+							<div class="col-lg-12">
+								<label for="txtContrasena1"><b>Nueva Contraseña</b></label>
+								<div class="form-group input-group" id="DivCboCliente" style="padding-top: 5px; padding-bottom: 5px;"> 
+									<span id="basic-addon1" class="input-group-addon"><i class="fa fa-key"></i></span>
+									<input type="password" maxlength="30" aria-describedby="basic-addon1" placeholder="Contraseña" class="form-control" required="required" id="txtContrasena1"/>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="DivConfirmarContraseña1"> 
+							<div class="col-lg-12">
+								<label for="txtContrasena2"><b>Confirmar contraseña</b></label>
+								<div class="form-group input-group" id="DivCboSucursal" style="padding-top: 5px; padding-bottom: 5px;"> 
+									<span id="basic-addon1" class="input-group-addon"><i class="fa fa-key"></i></span>
+									<input type="password" maxlength="30" aria-describedby="basic-addon1" placeholder="Confirmar Contraseña" class="form-control" required="required" id="txtContrasena2"/>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="DivConfirmarContraseña2"> 
+							<div class="col-lg-12">
+								<label for="txtContrasena2"><b>Clave Actual</b></label>
+								<div class="form-group input-group" id="DivCboSucursal" style="padding-top: 5px; padding-bottom: 5px;"> 
+									<span id="basic-addon1" class="input-group-addon"><i class="fa fa-key"></i></span>
+									<input type="password" maxlength="30" aria-describedby="basic-addon1" placeholder="Confirmar Contraseña" class="form-control" required="required" id="txtContraseñaActual"/>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<div class="row" id="Modal_cargandoCambioClave" style="display:none">
+						<center><img  src="img/loading.gif" /></center>
+						<br>
+					</div>
+					<div class="row" id="RowOpcionesCambioClave">
+						<div class="col-lg-12">
+							<div align="left" style="display:none" id="alertMensajeCambioClave" class="alert alert-info">
+								<span><b id="msjeCambioClave"></b></span>
+							</div>
+						</div>
+						<div id="div_opciones" class="col-lg-12">
+							<button id="btnCancelarCambioClave" data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+							<button id="btn_aceptarCambioClave" class="btn btn-primary" type="button">Aceptar</button>
+						</div>
+					</div> 
+				</div>
+			</div>
