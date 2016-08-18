@@ -157,5 +157,51 @@
 	<script type="text/javascript" charset="UTF-8" src = "js/jquery.dataTables.js"></script>
 	<script type="text/javascript" charset="UTF-8" src = "js/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="js/index.js"></script>
+	  <script type="text/javascript">
+        
+            document.addEventListener('deviceready', function(event) 
+            {
+            	var leanModeButton = document.getElementById('leanModeButton'),
+					immersiveModeButton = document.getElementById('immersiveModeButton'),
+            		showUnderUiButton = document.getElementById('showUnderUiButton'),
+            		showUiButton = document.getElementById('showUiButton');
+            	
+            	function successFunction()
+            	{
+            	    console.log("It worked!");
+            	}
+            	function errorFunction(error)
+            	{
+            	    console.log(error);
+            	}
+				
+            	function trace(value)
+            	{
+            	    console.log(value);
+            	}
+            	
+            	leanModeButton.addEventListener('click', function(event)
+            	{
+            		AndroidFullScreen.leanMode(successFunction, errorFunction);
+            	});
+            	
+            	immersiveModeButton.addEventListener('click', function(event)
+            	{
+            		AndroidFullScreen.immersiveMode(successFunction, errorFunction);
+            	});
+            	
+            	showUnderUiButton.addEventListener('click', function(event)
+             	{
+             		AndroidFullScreen.showUnderSystemUI(successFunction, errorFunction);
+             	});
+            	
+            	showUiButton.addEventListener('click', function(event)
+             	{
+             		AndroidFullScreen.showSystemUI(successFunction, errorFunction);
+             	});
+            	
+            });
+            
+        </script>
 	</body>
 </html>
