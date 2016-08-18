@@ -1,0 +1,160 @@
+<div id="DialogGraficoContenido" class="modal-body" style="padding: 0px;"> <!-- /.row -->
+	<link href="plugin/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.es.min.js"></script>
+	<div class="row">
+			<div style="border: none" class="panel panel-default">
+				<div class="panel-body">
+					<form onsubmit="return false;" action="" method="post" name="formularioBusqueda" id="formularioBusqueda" role="form">
+						<input type="submit" style="display:none" name="btnValidar" id="btnValidar">
+						<div class="row">	  
+						  <div class="col-xs-6" style="max-width: 100px; padding-left: 0px; padding-right: 0px;">
+							<div class="form-group" id="DivInicioOp">
+							  <label for="inicio_filtroDatosSensor" class="control-label"><b>(*) Inicio OP: </b></label>
+							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="inicio_filtroDatosSensor" name="inicio_filtroDatosSensor" value="" placeholder="dd/mm/YYYY" title="Ingrese inicio de operaci?n del sensor" required="" readonly="readonly" style="max-width:100%">
+							</div>
+						  </div>
+						  <div class="col-xs-6" style="max-width: 100px; padding-left: 0px; padding-right: 0px; margin-left: 5px;">
+							<div class="form-group" id="DivTerminoOp">
+							  <label for="termino_filtroDatosSensor" class="control-label"><b>Termino OP: </b></label>
+							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="termino_filtroDatosSensor" name="termino_filtroDatosSensor" value="" placeholder="dd/mm/YYYY" title="Ingrese termino de operaci?n del sensor" required="" readonly="readonly" style="max-width:100%">
+							</div>
+						  </div>
+							<div style="max-width: 90px; padding-left: 5px; padding-right: 5px; padding-top: 25px;" class="col-xs-6">
+								<button id="btn_buscarGrafico" class="btn btn-primary ui-btn ui-shadow ui-corner-all" type="button"><b> Buscar</b></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
+			<ul id="myTab" class="nav nav-tabs" role="tablist">
+				<li role="presentation" class="active">
+					<a id="GraficoSensor-tab" href="#GraficoSensor" onclick="javascript:CargarGrafico(event);">
+					<b>Gr&aacute;fico</b></a>
+				</li>
+				<li style="display: block;" role="presentation" id="Li_Tabla" class="">
+					<a id="Tabla_datos-tab" href="#Tabla_grafico" onclick="javascript:CargarDatosGrafico(event);">
+					 <b>Datos</b></a>
+				</li>
+				<li style="display: block;" role="presentation" id="Li_TablaAlarmas" class="">
+					<a id="Tabla_alarmas-tab" href="#Tabla_alarmas" onclick="javascript:CargarAlarmas(event);">
+					<b>Alarmas</b></a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div aria-labelledby="GraficoSensor-tab" id="GraficoSensor" class="tab-pane fade active in" role="tabpanel">
+					<div class="panel panel-default">
+						<div class="panel-body" id="PanelBodyGraficoSensor" style="height:250px">
+							<div class="row">
+								<div class="col-md-12" style="height: 250px; padding-left: 0px; padding-right: 0px;">
+									<div id="DivCargandoGrafico" style="display:none">
+										<center>
+											<img src="img/loading.gif" alt="cargando..." align="middle" />
+										</center>
+									</div>
+									<div id="DivGraficoLineal" style="height: 245px;">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				  </div>
+				  <div aria-labelledby="Tabla_grafico-tab" id="Tabla_grafico" class="tab-pane fade" role="tabpanel">
+					<div class="panel panel-default">
+						<div class="panel-body" id="PanelBodyTablaDatosSensor" style="height:280px">
+							<div id="DivCargandoDatos" style="display:none">
+								<center>
+									<img src="img/loading.gif" alt="cargando..." align="middle" />
+								</center>
+							</div>
+							<div id="DivTablaDatos" style="display:none">
+								<table class="table table-hover" id="TablaDatosSensores">
+									<thead>
+										<tr>
+											<th><center>FECHA</center></th>
+											<th><center>T ° </center></th>
+											<th><center>TENDENCIA</center></th>
+										</tr>
+									</thead>
+									<tbody id="tBodyDatosGrafico">
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<br />
+					</div>
+				  </div>
+				  <div aria-labelledby="Tabla_alarmas-tab" id="Tabla_alarmas" class="tab-pane fade" role="tabpanel">
+					<div class="panel panel-default">
+						<div class="panel-body" id="PanelBodyTablaDatosAlarma" style="height:280px">
+							<div id="DivCargandoAlarmas" style="display:none">
+								<center>
+									<img src="img/loading.gif" alt="cargando..." align="middle" />
+								</center>
+							</div>
+							<div id="DivTablaAlarmas" style="display:none">
+								<table class="table table-hover" id="TablaDatosAlarmas" cellspacing="0" width="100%">
+									<thead>
+										<tr>
+											<th><center>ID ALARMA</center></th>
+											<th><center>FECHA</center></th>
+											<th><center>TIPO</center></th>
+											<th><center>T ° </center></th>
+										</tr>
+									</thead>
+									<tbody id="tBodyDatosAlarmas">
+									</tbody>
+								</table>
+							</div>
+						</div>				
+					</div>
+					<br /><br />
+					<div id="DivCargandoBitacora" style="display:none">
+						<center>
+							<img src="img/loading.gif" alt="cargando..." align="middle" />
+						</center>
+					</div>
+					<div id="DivBitacora" style="display:none">
+						<a class="collapsed" id="VerBitacora" style="display:none" role="button" data-toggle="collapse" data-parent="#accordion" href="#DivDatosBitacora" aria-expanded="false" aria-controls="DivDatosBitacora"></a>
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						  <div class="panel panel-primary" style="cursor:pointer" id="btnVerBitacora" onclick="javascript:MostrarBitacora();">
+							<div class="panel-heading" role="tab" id="BitacoraHeader">
+							  <h4 class="panel-title">
+								<label id="tituloBitacora">Bitacora</label>
+								<span id="registros_bitacora" class="badge" style="float: right; margin-top: -20px; margin-right: 16px;">2</span>
+							  </h4>
+							</div>
+							<div id="DivDatosBitacora" class="panel-collapse collapse" role="tabpanel" aria-labelledby="BitacoraHeader">
+							  <div class="panel-body" id="DivContenidoDeBitacoras">
+							  </div>
+							</div>
+						  </div>
+						</div>
+						<div class="input-group">
+						<span id="FechaBitacoraHoy" class="input-group-addon">{FECHA_HOY}</span>
+						<form role="form" id="formularioIngresoBitacora" name="formularioIngresoBitacora" method="post" action="" onSubmit="return false;">
+							<input type="text" aria-describedby="basic-addon1" placeholder="Ingrese comentarios" required="required" id="txtcomentario_bitacora" class="form-control"/>
+							<input type="submit" id="btnValidarIngresoBitacora" name="btnValidarIngresoBitacora" style="display:none" />
+						</form>
+							<span class="input-group-btn">
+								<button type="button" id="btnGrabarBitacora" class="btn btn-default">Grabar</button>
+							</span>
+						</div>
+					</div>
+				  </div>
+			</div>
+		</div>
+	</div>
+	<div style="display:none" id="DivHidden">
+		<div id="tbl_DataGra"></div>
+		<iframe src="#" name="IframeAuxDatosSensorDescarga" id="IframeAuxDatosSensorDescarga"></iframe>
+		<a style="display:none" id="link_descargaArchivoDatosSensor" href="">Descargar Archivo</a>
+		<textarea id="JSON_DATOS"></textarea>
+		<input type="hidden" id="H_TAB_GRAFICO_CARGADO" value="" />
+		<input type="hidden" id="H_TAB_ALARMAS_CARGADO" value="" />
+		<input type="hidden" id="H_TAB_DATOS_CARGADO" value="" />
+		<input type="hidden" id="H_TabActivo" value="Grafico" />
+	</div>
+</div>
+<script type="text/javascript" charset="UTF-8" src="js/modal_datosSensor.js"></script>
