@@ -22,7 +22,7 @@ function ValidaAut()
 {
 	var CK=getCK();
 	
-	if(CK!="undefined" && CK!="")
+	if(CK!="undefined" && CK!="" && ValCK.toUpperCase()!="NULL")
 	{
 		//Validando cookie
 		  var resultado='E';
