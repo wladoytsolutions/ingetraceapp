@@ -55,12 +55,9 @@ $( document ).ready(function() {
 });
 function Logout()
 {
-	// Devuelve true cuando se encuentra el cookie
-	window.cookies.clear(function() {
-		alert('Cookies cleared!');
-	});
-	// Misma ruta que hemos puesto para escribir el cookie...	
-	//window.location.href = "index.html";
+	//Cookie vacio
+	setCK('');
+	window.location.href = "index.html";
 }
 function CambiarClienteSucursal()
 {
