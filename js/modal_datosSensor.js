@@ -166,6 +166,9 @@ function CargarTabDatos()
 	setTimeout(function () {
 		$("#DivTablaDatos").show("fade");				
 		$("#TablaDatosSensores").dataTable({
+			"language": {
+				"url": 'json/spanish.json'
+			},
 			"scrollY":        "230px",
 			"scrollCollapse": true,
 			"paging":         false,
@@ -241,6 +244,9 @@ function CargarTabAlarmas()
 		setTimeout(function () {
 			$("#DivTablaAlarmas").show("fade");				
 			$("#TablaDatosAlarmas").dataTable({
+				"language": {
+					"url": "json/spanish.json"
+				},
 				"scrollY":        "230px",
 				"scrollCollapse": true,
 				"paging":         false,
@@ -382,6 +388,9 @@ function CargarDatos(Inicio,Termino)
 				setTimeout(function () {
 					$("#DivTablaAlarmas").show("fade");				
 					$("#TablaDatosAlarmas").dataTable({
+						"language": {
+							"url": "json/spanish.json"
+						},
 						"scrollY":        "230px",
 						"scrollCollapse": true,
 						"paging":         false,

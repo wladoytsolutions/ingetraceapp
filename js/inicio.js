@@ -334,6 +334,9 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						$("#TablaDatosSensores").dataTable({
+							"language": {
+								"url": "json/spanish.json"
+							},
 							"scrollY":        "230px",
 							"scrollCollapse": true,
 							"paging":         false,
@@ -422,6 +425,9 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						$("#TablaDatosAlarmas").dataTable({
+								"language": {
+									"url": "json/spanish.json"
+								},
 								"scrollY":        "230px",
 								"scrollCollapse": true,
 								"paging":         false,
@@ -476,6 +482,9 @@ function CargarTodasLasAlarmas(event)
 		$(window).disablescroll("undo");
 		setTimeout(function () {	
 			$("#TablaDatosAlarmas").dataTable({
+					"language": {
+						"url": "json/spanish.json"
+					},
 					"scrollY":        "230px",
 					"scrollCollapse": true,
 					"paging":         false,

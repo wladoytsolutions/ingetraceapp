@@ -105,10 +105,13 @@ function CargarDatosElectrico(Inicio,Termino)
 		$(window).disablescroll("undo");
 		setTimeout(function () {
 			$("#TablaDatosSensores").dataTable({
-					"scrollY":        "230px",
-					"scrollCollapse": true,
-					"paging":         false,
-					"searching": false
+				"language": {
+					"url": "json/spanish.json"
+				},
+				"scrollY":        "230px",
+				"scrollCollapse": true,
+				"paging":         false,
+				"searching": false
 			});
 			RecargarTabla();			
 			$("#btn_buscarGrafico").prop('disabled', false);
