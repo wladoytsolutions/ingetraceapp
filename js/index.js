@@ -318,7 +318,7 @@ function login()
 			if(d.ESTADO=="S")
 			{				
 				//Cookie
-				setCK('INGSCE_INF');
+				setCK(''+d.CK);
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
