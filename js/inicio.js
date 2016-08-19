@@ -505,7 +505,7 @@ function ActualizarDashboard()
 	
 	$.post(RUTACONTROL,{
 										accion		: 'ACTUALIZA_SENSORES',
-										CK			: ''+getCK(),
+										CK			: getCK(),
 										ID_CLIENTE	: $('#H_ID_CLIENTE_ACTUAL').val(),
 										ID_SUC		: $('#H_ID_SUCURSAL_ACTUAL').val()
 									 }, 

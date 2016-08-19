@@ -76,7 +76,7 @@ function CambiarClienteSucursal()
 		
 		$.post(RUTACONTROL,{
 							accion		: 'GetClientesSucursales',
-							CK			: ''+getCK()
+							CK			: getCK()
 							}, 
 		function(response) {
 			
@@ -174,7 +174,7 @@ function CambiarSucursal()
 								accion: "CambiaSucursal",
 								IdCliente: $("#Cbo_Cliente").val(),
 								IdSucursal: $("#Cbo_Sucursal").val(),
-								CK: ''+getCK()
+								CK: getCK()
 								}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);

@@ -20,7 +20,7 @@ function getCK() {
 } 
 function ValidaAut()
 {
-	var CK=""+getCK();
+	var CK=getCK();
 	
 	if(CK!="undefined" && CK!="")
 	{

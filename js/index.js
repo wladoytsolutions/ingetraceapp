@@ -70,9 +70,7 @@ function getUrlVars() {
 function BuscarCookie()
 {
 	var UbicacionPage=''+window.location.hash;
-	var ValCK=''+getCK();
-	
-	alert(ValCK);
+	var ValCK=getCK();
 	
 	if(UbicacionPage=='#p2')
 	{
@@ -84,7 +82,7 @@ function BuscarCookie()
 	}
 	else
 	{
-		if(ValCK!="undefined" && ValCK!="")
+		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
 			setTimeout(function () {
 				ValidarCKIncial(ValCK);
