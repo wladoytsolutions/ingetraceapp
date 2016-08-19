@@ -17,6 +17,7 @@ Highcharts.setOptions({
 	},
     colors: Colores
 });
+
 $( document ).ready(function() {	
 	setInterval(function(){ ParpadearAlarmaLocal(); }, 1000);
 	
@@ -504,7 +505,7 @@ function ActualizarDashboard()
 	
 	$.post(RUTACONTROL,{
 										accion		: 'ACTUALIZA_SENSORES',
-										CK			: ''+$.cookie('INGSCE_INF'),
+										CK			: ''+getCookie('INGSCE_INF'),
 										ID_CLIENTE	: $('#H_ID_CLIENTE_ACTUAL').val(),
 										ID_SUC		: $('#H_ID_SUCURSAL_ACTUAL').val()
 									 }, 

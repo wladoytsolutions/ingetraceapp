@@ -56,10 +56,8 @@ $( document ).ready(function() {
 function Logout()
 {
 	// Devuelve true cuando se encuentra el cookie
-	$.removeCookie('INGSCE_INF');
-	// Misma ruta que hemos puesto para escribir el cookie...
-	$.removeCookie('INGSCE_INF', { path: '/' });
-	
+	setCookie('INGSCE_INF','',0);
+	// Misma ruta que hemos puesto para escribir el cookie...	
 	window.location.href = "index.html";
 }
 function CambiarClienteSucursal()
@@ -76,7 +74,7 @@ function CambiarClienteSucursal()
 		
 		$.post(RUTACONTROL,{
 							accion		: 'GetClientesSucursales',
-							CK			: ''+$.cookie('INGSCE_INF')
+							CK			: ''+getCookie('INGSCE_INF')
 							}, 
 		function(response) {
 			
@@ -174,13 +172,13 @@ function CambiarSucursal()
 								accion: "CambiaSucursal",
 								IdCliente: $("#Cbo_Cliente").val(),
 								IdSucursal: $("#Cbo_Sucursal").val(),
-								CK: ''+$.cookie('INGSCE_INF')
+								CK: ''+getCookie('INGSCE_INF')
 								}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 				//Cookie
-				$.cookie('INGSCE_INF', ''+d.CK, { expires: 7, path: '/' });
+				setCookie('INGSCE_INF',''+d.CK,7);
 				
 				//Estado de sucursal
 				$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
@@ -217,7 +215,7 @@ function CambiarClaveBD()
 	
 	$.post(RUTACONTROL,{
 								accion: "CambioClave",
-								CK: ''+$.cookie('INGSCE_INF'),
+								CK: ''+getCookie('INGSCE_INF'),
 								Pass: $("#txtContrasena1").val(),
 								PassActual: $("#txtContraseñaActual").val()
 								}, 

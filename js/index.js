@@ -70,7 +70,7 @@ function getUrlVars() {
 function BuscarCookie()
 {
 	var UbicacionPage=''+window.location.hash;
-	var ValCK=''+$.cookie('INGSCE_INF');
+	var ValCK=''+getCookie('INGSCE_INF');
 	
 	if(UbicacionPage=='#p2')
 	{
@@ -82,7 +82,7 @@ function BuscarCookie()
 	}
 	else
 	{
-		if(ValCK!="undefined")
+		if(ValCK!="undefined" && ValCK!="")
 		{
 			setTimeout(function () {
 				ValidarCKIncial(ValCK);
@@ -213,7 +213,7 @@ function ValidarCKIncial(CK)
 			if(d.ESTADO=="S")
 			{
 				//Cookie
-				$.cookie('INGSCE_INF', ''+d.CK, { expires: 7, path: '/' });
+				setCookie('INGSCE_INF',''+d.CK,7);
 				
 				ID_CLIENTE=d.ID_CLIENTE;
 				ID_SUCURSAL=d.ID_SUC;
@@ -318,7 +318,7 @@ function login()
 			if(d.ESTADO=="S")
 			{				
 				//Cookie
-				$.cookie('INGSCE_INF', ''+d.CK, { expires: 7, path: '/' });
+				setCookie('INGSCE_INF',''+d.CK,7);
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
