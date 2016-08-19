@@ -1,6 +1,6 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
-$( document ).ready(function() {		
+$( document ).ready(function() {
 	$("#ModalErrorp1").load("html_parts/modal_MensajeError.html", function() {
 		var BotonAceptar=$("#ModalErrorp1").find(".botonaceptarmodal");
 		$(BotonAceptar).attr('id','btnErrorAceptarPage1');
@@ -71,6 +71,8 @@ function BuscarCookie()
 {
 	var UbicacionPage=''+window.location.hash;
 	var ValCK=''+getCK();
+	
+	alert(ValCK);
 	
 	if(UbicacionPage=='#p2')
 	{
