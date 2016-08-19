@@ -1,18 +1,6 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
-$( document ).ready(function() {	
-	
-	var sessionId = localStorage.getItem('myCookieName'); 
-	// if there was no localStorage for the session id 
-	// the application is being run for the first time
-	// the session id must be created
-	if (!sessionId) {
-		sessionId = 'HOLA';
-		localStorage.setItem('myCookieName', sessionId);
-	}
-	
-	alert(''+localStorage.getItem('myCookieName'));
-	
+$( document ).ready(function() {		
 	$("#ModalErrorp1").load("html_parts/modal_MensajeError.html", function() {
 		var BotonAceptar=$("#ModalErrorp1").find(".botonaceptarmodal");
 		$(BotonAceptar).attr('id','btnErrorAceptarPage1');
@@ -82,7 +70,7 @@ function getUrlVars() {
 function BuscarCookie()
 {
 	var UbicacionPage=''+window.location.hash;
-	var ValCK=''+getCookie('INGSCE_INF');
+	var ValCK=''+getCK();
 	
 	if(UbicacionPage=='#p2')
 	{
@@ -225,7 +213,7 @@ function ValidarCKIncial(CK)
 			if(d.ESTADO=="S")
 			{
 				//Cookie
-				setCookie('INGSCE_INF',''+d.CK,7);
+				setCK(''+d.CK);
 				
 				ID_CLIENTE=d.ID_CLIENTE;
 				ID_SUCURSAL=d.ID_SUC;
@@ -330,7 +318,7 @@ function login()
 			if(d.ESTADO=="S")
 			{				
 				//Cookie
-				setCookie('INGSCE_INF',''+d.CK,7);
+				setCK('INGSCE_INF');
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {

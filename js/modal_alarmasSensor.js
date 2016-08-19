@@ -71,7 +71,7 @@ function GuardarBitacora()
 				accion 		: 'GuardarBitacora',
 				ID_ALERTA   : $('#H_ID_ALERTA').val(),
 				COMENTARIO  : $('#txtcomentario_bitacora').val(),
-				CK			: ''+getCookie('INGSCE_INF')
+				CK			: getCK()
 				}, 
 	function(response) {			
 		var json = jQuery.parseJSON(response);
