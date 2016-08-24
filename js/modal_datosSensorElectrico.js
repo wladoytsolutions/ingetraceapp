@@ -41,10 +41,6 @@ $(document).ready(function() {
 									autoclose:true,
 									orientation: "top auto"
 									});	
-	setTimeout(function () {
-		alert('Verificar');
-	},5000);
-	
 });
 function CargarDatosElectrico(Inicio,Termino)
 {
@@ -73,6 +69,8 @@ function CargarDatosElectrico(Inicio,Termino)
 							}, 
 	function(response) {
 			var json = jQuery.parseJSON(response);
+			
+			$('#PanelDatosElectrico').hide('fade');
 			
 			$.each(json.ITEMS, function(i, d) {
 				CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
@@ -118,6 +116,9 @@ function CargarDatosElectrico(Inicio,Termino)
 				"searching": false
 			});
 			$("#btn_buscarGrafico").prop('disabled', false);
+			setTimeout(function () {
+				RecargarTabla();
+			},750);
 		}, 750);	
 	});
 }
@@ -138,7 +139,7 @@ function RecargarTabla()
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
 	
-	$('#PanelDatosElectrico').show("fade");
+	$('#PanelDatosElectrico').show('fade');
 }
 function ValidarFechasOperaciones()
 {
