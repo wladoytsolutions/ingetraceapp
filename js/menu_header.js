@@ -172,7 +172,7 @@ function CambiarSucursal()
 								accion: "CambiaSucursal",
 								IdCliente: $("#Cbo_Cliente").val(),
 								IdSucursal: $("#Cbo_Sucursal").val(),
-								CK: ''+getCK()
+								CK: getCK()
 								}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);
@@ -195,6 +195,7 @@ function CambiarSucursal()
 		$('#H_ID_CLIENTE_ACTUAL').val($("#Cbo_Cliente").val());
 		$('#H_ID_SUCURSAL_ACTUAL').val($("#Cbo_Sucursal").val());
 		$('#DivInicio').css('height',$( window ).height()+'px');
+		$("#ModalPage2").load("html_parts/modal_cargando.html");
 	});
 }
 function CambiarClaveBD()
