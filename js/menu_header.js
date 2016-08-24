@@ -55,8 +55,9 @@ $( document ).ready(function() {
 });
 function Logout()
 {
-	//Cookie vacio
-	setCK('');
+	// Devuelve true cuando se encuentra el cookie
+	setCookie('INGSCE_INF','',0);
+	// Misma ruta que hemos puesto para escribir el cookie...	
 	window.location.href = "index.html";
 }
 function CambiarClienteSucursal()
@@ -73,7 +74,7 @@ function CambiarClienteSucursal()
 		
 		$.post(RUTACONTROL,{
 							accion		: 'GetClientesSucursales',
-							CK			: getCK()
+							CK			: ''+getCookie('INGSCE_INF')
 							}, 
 		function(response) {
 			
@@ -171,13 +172,13 @@ function CambiarSucursal()
 								accion: "CambiaSucursal",
 								IdCliente: $("#Cbo_Cliente").val(),
 								IdSucursal: $("#Cbo_Sucursal").val(),
-								CK: getCK()
+								CK: ''+getCookie('INGSCE_INF')
 								}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 				//Cookie
-				setCK(''+d.CK);
+				setCookie('INGSCE_INF',''+d.CK,7);
 				
 				//Estado de sucursal
 				$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
@@ -193,6 +194,7 @@ function CambiarSucursal()
 		$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val($("#Cbo_Cliente").val());
 		$('#H_ID_SUCURSAL_ACTUAL').val($("#Cbo_Sucursal").val());
+		$('#DivInicio').css('height',$( window ).height()+'px');
 	});
 }
 function CambiarClaveBD()
@@ -214,7 +216,7 @@ function CambiarClaveBD()
 	
 	$.post(RUTACONTROL,{
 								accion: "CambioClave",
-								CK:	getCK(),
+								CK: ''+getCookie('INGSCE_INF'),
 								Pass: $("#txtContrasena1").val(),
 								PassActual: $("#txtContraseñaActual").val()
 								}, 
