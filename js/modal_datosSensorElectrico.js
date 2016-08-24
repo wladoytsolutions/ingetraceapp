@@ -128,6 +128,26 @@ function RecargarTabla()
 	$(tablaProblemas2).css('width','100%');
 	
 	$('#PanelDatosElectrico').show('fade');
+	
+	var TrThead=$(tablefoot).find('tr');
+	
+	var TrParent=$('#tBodyDatosGrafico').find('tr:eq(0)');
+	
+	var widthFecha=$(TrParent).find('td:eq(0)').width();
+	var widthEstado=$(TrParent).find('td:eq(1)').width();
+	var widthTiempo=$(TrParent).find('td:eq(2)').width();
+	
+	var ThFecha = $(TrThead).find('th:eq(0)');	
+	$(ThFecha).attr('style','width: '+widthFecha+'px; position: relative; top: 50%; transform: translateY(-25%);');
+	
+	var ThEstado = $(TrThead).find('th:eq(1)');	
+	$(ThEstado).attr('style','width: '+widthEstado+'px; position: relative; top: 50%; transform: translateY(-25%);');
+	
+	var ThTiempo = $(TrThead).find('th:eq(2)');	
+	$(ThTiempo).attr('style','width: '+widthTiempo+'px;');
+	
+	//alert($(ThFecha).attr('style'));
+	
 }
 function ValidarFechasOperaciones()
 {

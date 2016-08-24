@@ -356,8 +356,6 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 							});
 							
 							$("#tBodyDatosGrafico").html(CuerpoDatos);
-							
-							$("#tbl_DataGra").html($("#PanelBodyTablaDatosSensor").html());			
 
 							$.mobile.pageContainer.pagecontainer('change', '#p3', {
 								transition: 'flip',
