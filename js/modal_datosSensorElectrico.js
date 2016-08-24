@@ -45,6 +45,11 @@ $(document).ready(function() {
 	setTimeout(function () {
 		RecargarTabla();
 	},2500);
+	
+	setTimeout(function () {
+		alert('Verificar');
+	},5000);
+	
 });
 function CargarDatosElectrico(Inicio,Termino)
 {
