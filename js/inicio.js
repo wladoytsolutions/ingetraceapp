@@ -18,7 +18,18 @@ Highcharts.setOptions({
     colors: Colores
 });
 
+var chart;
+
 $( document ).ready(function() {	
+
+	setTimeout(function () {						
+		navigator.notification.alert(
+				'You are the winner!',  // message
+				'Game Over',            // title
+				'Done'                  // buttonName
+		);
+	}, 3000);
+		
 	setInterval(function(){ ParpadearAlarmaLocal(); }, 1000);
 	
 	$("#btn_Pruebas").click(function(e) {
@@ -157,7 +168,12 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 						optionsLineal={
 							chart: {
 								zoomType: 'x',
-								renderTo: 'DivGraficoLineal'
+								renderTo: 'DivGraficoLineal',
+								events: {
+									load: function(){
+										this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+									}
+								}
 							},
 							title: {
 								text: [],
@@ -186,10 +202,25 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 								},
 							tooltip: {
 								headerFormat: '<b>{series.name}</b><br>',
-								pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C'
+								pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
+								enabled: false
 							},
 							credits: {
 								enabled: false,
+							},
+							plotOptions: {
+								series: {
+									stickyTracking: false,
+									events: {
+										click: function(evt) {
+											this.chart.myTooltip.refresh(evt.point, evt);
+										},
+										mouseOut: function() {
+											this.chart.myTooltip.hide();
+										}                       
+									}
+									
+								}
 							},
 							series: []
 						};
@@ -220,6 +251,8 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 						optionsLineal.yAxis.push(LineasY);
 						
 						//Datos
+						var cloneToolTip = null;
+						
 						var newSeriesData = {
 							type: 'spline',
 							name: 'Sensor',
@@ -242,7 +275,12 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 						reverse: true,
 						showLoadMsg: false
 					});
-					setTimeout(function () {						
+					
+					//Quitando footer de jquery para que se vea el footer original
+					$('#p3Body').find('.ui-footer').remove();
+					//$('#p3Body').find('.ui-header').remove();
+
+					setTimeout(function () {
 						if($('#H_CARGA_SENSOR').val()=="0")
 						{
 							$('#H_CARGA_SENSOR').val("1");
@@ -251,13 +289,12 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 						{
 							$('#p3').attr('style','padding-top: 0px; padding-bottom: 0px; min-height: 395px;');
 						}
-					}, 250);
-					
+					}, 250);					
 				}).done(function(response) {
 					$('#ModalPage2').popup("close");
 					$(window).disablescroll("undo");
 					setTimeout(function () {
-						var chart = new Highcharts.Chart(optionsLineal);
+						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
@@ -514,7 +551,7 @@ function ActualizarDashboard()
 	
 	$.post(RUTACONTROL,{
 										accion		: 'ACTUALIZA_SENSORES',
-										CK			: getCK(),
+										CK			: ''+getCookie('INGSCE_INF'),
 										ID_CLIENTE	: $('#H_ID_CLIENTE_ACTUAL').val(),
 										ID_SUC		: $('#H_ID_SUCURSAL_ACTUAL').val()
 									 }, 
