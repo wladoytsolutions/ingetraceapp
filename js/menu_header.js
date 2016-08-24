@@ -56,7 +56,7 @@ $( document ).ready(function() {
 function Logout()
 {
 	// Devuelve true cuando se encuentra el cookie
-	setCookie('INGSCE_INF','',0);
+	setCK('');
 	// Misma ruta que hemos puesto para escribir el cookie...	
 	window.location.href = "index.html";
 }
@@ -178,7 +178,7 @@ function CambiarSucursal()
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 				//Cookie
-				setCookie('INGSCE_INF',''+d.CK,7);
+				setCK(d.CK);
 				
 				//Estado de sucursal
 				$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
