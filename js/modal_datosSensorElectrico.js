@@ -41,6 +41,10 @@ $(document).ready(function() {
 									autoclose:true,
 									orientation: "top auto"
 									});
+									
+	setTimeout(function () {
+		RecargarTabla();
+	},2500);
 });
 function CargarDatosElectrico(Inicio,Termino)
 {
@@ -113,13 +117,12 @@ function CargarDatosElectrico(Inicio,Termino)
 				"paging":         false,
 				"searching": false
 			});
-			RecargarTabla();			
 			$("#btn_buscarGrafico").prop('disabled', false);
-		}, 750);				
+		}, 750);	
 	});
 }
 function RecargarTabla()
-{
+{	
 	var divProblemas=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');		
 	$(divProblemas).css('width','100%');
 		
