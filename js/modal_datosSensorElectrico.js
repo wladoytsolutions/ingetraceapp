@@ -40,12 +40,7 @@ $(document).ready(function() {
 									language:"es",
 									autoclose:true,
 									orientation: "top auto"
-									});
-									
-	setTimeout(function () {
-		RecargarTabla();
-	},2500);
-	
+									});	
 	setTimeout(function () {
 		alert('Verificar');
 	},5000);

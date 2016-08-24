@@ -379,8 +379,10 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 							"paging":         false,
 							"searching": false
 						});
-						RecargarTabla();
 						$("#btn_buscarGrafico").prop('disabled', false);
+						setTimeout(function () {
+							RecargarTabla();
+						},1000);
 					}, 750);				
 				});		
 		});
