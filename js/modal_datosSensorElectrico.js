@@ -47,6 +47,7 @@ function CargarDatosElectrico(Inicio,Termino)
 	$('#ModalPage3').popup('open', {
 		transition: 'pop'
 	});
+	$('#PanelDatosElectrico').hide('fade');
 	$(window).disablescroll();
 	
 	//Fecha inicio
@@ -68,10 +69,7 @@ function CargarDatosElectrico(Inicio,Termino)
 						FechaTermino : fecha_termino
 							}, 
 	function(response) {
-			var json = jQuery.parseJSON(response);
-			
-			$('#PanelDatosElectrico').hide('fade');
-			
+			var json = jQuery.parseJSON(response);			
 			$.each(json.ITEMS, function(i, d) {
 				CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
 							
@@ -91,19 +89,9 @@ function CargarDatosElectrico(Inicio,Termino)
 				CuerpoDatos+='</tr>';
 			});
 						
-			$("#tBodyDatosGrafico").html(CuerpoDatos);
-						
-			$("#tbl_DataGra").html($("#PanelBodyTablaDatosSensor").html());			
-
-			$.mobile.pageContainer.pagecontainer('change', '#p3', {
-					transition: 'flip',
-					changeHash: true,
-					reverse: true,
-					showLoadMsg: false
-			});
-						
+			$("#tBodyDatosGrafico").html(CuerpoDatos);						
 	}).done(function(response) {
-		$('#ModalPage2').popup('close');
+		$('#ModalPage3').popup('close');
 		$(window).disablescroll("undo");
 		setTimeout(function () {
 			$("#TablaDatosSensores").dataTable({
