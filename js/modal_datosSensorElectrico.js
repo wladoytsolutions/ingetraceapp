@@ -137,6 +137,8 @@ function RecargarTabla()
 	
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
+	
+	$('#PanelDatosElectrico').show("fade");
 }
 function ValidarFechasOperaciones()
 {
