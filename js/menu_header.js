@@ -34,7 +34,7 @@ $( document ).ready(function() {
 		
 		setTimeout(function () {
 			CambiarSucursal();
-		}, 500);
+		}, 3000);
 	});
 	$("#btn_aceptarCambioClave").click(function(e) {
 		e.preventDefault();
