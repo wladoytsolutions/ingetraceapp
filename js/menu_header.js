@@ -34,7 +34,7 @@ $( document ).ready(function() {
 		
 		setTimeout(function () {
 			CambiarSucursal();
-		}, 250);
+		}, 500);
 	});
 	$("#btn_aceptarCambioClave").click(function(e) {
 		e.preventDefault();
@@ -190,15 +190,11 @@ function CambiarSucursal()
 				GenerarHTMLSensores(d);
 		});
 	}).done(function(response) {
+		$('#ModalPage2').popup("close");
 		$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val($("#Cbo_Cliente").val());
 		$('#H_ID_SUCURSAL_ACTUAL').val($("#Cbo_Sucursal").val());
-		$('#DivInicio').css('height',$( window ).height()+'px');
-		
-		setTimeout(function () {
-			$('#ModalPage2').popup("close");
-		}, 3000);
-		
+		$('#DivInicio').css('height',$( window ).height()+'px');		
 	});
 }
 function CambiarClaveBD()
