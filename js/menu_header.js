@@ -190,12 +190,15 @@ function CambiarSucursal()
 				GenerarHTMLSensores(d);
 		});
 	}).done(function(response) {
-		$('#ModalPage2').popup("close");
 		$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val($("#Cbo_Cliente").val());
 		$('#H_ID_SUCURSAL_ACTUAL').val($("#Cbo_Sucursal").val());
 		$('#DivInicio').css('height',$( window ).height()+'px');
-		$("#ModalPage2").load("html_parts/modal_cargando.html");
+		
+		setTimeout(function () {
+			$('#ModalPage2').popup("close");
+		}, 3000);
+		
 	});
 }
 function CambiarClaveBD()
