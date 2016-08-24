@@ -194,7 +194,7 @@ function CambiarSucursal()
 		$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val($("#Cbo_Cliente").val());
 		$('#H_ID_SUCURSAL_ACTUAL').val($("#Cbo_Sucursal").val());
-		$('#DivInicio').css('height',$( window ).height()+'px');
+		//$('#DivInicio').css('height',$( window ).height()+'px');
 	});
 }
 function CambiarClaveBD()
