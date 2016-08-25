@@ -48,12 +48,10 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
+  <gap:plugin name="phonegap-plugin-push" source="npm" version="1.3.0" />
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-5"/>
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
-  <plugin name="phonegap-plugin-push" spec="1.6.0">
-    <param name="SENDER_ID" value="964841478681" />
-  </plugin>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
