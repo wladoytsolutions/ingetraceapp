@@ -60,11 +60,12 @@
 				width:auto;
 			}
 		</style>
+		<script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" charset="UTF-8"src="js/jquery2.2.1.js"></script>
         <script type="text/javascript" charset="UTF-8" src="js/funciones_util.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/jquery.mobile-1.4.5.js"></script>
     </head>
-    <body id="BodyPrincipal" onload="BuscarCookie();">
+    <body id="BodyPrincipal">
 	<!-- Page 1 -->
     <div data-role="page" id="p1" data-backbtn="false">
 		<!-- popup P1 -->
@@ -158,5 +159,8 @@
 	<script type="text/javascript" charset="UTF-8" src = "js/jquery.dataTables.js"></script>
 	<script type="text/javascript" charset="UTF-8" src = "js/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" charset="UTF-8" src="js/index.js"></script>
+	<script type="text/javascript">
+		app.initialize();
+    </script>
 	</body>
 </html>

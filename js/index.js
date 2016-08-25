@@ -1,5 +1,64 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    // deviceready Event Handler
+    //
+    // The scope of 'this' is the event. In order to call the 'receivedEvent'
+    // function, we must explicitly call 'app.receivedEvent(...);'
+    onDeviceReady: function() {
+		app.receivedEvent('deviceready');
+
+		var push = PushNotification.init({
+			android: {
+				senderID: "964841478681",
+				sound: true, 
+                forceShow: true,
+                vibrate: true,
+			},
+			ios: {
+				alert: "true",
+				badge: "true",
+				sound: "true"
+			},
+			windows: {}
+		});
+
+		push.on('registration', function(data) {
+			// data.registrationI
+			alert(''+data.registrationId);
+			RegistrarDispositivo(data.registrationId);
+		});
+
+		push.on('notification', function(data) {
+			// data.message,
+			// data.title,
+			// data.count,
+			// data.sound,
+			// data.image,
+			// data.additionalData
+		});
+
+		push.on('error', function(e) {
+			// e.message
+		});
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+		BuscarCookie();
+    }
+};
 $( document ).ready(function() {
 	$("#ModalErrorp1").load("html_parts/modal_MensajeError.html", function() {
 		var BotonAceptar=$("#ModalErrorp1").find(".botonaceptarmodal");
@@ -33,6 +92,19 @@ $( document ).ready(function() {
 		$('#RowLogin').hide();
 	}
 });
+function RegistrarDispositivo(ID_device)
+{
+	/**
+	$.post('http://192.168.1.35/prueba_notificacion/grabar_id.php',{ 	
+		Id_device: ID_device,
+	}, 
+	function(response) {
+		alert(response);
+	}).done(function(response) {
+		
+	});
+	*/
+}
 function CargarMarquee()
 {
 	var marquee = $('div.marquee');
@@ -69,6 +141,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
+	alert('Buscanmdo');
 	var UbicacionPage=''+window.location.hash;
 	var ValCK=getCK();
 	

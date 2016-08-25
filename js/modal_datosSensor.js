@@ -48,19 +48,6 @@ $(document).ready(function() {
 				GuardarBitacora();
 			}
 		});
-		
-	
-		$("#inicio_filtroDatosSensor").datepicker({
-									format: "dd/mm/yyyy",
-									language:"es",
-									autoclose:true,
-									orientation: "top auto"
-									});
-		$("#termino_filtroDatosSensor").datepicker({ format: "dd/mm/yyyy",
-									language:"es",
-									autoclose:true,
-									orientation: "top auto"
-									});
 });
 function DesabilitarBusqueda()
 {
