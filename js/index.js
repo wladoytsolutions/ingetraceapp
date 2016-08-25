@@ -141,7 +141,6 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert('Buscanmdo');
 	var UbicacionPage=''+window.location.hash;
 	var ValCK=getCK();
 	
