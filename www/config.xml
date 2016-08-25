@@ -22,6 +22,7 @@
   <preference name="SplashScreenDelay" value="14000"/>  
   <preference name="FadeSplashScreenDuration" value="500"/>
   <preference name="SplashShowOnlyFirstTime" value="true"/>
+  <preference name="ShowSplashScreenSpinner" value="false" />
   <!-- End of splashscreen config -->  
   <gap:plugin name="org.apache.cordova.device"/>
   <gap:plugin name="org.apache.cordova.device-motion"/>
@@ -29,14 +30,14 @@
   <gap:plugin name="org.apache.cordova.vibration"/>
   <icon src="icon.png"/>
   <!--<splash src="splash.png"/>-->
-  <splash src="res/screen/android/splash-land-hdpi.png" gap:platform="android" density="land-hdpi"/>
-  <splash src="res/screen/android/splash-land-ldpi.png" gap:platform="android" density="land-ldpi"/>
-  <splash src="res/screen/android/splash-land-mdpi.png" gap:platform="android" density="land-mdpi"/>
-  <splash src="res/screen/android/splash-land-xhdpi.png" gap:platform="android" density="land-xhdpi"/>
-  <splash src="res/screen/android/splash-port-hdpi.png" gap:platform="android" density="port-hdpi"/>
-  <splash src="res/screen/android/splash-port-ldpi.png" gap:platform="android" density="port-ldpi"/>
-  <splash src="res/screen/android/splash-port-mdpi.png" gap:platform="android" density="port-mdpi"/>
-  <splash src="res/screen/android/splash-port-xhdpi.png" gap:platform="android" density="port-xhdpi"/>
+  <splash src="splash-land-hdpi.png" gap:platform="android" density="land-hdpi"/>
+  <splash src="splash-land-ldpi.png" gap:platform="android" density="land-ldpi"/>
+  <splash src="splash-land-mdpi.png" gap:platform="android" density="land-mdpi"/>
+  <splash src="splash-land-xhdpi.png" gap:platform="android" density="land-xhdpi"/>
+  <splash src="splash-port-hdpi.png" gap:platform="android" density="port-hdpi"/>
+  <splash src="splash-port-ldpi.png" gap:platform="android" density="port-ldpi"/>
+  <splash src="splash-port-mdpi.png" gap:platform="android" density="port-mdpi"/>
+  <splash src="splash-port-xhdpi.png" gap:platform="android" density="port-xhdpi"/>
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
   <icon src="www/res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
   <icon src="www/res/icon/android/icon-72-hdpi.png" gap:platform="android" gap:qualifier="hdpi"/>
