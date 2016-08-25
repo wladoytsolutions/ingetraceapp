@@ -19,10 +19,6 @@
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="14"/>
   <preference name="android-installLocation" value="auto"/>
-  <preference name="xwalkVersion" value="org.xwalk:xwalk_core_library:14+" />
-  <preference name="xwalkVersion" value="xwalk_core_library:14+" />
-  <preference name="xwalkVersion" value="14+" />
-  <preference name="xwalkVersion" value="14" />
   <gap:plugin name="org.apache.cordova.device"/>
   <gap:plugin name="org.apache.cordova.device-motion"/>
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
@@ -52,6 +48,7 @@
   <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png" gap:platform="ios" width="768" height="1024"/>
   <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png" gap:platform="ios" width="1024" height="768"/>
   <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone"/>
+  <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-5"/>
   <access origin="*"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
