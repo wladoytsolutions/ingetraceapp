@@ -59,7 +59,7 @@
   <access origin="*"/>
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
-  <!--<plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>-->
+  <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
     <param name="SENDER_ID" value="964841478681" />
   </plugin>
