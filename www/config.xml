@@ -56,7 +56,14 @@
   <icon src="www/res/icon/windows-phone/icon-48.png" gap:platform="winphone"/>
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <access origin="*"/>
-  <splash src="splash-land-hdpi.png" gap:platform="android"/>
+  <splash src="splash-land-hdpi.png" gap:platform="android" width="800" height="480"/>
+  <splash src="splash-land-ldpi.png" gap:platform="android" width="320" height="200"/>
+  <splash src="splash-land-mdpi.png" gap:platform="android" width="480" height="320"/>
+  <splash src="splash-land-xhdpi.png" gap:platform="android" width="1280" height="720"/>
+  <splash src="splash-port-hdpi.png" gap:platform="android" width="480" height="800"/>
+  <splash src="splash-port-ldpi.png" gap:platform="android" width="200" height="320"/>
+  <splash src="splash-port-mdpi.png" gap:platform="android" width="320" height="480"/>
+  <splash src="splash-port-xhdpi.png" gap:platform="android" width="720" height="1280"/>
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
