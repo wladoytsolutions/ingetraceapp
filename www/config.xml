@@ -57,6 +57,7 @@
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
   <access origin="*"/>
+  <splash src="splash-land-hdpi.png" density="land-hdpi"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
