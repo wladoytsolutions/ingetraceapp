@@ -58,6 +58,14 @@
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
   <access origin="*"/>
   <splash src="splash-land-hdpi.png" density="land-hdpi"/>
+  <splash src="splash-land-ldpi.png" density="land-ldpi"/>
+  <splash src="splash-land-mdpi.png" density="land-mdpi"/>
+  <splash src="splash-land-xhdpi.png" density="land-xhdpi"/>
+
+  <splash src="splash-port-hdpi.png" density="port-hdpi"/>
+  <splash src="splash-port-ldpi.png" density="port-ldpi"/>
+  <splash src="splash-port-mdpi.png" density="port-mdpi"/>
+  <splash src="splash-port-xhdpi.png" density="port-xhdpi"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
