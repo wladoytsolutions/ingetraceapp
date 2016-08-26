@@ -57,14 +57,14 @@
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
   <access origin="*"/>
-  <splash src="splash-land-hdpi.png" gap:platform="android" gap:qualifier="land-hdpi"/>
-  <splash src="splash-land-ldpi.png" gap:platform="android" gap:qualifier="land-ldpi"/>
-  <splash src="splash-land-mdpi.png" gap:platform="android" gap:qualifier="land-mdpi"/>
-  <splash src="splash-land-xhdpi.png" gap:platform="android" gap:qualifier="land-xhdpi"/>  
-  <splash src="splash-port-hdpi.png" gap:platform="android" gap:qualifier="port-hdpi"/>
-  <splash src="splash-port-ldpi.png" gap:platform="android" gap:qualifier="port-ldpi"/>
-  <splash src="splash-port-mdpi.png" gap:platform="android" gap:qualifier="port-mdpi"/>
-  <splash src="splash-port-xhdpi.png" gap:platform="android" gap:qualifier="port-xhdpi"/>
+  <splash src="splash-land-hdpi.png" gap:platform="android" gap:density="land-hdpi"/>
+  <splash src="splash-land-ldpi.png" gap:platform="android" gap:density="land-ldpi"/>
+  <splash src="splash-land-mdpi.png" gap:platform="android" gap:density="land-mdpi"/>
+  <splash src="splash-land-xhdpi.png" gap:platform="android" gap:density="land-xhdpi"/>  
+  <splash src="splash-port-hdpi.png" gap:platform="android" gap:density="port-hdpi"/>
+  <splash src="splash-port-ldpi.png" gap:platform="android" gap:density="port-ldpi"/>
+  <splash src="splash-port-mdpi.png" gap:platform="android" gap:density="port-mdpi"/>
+  <splash src="splash-port-xhdpi.png" gap:platform="android" gap:density="port-xhdpi"/>
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin spec="https://github.com/apache/cordova-plugin-splashscreen.git"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
