@@ -394,6 +394,7 @@ function login()
 								Pass: $("#txtContrasena").val()
 								}, 
 	function(response) {
+		alert(""+response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
