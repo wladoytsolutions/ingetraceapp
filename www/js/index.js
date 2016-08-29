@@ -34,6 +34,8 @@ var app = {
 			},
 			windows: {}
 		});
+		
+		navigator.splashscreen.hide();
 
 		push.on('registration', function(data) {
 			// data.registrationI

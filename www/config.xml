@@ -30,12 +30,11 @@
   <!-- Splashscreen config -->  
   <preference name="SplashScreen" value="screen"/>  
   <preference name="SplashScreenDelay" value="14000"/>  
-  <preference name="FadeSplashScreenDuration" value="500"/>
+  <preference name="FadeSplashScreenDuration" value="750"/>
   <preference name="SplashShowOnlyFirstTime" value="false"/>
   <preference name="ShowSplashScreenSpinner" value="false" />
   <!-- End of splashscreen config -->  
   <gap:plugin name="org.apache.cordova.device"/>
-  <gap:plugin name="org.apache.cordova.device-motion"/>
   <gap:plugin name="org.apache.cordova.device-orientation"/>
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
   <gap:plugin name="org.apache.cordova.network-information"/>
