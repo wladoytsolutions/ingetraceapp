@@ -267,7 +267,10 @@ function GenerarHTMLSensores(DATOS)
 }
 function ValidarCKIncial(CK)
 {
-	navigator.splashscreen.hide();
+	try {
+		navigator.splashscreen.hide();
+	}
+	catch(err) {}
 	$('#DivIngresar').hide();
 	$('#ModalPage1').popup('open', {
 		transition: 'pop'
