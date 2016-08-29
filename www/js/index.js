@@ -267,6 +267,7 @@ function GenerarHTMLSensores(DATOS)
 }
 function ValidarCKIncial(CK)
 {
+	navigator.splashscreen.hide();
 	$('#DivIngresar').hide();
 	$('#ModalPage1').popup('open', {
 		transition: 'pop'
@@ -348,11 +349,7 @@ function ValidarCKIncial(CK)
 			$('#Cbo_Cliente').val(ID_CLIENTE);
 			$('#Cbo_Sucursal').val(ID_SUCURSAL);
 		}
-		$(window).disablescroll("undo");
-		setTimeout(function () {
-			navigator.splashscreen.hide();
-		}, 1750);
-		
+		$(window).disablescroll("undo");		
 	});
 	
 	
