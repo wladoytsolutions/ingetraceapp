@@ -37,7 +37,7 @@ var app = {
 
 		push.on('registration', function(data) {
 			// data.registrationI
-			alert(''+data.registrationId);
+			//alert(''+data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
@@ -394,7 +394,7 @@ function login()
 								Pass: $("#txtContrasena").val()
 								}, 
 	function(response) {
-		alert(""+response);
+		//alert(""+response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
