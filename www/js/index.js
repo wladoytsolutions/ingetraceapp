@@ -37,7 +37,7 @@ var app = {
 
 		push.on('registration', function(data) {
 			// data.registrationI
-			//alert(''+data.registrationId);
+			alert(''+data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
