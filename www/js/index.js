@@ -162,7 +162,9 @@ function BuscarCookie()
 		}
 		else
 		{
-			navigator.splashscreen.hide();
+			setTimeout(function () {
+				navigator.splashscreen.hide();
+			}, 750);
 		}
 	}
 }
