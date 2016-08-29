@@ -35,7 +35,6 @@
   <preference name="ShowSplashScreenSpinner" value="false" />
   <!-- End of splashscreen config -->  
   <gap:plugin name="org.apache.cordova.device"/>
-  <gap:plugin name="org.apache.cordova.device-orientation"/>
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
   <icon src="icon.png"/>
