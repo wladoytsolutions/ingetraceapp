@@ -34,12 +34,10 @@ var app = {
 			},
 			windows: {}
 		});
-		
-		navigator.splashscreen.hide();
 
 		push.on('registration', function(data) {
 			// data.registrationI
-			alert(''+data.registrationId);
+			//alert(''+data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
@@ -161,7 +159,10 @@ function BuscarCookie()
 			setTimeout(function () {
 				ValidarCKIncial(ValCK);
 			}, 500);
-			
+		}
+		else
+		{
+			navigator.splashscreen.hide();
 		}
 	}
 }
@@ -346,6 +347,10 @@ function ValidarCKIncial(CK)
 			$('#Cbo_Sucursal').val(ID_SUCURSAL);
 		}
 		$(window).disablescroll("undo");
+		setTimeout(function () {
+			navigator.splashscreen.hide();
+		}, 1250);
+		
 	});
 	
 	
