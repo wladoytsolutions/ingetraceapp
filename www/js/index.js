@@ -351,7 +351,7 @@ function ValidarCKIncial(CK)
 		$(window).disablescroll("undo");
 		setTimeout(function () {
 			navigator.splashscreen.hide();
-		}, 1250);
+		}, 1750);
 		
 	});
 	
