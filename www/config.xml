@@ -2,14 +2,14 @@
   <name>Ingetrace</name>
   <description>INGETRACE es una compañía dedicada al desarrollo de soluciones tecnológicas con el foco principal en la innovación sobre los procesos de control críticos para la rentabilidad de distintas industrias.</description>
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
-  <splash platform="android" qualifier="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
+  <!--<splash platform="android" qualifier="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
   <splash platform="android" qualifier="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
   <splash platform="android" qualifier="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
   <splash platform="android" qualifier="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
   <splash platform="android" qualifier="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
   <splash platform="android" qualifier="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
   <splash platform="android" qualifier="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
-  <splash platform="android" qualifier="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
+  <splash platform="android" qualifier="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />-->
   <splash src="splash.png" />
   
   <content src="index.html"/>
