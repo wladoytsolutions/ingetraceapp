@@ -26,6 +26,7 @@ var app = {
 				sound: true, 
                 forceShow: true,
                 vibrate: true,
+				icon   : 'icon'				
 			},
 			ios: {
 				alert: "true",
