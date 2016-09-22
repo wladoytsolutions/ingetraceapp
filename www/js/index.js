@@ -23,7 +23,7 @@ var app = {
 		var push = PushNotification.init({
 			android: {
 				senderID: "964841478681",
-				sound: "raw/nokia.mp3", 
+				sound: "nokia.mp3", 
                 forceShow: true,
                 vibrate: true	
 			},
