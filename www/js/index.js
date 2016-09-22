@@ -25,8 +25,7 @@ var app = {
 				senderID: "964841478681",
 				sound: true, 
                 forceShow: true,
-                vibrate: true,
-				icon   : 'icon'				
+                vibrate: true	
 			},
 			ios: {
 				alert: "true",
