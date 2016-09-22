@@ -42,7 +42,7 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert( data.message );
+			alert(data.id_cliente+' '+data.id_sucursal+' '+data.id_sensor);
 			// data.message,
 			// data.title,
 			// data.count,
@@ -99,7 +99,10 @@ function RegistrarDispositivo(ID_device)
 		Id_device: ID_device,
 	}, 
 	function(response) {
-		alert(response);
+		if(response=="ok")
+		{
+			$('#H_ID_DEVICE_NOTIFICACION').val(ID_device);
+		}
 	}).done(function(response) {
 		
 	});
