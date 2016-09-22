@@ -42,6 +42,7 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
+			alert( data.message );
 			// data.message,
 			// data.title,
 			// data.count,
