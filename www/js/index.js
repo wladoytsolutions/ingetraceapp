@@ -28,9 +28,9 @@ var app = {
                 vibrate: true	
 			},
 			ios: {
-				alert: "true",
-				badge: "true",
-				sound: "true"
+				alert: true,
+				badge: true,
+				sound: true
 			},
 			windows: {}
 		});
