@@ -313,19 +313,15 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				showLoadMsg: false
 			});
 			setTimeout(function () {
-				CambiarSucursal(ID_CLIENTE,ID_SUC, function(){
-				   alert("Call back");
-				});
+				CambiarSucursal(ID_CLIENTE,ID_SUC);
 			}, 500);
 		}, 500);
-		/**
 		setTimeout(function () {
 			if($('#H_ID_SENSOR').val()!='')
 			{
-				$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
+				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
 			}
 		}, 3250);
-		*/
 	});//Fin load cuerpo
 }
 function ValidarCKIncial(CK)
