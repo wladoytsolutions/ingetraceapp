@@ -67,7 +67,7 @@ var app = {
 		setTimeout(function()
 		{
 			BuscarCookie();
-		}, 1000);
+		}, 500);
     }
 };
 $( document ).ready(function() {
