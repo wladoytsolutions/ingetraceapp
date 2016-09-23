@@ -64,7 +64,10 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		BuscarCookie();
+		setTimeout(function()
+		{
+			BuscarCookie();
+		}, 1000);
     }
 };
 $( document ).ready(function() {
