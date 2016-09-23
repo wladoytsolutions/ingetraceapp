@@ -105,7 +105,6 @@ $( document ).ready(function() {
 	{
 		$('#RowLogin').hide();
 	}
-	CargarNotificacion('76012676-4','0469','0000AAFC');
 });
 function RegistrarDispositivo(ID_device)
 {
