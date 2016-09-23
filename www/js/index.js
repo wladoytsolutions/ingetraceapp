@@ -45,7 +45,8 @@ var app = {
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
-					alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);
+					//alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);					
+					$("#H_DESDE_NOTIFICACION").val("1");
 				}
 				//alert(i+" <-> "+JSON.stringify(d));
 			});
@@ -153,7 +154,8 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Buscando cookie");
+	alert("Buscando cookie NOTIFICACION "+$("#H_DESDE_NOTIFICACION").val());
+	
 	var UbicacionPage=''+window.location.hash;
 	var ValCK=getCK();
 	
