@@ -44,9 +44,11 @@ var app = {
 		push.on('notification', function(data) {
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
-				{
-					//alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);					
+				{				
 					$("#H_DESDE_NOTIFICACION").val("1");
+					$("#H_ID_CLIENTE_ACTUAL").val(d.idcliente);
+					$("#H_ID_SUCURSAL_ACTUAL").val(d.idsucursal);
+					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 				//alert(i+" <-> "+JSON.stringify(d));
 			});
@@ -159,32 +161,35 @@ function BuscarCookie()
 	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
 		alert("Hay cookie valida");
-	}
-	
-	var UbicacionPage=''+window.location.hash;
-	
-	
-	if(UbicacionPage=='#p2')
-	{
-		window.location.href = "index.html?Origen=p2";
-	}
-	else if(UbicacionPage=='#p3')
-	{
-		window.location.href = "index.html?Origen=p3";
+		CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
 	}
 	else
-	{
-		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
+	{	
+		var UbicacionPage=''+window.location.hash;
+		
+		
+		if(UbicacionPage=='#p2')
 		{
-			setTimeout(function () {
-				ValidarCKIncial(ValCK);
-			}, 500);
+			window.location.href = "index.html?Origen=p2";
+		}
+		else if(UbicacionPage=='#p3')
+		{
+			window.location.href = "index.html?Origen=p3";
 		}
 		else
 		{
-			setTimeout(function () {
-				navigator.splashscreen.hide();
-			}, 750);
+			if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
+			{
+				setTimeout(function () {
+					ValidarCKIncial(ValCK);
+				}, 500);
+			}
+			else
+			{
+				setTimeout(function () {
+					navigator.splashscreen.hide();
+				}, 750);
+			}
 		}
 	}
 }
@@ -284,6 +289,38 @@ function GenerarHTMLSensores(DATOS)
 		$('#DivElectrico').hide();
 	}	
 	CargarMarquee();
+}
+function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
+{
+	try {
+		navigator.splashscreen.hide();
+	}
+	catch(err) {}
+	
+	//Cargando html
+	$("#p2").load( "inicio.html", function() {
+		$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
+		$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+		//Agregando menu
+		$("#DivMenu").load("html_parts/menu_header.html",	function() {		
+			CambiarSucursal(ID_CLIENTE,ID_SUC);		
+		});//Fin load menu
+		setTimeout(function () {
+			$('#BodyPrincipal').pagecontainer('change', '#p2', {
+				transition: 'flip',
+				changeHash: true,
+				reverse: false,
+				showLoadMsg: false
+			});
+		}, 500);
+		setTimeout(function () {
+			/**
+			if($('#H_ID_SENSOR').val()!='')
+			{
+				$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
+			}*/
+		}, 1250);
+	});//Fin load cuerpo
 }
 function ValidarCKIncial(CK)
 {

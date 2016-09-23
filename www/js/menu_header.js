@@ -33,7 +33,7 @@ $( document ).ready(function() {
 		$('#ModalCambioSuc3').popup( "close" );
 		
 		setTimeout(function () {
-			CambiarSucursal();
+			CambiarSucursal($("#Cbo_Cliente").val(),$("#Cbo_Sucursal").val());
 		}, 500);
 	});
 	$("#btn_aceptarCambioClave").click(function(e) {
@@ -161,7 +161,7 @@ function CambiarClave()
 		transition: 'pop'
 	});
 }
-function CambiarSucursal()
+function CambiarSucursal(Id_cliente,Id_sucursal)
 {
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
@@ -169,11 +169,11 @@ function CambiarSucursal()
 	$(window).disablescroll();
 	
 	$.post(RUTACONTROL,{
-								accion: "CambiaSucursal",
-								IdCliente: $("#Cbo_Cliente").val(),
-								IdSucursal: $("#Cbo_Sucursal").val(),
-								CK: getCK()
-								}, 
+			accion: "CambiaSucursal",
+			IdCliente: Id_cliente,
+			IdSucursal:Id_sucursal,
+			CK: getCK()
+	}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
@@ -192,8 +192,8 @@ function CambiarSucursal()
 	}).done(function(response) {
 		$('#ModalPage2').popup("close");
 		$(window).disablescroll("undo");
-		$('#H_ID_CLIENTE_ACTUAL').val($("#Cbo_Cliente").val());
-		$('#H_ID_SUCURSAL_ACTUAL').val($("#Cbo_Sucursal").val());
+		$('#H_ID_CLIENTE_ACTUAL').val(Id_cliente);
+		$('#H_ID_SUCURSAL_ACTUAL').val(Id_sucursal);
 		$('#DivInicio').css('height',$( window ).height()+'px');		
 	});
 }
