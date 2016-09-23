@@ -42,8 +42,8 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert(JSON.stringify(data.additionalData));
-			$.each(data.additionalData[1], function(i, d) {
+			//alert(JSON.stringify(data.additionalData));
+			$.each(data.additionalData[1]['additionalData'], function(i, d) {
 				alert(JSON.stringify(d));
 			});
 			//alert(data.additionalData);
