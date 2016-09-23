@@ -42,7 +42,7 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert(data.idcliente+" "+data.idsucursal+" "+data.idsensor);
+			alert(data.additionalData.idcliente);
 			// data.message,
 			// data.title,
 			// data.count,
