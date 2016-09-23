@@ -42,7 +42,10 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert(JSON.stringify(data.additionalData));
+			//alert(JSON.stringify(data.additionalData));
+			$.each(data.additionalData, function(i, d) {
+				alert(d.idcliente);
+			});
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
