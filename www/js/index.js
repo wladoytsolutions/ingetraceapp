@@ -42,7 +42,8 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert(data.additionalData);
+			alert(JSON.stringify(data.additionalData));
+			//alert(data.additionalData);
 			// data.message,
 			// data.title,
 			// data.count,
