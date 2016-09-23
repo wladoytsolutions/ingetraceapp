@@ -52,6 +52,7 @@ var app = {
 				}
 				//alert(i+" <-> "+JSON.stringify(d));
 			});
+			alert($("#H_APP_CARGADA").val());
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
@@ -70,6 +71,7 @@ var app = {
 		setTimeout(function()
 		{
 			BuscarCookie();
+			$("#H_APP_CARGADA").val("ok");
 		}, 500);
     }
 };
@@ -160,7 +162,6 @@ function BuscarCookie()
 	//Es de notificacion
 	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
-		alert("Hay cookie valida");
 		CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
 	}
 	else
@@ -316,12 +317,11 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			}, 500);
 		}, 500);
 		setTimeout(function () {
-			/**
 			if($('#H_ID_SENSOR').val()!='')
 			{
 				$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
-			}*/
-		}, 1250);
+			}
+		}, 3250);
 	});//Fin load cuerpo
 }
 function ValidarCKIncial(CK)
