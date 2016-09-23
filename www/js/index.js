@@ -42,9 +42,10 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert(JSON.stringify(data.additionalData[0]));
 			$.each(data.additionalData, function(i, d) {
-				//alert(i+" "+JSON.stringify(d));
+				$.each(d.additionalData, function(j, e) {
+					alert(j+" <-> "+JSON.stringify(e));
+				});
 			});
 			//alert(data.additionalData);
 			// data.message,
