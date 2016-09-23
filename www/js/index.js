@@ -154,10 +154,15 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Buscando cookie NOTIFICACION "+$("#H_DESDE_NOTIFICACION").val());
+	var ValCK=getCK();
+	//Es de notificacion
+	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
+	{
+		alert("Hay cookie valida");
+	}
 	
 	var UbicacionPage=''+window.location.hash;
-	var ValCK=getCK();
+	
 	
 	if(UbicacionPage=='#p2')
 	{
