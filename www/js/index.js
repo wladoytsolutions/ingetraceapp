@@ -41,11 +41,11 @@ var app = {
 			RegistrarDispositivo(data.registrationId);
 		});
 
-		push.on('notification', function(data) {			
+		push.on('notification', function(data) {
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
-					alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);
+					//alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);
 				}
 				//alert(i+" <-> "+JSON.stringify(d));
 			});
@@ -102,9 +102,9 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
-	$.post('http://192.168.0.04/prueba_notificacion/grabar_id.php',{ 	
+	$.post('http://192.168.1.34/prueba_notificacion/grabar_id.php',{ 	
 		Id_device: ID_device,
-	}, 
+	},
 	function(response) {
 		if(response=="ok")
 		{
@@ -150,6 +150,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
+	alert("Buscando cookie");
 	var UbicacionPage=''+window.location.hash;
 	var ValCK=getCK();
 	
