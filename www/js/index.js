@@ -44,7 +44,7 @@ var app = {
 		push.on('notification', function(data) {
 			//alert(JSON.stringify(data.additionalData));
 			$.each(data.additionalData, function(i, d) {
-				alert(d.idcliente);
+				alert(JSON.stringify(d));
 			});
 			//alert(data.additionalData);
 			// data.message,
