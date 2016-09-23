@@ -45,7 +45,7 @@ var app = {
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
-					//alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);
+					alert(d.idcliente+" "+d.idsucursal+" "+d.idsensor);
 				}
 				//alert(i+" <-> "+JSON.stringify(d));
 			});
