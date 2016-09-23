@@ -41,9 +41,13 @@ var app = {
 			RegistrarDispositivo(data.registrationId);
 		});
 
-		push.on('notification', function(data) {
+		push.on('notification', function(data) {			
 			$.each(data.additionalData, function(i, d) {
-				alert(i+" <-> "+JSON.stringify(d));
+				if(""+i == "additionalData")
+				{
+					alert("ACA");
+				}
+				//alert(i+" <-> "+JSON.stringify(d));
 			});
 			//alert(data.additionalData);
 			// data.message,
