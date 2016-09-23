@@ -105,6 +105,7 @@ $( document ).ready(function() {
 	{
 		$('#RowLogin').hide();
 	}
+	CargarNotificacion('76012676-4','0469','0000AAFC');
 });
 function RegistrarDispositivo(ID_device)
 {
@@ -303,7 +304,6 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 		//Agregando menu
 		$("#DivMenu").load("html_parts/menu_header.html",	function() {		
-			CambiarSucursal(ID_CLIENTE,ID_SUC);		
 		});//Fin load menu
 		setTimeout(function () {
 			$('#BodyPrincipal').pagecontainer('change', '#p2', {
@@ -312,6 +312,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				reverse: false,
 				showLoadMsg: false
 			});
+			setTimeout(function () {
+				CambiarSucursal(ID_CLIENTE,ID_SUC);
+			}, 500);
 		}, 500);
 		setTimeout(function () {
 			/**
