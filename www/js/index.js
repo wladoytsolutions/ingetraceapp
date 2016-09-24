@@ -52,7 +52,7 @@ var app = {
 				}
 				//alert(i+" <-> "+JSON.stringify(d));
 			});
-			alert($("#H_APP_CARGADA").val());
+			//alert($("#H_APP_CARGADA").val());
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
@@ -113,7 +113,7 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
-	$.post('http://192.168.1.36/prueba_notificacion/grabar_id.php',{ 	
+	$.post('http://www.ingetrace.cl/d-external/registro_device/grabar_id.php',{
 		Id_device: ID_device,
 	},
 	function(response) {
@@ -296,6 +296,10 @@ function GenerarHTMLSensores(DATOS)
 }
 function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 {	
+	if($("#H_APP_CARGADA").val()=="ok")
+	{
+		navigator.splashscreen.show();
+	}
 	//Cargando html
 	$("#p2").load( "inicio.html", function() {
 		$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
