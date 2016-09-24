@@ -117,6 +117,7 @@ function RegistrarDispositivo(ID_device)
 		Id_device: ID_device,
 	},
 	function(response) {
+		alert(response);
 		if(response=="ok")
 		{
 			$('#H_ID_DEVICE_NOTIFICACION').val(ID_device);
