@@ -314,6 +314,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			});
 			setTimeout(function () {
 				CambiarSucursal(ID_CLIENTE,ID_SUC);
+				
 				setTimeout(function () {
 					$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
 				}, 3250);
