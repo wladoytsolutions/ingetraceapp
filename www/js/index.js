@@ -72,15 +72,8 @@ var app = {
 		{
 		var ValCK=getCK();
 		//Es de notificacion
-		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
-		{
-			BuscarCookie();
-			$("#H_APP_CARGADA").val("ok");
-		}
-		else
-		{
-			navigator.splashscreen.hide();
-		}
+		BuscarCookie();
+		$("#H_APP_CARGADA").val("ok");
 			
 		}, 500);
     }
@@ -120,7 +113,7 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
-	$.post('http://192.168.1.34/prueba_notificacion/grabar_id.php',{ 	
+	$.post('http://192.168.1.36/prueba_notificacion/grabar_id.php',{ 	
 		Id_device: ID_device,
 	},
 	function(response) {
@@ -302,12 +295,7 @@ function GenerarHTMLSensores(DATOS)
 	CargarMarquee();
 }
 function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
-{
-	try {
-		navigator.splashscreen.hide();
-	}
-	catch(err) {}
-	
+{	
 	//Cargando html
 	$("#p2").load( "inicio.html", function() {
 		$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
