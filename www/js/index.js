@@ -70,8 +70,18 @@ var app = {
     receivedEvent: function(id) {
 		setTimeout(function()
 		{
+		var ValCK=getCK();
+		//Es de notificacion
+		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
+		{
 			BuscarCookie();
 			$("#H_APP_CARGADA").val("ok");
+		}
+		else
+		{
+			navigator.splashscreen.hide();
+		}
+			
 		}, 500);
     }
 };
@@ -317,6 +327,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				
 				setTimeout(function () {
 					$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+					setTimeout(function () {
+						navigator.splashscreen.hide();
+					}, 750);
 				}, 3250);
 			}, 500);
 		}, 500);

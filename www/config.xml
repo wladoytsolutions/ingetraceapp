@@ -28,8 +28,7 @@
   <preference name="android-targetSdkVersion" value="20"/>
   <preference name="android-installLocation" value="auto"/>
   <!-- Splashscreen config -->  
-  <preference name="SplashScreen" value="screen"/>  
-  <preference name="SplashScreenDelay" value="14000"/>  
+  <preference name="SplashScreen" value="screen"/>
   <preference name="FadeSplashScreenDuration" value="750"/>
   <preference name="SplashShowOnlyFirstTime" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false" />
