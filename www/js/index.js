@@ -314,14 +314,11 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			});
 			setTimeout(function () {
 				CambiarSucursal(ID_CLIENTE,ID_SUC);
+				setTimeout(function () {
+					$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+				}, 3250);
 			}, 500);
 		}, 500);
-		setTimeout(function () {
-			if($('#H_ID_SENSOR').val()!='')
-			{
-				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
-			}
-		}, 3250);
 	});//Fin load cuerpo
 }
 function ValidarCKIncial(CK)
