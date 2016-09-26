@@ -19,6 +19,15 @@ var app = {
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
+		
+		BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+		BD_APP.transaction(function(tx) {
+			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (json_sucursal text, json_update text)');
+			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
+			  alert(res.rows.item(0).cnt);
+			});
+		});
+		
 		app.receivedEvent('deviceready');
 
 		var push = PushNotification.init({
