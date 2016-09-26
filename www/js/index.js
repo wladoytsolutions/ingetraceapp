@@ -25,8 +25,15 @@ var app = {
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  if(res.rows.item(0).cnt=="0")
 			  {
-				  tx.executeSql("INSERT INTO tbl_datos (json_sucursal, json_update) VALUES (?,?)", ["", ""], function(tx, res){
+				  tx.executeSql("INSERT INTO tbl_datos (json_sucursal, json_update) VALUES (?,?)", ["N", "N"], function(tx, res){
 				  });
+				  BD_APP.transaction(function(tx2) {
+						tx2.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx2, rs2) {
+							alert(rs2.rows.item(0).json_sucursal);
+						}, function(tx2, error) {
+							//
+						});
+					});
 			  }
 			});
 		});
