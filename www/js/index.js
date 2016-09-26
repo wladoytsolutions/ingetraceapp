@@ -143,6 +143,44 @@ function RegistrarDispositivo(ID_device)
 		
 	});
 }
+function setJsonSucursal(json)
+{
+	BD_APP.transaction(function(tx) {
+		tx.executeSql("UPDATE tbl_datos SET json_sucursal='"+json+"'");
+	});
+}
+function getJsonSucursal()
+{
+	var retorno="";
+	
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+			retorno=rs.rows.item(0).json_sucursal;
+		}, function(tx, error) {
+			//
+		});
+	});	
+	return retorno;
+}
+function setJsonUpdate(json)
+{
+	BD_APP.transaction(function(tx) {
+		tx.executeSql("UPDATE tbl_datos SET json_update='"+json+"'");
+	});
+}
+function getJsonUpdate()
+{
+	var retorno="";
+	
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT json_update FROM tbl_datos', [], function(tx, rs) {
+			retorno=rs.rows.item(0).json_update;
+		}, function(tx, error) {
+			//
+		});
+	});	
+	return retorno;
+}
 function CargarMarquee()
 {
 	var marquee = $('div.marquee');
