@@ -1,5 +1,6 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
+var BD_APP;
 
 var app = {
     // Application Constructor
