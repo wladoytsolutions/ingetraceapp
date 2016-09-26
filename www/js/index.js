@@ -144,6 +144,19 @@ function setJsonSucursal(json)
 	BD_APP.transaction(function(tx) {
 		tx.executeSql("UPDATE tbl_datos SET json_sucursal='"+json+"'");
 	});
+	
+	BD_APP.transaction(function(tx) {
+	  tx.executeSql("UPDATE tbl_datos SET json_sucursal='"+json+"'", function(tx, resultSet) {
+		alert('resultSet.rowsAffected: ' + resultSet.rowsAffected);
+	  }, function(tx, error) {
+		alert('INSERT error: ' + error.message);
+	  });
+	}, function(error) {
+	  alert('transaction error: ' + error.message);
+	}, function() {
+	  alert('transaction ok');
+	});
+	
 }
 function getJsonSucursal()
 {
