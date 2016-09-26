@@ -25,6 +25,13 @@ var app = {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (json_sucursal text, json_update text)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  alert(res.rows.item(0).cnt);
+			  if(res.rows.item(0).cnt=="0")
+			  {
+				  tx.executeSql("INSERT INTO tbl_datos (json_sucursal, json_update) VALUES (?,?)", ["", ""], function(tx, res){
+				  });
+				  tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
+				  alert("ACA 2 "+res.rows.item(0).cnt);
+			  }
 			});
 		});
 		
