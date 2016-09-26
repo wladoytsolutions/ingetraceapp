@@ -31,6 +31,7 @@ var app = {
 				  });
 				  tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 				  alert("ACA 2 "+res.rows.item(0).cnt);
+				});
 			  }
 			});
 		});
