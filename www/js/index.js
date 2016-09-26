@@ -143,7 +143,7 @@ function setJsonSucursal(json)
 	var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
 	
 	BD_APP.transaction(function(tx) {
-		tx.executeSql("UPDATE tbl_datos SET json_sucursal='"+json+"'");
+		tx.executeSql('UPDATE tbl_datos SET json_sucursal = ?',[json]);
 	});
 }
 function getJsonSucursal()
@@ -166,8 +166,8 @@ function setJsonUpdate(json)
 {
 	var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
 	
-	BD_APP.transaction(function(tx) {
-		tx.executeSql("UPDATE tbl_datos SET json_update='"+json+"'");
+	BD_APP.transaction(function(tx) {		
+		tx.executeSql('UPDATE tbl_datos SET json_update = ?',[json]);
 	});
 }
 function getJsonUpdate()
