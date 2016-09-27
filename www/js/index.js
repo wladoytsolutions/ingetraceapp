@@ -66,7 +66,7 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
-			alert("Desde notificacion "+$("#H_DESDE_NOTIFICACION").val());
+			CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
@@ -138,12 +138,12 @@ function RegistrarDispositivo(ID_device)
 		
 	});
 }
-function setJsonSucursal(json)
+function setJsonSucursal(id_cliente,id_sucursal,json)
 {
 	var StringJson=""+btoa(json);
 	
 	BD_APP.transaction(function(tx) {
-		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+StringJson+"'";		
+		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
 		tx.executeSql(StringQuery);
 	});
 }
@@ -309,7 +309,29 @@ function GenerarHTMLSensores(DATOS)
 }
 function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 {	
-	alert($("#H_APP_CARGADA").val());
+	//Verificando si hay CK
+	var ValCK=getCK();
+	
+	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
+	{
+		//Validar si el sensor de la notificacion corresponde a la sucursal en la BD
+		BD_APP.transaction(function(tx) {
+			tx.executeSql('SELECT id_cliente,id_sucursal,json_sucursal FROM tbl_datos', [], function(tx, rs) {
+				var id_cliente=""+rs.rows.item(0).id_cliente;
+				var id_sucursal=""+rs.rows.item(0).id_sucursal;
+				var json_sucursal=""+rs.rows.item(0).json_sucursal;
+				json_sucursal=atob(json_sucursal);
+				
+				alert(id_cliente+" - "+id_sucursal+" - "+json_sucursal);
+				
+			}, function(tx, error) {});
+		});
+	}
+	else
+	{
+		navigator.splashscreen.hide();
+		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
+	}
 	/**
 	if($("#H_APP_CARGADA").val()=="ok")
 	{
@@ -466,7 +488,7 @@ function login()
 			{				
 				//Cookie
 				setCK(''+d.CK);
-				setJsonSucursal(response);
+				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
