@@ -72,11 +72,17 @@ function ScrollContenedor(Id_sensor)
 function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	event.preventDefault();
-	
+	VerGraficoSensorTermico(true,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
+}
+function VerGraficoSensorTermico(Loading,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+{
 	$(window).disablescroll();
-	$('#ModalPage2').popup('open', {
-		transition: 'pop'
-	});
+	if(Loading)
+	{
+		$('#ModalPage2').popup('open', {
+			transition: 'pop'
+		});
+	}
 	
 	var optionsLineal;
 	
@@ -304,7 +310,10 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 						}
 					}, 250);					
 				}).done(function(response) {
-					$('#ModalPage2').popup("close");
+					if(Loading)
+					{
+						$('#ModalPage2').popup("close");
+					}
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
