@@ -407,6 +407,8 @@ function ValidarCKIncial(CK)
 					ID_CLIENTE=d.ID_CLIENTE;
 					ID_SUCURSAL=d.ID_SUC;
 					
+					alert(ID_CLIENTE+" "+ID_SUCURSAL);
+					
 					//Cargando html
 					$("#p2").load( "inicio.html", function() {
 						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
@@ -425,9 +427,8 @@ function ValidarCKIncial(CK)
 							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
 							
 							GenerarHTMLSensores(d);					
-							
-						});//Fin load menu
-						ActualizarDashboard();
+							ActualizarDashboard();
+						});//Fin load menu						
 						$('#BodyPrincipal').pagecontainer('change', '#p2', {
 								transition: 'flip',
 								changeHash: true,
