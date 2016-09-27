@@ -82,12 +82,14 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		if($("#H_DESDE_NOTIFICACION").val()!="1")
-		{
-			alert("Desde busca coookie "+$("#H_DESDE_NOTIFICACION").val());
-			BuscarCookie();
-		}
-		$("#H_APP_CARGADA").val("ok");
+		setTimeout(function () {
+			if($("#H_DESDE_NOTIFICACION").val()!="1")
+			{
+				alert("Desde busca coookie "+$("#H_DESDE_NOTIFICACION").val());
+				BuscarCookie();
+			}
+			$("#H_APP_CARGADA").val("ok");
+		}, 500);
     }
 };
 $( document ).ready(function() {
@@ -143,45 +145,8 @@ function setJsonSucursal(json)
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+StringJson+"'";		
-		tx.executeSql(StringQuery);		
-		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-		}, function(tx, error) {});
+		tx.executeSql(StringQuery);
 	});
-}
-function getJsonSucursal()
-{
-	var retorno="";
-	
-	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-			var Valor=""+rs.rows.item(0).json_sucursal;
-			Valor=atob(Valor);
-			retorno=Valor;
-		}, function(tx, error) {});
-	});
-	
-	return retorno;
-}
-function setJsonUpdate(json)
-{
-	var StringJson=""+btoa(json);
-	
-	BD_APP.transaction(function(tx) {		
-		tx.executeSql('UPDATE tbl_datos SET json_update = ?',[StringJson]);
-	});
-}
-function getJsonUpdate()
-{	
-	var retorno="";
-	
-	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT json_update FROM tbl_datos', [], function(tx, rs) {
-			var Valor=""+rs.rows.item(0).json_update;
-			Valor=atob(Valor);
-			retorno=Valor;
-		}, function(tx, error) {});
-	});	
-	return retorno;
 }
 function CargarMarquee()
 {
