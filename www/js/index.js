@@ -143,8 +143,11 @@ function RegistrarDispositivo(ID_device)
 function setJsonSucursal(json)
 {
 	BD_APP.transaction(function(tx) {
-		tx.executeSql("UPDATE tbl_datos SET json_sucursal='ALGO'");
+		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+json+"'";
 		
+		alert(StringQuery);
+		
+		tx.executeSql(StringQuery);		
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 							alert("DESDE setJsonSucursal "+rs.rows.item(0).json_sucursal);
 				  }, function(tx, error) {});
