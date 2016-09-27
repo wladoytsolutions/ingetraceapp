@@ -65,7 +65,6 @@ var app = {
 					$("#H_ID_SUCURSAL_ACTUAL").val(d.idsucursal);
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
-				//alert(i+" <-> "+JSON.stringify(d));
 			});
 			//alert($("#H_APP_CARGADA").val());
 			//alert(data.additionalData);
@@ -224,6 +223,7 @@ function BuscarCookie()
 {
 	var ValCK=getCK();
 	//Es de notificacion
+	
 	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
 		CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
@@ -405,6 +405,8 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
+	
+	alert("ValidarCKIncial");
 	
 	$.post(RUTACONTROL,{
 								accion: "ValidarCKIncial",
