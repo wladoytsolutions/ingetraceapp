@@ -74,6 +74,7 @@ var app = {
 			// data.sound,
 			// data.image,
 			// data.additionalData
+			alert("Notificacion recibida");
 		});
 
 		push.on('error', function(e) {
@@ -217,8 +218,6 @@ function BuscarCookie()
 {
 	var ValCK=getCK();
 	//Es de notificacion
-	
-	alert($("#H_DESDE_NOTIFICACION").val());
 	
 	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
