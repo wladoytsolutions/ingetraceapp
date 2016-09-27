@@ -74,7 +74,6 @@ var app = {
 			// data.sound,
 			// data.image,
 			// data.additionalData
-			alert("Notificacion recibida");
 		});
 
 		push.on('error', function(e) {
@@ -83,7 +82,10 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		BuscarCookie();
+		if($("#H_DESDE_NOTIFICACION").val()!="1")
+		{
+			BuscarCookie();
+		}
 		$("#H_APP_CARGADA").val("ok");
     }
 };
