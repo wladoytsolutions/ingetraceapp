@@ -72,9 +72,9 @@ function ScrollContenedor(Id_sensor)
 function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	event.preventDefault();
-	VerGraficoSensorTermico(true,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
+	VerGraficoSensorTermico(true,false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
 }
-function VerGraficoSensorTermico(Loading,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function VerGraficoSensorTermico(Loading,HideNavigator,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	$(window).disablescroll();
 	if(Loading)
@@ -319,6 +319,10 @@ function VerGraficoSensorTermico(Loading,IdCliente,NombreCliente,IdSucursal,Nomb
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
+						if(HideNavigator)
+						{
+							navigator.splashscreen.hide();
+						}
 					}, 750);
 				});
 			});
