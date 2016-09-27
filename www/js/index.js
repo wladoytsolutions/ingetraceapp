@@ -86,6 +86,7 @@ var app = {
 			{
 				alert("BuscarCookie "+$("#H_DESDE_NOTIFICACION").val());
 				BuscarCookie();
+				
 			}
 			$("#H_APP_CARGADA").val("ok");
     }
