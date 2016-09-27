@@ -322,7 +322,10 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				var json_sucursal=""+rs.rows.item(0).json_sucursal;
 				json_sucursal=atob(json_sucursal);
 				
-				alert(id_cliente+" - "+id_sucursal+" - "+json_sucursal);
+				if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
+				{
+					alert("La sucursal corresponde a la de la BD");
+				}
 				
 			}, function(tx, error) {});
 		});
