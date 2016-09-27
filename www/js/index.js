@@ -89,7 +89,7 @@ var app = {
 				BuscarCookie();
 			}
 			$("#H_APP_CARGADA").val("ok");
-		}, 500);
+		}, 250);
     }
 };
 $( document ).ready(function() {
