@@ -21,15 +21,7 @@ Highcharts.setOptions({
 var chart;
 
 $( document ).ready(function() {	
-
-	setTimeout(function () {						
-		navigator.notification.alert(
-				'You are the winner!',  // message
-				'Game Over',            // title
-				'Done'                  // buttonName
-		);
-	}, 3000);
-		
+	
 	setInterval(function(){ ParpadearAlarmaLocal(); }, 1000);
 	
 	$("#btn_Pruebas").click(function(e) {
