@@ -402,8 +402,7 @@ function ValidarCKIncial(CK)
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
-			Valor=atob(Valor);
-			
+			Valor=atob(Valor);			
 			
 			var json = jQuery.parseJSON(Valor);
 			$.each(json, function(i, d) {
@@ -435,25 +434,28 @@ function ValidarCKIncial(CK)
 							
 							GenerarHTMLSensores(d);					
 							
-						});//Fin load menu		
-							$('#BodyPrincipal').pagecontainer('change', '#p2', {
+						});//Fin load menu
+						$('#BodyPrincipal').pagecontainer('change', '#p2', {
 								transition: 'flip',
 								changeHash: true,
 								reverse: false,
 								showLoadMsg: false
-							});
-							/**
+						});
+						setTimeout(function () {		
+							navigator.splashscreen.hide();
+						}, 500);
+						/**
 						setTimeout(function () {
 							if($('#H_ID_SENSOR').val()!='')
 							{
 								$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
 							}
-						}, 1250);*/
+						}, 1250);
+						*/
 					});//Fin load cuerpo
 				}
 				else
 				{
-					$('#ModalPage1').popup( "close" );
 					setTimeout(function () {
 					MostrarModalErrorP1('Usuario y/o contraseña invalido');
 					}, 500);
