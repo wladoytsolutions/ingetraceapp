@@ -143,15 +143,11 @@ function RegistrarDispositivo(ID_device)
 function setJsonSucursal(json)
 {
 	var StringJson=""+btoa(json);
-	alert("Valor base64 decode "+atob(StringJson));
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+StringJson+"'";		
 		tx.executeSql(StringQuery);		
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-			var Valor=""+rs.rows.item(0).json_sucursal;
-			alert("Valor "+Valor);
-			alert("Valor encode "+atob(Valor));
 		}, function(tx, error) {});
 	});
 }
@@ -161,20 +157,20 @@ function getJsonSucursal()
 	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-			retorno=rs.rows.item(0).json_sucursal;
-		}, function(tx, error) {
-			//
-		});
+			var Valor=""+rs.rows.item(0).json_sucursal;
+			Valor=atob(Valor);
+			retorno=Valor;
+		}, function(tx, error) {});
 	});
 	
 	return retorno;
 }
 function setJsonUpdate(json)
 {
-	var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+	var StringJson=""+btoa(json);
 	
 	BD_APP.transaction(function(tx) {		
-		tx.executeSql('UPDATE tbl_datos SET json_update = ?',[json]);
+		tx.executeSql('UPDATE tbl_datos SET json_update = ?',[StringJson]);
 	});
 }
 function getJsonUpdate()
@@ -183,10 +179,10 @@ function getJsonUpdate()
 	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_update FROM tbl_datos', [], function(tx, rs) {
-			retorno=rs.rows.item(0).json_update;
-		}, function(tx, error) {
-			//
-		});
+			var Valor=""+rs.rows.item(0).json_update;
+			Valor=atob(Valor);
+			retorno=Valor;
+		}, function(tx, error) {});
 	});	
 	return retorno;
 }
