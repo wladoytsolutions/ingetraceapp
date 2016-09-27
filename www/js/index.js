@@ -390,14 +390,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 }
 function ValidarCKIncial(CK)
 {
-	try {
-		navigator.splashscreen.hide();
-	}
-	catch(err) {}
 	$('#DivIngresar').hide();
-	$('#ModalPage1').popup('open', {
-		transition: 'pop'
-	});
 	$(window).disablescroll();
 	
 	var ID_CLIENTE;
@@ -442,22 +435,20 @@ function ValidarCKIncial(CK)
 							
 							GenerarHTMLSensores(d);					
 							
-						});//Fin load menu
-						setTimeout(function () {			
+						});//Fin load menu		
 							$('#BodyPrincipal').pagecontainer('change', '#p2', {
 								transition: 'flip',
 								changeHash: true,
 								reverse: false,
 								showLoadMsg: false
 							});
-							$('#ModalPage1').popup( "close" );
-						}, 500);
+							/**
 						setTimeout(function () {
 							if($('#H_ID_SENSOR').val()!='')
 							{
 								$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
 							}
-						}, 1250);
+						}, 1250);*/
 					});//Fin load cuerpo
 				}
 				else
