@@ -66,7 +66,7 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
-			alert($("#H_DESDE_NOTIFICACION").val());
+			alert("Desde notificacion "+$("#H_DESDE_NOTIFICACION").val());
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
@@ -84,6 +84,7 @@ var app = {
     receivedEvent: function(id) {
 		if($("#H_DESDE_NOTIFICACION").val()!="1")
 		{
+			alert("Desde busca coookie "+$("#H_DESDE_NOTIFICACION").val());
 			BuscarCookie();
 		}
 		$("#H_APP_CARGADA").val("ok");
