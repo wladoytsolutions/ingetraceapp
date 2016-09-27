@@ -142,10 +142,10 @@ function RegistrarDispositivo(ID_device)
 }
 function setJsonSucursal(json)
 {
-	json=json.replaceAll("'","\'");
+	var StringJson=""+btoa(json);
 	
 	BD_APP.transaction(function(tx) {
-		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+json+"'";
+		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+StringJson+"'";
 		
 		alert(StringQuery);
 		
