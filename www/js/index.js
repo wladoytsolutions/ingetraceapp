@@ -325,7 +325,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
 				{
 					CrearHtmlDeJson(json_sucursal, function() {
-						alert('Finished eating my sandwich.');
+						alert("CARGA FINALIZADA");
 					});
 				}
 				
