@@ -27,7 +27,8 @@ var app = {
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  if(res.rows.item(0).cnt=="0")
 			  {
-				  
+				  tx.executeSql("INSERT INTO tbl_datos (json_sucursal, json_update) VALUES (?,?)", ["Nada", "Nada"], function(tx, res){
+				  });
 			  }
 			});
 		});
@@ -141,12 +142,10 @@ function RegistrarDispositivo(ID_device)
 }
 function setJsonSucursal(json)
 {
+	json=json.replaceAll("'","\'");
+	
 	BD_APP.transaction(function(tx) {
-		//var StringQuery="UPDATE tbl_datos SET json_sucursal='"+json+"'";
-		
-		json=json.replaceAll("'","\'");
-		
-		var StringQuery="INSERT INTO tbl_datos (json_sucursal, json_update) VALUES ('"+json+"','"+json+"')";
+		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+json+"'";
 		
 		alert(StringQuery);
 		
