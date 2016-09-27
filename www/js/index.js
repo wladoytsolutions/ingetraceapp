@@ -406,7 +406,7 @@ function ValidarCKIncial(CK)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
-	alert("ValidarCKIncial");
+	alert("ValidarCKIncial "+getJsonSucursal());
 	
 	$.post(RUTACONTROL,{
 								accion: "ValidarCKIncial",
