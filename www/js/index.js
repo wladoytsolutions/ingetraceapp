@@ -57,10 +57,10 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
+			$("#H_DESDE_NOTIFICACION").val("1");
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
-				{				
-					$("#H_DESDE_NOTIFICACION").val("1");
+				{
 					$("#H_ID_CLIENTE_ACTUAL").val(d.idcliente);
 					$("#H_ID_SUCURSAL_ACTUAL").val(d.idsucursal);
 					$("#H_ID_SENSOR").val(d.idsensor);					
@@ -82,14 +82,12 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
-				alert("Desde busca coookie "+$("#H_DESDE_NOTIFICACION").val());
+				alert("BuscarCookie "+$("#H_DESDE_NOTIFICACION").val());
 				BuscarCookie();
 			}
 			$("#H_APP_CARGADA").val("ok");
-		}, 250);
     }
 };
 $( document ).ready(function() {
