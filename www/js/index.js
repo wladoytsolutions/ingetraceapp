@@ -23,11 +23,11 @@ var app = {
 		
 		BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (json_sucursal text, json_update text)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  if(res.rows.item(0).cnt=="0")
 			  {
-				  tx.executeSql("INSERT INTO tbl_datos (json_sucursal, json_update) VALUES (?,?)", ["Nada", "Nada"], function(tx, res){
+				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?)", ["Nada","Nada", "Nada"], function(tx, res){
 				  });
 			  }
 			});
@@ -66,7 +66,7 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
-			//alert($("#H_APP_CARGADA").val());
+			alert($("#H_APP_CARGADA").val());
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
@@ -221,35 +221,28 @@ function BuscarCookie()
 	var ValCK=getCK();
 	//Es de notificacion
 	
-	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
+	var UbicacionPage=''+window.location.hash;
+		
+		
+	if(UbicacionPage=='#p2')
 	{
-		CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
+		window.location.href = "index.html?Origen=p2";
+	}
+	else if(UbicacionPage=='#p3')
+	{
+		window.location.href = "index.html?Origen=p3";
 	}
 	else
-	{	
-		var UbicacionPage=''+window.location.hash;
-		
-		
-		if(UbicacionPage=='#p2')
+	{
+		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
-			window.location.href = "index.html?Origen=p2";
-		}
-		else if(UbicacionPage=='#p3')
-		{
-			window.location.href = "index.html?Origen=p3";
+			ValidarCKIncial(ValCK);
 		}
 		else
 		{
-			if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
-			{
-				ValidarCKIncial(ValCK);
-			}
-			else
-			{
-				setTimeout(function () {
+			setTimeout(function () {
 					navigator.splashscreen.hide();
-				}, 750);
-			}
+			}, 750);
 		}
 	}
 }
@@ -260,7 +253,6 @@ function GenerarHTMLSensores(DATOS)
 	
 	$('#DivTemperatura').show();
 	$('#DivElectrico').show();
-	
 	
 	//Sensores termicos
 	var HtmlTermicos='';
