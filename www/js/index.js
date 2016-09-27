@@ -82,13 +82,13 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
-				alert("BuscarCookie "+$("#H_DESDE_NOTIFICACION").val());
 				BuscarCookie();
-				
 			}
 			$("#H_APP_CARGADA").val("ok");
+		}, 500);
     }
 };
 $( document ).ready(function() {
