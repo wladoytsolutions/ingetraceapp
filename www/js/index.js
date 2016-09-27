@@ -218,6 +218,8 @@ function BuscarCookie()
 	var ValCK=getCK();
 	//Es de notificacion
 	
+	alert($("#H_DESDE_NOTIFICACION").val());
+	
 	if($("#H_DESDE_NOTIFICACION").val()=="1" && ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
 		CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
