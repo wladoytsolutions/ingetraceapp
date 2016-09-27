@@ -144,7 +144,7 @@ function setJsonSucursal(json)
 {
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-							alert(rs.rows.item(0).json_sucursal);
+							alert("DESDE setJsonSucursal "+rs.rows.item(0).json_sucursal);
 				  }, function(tx, error) {});
 		tx.executeSql('UPDATE tbl_datos SET json_sucursal = ?',[json]);
 	});
@@ -523,8 +523,6 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(response);
-				
-				alert(getJsonSucursal());
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
