@@ -1,5 +1,7 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
+var BD_APP=null;
+
 
 var app = {
     // Application Constructor
@@ -19,7 +21,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		
-		var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+		BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (json_sucursal text, json_update text)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
@@ -27,12 +29,6 @@ var app = {
 			  {
 				  tx.executeSql("INSERT INTO tbl_datos (json_sucursal, json_update) VALUES (?,?)", ["Nada", "Nada"], function(tx, res){
 				  });
-				  
-				  tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-							alert(rs.rows.item(0).json_sucursal);
-				  }, function(tx, error) {
-							//
-				 });
 			  }
 			});
 		});
@@ -146,17 +142,16 @@ function RegistrarDispositivo(ID_device)
 }
 function setJsonSucursal(json)
 {
-	var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
-	
 	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+							alert(rs.rows.item(0).json_sucursal);
+				  }, function(tx, error) {});
 		tx.executeSql('UPDATE tbl_datos SET json_sucursal = ?',[json]);
 	});
 }
 function getJsonSucursal()
 {
 	var retorno="";
-	
-	var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
 	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
@@ -177,9 +172,7 @@ function setJsonUpdate(json)
 	});
 }
 function getJsonUpdate()
-{
-	var BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
-	
+{	
 	var retorno="";
 	
 	BD_APP.transaction(function(tx) {
