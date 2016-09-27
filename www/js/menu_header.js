@@ -175,7 +175,9 @@ function CambiarSucursal(Id_cliente,Id_sucursal)
 			CK: getCK()
 	}, 
 	function(response) {
-		var json = jQuery.parseJSON(response);
+		var json = jQuery.parseJSON(response);		
+		setJsonSucursal(response);
+		
 		$.each(json, function(i, d) {
 				//Cookie
 				setCK(d.CK);

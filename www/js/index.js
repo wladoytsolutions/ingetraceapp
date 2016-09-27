@@ -82,14 +82,8 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		setTimeout(function()
-		{
-		var ValCK=getCK();
-		//Es de notificacion
 		BuscarCookie();
 		$("#H_APP_CARGADA").val("ok");
-			
-		}, 500);
     }
 };
 $( document ).ready(function() {
@@ -245,9 +239,7 @@ function BuscarCookie()
 		{
 			if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 			{
-				setTimeout(function () {
-					ValidarCKIncial(ValCK);
-				}, 500);
+				ValidarCKIncial(ValCK);
 			}
 			else
 			{
@@ -435,13 +427,14 @@ function ValidarCKIncial(CK)
 							GenerarHTMLSensores(d);					
 							
 						});//Fin load menu
+						ActualizarDashboard();
 						$('#BodyPrincipal').pagecontainer('change', '#p2', {
 								transition: 'flip',
 								changeHash: true,
 								reverse: false,
 								showLoadMsg: false
 						});
-						setTimeout(function () {		
+						setTimeout(function () {
 							navigator.splashscreen.hide();
 						}, 500);
 						/**
