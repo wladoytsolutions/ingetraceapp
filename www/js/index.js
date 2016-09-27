@@ -144,6 +144,8 @@ function setJsonSucursal(json)
 	BD_APP.transaction(function(tx) {
 		//var StringQuery="UPDATE tbl_datos SET json_sucursal='"+json+"'";
 		
+		json=json.replaceAll("'","\'");
+		
 		var StringQuery="INSERT INTO tbl_datos (json_sucursal, json_update) VALUES ('"+json+"','"+json+"')";
 		
 		alert(StringQuery);
