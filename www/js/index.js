@@ -410,83 +410,68 @@ function ValidarCKIncial(CK)
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
 			Valor=atob(Valor);
-			alert("Valor "+Valor);
+			
+			var json = jQuery.parseJSON(Valor);
+			$.each(json, function(i, d) {
+				ESTADO=d.ESTADO;
+				if(d.ESTADO=="S")
+				{
+					//Cookie
+					setCK(''+d.CK);
+					
+					ID_CLIENTE=d.ID_CLIENTE;
+					ID_SUCURSAL=d.ID_SUC;
+					
+					//Cargando html
+					$("#p2").load( "inicio.html", function() {
+						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
+						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+						//Agregando menu
+						$("#DivMenu").load("html_parts/menu_header.html",	function() {
+							
+							$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
+							$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
+							
+							//Estado de sucursal
+							$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
+							$("#IconoSucursal").html(d.ICONO_SUCURSAL);
+							$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
+							LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
+							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
+							
+							GenerarHTMLSensores(d);					
+							
+						});//Fin load menu
+						setTimeout(function () {			
+							$('#BodyPrincipal').pagecontainer('change', '#p2', {
+								transition: 'flip',
+								changeHash: true,
+								reverse: false,
+								showLoadMsg: false
+							});
+							$('#ModalPage1').popup( "close" );
+						}, 500);
+						setTimeout(function () {
+							if($('#H_ID_SENSOR').val()!='')
+							{
+								$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
+							}
+						}, 1250);
+					});//Fin load cuerpo
+				}
+				else
+				{
+					$('#ModalPage1').popup( "close" );
+					setTimeout(function () {
+					MostrarModalErrorP1('Usuario y/o contraseña invalido');
+					}, 500);
+					//Cerrando dialogo
+					$('#DivIngresar').show();
+				}
+			});
+			
 		}, function(tx, error) {});
 	});
-	
-	$.post(RUTACONTROL,{
-								accion: "ValidarCKIncial",
-								CK: CK
-								}, 
-	function(response) {
-		var json = jQuery.parseJSON(response);
-		$.each(json, function(i, d) {
-			ESTADO=d.ESTADO;
-			if(d.ESTADO=="S")
-			{
-				//Cookie
-				setCK(''+d.CK);
-				
-				ID_CLIENTE=d.ID_CLIENTE;
-				ID_SUCURSAL=d.ID_SUC;
-				
-				//Cargando html
-				$("#p2").load( "inicio.html", function() {
-					$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
-					$("#ModalClave3").load("html_parts/modal_cambioClave.html");
-					//Agregando menu
-					$("#DivMenu").load("html_parts/menu_header.html",	function() {
-						
-						$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
-						$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
-						
-						//Estado de sucursal
-						$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
-						$("#IconoSucursal").html(d.ICONO_SUCURSAL);
-						$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
-						LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
-						$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-						
-						GenerarHTMLSensores(d);					
-						
-					});//Fin load menu
-					setTimeout(function () {			
-						$('#BodyPrincipal').pagecontainer('change', '#p2', {
-							transition: 'flip',
-							changeHash: true,
-							reverse: false,
-							showLoadMsg: false
-						});
-						$('#ModalPage1').popup( "close" );
-					}, 500);
-					setTimeout(function () {
-						if($('#H_ID_SENSOR').val()!='')
-						{
-							$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
-						}
-					}, 1250);
-				});//Fin load cuerpo
-			}
-			else
-			{
-				$('#ModalPage1').popup( "close" );
-				setTimeout(function () {
-				MostrarModalErrorP1('Usuario y/o contraseña invalido');
-				}, 500);
-				//Cerrando dialogo
-				$('#DivIngresar').show();
-			}
-		});
-	}).done(function(response) {
-		if(ESTADO=="S")
-		{
-			$('#Cbo_Cliente').val(ID_CLIENTE);
-			$('#Cbo_Sucursal').val(ID_SUCURSAL);
-		}
-		$(window).disablescroll("undo");		
-	});
-	
-	
 }
 function ValidarCampos()
 {
