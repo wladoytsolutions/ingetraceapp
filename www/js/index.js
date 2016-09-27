@@ -138,6 +138,11 @@ function RegistrarDispositivo(ID_device)
 		
 	});
 }
+function CerrarSplash()
+{
+	alert("Cerrando");
+	navigator.splashscreen.hide();
+}
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
 	var StringJson=""+btoa(json);

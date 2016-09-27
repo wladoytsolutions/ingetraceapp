@@ -310,17 +310,16 @@ function VerGraficoSensorTermico(Loading,HideNavigator,IdCliente,NombreCliente,I
 						}
 					}, 250);					
 				}).done(function(response) {
-					if(HideNavigator)
-					{
-						alert("Cerrando");
-						navigator.splashscreen.hide();
-					}
 					if(Loading)
 					{
 						$('#ModalPage2').popup("close");
 					}
 					$(window).disablescroll("undo");
 					setTimeout(function () {
+						if(HideNavigator)
+						{
+							CerrarSplash();
+						}
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
