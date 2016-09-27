@@ -66,7 +66,7 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
-			alert($("#H_APP_CARGADA").val());
+			alert($("#H_DESDE_NOTIFICACION").val());
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
