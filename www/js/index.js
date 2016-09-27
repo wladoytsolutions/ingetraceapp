@@ -52,7 +52,7 @@ var app = {
 
 		push.on('registration', function(data) {
 			// data.registrationI
-			//alert(''+data.registrationId);
+			alert(''+data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
@@ -349,6 +349,8 @@ function GenerarHTMLSensores(DATOS)
 }
 function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 {	
+	alert($("#H_APP_CARGADA").val());
+	/**
 	if($("#H_APP_CARGADA").val()=="ok")
 	{
 		navigator.splashscreen.show();
@@ -379,6 +381,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			}, 500);
 		}, 500);
 	});//Fin load cuerpo
+	*/
 }
 function ValidarCKIncial(CK)
 {
