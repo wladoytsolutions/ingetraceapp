@@ -324,7 +324,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				
 				if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
 				{
-					alert("La sucursal corresponde a la de la BD");
+					CrearHtmlDeJson(json_sucursal, function() {
+						alert('Finished eating my sandwich.');
+					});
 				}
 				
 			}, function(tx, error) {});
@@ -379,14 +381,6 @@ function CrearHtmlDeJson(JsonString)
 				setTimeout(function () {
 					navigator.splashscreen.hide();
 				}, 500);
-						/**
-						setTimeout(function () {
-							if($('#H_ID_SENSOR').val()!='')
-							{
-								$('#VerSensoresRegistrados_'+$('#H_ID_SENSOR').val())[0].click();
-							}
-						}, 1250);
-						*/
 			});//Fin load cuerpo
 		}
 		else
