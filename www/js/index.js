@@ -324,8 +324,58 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				
 				if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
 				{
-					CrearHtmlDeJson(json_sucursal, function() {
-						alert("CARGA FINALIZADA");
+					var json = jQuery.parseJSON(json_sucursal);
+					$.each(json, function(i, d) {
+						ESTADO=d.ESTADO;
+						
+						if(d.ESTADO=="S")
+						{
+							//Cookie
+							setCK(''+d.CK);
+									
+							ID_CLIENTE=d.ID_CLIENTE;
+							ID_SUCURSAL=d.ID_SUC;
+									
+							//Cargando html
+							$("#p2").load( "inicio.html", function() {
+								$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
+								$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+								//Agregando menu
+								$("#DivMenu").load("html_parts/menu_header.html",	function() {		
+									$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
+									$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
+												
+									//Estado de sucursal
+									$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
+									$("#IconoSucursal").html(d.ICONO_SUCURSAL);
+									$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
+									LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
+									$("#LogoCliente").attr("src",LOGO_CLIENTE);					
+												
+									GenerarHTMLSensores(d);					
+									ActualizarDashboard();
+								});//Fin load menu
+								
+								$('#BodyPrincipal').pagecontainer('change', '#p2', {
+									transition: 'flip',
+									changeHash: true,
+									reverse: false,
+									showLoadMsg: false
+								});
+								setTimeout(function () {
+									$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+									navigator.splashscreen.hide();
+								}, 500);
+							});//Fin load cuerpo
+						}
+						else
+						{
+							setTimeout(function () {
+								MostrarModalErrorP1('Usuario y/o contraseña invalido');
+							}, 500);
+							//Cerrando dialogo
+							$('#DivIngresar').show();
+						}
 					});
 				}
 				
@@ -337,61 +387,6 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		navigator.splashscreen.hide();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
-}
-function CrearHtmlDeJson(JsonString)
-{
-	var json = jQuery.parseJSON(JsonString);
-	$.each(json, function(i, d) {
-		ESTADO=d.ESTADO;
-		
-		if(d.ESTADO=="S")
-		{
-			//Cookie
-			setCK(''+d.CK);
-					
-			ID_CLIENTE=d.ID_CLIENTE;
-			ID_SUCURSAL=d.ID_SUC;
-					
-			//Cargando html
-			$("#p2").load( "inicio.html", function() {
-				$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
-				$("#ModalClave3").load("html_parts/modal_cambioClave.html");
-				//Agregando menu
-				$("#DivMenu").load("html_parts/menu_header.html",	function() {		
-					$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
-					$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
-								
-					//Estado de sucursal
-					$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
-					$("#IconoSucursal").html(d.ICONO_SUCURSAL);
-					$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
-					LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
-					$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-								
-					GenerarHTMLSensores(d);					
-					ActualizarDashboard();
-				});//Fin load menu
-				
-				$('#BodyPrincipal').pagecontainer('change', '#p2', {
-					transition: 'flip',
-					changeHash: true,
-					reverse: false,
-					showLoadMsg: false
-				});
-				setTimeout(function () {
-					navigator.splashscreen.hide();
-				}, 500);
-			});//Fin load cuerpo
-		}
-		else
-		{
-			setTimeout(function () {
-				MostrarModalErrorP1('Usuario y/o contraseña invalido');
-			}, 500);
-			//Cerrando dialogo
-			$('#DivIngresar').show();
-		}
-	});
 }
 function ValidarCKIncial(CK)
 {
@@ -409,7 +404,58 @@ function ValidarCKIncial(CK)
 			var Valor=""+rs.rows.item(0).json_sucursal;
 			Valor=atob(Valor);
 			
-			CrearHtmlDeJson(Valor);
+			var json = jQuery.parseJSON(Valor);
+			$.each(json, function(i, d) {
+				ESTADO=d.ESTADO;
+				
+				if(d.ESTADO=="S")
+				{
+					//Cookie
+					setCK(''+d.CK);
+							
+					ID_CLIENTE=d.ID_CLIENTE;
+					ID_SUCURSAL=d.ID_SUC;
+							
+					//Cargando html
+					$("#p2").load( "inicio.html", function() {
+						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
+						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+						//Agregando menu
+						$("#DivMenu").load("html_parts/menu_header.html",	function() {		
+							$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
+							$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
+										
+							//Estado de sucursal
+							$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
+							$("#IconoSucursal").html(d.ICONO_SUCURSAL);
+							$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
+							LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
+							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
+										
+							GenerarHTMLSensores(d);					
+							ActualizarDashboard();
+						});//Fin load menu
+						
+						$('#BodyPrincipal').pagecontainer('change', '#p2', {
+							transition: 'flip',
+							changeHash: true,
+							reverse: false,
+							showLoadMsg: false
+						});
+						setTimeout(function () {
+							navigator.splashscreen.hide();
+						}, 500);
+					});//Fin load cuerpo
+				}
+				else
+				{
+					setTimeout(function () {
+						MostrarModalErrorP1('Usuario y/o contraseña invalido');
+					}, 500);
+					//Cerrando dialogo
+					$('#DivIngresar').show();
+				}
+			});
 			
 		}, function(tx, error) {});
 	});
