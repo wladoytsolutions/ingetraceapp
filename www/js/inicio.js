@@ -562,8 +562,6 @@ function ActualizarDashboard()
 	var EstadoSucursal='';
 	var IconoSucursal='';
 	
-	alert($('#H_ID_CLIENTE_ACTUAL').val()+" ->>> "+$('#H_ID_SUCURSAL_ACTUAL').val());
-	
 	$.post(RUTACONTROL,{
 										accion		: 'ACTUALIZA_SENSORES',
 										CK			: getCK(),
