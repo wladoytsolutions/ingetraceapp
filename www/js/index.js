@@ -406,7 +406,13 @@ function ValidarCKIncial(CK)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
-	alert("ValidarCKIncial "+getJsonSucursal());
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+			var Valor=""+rs.rows.item(0).json_sucursal;
+			Valor=atob(Valor);
+			alert("Valor "+Valor);
+		}, function(tx, error) {});
+	});
 	
 	$.post(RUTACONTROL,{
 								accion: "ValidarCKIncial",
