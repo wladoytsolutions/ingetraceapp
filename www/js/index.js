@@ -145,13 +145,10 @@ function setJsonSucursal(json)
 	var StringJson=""+btoa(json);
 	
 	BD_APP.transaction(function(tx) {
-		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+StringJson+"'";
-		
-		alert(StringQuery);
-		
+		var StringQuery="UPDATE tbl_datos SET json_sucursal='"+StringJson+"'";		
 		tx.executeSql(StringQuery);		
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-							alert("DESDE setJsonSucursal "+rs.rows.item(0).json_sucursal);
+							alert("DESDE setJsonSucursal "+atob(""+rs.rows.item(0).json_sucursal));
 				  }, function(tx, error) {});
 	});
 }
