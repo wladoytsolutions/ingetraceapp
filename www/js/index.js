@@ -411,6 +411,7 @@ function ValidarCKIncial(CK)
 			var Valor=""+rs.rows.item(0).json_sucursal;
 			Valor=atob(Valor);
 			
+			
 			var json = jQuery.parseJSON(Valor);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
