@@ -321,6 +321,7 @@ function VerGraficoSensorTermico(Loading,HideNavigator,IdCliente,NombreCliente,I
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 						if(HideNavigator)
 						{
+							alert("Cerrando");
 							navigator.splashscreen.hide();
 						}
 					}, 750);

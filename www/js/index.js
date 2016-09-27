@@ -354,6 +354,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 												
 									GenerarHTMLSensores(d);					
 									ActualizarDashboard();
+									VerGraficoSensorTermico(false,true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
 								});//Fin load menu
 								
 								$('#BodyPrincipal').pagecontainer('change', '#p2', {
@@ -362,7 +363,6 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 									reverse: false,
 									showLoadMsg: false
 								});
-								VerGraficoSensorTermico(false,true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
 							});//Fin load cuerpo
 						}
 						else
