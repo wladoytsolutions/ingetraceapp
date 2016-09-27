@@ -310,6 +310,11 @@ function VerGraficoSensorTermico(Loading,HideNavigator,IdCliente,NombreCliente,I
 						}
 					}, 250);					
 				}).done(function(response) {
+					if(HideNavigator)
+					{
+						alert("Cerrando");
+						navigator.splashscreen.hide();
+					}
 					if(Loading)
 					{
 						$('#ModalPage2').popup("close");
@@ -319,11 +324,6 @@ function VerGraficoSensorTermico(Loading,HideNavigator,IdCliente,NombreCliente,I
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
-						if(HideNavigator)
-						{
-							alert("Cerrando");
-							navigator.splashscreen.hide();
-						}
 					}, 750);
 				});
 			});
