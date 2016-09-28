@@ -557,8 +557,8 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
+					CerrarSplash();
 				});
-				CerrarSplash();
 			});
 	});
 }
