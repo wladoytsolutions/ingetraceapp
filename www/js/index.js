@@ -616,7 +616,10 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 									transition: 'flip',
 									changeHash: true,
 									reverse: false,
-									showLoadMsg: false
+									showLoadMsg: false,
+									beforechange: function( event, ui ) {
+										alert("Cambie");
+									}
 								});
 								setTimeout(function () {
 									VerGraficoSensorTermico(ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
