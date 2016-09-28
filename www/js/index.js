@@ -575,7 +575,11 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
-			alert("Sucursal Cargada OK");
+			//Validar si es la misma sursal
+			if($('#H_ID_CLIENTE_ACTUAL').val()==ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==ID_SUC)
+			{
+				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+			}
 		}
 		else
 		{		
