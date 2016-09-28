@@ -523,7 +523,7 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 						// Render the chart
 						optionsLineal.title.text.push(NombreEquipo);
 					});	
-					
+					CerrarSplash();
 					$.mobile.pageContainer.pagecontainer('change', '#p3', {
 						transition: 'flip',
 						changeHash: true,
@@ -547,7 +547,6 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 					}, 250);					
 				}).done(function(response) {
 					$('#ModalPage2').popup("close");
-					CerrarSplash();
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
