@@ -141,7 +141,13 @@ function RegistrarDispositivo(ID_device)
 function CerrarSplash()
 {
 	alert("Cerrando");
-	navigator.splashscreen.hide();
+	try {
+		navigator.splashscreen.hide();
+	}
+	catch(err) {
+		alert(err.message);
+	}
+	
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
