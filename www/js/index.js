@@ -140,7 +140,6 @@ function RegistrarDispositivo(ID_device)
 }
 function CerrarSplash()
 {
-	alert("Cerrando");
 	try {
 		navigator.splashscreen.hide();
 	}
@@ -217,7 +216,7 @@ function BuscarCookie()
 		else
 		{
 			setTimeout(function () {
-				navigator.splashscreen.hide();
+				CerrarSplash();
 			}, 750);
 		}
 	}
@@ -643,7 +642,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 	}
 	else
 	{
-		navigator.splashscreen.hide();
+		CerrarSplash();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
 }
@@ -702,7 +701,7 @@ function ValidarCKIncial(CK)
 							showLoadMsg: false
 						});
 						setTimeout(function () {
-							navigator.splashscreen.hide();
+							CerrarSplash();
 						}, 500);
 					});//Fin load cuerpo
 				}
