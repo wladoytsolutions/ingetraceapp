@@ -362,7 +362,6 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 					var PromedioSensor = new Array();
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
-					CerrarSplash();
 					
 					$.each(json, function(j, e) {
 						//Fecha hoy				
@@ -553,6 +552,7 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
 				});
+				CerrarSplash();
 			});
 	});
 }
