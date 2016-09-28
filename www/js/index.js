@@ -340,8 +340,6 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
 				
-				CerrarSplash();
-				
 				//HTML CARGADO
 				$.post(RUTACONTROL,
 						{
@@ -549,6 +547,7 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 					}, 250);					
 				}).done(function(response) {
 					$('#ModalPage2').popup("close");
+					CerrarSplash();
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
