@@ -346,6 +346,8 @@ function VerGraficoSensorTermico(IdCliente,NombreCliente,IdSucursal,NombreSucurs
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
 				
+				CerrarSplash();
+				
 				//HTML CARGADO
 				$.post(RUTACONTROL,
 						{
@@ -616,10 +618,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 									reverse: false,
 									showLoadMsg: false
 								});
-								CerrarSplash();
 								setTimeout(function () {
 									VerGraficoSensorTermico(ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
-								}, 500);								
+								}, 750);								
 								
 							});//Fin load cuerpo
 						}
