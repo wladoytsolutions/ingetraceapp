@@ -211,7 +211,7 @@ function BuscarCookie()
 	{
 		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
-			ValidarCKIncial(ValCK,true);
+			ValidarCKIncial(ValCK,true,false,'');
 		}
 		else
 		{
