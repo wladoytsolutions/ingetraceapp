@@ -2,6 +2,7 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
 
+var  NOTIFICACION=false;
 
 var app = {
     // Application Constructor
@@ -58,6 +59,7 @@ var app = {
 
 		push.on('notification', function(data) {
 			$("#H_DESDE_NOTIFICACION").val("1");
+			NOTIFICACION=true;
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
@@ -83,6 +85,14 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		setTimeout(function () {
+			if(NOTIFICACION)
+			{
+				alert("es notificaicon");
+			}
+			else
+			{
+				alert("no es no tificaicon");
+			}
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
 				$('#RowLogin').show();
