@@ -318,7 +318,7 @@ function GenerarHTMLSensores(DATOS)
 	CargarMarquee();
 	$('#H_SUCURSAL_CARGADA').val("1");	
 }
-function VerGraficoSensorTermico(VerPopUp,ModalPopUp,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	$(window).disablescroll();
 
@@ -553,7 +553,7 @@ function VerGraficoSensorTermico(VerPopUp,ModalPopUp,IdCliente,NombreCliente,IdS
 						}
 					}, 250);					
 				}).done(function(response) {
-					if(VerPopUp)
+					if(VerPopUp || SoloCerrarPopUp)
 					{
 						$('#'+ModalPopUp+'').popup("close");
 					}
@@ -601,9 +601,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			Id_sucursal: ID_SUC,
 			Id_sensor: ID_SENSOR
 		},
-		function(response) {
-			$('#ModalPage_'+$.mobile.activePage.attr('id')).popup('close');
-			
+		function(response) {			
 			var json = jQuery.parseJSON(response);
 			$.each(json, function(i, d) {
 				NombreCliente=d.RAZONSOCIAL;
@@ -614,7 +612,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				NombreEquipo=d.NOMBRE_EQUIPO;
 			});
 		}).done(function(response) {
-			VerGraficoSensorTermico(false,'ModalPage_'+$.mobile.activePage.attr('id'),ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
+			VerGraficoSensorTermico(false,true,'ModalPage_'+$.mobile.activePage.attr('id'),ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
 		});
 	}
 	else

@@ -64,7 +64,7 @@ function ScrollContenedor(Id_sensor)
 function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	event.preventDefault();
-	VerGraficoSensorTermico(true,'ModalPage_p2',IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
+	VerGraficoSensorTermico(true,false,'ModalPage_p2',IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
 }
 function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 {
