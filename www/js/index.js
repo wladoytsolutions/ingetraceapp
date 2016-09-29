@@ -348,8 +348,6 @@ function VerGraficoSensorTermico(VerPopUp,ModalPopUp,IdCliente,NombreCliente,IdS
 				$("#H_ID_EQUIPO").val(IdEquipo);
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
-				
-				alert(IdCliente+","+IdSucursal+","+IdSeccion+","+IdEquipo+","+IdSensor);
 								
 				//HTML CARGADO
 				$.post(RUTACONTROL,
