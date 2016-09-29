@@ -2,29 +2,6 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
 
-var Colores=['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1','#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572', '#FF9655', '#FFF263', '#6AF9C4'];
-
-Highcharts.setOptions({
-	lang: {
-		months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-		weekdays: ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
-		shortMonths: ['Ene' , 'Feb' , 'Mar' , 'Abr' , 'May' , 'Jun' , 'Jul' , 'Agost' , 'Sep' , 'Oct' , 'Nov' , 'Dic'],
-		downloadJPEG:'Descargar JPEG',
-		downloadPDF:'Descargar PDF',
-		downloadPNG:'Descargar PNG',
-		downloadSVG:'Descargar SVG',
-		loading:'Cargando...',
-		printChart:'Imprimir Gráfico',
-		decimalPoint: ',',
-		thousandsSep: '.',
-		resetZoom: 'Restablecer'
-	},
-    colors: Colores
-});
-
-var chart;
-
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -590,7 +567,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			});
 	});
 }
-function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
+function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 {	
 	//Verificando si hay CK
 	var ValCK=getCK();
@@ -601,9 +578,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
 			//Validar si es la misma sursal
-			if($('#H_ID_CLIENTE_ACTUAL').val()==ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==ID_SUC)
+			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
-				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
 			{
@@ -629,8 +606,8 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 								//Cookie
 								setCK(''+d.CK);
 										
-								ID_CLIENTE=d.ID_CLIENTE;
-								ID_SUCURSAL=d.ID_SUC;
+								var ID_CLIENTE=d.ID_CLIENTE;
+								var ID_SUCURSAL=d.ID_SUC;
 										
 								//Cargando html
 								$("#p2").load( "inicio.html", function() {
@@ -659,9 +636,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
+										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUC)
 										{
-											VerGraficoSensorTermico(true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
+											VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
 										}
 										else
 										{
@@ -672,13 +649,13 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 											var NombreSeccion;
 											var IdEquipo;
 											var NombreEquipo;
-											
+
 											//Buscando datos restantes para el grafico
 											$.post(RUTACONTROL,{
 												accion: 'GetDatosEquipoSensor',
-												Id_cliente: ID_CLIENTE,
-												Id_sucursal: ID_SUC,
-												Id_sensor: ID_SENSOR
+												Id_cliente: FUN_ID_CLIENTE,
+												Id_sucursal: FUN_ID_SUC,
+												Id_sensor: FUN_ID_SENSOR
 											},
 											function(response) {			
 												var json = jQuery.parseJSON(response);
@@ -691,7 +668,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 													NombreEquipo=d.NOMBRE_EQUIPO;
 												});
 											}).done(function(response) {
-												VerGraficoSensorTermico(true,ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
+												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
 											});
 										}
 									}, 750);								
