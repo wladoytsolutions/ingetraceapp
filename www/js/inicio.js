@@ -27,7 +27,7 @@ $( document ).ready(function() {
 	$("#btn_Pruebas").click(function(e) {
 		e.preventDefault();
 	});
-	$("#ModalPage_p2").load("html_parts/modal_cargando.html");
+	$("#ModalPage2").load("html_parts/modal_cargando.html");
 	
 	document.addEventListener("backbutton", function(e){
     if($.mobile.activePage.is('#p2')){
@@ -64,13 +64,13 @@ function ScrollContenedor(Id_sensor)
 function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	event.preventDefault();
-	VerGraficoSensorTermico(true,false,'ModalPage_p2',IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
+	VerGraficoSensorTermico(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
 }
 function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 {
 	event.preventDefault();
 	
-	$('#ModalPage_p2').popup('open', {
+	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -129,7 +129,7 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 							});
 							
 				}).done(function(response) {
-					$('#ModalPage_p2').popup('close');
+					$('#ModalPage2').popup('close');
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						$("#TablaDatosSensores").dataTable({
@@ -152,7 +152,7 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 }
 function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,Id_seccion, Nombre_seccion, Id_equipo, Nombre_equipo,Id_sensor)
 {
-	$('#ModalPage_p2').popup('open', {
+	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -222,7 +222,7 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 							}, 250);
 							
 				}).done(function(response) {
-					$('#ModalPage_p2').popup('close');
+					$('#ModalPage2').popup('close');
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						$("#TablaDatosAlarmas").dataTable({

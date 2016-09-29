@@ -68,7 +68,7 @@ function CambiarClienteSucursal()
 		var OpcionesClientes='';
 		
 		$(window).disablescroll();
-		$('#ModalPage_p2').popup('open', {
+		$('#ModalPage2').popup('open', {
 			transition: 'pop'
 		});
 		
@@ -137,7 +137,7 @@ function CambiarClienteSucursal()
 			
 		}).done(function(response) {
 			$('#H_CARGA_CAMBIO_CLISUC').val('1');
-			$('#ModalPage_p2').popup("close");
+			$('#ModalPage2').popup("close");
 			
 			$(window).disablescroll("undo");
 			
@@ -163,7 +163,7 @@ function CambiarClave()
 }
 function CambiarSucursal(Id_cliente,Id_sucursal)
 {
-	$('#ModalPage_p2').popup('open', {
+	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -192,7 +192,7 @@ function CambiarSucursal(Id_cliente,Id_sucursal)
 				GenerarHTMLSensores(d);
 		});
 	}).done(function(response) {
-		$('#ModalPage_p2').popup("close");
+		$('#ModalPage2').popup("close");
 		$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val(Id_cliente);
 		$('#H_ID_SUCURSAL_ACTUAL').val(Id_sucursal);

@@ -64,29 +64,12 @@
         <script type="text/javascript" charset="UTF-8"src="js/jquery2.2.1.js"></script>
         <script type="text/javascript" charset="UTF-8" src="js/funciones_util.js"></script>
 		<script type="text/javascript" charset="UTF-8" src="js/jquery.mobile-1.4.5.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="plugin/higthchart/Highcharts.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="plugin/higthchart/HighchartsExport.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
-		<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.es.min.js"></script>
-		<style>
-			.IconosPrincipales
-			{
-				font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-				font-size: 14px;
-				line-height: 1.42857;
-				font-size: 20px;box-sizing: border-box;
-				display: inline-block;
-				font-weight: 700;
-				margin-bottom: 5px;
-				max-width: 100%;
-			}
-		</style>
     </head>
     <body id="BodyPrincipal">
 	<!-- Page 1 -->
     <div data-role="page" id="p1" data-backbtn="false">
 		<!-- popup P1 -->
-		<div data-role="popup" id="ModalPage_p1" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="ui-corner-all" data-history="false">
+		<div data-role="popup" id="ModalPage1" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="ui-corner-all" data-history="false">
         </div>
 		<!--./ popup P1 ./-->
 		<!-- popup Error -->
@@ -95,7 +78,7 @@
 		<!--./ popup Error ./-->
         <div data-role="content">
 			<div class="container-fluid colmod">
-				<div class="row rowlogin" id="RowLogin" name="Login" style="display:none">				
+				<div class="row rowlogin" id="RowLogin" name="Login">				
 					<div style="background: transparent url(&quot;img/form-bg.png&quot;) no-repeat scroll 0% 0% / 100% 100%; height: 175px; padding-right: 0px; padding-left: 15px;" class="col-md-3 col-md-offset-5">
 						<div style="width: 79%; float: left; padding-left: 10px; height: 175px;">
 							<br>
@@ -134,7 +117,7 @@
 	<!-- Page 3 -->
 	<div data-role="page" id="p3">
 	<!-- popup P3 -->
-	<div data-role="popup" id="ModalPage_p3" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="ui-corner-all" data-history="false">
+	<div data-role="popup" id="ModalPage3" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="ui-corner-all" data-history="false">
     </div>
 	<div data-role="popup" id="ModalCargandoAlarma" data-overlay-theme="a" data-theme="c" data-dismissible="false" class="ui-corner-all" data-history="false">
 	</div>
@@ -169,7 +152,6 @@
 		<input type="hidden" value=""  id="H_ID_DEVICE_NOTIFICACION" />
 		<input type="hidden" value=""  id="H_DESDE_NOTIFICACION" />
 		<input type="hidden" value=""  id="H_SUCURSAL_CARGADA" />
-		<textarea id="H_JSON_SUCURSAL"></textarea> 
 		<select id="CboAux_Cliente">											
 		</select>
 		<select id="CboAux_Sucursal">											
@@ -179,7 +161,7 @@
 	<script type="text/javascript" charset="UTF-8" src = "js/jquery-ui.js"></script>
 	<script type="text/javascript" charset="UTF-8" src = "js/jquery.dataTables.js"></script>
 	<script type="text/javascript" charset="UTF-8" src = "js/dataTables.bootstrap.js"></script>
-	<script type="text/javascript" charset="UTF-8" src = "js/index.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="js/index.js"></script>
 	<script type="text/javascript">
 		app.initialize();
     </script>

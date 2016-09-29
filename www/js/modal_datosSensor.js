@@ -1,7 +1,7 @@
 var BANDERA_TAB=false;
 
 $(document).ready(function() {
-	$("#ModalPage_p3").load("html_parts/modal_cargando.html");
+	$("#ModalPage3").load("html_parts/modal_cargando.html");
 	$("#btn_buscarGrafico").prop('disabled', true);
 		
 		$("#btn_buscarGrafico").click(function(e) {
@@ -686,6 +686,19 @@ function ValidarFechasOperaciones()
 	}
 		
 	return Respuesta;
+}
+function VolverAtras(event)
+{
+	event.preventDefault();
+	$.mobile.pageContainer.pagecontainer('change', '#p2', {
+		transition: 'flip',
+		changeHash: true,
+		reverse: false,
+		showLoadMsg: false
+	});
+	setTimeout(function () {
+		ScrollContenedor($('#H_ID_SENSOR').val());
+	},500);
 }
 function RecargarTablaDatos()
 {		

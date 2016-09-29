@@ -66,18 +66,6 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
-			if($("#H_SUCURSAL_CARGADA").val()!="1")
-			{
-				BD_APP.transaction(function(tx) {
-					tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-						var Valor=""+rs.rows.item(0).json_sucursal;
-						Valor=atob(Valor);
-						$("#H_JSON_SUCURSAL").html(Valor);					
-					}, function(tx, error) {
-						alert(error.message);
-					});
-				});
-			}
 			CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
 			//alert(data.additionalData);
 			// data.message,
@@ -97,7 +85,6 @@ var app = {
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
-				$('#RowLogin').show();
 				BuscarCookie();
 			}
 		}, 500);
@@ -109,7 +96,7 @@ $( document ).ready(function() {
 		$(BotonAceptar).attr('id','btnErrorAceptarPage1');
 		$(BotonAceptar).attr('onclick','javascript:CerrarModalErrorP1(event)');
 	});
-	$("#ModalPage_p1").load("html_parts/modal_cargando.html");
+	$("#ModalPage1").load("html_parts/modal_cargando.html");
 	
    	$("#DivIngresar").click(function(e) {
 		e.preventDefault();
@@ -213,17 +200,17 @@ function BuscarCookie()
 		
 	if(UbicacionPage=='#p2')
 	{
-		//window.location.href = "index.html?Origen=p2";
+		window.location.href = "index.html?Origen=p2";
 	}
 	else if(UbicacionPage=='#p3')
 	{
-		//window.location.href = "index.html?Origen=p3";
+		window.location.href = "index.html?Origen=p3";
 	}
 	else
 	{
 		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
-			ValidarCKIncial(ValCK,true,false,'');
+			ValidarCKIncial(ValCK);
 		}
 		else
 		{
@@ -330,21 +317,17 @@ function GenerarHTMLSensores(DATOS)
 	CargarMarquee();
 	$('#H_SUCURSAL_CARGADA').val("1");	
 }
-function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	$(window).disablescroll();
 
-	if(VerPopUp)
-	{
-		$('#'+ModalPopUp+'').popup('open', {
-			transition: 'pop'
-		});
-	}
+	$('#ModalPage2').popup('open', {
+		transition: 'pop'
+	});
 	
 	var optionsLineal;
 	
 	$("#p3Body").html("");
-	
 	
 	$("#p3Body").load(
 		"sensor.html",
@@ -361,6 +344,11 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 				$("#H_ID_EQUIPO").val(IdEquipo);
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
+				
+				if(HideSplash)
+				{
+					CerrarSplash();
+				}
 								
 				//HTML CARGADO
 				$.post(RUTACONTROL,
@@ -374,6 +362,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						}, 
 				function(response) {
 					var json = jQuery.parseJSON(response);
+					
 					//TENDENCIA
 					var CuerpoDatos='';
 					var CuerpoAlarmas='';
@@ -402,6 +391,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 									autoclose:true,
 									orientation: "top auto"
 									});
+						
 						$("#JSON_DATOS").html(response);
 						var Promedio=0;
 						var Limite=0;
@@ -548,6 +538,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						reverse: true,
 						showLoadMsg: false
 					});
+					
 					//Quitando footer de jquery para que se vea el footer original
 					$('#p3Body').find('.ui-footer').remove();
 					//$('#p3Body').find('.ui-header').remove();
@@ -563,14 +554,12 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						}
 					}, 250);					
 				}).done(function(response) {
-					if(VerPopUp || SoloCerrarPopUp)
-					{
-						$('#'+ModalPopUp+'').popup("close");
-					}
+					$('#ModalPage2').popup("close");
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
+						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
 				});
 			});
@@ -583,56 +572,109 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
-		//Cerrando
-		CerrarSplash();
-		var Pagina=$.mobile.activePage.attr('id')+'';
-		
-		if(Pagina=="p1")
+		//Validar si la sucursal esta cargada
+		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
-			$('#RowLogin').hide();
+			//Validar si es la misma sursal
+			if($('#H_ID_CLIENTE_ACTUAL').val()==ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==ID_SUC)
+			{
+				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+			}
 		}
-		
-		$('#ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
-			transition: 'pop'
-		});
-		
-		var NombreCliente;
-		var NombreSucursal;
-		var IdSeccion;
-		var NombreSeccion;
-		var IdEquipo;
-		var NombreEquipo;
-		
-		//Buscando datos restantes para el grafico
-		$.post(RUTACONTROL,{
-			accion: 'GetDatosEquipoSensor',
-			Id_cliente: ID_CLIENTE,
-			Id_sucursal: ID_SUC,
-			Id_sensor: ID_SENSOR
-		},
-		function(response) {			
-			var json = jQuery.parseJSON(response);
-			$.each(json, function(i, d) {
-				NombreCliente=d.RAZONSOCIAL;
-				NombreSucursal=d.NOMBRE_SUCURSAL;
-				IdSeccion=d.ID_SECCION;
-				NombreSeccion=d.NOMBRE_SECCION;
-				IdEquipo=d.ID_EQUIPO;
-				NombreEquipo=d.NOMBRE_EQUIPO;
+		else
+		{		
+			//Validar si el sensor de la notificacion corresponde a la sucursal en la BD
+			BD_APP.transaction(function(tx) {
+				tx.executeSql('SELECT id_cliente,id_sucursal,json_sucursal FROM tbl_datos', [], function(tx, rs) {
+					var id_cliente=""+rs.rows.item(0).id_cliente;
+					var id_sucursal=""+rs.rows.item(0).id_sucursal;
+					var json_sucursal=""+rs.rows.item(0).json_sucursal;
+					json_sucursal=atob(json_sucursal);
+					
+					if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
+					{
+						var json = jQuery.parseJSON(json_sucursal);
+						$.each(json, function(i, d) {
+							ESTADO=d.ESTADO;
+							
+							if(d.ESTADO=="S")
+							{
+								//Cookie
+								setCK(''+d.CK);
+										
+								ID_CLIENTE=d.ID_CLIENTE;
+								ID_SUCURSAL=d.ID_SUC;
+										
+								//Cargando html
+								$("#p2").load( "inicio.html", function() {
+									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
+									$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+									//Agregando menu
+									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
+										$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
+										$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
+													
+										//Estado de sucursal
+										$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
+										$("#IconoSucursal").html(d.ICONO_SUCURSAL);
+										$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
+										LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
+										$("#LogoCliente").attr("src",LOGO_CLIENTE);					
+													
+										GenerarHTMLSensores(d);									
+										ActualizarDashboard();
+									});//Fin load menu
+									
+									$('#BodyPrincipal').pagecontainer('change', '#p2', {
+										transition: 'flip',
+										changeHash: true,
+										reverse: false,
+										showLoadMsg: false
+									});
+									setTimeout(function () {
+										VerGraficoSensorTermico(true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
+									}, 750);								
+									
+								});//Fin load cuerpo
+							}
+							else
+							{
+								setTimeout(function () {
+									MostrarModalErrorP1('Usuario y/o contraseña invalido');
+								}, 500);
+								//Cerrando dialogo
+								$('#DivIngresar').show();
+							}
+						});
+					}
+					
+				}, function(tx, error) {});
 			});
-		}).done(function(response) {
-			VerGraficoSensorTermico(false,true,'ModalPage_'+$.mobile.activePage.attr('id'),ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
-		});
+		}
 	}
 	else
 	{
+		CerrarSplash();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
 }
-function CargarHtmlSucursal(json_sucursal,CK,HideSplash,CloseModal,ModalPopUp)
+function ValidarCKIncial(CK)
 {
-	alert(json_sucursal);
-	var json = jQuery.parseJSON(json_sucursal);
+	$('#DivIngresar').hide();
+	$(window).disablescroll();
+	
+	var ID_CLIENTE;
+	var ID_SUCURSAL;
+	var NOMBRESUCURSAL;
+	var ESTADO="";
+	var LOGO_CLIENTE="";
+	
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+			var Valor=""+rs.rows.item(0).json_sucursal;
+			Valor=atob(Valor);
+			
+			var json = jQuery.parseJSON(Valor);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
 				
@@ -664,34 +706,15 @@ function CargarHtmlSucursal(json_sucursal,CK,HideSplash,CloseModal,ModalPopUp)
 							ActualizarDashboard();
 						});//Fin load menu
 						
-						if(CloseModal)
-						{
-							$.mobile.pageContainer.pagecontainer('change', '#p2', {
-								transition: 'flip',
-								changeHash: true,
-								reverse: false,
-								showLoadMsg: false
-							});
-						}
-						else
-						{						
-							$('#BodyPrincipal').pagecontainer('change', '#p2', {
-								transition: 'flip',
-								changeHash: true,
-								reverse: false,
-								showLoadMsg: false
-							});
-						}
-						if(HideSplash)
-						{
-							setTimeout(function () {
-								CerrarSplash();
-							}, 500);
-						}
-						if(CloseModal)
-						{
-							$('#'+ModalPopUp+'').popup("close");
-						}
+						$('#BodyPrincipal').pagecontainer('change', '#p2', {
+							transition: 'flip',
+							changeHash: true,
+							reverse: false,
+							showLoadMsg: false
+						});
+						setTimeout(function () {
+							CerrarSplash();
+						}, 500);
 					});//Fin load cuerpo
 				}
 				else
@@ -702,24 +725,8 @@ function CargarHtmlSucursal(json_sucursal,CK,HideSplash,CloseModal,ModalPopUp)
 					//Cerrando dialogo
 					$('#DivIngresar').show();
 				}
-	});
-}
-function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
-{
-	$('#DivIngresar').hide();
-	$(window).disablescroll();
-	
-	var ID_CLIENTE;
-	var ID_SUCURSAL;
-	var NOMBRESUCURSAL;
-	var ESTADO="";
-	var LOGO_CLIENTE="";
-	
-	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-			var Valor=""+rs.rows.item(0).json_sucursal;
-			Valor=atob(Valor);
-			CargarHtmlSucursal(Valor,CK,HideSplash,CloseModal,ModalPopUp);
+			});
+			
 		}, function(tx, error) {});
 	});
 }
@@ -749,7 +756,7 @@ function CerrarModalErrorP1(e)
 function login()
 {
 	$('#DivIngresar').hide();
-	$('#ModalPage_p1').popup('open', {
+	$('#ModalPage1').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -796,13 +803,13 @@ function login()
 							reverse: false,
 							showLoadMsg: false
 						});
-						$('#ModalPage_p1').popup( "close" );
+						$('#ModalPage1').popup( "close" );
 					}, 500);
 				});//Fin load cuerpo
 			}
 			else
 			{
-				$('#ModalPage_p1').popup( "close" );
+				$('#ModalPage1').popup( "close" );
 				setTimeout(function () {
 				MostrarModalErrorP1('Usuario y/o contraseña invalido');
 				}, 500);
@@ -813,29 +820,4 @@ function login()
 	}).done(function(response) {
 		$(window).disablescroll("undo");
 	});
-}
-function VolverAtrasSensorTermico(event)
-{
-	event.preventDefault();
-	if($('#H_SUCURSAL_CARGADA').val()!="1")
-	{
-		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
-			transition: 'pop'
-		});
-		//var ValCK=getCK();
-		//alert($("#H_JSON_SUCURSAL").html());
-		CargarHtmlSucursal($("#H_JSON_SUCURSAL").html(),CK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
-	}
-	else
-	{
-		$.mobile.pageContainer.pagecontainer('change', '#p2', {
-			transition: 'flip',
-			changeHash: true,
-			reverse: false,
-			showLoadMsg: false
-		});
-		setTimeout(function () {
-			ScrollContenedor($('#H_ID_SENSOR').val());
-		},500);
-	}
 }
