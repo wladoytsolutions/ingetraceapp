@@ -572,89 +572,23 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
-		//Validar si la sucursal esta cargada
-		if($('#H_SUCURSAL_CARGADA').val()=="1")
-		{
-			//Validar si es la misma sursal
-			if($('#H_ID_CLIENTE_ACTUAL').val()==ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==ID_SUC)
-			{
-				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
-			}
-		}
-		else
-		{		
-			//Validar si el sensor de la notificacion corresponde a la sucursal en la BD
-			BD_APP.transaction(function(tx) {
-				tx.executeSql('SELECT id_cliente,id_sucursal,json_sucursal FROM tbl_datos', [], function(tx, rs) {
-					var id_cliente=""+rs.rows.item(0).id_cliente;
-					var id_sucursal=""+rs.rows.item(0).id_sucursal;
-					var json_sucursal=""+rs.rows.item(0).json_sucursal;
-					json_sucursal=atob(json_sucursal);
-					
-					if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
-					{
-						var json = jQuery.parseJSON(json_sucursal);
-						$.each(json, function(i, d) {
-							ESTADO=d.ESTADO;
-							
-							if(d.ESTADO=="S")
-							{
-								//Cookie
-								setCK(''+d.CK);
-										
-								ID_CLIENTE=d.ID_CLIENTE;
-								ID_SUCURSAL=d.ID_SUC;
-										
-								//Cargando html
-								$("#p2").load( "inicio.html", function() {
-									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
-									$("#ModalClave3").load("html_parts/modal_cambioClave.html");
-									//Agregando menu
-									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
-										$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
-										$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
-													
-										//Estado de sucursal
-										$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
-										$("#IconoSucursal").html(d.ICONO_SUCURSAL);
-										$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
-										LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
-										$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-													
-										GenerarHTMLSensores(d);									
-										ActualizarDashboard();
-									});//Fin load menu
-									
-									$('#BodyPrincipal').pagecontainer('change', '#p2', {
-										transition: 'flip',
-										changeHash: true,
-										reverse: false,
-										showLoadMsg: false
-									});
-									setTimeout(function () {
-										VerGraficoSensorTermico(true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
-									}, 750);								
-									
-								});//Fin load cuerpo
-							}
-							else
-							{
-								setTimeout(function () {
-									MostrarModalErrorP1('Usuario y/o contraseña invalido');
-								}, 500);
-								//Cerrando dialogo
-								$('#DivIngresar').show();
-							}
-						});
-					}
-					
-				}, function(tx, error) {});
-			});
-		}
+		//Cerrando
+		CerrarSplash();
+		
+		//Buscando datos restantes para el grafico
+		$.post(RUTACONTROL,{
+			Id_cliente: ID_CLIENTE,
+			Id_sucursal: ID_SUC,
+			Id_sensor: ID_SENSOR
+		},
+		function(response) {
+			alert(response);
+		}).done(function(response) {
+			
+		});
 	}
 	else
 	{
-		CerrarSplash();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
 }
