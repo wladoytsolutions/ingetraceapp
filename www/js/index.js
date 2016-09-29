@@ -1,8 +1,8 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
+var NOTIFICACION=false;
 
-var  NOTIFICACION=false;
 
 var app = {
     // Application Constructor
@@ -87,18 +87,18 @@ var app = {
 		setTimeout(function () {
 			if(NOTIFICACION)
 			{
-				alert("es notificaicon");
+				alert("Notifiacion en curso");
 			}
 			else
 			{
-				alert("no es no tificaicon");
+				alert("NO HAY NOTIFICACION");
 			}
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
 				$('#RowLogin').show();
 				BuscarCookie();
 			}
-		}, 500);
+		}, 5000);
     }
 };
 $( document ).ready(function() {
@@ -203,7 +203,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val()+" IDCLI "+$("#H_ID_CLIENTE_ACTUAL").val()+" NUeva "+$("#H_SENSOR_PRUEBA_CARGADA").val());
+	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val()+" IDCLI "+$("#H_ID_CLIENTE_ACTUAL").val()+" NUeva "+$("#H_ID_CLIENTE_ACTUAL").val());
 	var ValCK=getCK();
 	//Es de notificacion
 	
@@ -570,8 +570,6 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
-						$("#H_TAB_GRAFICO_CARGADO").val("ok");
-						alert("Fin "$("#H_DESDE_NOTIFICACION").val());
 					}, 750);
 				});
 			});
