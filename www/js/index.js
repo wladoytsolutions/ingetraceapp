@@ -670,12 +670,24 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 							ActualizarDashboard();
 						});//Fin load menu
 						
-						$('#BodyPrincipal').pagecontainer('change', '#p2', {
-							transition: 'flip',
-							changeHash: true,
-							reverse: false,
-							showLoadMsg: false
-						});
+						if(CloseModal)
+						{
+							$.mobile.pageContainer.pagecontainer('change', '#p2', {
+								transition: 'flip',
+								changeHash: true,
+								reverse: false,
+								showLoadMsg: false
+							});
+						}
+						else
+						{						
+							$('#BodyPrincipal').pagecontainer('change', '#p2', {
+								transition: 'flip',
+								changeHash: true,
+								reverse: false,
+								showLoadMsg: false
+							});
+						}
 						if(HideSplash)
 						{
 							setTimeout(function () {
