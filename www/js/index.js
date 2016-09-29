@@ -609,17 +609,14 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 								//Cookie
 								setCK(''+d.CK);
 										
-								var ID_CLIENTE=d.ID_CLIENTE;
-								var ID_SUCURSAL=d.ID_SUC;
-										
 								//Cargando html
 								$("#p2").load( "inicio.html", function() {
 									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 									$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 									//Agregando menu
 									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
-										$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
-										$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
+										$('#H_ID_CLIENTE_ACTUAL').val(id_cliente);
+										$('#H_ID_SUCURSAL_ACTUAL').val(id_sucursal);
 													
 										//Estado de sucursal
 										$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
