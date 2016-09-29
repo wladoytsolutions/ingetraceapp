@@ -66,6 +66,16 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
+			BD_APP.transaction(function(tx) {
+				tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+					var Valor=""+rs.rows.item(0).json_sucursal;
+					alert(Valor);
+					Valor=atob(Valor);
+					
+				}, function(tx, error) {
+					alert(error.message);
+				});
+			});
 			CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
 			//alert(data.additionalData);
 			// data.message,

@@ -695,18 +695,6 @@ function VolverAtras(event)
 		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
 			transition: 'pop'
 		});
-		BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
-		BD_APP.transaction(function(tx) {
-			tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-				alert("Se hizo la query");
-				var Valor=""+rs.rows.item(0).json_sucursal;
-				alert(Valor);
-				Valor=atob(Valor);
-				
-			}, function(tx, error) {
-				alert(error.message);
-			});
-		});
 		/**
 		
 		var ValCK=getCK();
