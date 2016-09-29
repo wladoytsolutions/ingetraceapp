@@ -193,6 +193,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
+	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val());
 	var ValCK=getCK();
 	//Es de notificacion
 	
@@ -211,7 +212,6 @@ function BuscarCookie()
 	{
 		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
-			alert("Buscando cookie");
 			ValidarCKIncial(ValCK,true,false,'');
 		}
 		else
