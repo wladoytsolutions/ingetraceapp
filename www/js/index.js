@@ -57,7 +57,7 @@ var app = {
 		});
 
 		push.on('notification', function(data) {
-			alert("push.on");
+			alert(JSON.stringify(data)); 
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
 			var ID_SUCURSAL;
@@ -573,7 +573,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 {	
 	//Verificando si hay CK
 	var ValCK=getCK();
-	alert("Notification");
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
