@@ -631,6 +631,8 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
+	alert("ACA");
+	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
