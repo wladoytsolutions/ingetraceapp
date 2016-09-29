@@ -211,7 +211,7 @@ function BuscarCookie()
 	{
 		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
-			ValidarCKIncial(ValCK);
+			ValidarCKIncial(ValCK,true);
 		}
 		else
 		{
@@ -620,7 +620,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
 }
-function ValidarCKIncial(CK)
+function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 {
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
@@ -674,9 +674,16 @@ function ValidarCKIncial(CK)
 							reverse: false,
 							showLoadMsg: false
 						});
-						setTimeout(function () {
-							CerrarSplash();
-						}, 500);
+						if(HideSplash)
+						{
+							setTimeout(function () {
+								CerrarSplash();
+							}, 500);
+						}
+						if(CloseModal)
+						{
+							$('#'+ModalPopUp+'').popup("close");
+						}
 					});//Fin load cuerpo
 				}
 				else

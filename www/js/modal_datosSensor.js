@@ -690,16 +690,26 @@ function ValidarFechasOperaciones()
 function VolverAtras(event)
 {
 	event.preventDefault();
-	alert($('#H_SUCURSAL_CARGADA').val());
-	$.mobile.pageContainer.pagecontainer('change', '#p2', {
-		transition: 'flip',
-		changeHash: true,
-		reverse: false,
-		showLoadMsg: false
-	});
-	setTimeout(function () {
-		ScrollContenedor($('#H_ID_SENSOR').val());
-	},500);
+	if($('#H_SUCURSAL_CARGADA').val()!="1")
+	{
+		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
+			transition: 'pop'
+		});
+		var ValCK=getCK();
+		ValidarCKIncial(ValCK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
+	}
+	else
+	{
+		$.mobile.pageContainer.pagecontainer('change', '#p2', {
+			transition: 'flip',
+			changeHash: true,
+			reverse: false,
+			showLoadMsg: false
+		});
+		setTimeout(function () {
+			ScrollContenedor($('#H_ID_SENSOR').val());
+		},500);
+	}
 }
 function RecargarTablaDatos()
 {		
