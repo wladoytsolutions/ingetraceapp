@@ -695,7 +695,8 @@ function VolverAtras(event)
 		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
 			transition: 'pop'
 		});
-		var ValCK=getCK();
+		//var ValCK=getCK();
+		alert($("#H_JSON_SUCURSAL").html());
 		CargarHtmlSucursal($("#H_JSON_SUCURSAL").html(),CK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
 	}
 	else
