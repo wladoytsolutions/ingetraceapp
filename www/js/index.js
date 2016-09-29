@@ -66,16 +66,18 @@ var app = {
 					$("#H_ID_SENSOR").val(d.idsensor);					
 				}
 			});
-			BD_APP.transaction(function(tx) {
-				tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-					var Valor=""+rs.rows.item(0).json_sucursal;
-					alert(Valor);
-					Valor=atob(Valor);
-					
-				}, function(tx, error) {
-					alert(error.message);
+			if($("#H_SUCURSAL_CARGADA").val()!="1")
+			{
+				BD_APP.transaction(function(tx) {
+					tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+						var Valor=""+rs.rows.item(0).json_sucursal;
+						Valor=atob(Valor);
+						$("#H_JSON_SUCURSAL").html(Valor);					
+					}, function(tx, error) {
+						alert(error.message);
+					});
 				});
-			});
+			}
 			CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
 			//alert(data.additionalData);
 			// data.message,
@@ -627,24 +629,9 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
 }
-function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
+function CargarHtmlSucursal(json_sucursal,CK,HideSplash,CloseModal,ModalPopUp)
 {
-	$('#DivIngresar').hide();
-	$(window).disablescroll();
-	
-	var ID_CLIENTE;
-	var ID_SUCURSAL;
-	var NOMBRESUCURSAL;
-	var ESTADO="";
-	var LOGO_CLIENTE="";
-	
-	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
-			var Valor=""+rs.rows.item(0).json_sucursal;
-			Valor=atob(Valor);
-			
-			var json = jQuery.parseJSON(Valor);
-			alert(Valor);
+	var json = jQuery.parseJSON(json_sucursal);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
 				
@@ -714,8 +701,24 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 					//Cerrando dialogo
 					$('#DivIngresar').show();
 				}
-			});
-			
+	});
+}
+function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
+{
+	$('#DivIngresar').hide();
+	$(window).disablescroll();
+	
+	var ID_CLIENTE;
+	var ID_SUCURSAL;
+	var NOMBRESUCURSAL;
+	var ESTADO="";
+	var LOGO_CLIENTE="";
+	
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+			var Valor=""+rs.rows.item(0).json_sucursal;
+			Valor=atob(Valor);
+			CargarHtmlSucursal(Valor,CK,HideSplash,CloseModal,ModalPopUp);
 		}, function(tx, error) {});
 	});
 }
