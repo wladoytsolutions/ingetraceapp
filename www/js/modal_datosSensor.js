@@ -690,6 +690,7 @@ function ValidarFechasOperaciones()
 function VolverAtras(event)
 {
 	event.preventDefault();
+	alert($('#H_SUCURSAL_CARGADA').val());
 	$.mobile.pageContainer.pagecontainer('change', '#p2', {
 		transition: 'flip',
 		changeHash: true,
