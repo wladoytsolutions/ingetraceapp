@@ -583,9 +583,17 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			Id_sensor: ID_SENSOR
 		},
 		function(response) {
-			alert(response);
+			var json = jQuery.parseJSON(response);
+			$.each(json, function(i, d) {
+				
+			});
 		}).done(function(response) {
-			
+			$.mobile.pageContainer.pagecontainer('change', '#p3', {
+					transition: 'flip',
+					changeHash: true,
+					reverse: true,
+					showLoadMsg: false
+			});
 		});
 	}
 	else
