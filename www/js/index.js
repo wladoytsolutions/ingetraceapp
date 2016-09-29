@@ -82,7 +82,6 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		alert(""+id);
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
