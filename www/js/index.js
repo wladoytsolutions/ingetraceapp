@@ -88,7 +88,7 @@ var app = {
 				$('#RowLogin').show();
 				BuscarCookie();
 			}
-		}, 750);
+		}, 5000);
     }
 };
 $( document ).ready(function() {
@@ -193,7 +193,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val());
+	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val()+" IDCLI "+$("#H_ID_CLIENTE_ACTUAL").val());
 	var ValCK=getCK();
 	//Es de notificacion
 	
@@ -561,7 +561,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
-						alert("Fin "+$("#H_DESDE_NOTIFICACION").val());
+						alert("Fin "$("#H_DESDE_NOTIFICACION").val());
 					}, 750);
 				});
 			});
