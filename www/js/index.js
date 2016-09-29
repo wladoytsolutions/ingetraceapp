@@ -580,6 +580,10 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			{
 				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
 			}
+			else
+			{
+				alert("Sucursal cargada pero Sensor duera de la suc");
+			}
 		}
 		else
 		{		
@@ -591,9 +595,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 					var json_sucursal=""+rs.rows.item(0).json_sucursal;
 					json_sucursal=atob(json_sucursal);
 					
-					if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
-					{
-						var json = jQuery.parseJSON(json_sucursal);
+					var json = jQuery.parseJSON(json_sucursal);
 						$.each(json, function(i, d) {
 							ESTADO=d.ESTADO;
 							
@@ -632,7 +634,14 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										VerGraficoSensorTermico(true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
+										if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
+										{
+											VerGraficoSensorTermico(true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
+										}
+										else
+										{
+											alert("Sensor duera de la suc");
+										}
 									}, 750);								
 									
 								});//Fin load cuerpo
@@ -646,7 +655,6 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 								$('#DivIngresar').show();
 							}
 						});
-					}
 					
 				}, function(tx, error) {});
 			});
