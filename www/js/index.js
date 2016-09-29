@@ -1,7 +1,6 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
-var NOTIFICACION=false;
 
 
 var app = {
@@ -59,7 +58,6 @@ var app = {
 
 		push.on('notification', function(data) {
 			$("#H_DESDE_NOTIFICACION").val("1");
-			NOTIFICACION=true;
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
@@ -85,20 +83,12 @@ var app = {
     // Update DOM on a Received Event
     receivedEvent: function(id) {
 		setTimeout(function () {
-			if(NOTIFICACION)
-			{
-				alert("Notifiacion en curso");
-			}
-			else
-			{
-				alert("NO HAY NOTIFICACION");
-			}
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
 				$('#RowLogin').show();
 				BuscarCookie();
 			}
-		}, 5000);
+		}, 500);
     }
 };
 $( document ).ready(function() {
@@ -203,7 +193,6 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val()+" IDCLI "+$("#H_ID_CLIENTE_ACTUAL").val()+" NUeva "+$("#H_ID_CLIENTE_ACTUAL").val());
 	var ValCK=getCK();
 	//Es de notificacion
 	
@@ -212,11 +201,11 @@ function BuscarCookie()
 		
 	if(UbicacionPage=='#p2')
 	{
-		window.location.href = "index.html?Origen=p2";
+		//window.location.href = "index.html?Origen=p2";
 	}
 	else if(UbicacionPage=='#p3')
 	{
-		window.location.href = "index.html?Origen=p3";
+		//window.location.href = "index.html?Origen=p3";
 	}
 	else
 	{
@@ -639,8 +628,6 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
-	try{
-	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
@@ -721,10 +708,6 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 			
 		}, function(tx, error) {});
 	});
-			}
-		catch(err) {
-			alert(err.message);
-		}
 }
 function ValidarCampos()
 {
