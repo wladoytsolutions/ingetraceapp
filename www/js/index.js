@@ -85,6 +85,7 @@ var app = {
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
+				$('#RowLogin').show();
 				BuscarCookie();
 			}
 		}, 500);
@@ -613,6 +614,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				NombreEquipo=d.NOMBRE_EQUIPO;
 			});
 		}).done(function(response) {
+			alert(NombreCliente+","+NombreSucursal+","+IdSeccion+","+NombreSeccion+","+IdEquipo+","+NombreEquipo);
 			VerGraficoSensorTermico(false,'ModalPage_'+$.mobile.activePage.attr('id'),ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
 		});
 	}
