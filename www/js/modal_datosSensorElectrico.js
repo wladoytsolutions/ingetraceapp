@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$("#ModalPage3").load("html_parts/modal_cargando.html");
+	$("#ModalPage_p3").load("html_parts/modal_cargando.html");
 	$("#btn_buscarGraficoElectrico").prop('disabled', false);		
 		
 	$("#btn_buscarGraficoElectrico").click(function(e) {
@@ -44,7 +44,7 @@ $(document).ready(function() {
 });
 function CargarDatosElectrico(Inicio,Termino)
 {
-	$('#ModalPage3').popup('open', {
+	$('#ModalPage_p3').popup('open', {
 		transition: 'pop'
 	});
 	$('#PanelDatosElectrico').hide('fade');
@@ -91,7 +91,7 @@ function CargarDatosElectrico(Inicio,Termino)
 						
 			$("#tBodyDatosGrafico").html(CuerpoDatos);						
 	}).done(function(response) {
-		$('#ModalPage3').popup('close');
+		$('#ModalPage_p3').popup('close');
 		$(window).disablescroll("undo");
 		setTimeout(function () {
 			$("#TablaDatosSensores").dataTable({

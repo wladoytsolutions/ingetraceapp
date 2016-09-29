@@ -27,7 +27,7 @@ $( document ).ready(function() {
 	$("#btn_Pruebas").click(function(e) {
 		e.preventDefault();
 	});
-	$("#ModalPage2").load("html_parts/modal_cargando.html");
+	$("#ModalPage_p2").load("html_parts/modal_cargando.html");
 	
 	document.addEventListener("backbutton", function(e){
     if($.mobile.activePage.is('#p2')){
@@ -64,14 +64,13 @@ function ScrollContenedor(Id_sensor)
 function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	event.preventDefault();
-	alert(''+$.mobile.activePage.attr('id'));
-	VerGraficoSensorTermico('ModalPage2',false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
+	VerGraficoSensorTermico('ModalPage_p2',false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
 }
 function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 {
 	event.preventDefault();
 	
-	$('#ModalPage2').popup('open', {
+	$('#ModalPage_p2').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -130,7 +129,7 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 							});
 							
 				}).done(function(response) {
-					$('#ModalPage2').popup('close');
+					$('#ModalPage_p2').popup('close');
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						$("#TablaDatosSensores").dataTable({
@@ -153,7 +152,7 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 }
 function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,Id_seccion, Nombre_seccion, Id_equipo, Nombre_equipo,Id_sensor)
 {
-	$('#ModalPage2').popup('open', {
+	$('#ModalPage_p2').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -223,7 +222,7 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 							}, 250);
 							
 				}).done(function(response) {
-					$('#ModalPage2').popup('close');
+					$('#ModalPage_p2').popup('close');
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						$("#TablaDatosAlarmas").dataTable({

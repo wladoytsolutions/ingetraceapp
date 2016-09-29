@@ -96,7 +96,7 @@ $( document ).ready(function() {
 		$(BotonAceptar).attr('id','btnErrorAceptarPage1');
 		$(BotonAceptar).attr('onclick','javascript:CerrarModalErrorP1(event)');
 	});
-	$("#ModalPage1").load("html_parts/modal_cargando.html");
+	$("#ModalPage_p1").load("html_parts/modal_cargando.html");
 	
    	$("#DivIngresar").click(function(e) {
 		e.preventDefault();
@@ -569,6 +569,10 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 	{
 		//Cerrando
 		CerrarSplash();
+		alert(''+$.mobile.activePage.attr('id'));
+		$('#ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
+			transition: 'pop'
+		});
 		
 		//Buscando datos restantes para el grafico
 		$.post(RUTACONTROL,{
@@ -694,7 +698,7 @@ function CerrarModalErrorP1(e)
 function login()
 {
 	$('#DivIngresar').hide();
-	$('#ModalPage1').popup('open', {
+	$('#ModalPage_p1').popup('open', {
 		transition: 'pop'
 	});
 	$(window).disablescroll();
@@ -741,13 +745,13 @@ function login()
 							reverse: false,
 							showLoadMsg: false
 						});
-						$('#ModalPage1').popup( "close" );
+						$('#ModalPage_p1').popup( "close" );
 					}, 500);
 				});//Fin load cuerpo
 			}
 			else
 			{
-				$('#ModalPage1').popup( "close" );
+				$('#ModalPage_p1').popup( "close" );
 				setTimeout(function () {
 				MostrarModalErrorP1('Usuario y/o contraseña invalido');
 				}, 500);
