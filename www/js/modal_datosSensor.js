@@ -695,6 +695,17 @@ function VolverAtras(event)
 		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
 			transition: 'pop'
 		});
+		BD_APP.transaction(function(tx) {
+			alert("Ok");
+			tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+				var Valor=""+rs.rows.item(0).json_sucursal;
+				alert(Valor);
+				Valor=atob(Valor);
+				
+			}, function(tx, error) {});
+		});
+		/**
+		*/
 		var ValCK=getCK();
 		ValidarCKIncial(ValCK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
 
