@@ -211,6 +211,7 @@ function BuscarCookie()
 	{
 		if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 		{
+			alert("Buscando cookie");
 			ValidarCKIncial(ValCK,true,false,'');
 		}
 		else
@@ -630,8 +631,6 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
-	
-	alert("ACA");
 	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
