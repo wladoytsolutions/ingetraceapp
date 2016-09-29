@@ -317,13 +317,16 @@ function GenerarHTMLSensores(DATOS)
 	CargarMarquee();
 	$('#H_SUCURSAL_CARGADA').val("1");	
 }
-function VerGraficoSensorTermico(ModalPopUp,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function VerGraficoSensorTermico(VerPopUp,ModalPopUp,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	$(window).disablescroll();
 
-	$('#'+ModalPopUp+'').popup('open', {
-		transition: 'pop'
-	});
+	if(VerPopUp)
+	{
+		$('#'+ModalPopUp+'').popup('open', {
+			transition: 'pop'
+		});
+	}
 	
 	var optionsLineal;
 	
@@ -549,7 +552,10 @@ function VerGraficoSensorTermico(ModalPopUp,IdCliente,NombreCliente,IdSucursal,N
 						}
 					}, 250);					
 				}).done(function(response) {
-					$('#'+ModalPopUp+'').popup("close");
+					if(VerPopUp)
+					{
+						$('#'+ModalPopUp+'').popup("close");
+					}
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
@@ -569,10 +575,23 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 	{
 		//Cerrando
 		CerrarSplash();
-		alert(''+$.mobile.activePage.attr('id'));
+		var Pagina=$.mobile.activePage.attr('id')+'';
+		
+		if(Pagina=="p1")
+		{
+			$('#RowLogin').hide();
+		}
+		
 		$('#ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
 			transition: 'pop'
 		});
+		
+		var NombreCliente;
+		var NombreSucursal;
+		var IdSeccion;
+		var NombreSeccion;
+		var IdEquipo;
+		var NombreEquipo;
 		
 		//Buscando datos restantes para el grafico
 		$.post(RUTACONTROL,{
@@ -582,17 +601,19 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 			Id_sensor: ID_SENSOR
 		},
 		function(response) {
+			$('#ModalPage_'+$.mobile.activePage.attr('id')).popup('close');
+			
 			var json = jQuery.parseJSON(response);
 			$.each(json, function(i, d) {
-				
+				NombreCliente=d.RAZONSOCIAL;
+				NombreSucursal=d.NOMBRE_SUCURSAL;
+				IdSeccion=d.ID_SECCION;
+				NombreSeccion=d.NOMBRE_SECCION;
+				IdEquipo=d.ID_EQUIPO;
+				NombreEquipo=d.NOMBRE_EQUIPO;
 			});
 		}).done(function(response) {
-			$.mobile.pageContainer.pagecontainer('change', '#p3', {
-					transition: 'flip',
-					changeHash: true,
-					reverse: true,
-					showLoadMsg: false
-			});
+			VerGraficoSensorTermico(false,'ModalPage_'+$.mobile.activePage.attr('id'),ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
 		});
 	}
 	else
