@@ -631,6 +631,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 }
 function CargarHtmlSucursal(json_sucursal,CK,HideSplash,CloseModal,ModalPopUp)
 {
+	alert(json_sucursal);
 	var json = jQuery.parseJSON(json_sucursal);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
