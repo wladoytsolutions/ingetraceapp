@@ -577,6 +577,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		
 		//Buscando datos restantes para el grafico
 		$.post(RUTACONTROL,{
+			accion: 'GetDatosEquipoSensor',
 			Id_cliente: ID_CLIENTE,
 			Id_sucursal: ID_SUC,
 			Id_sensor: ID_SENSOR
