@@ -632,6 +632,8 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
+	try{
+	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
@@ -712,6 +714,10 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 			
 		}, function(tx, error) {});
 	});
+			}
+		catch(err) {
+			alert(err.message);
+		}
 }
 function ValidarCampos()
 {
