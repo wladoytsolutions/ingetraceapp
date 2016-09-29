@@ -692,11 +692,13 @@ function VolverAtras(event)
 	event.preventDefault();
 	if($('#H_SUCURSAL_CARGADA').val()!="1")
 	{
+		/**
 		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
 			transition: 'pop'
 		});
+		*/
 		//var ValCK=getCK();
-		alert($("#H_JSON_SUCURSAL").html());
+		//alert($("#H_JSON_SUCURSAL").html());
 		CargarHtmlSucursal($("#H_JSON_SUCURSAL").html(),CK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
 	}
 	else
