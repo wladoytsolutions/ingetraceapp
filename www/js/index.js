@@ -814,3 +814,28 @@ function login()
 		$(window).disablescroll("undo");
 	});
 }
+function VolverAtrasSensorTermico(event)
+{
+	event.preventDefault();
+	if($('#H_SUCURSAL_CARGADA').val()!="1")
+	{
+		$('#'+'ModalPage_'+$.mobile.activePage.attr('id')).popup('open', {
+			transition: 'pop'
+		});
+		//var ValCK=getCK();
+		//alert($("#H_JSON_SUCURSAL").html());
+		CargarHtmlSucursal($("#H_JSON_SUCURSAL").html(),CK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
+	}
+	else
+	{
+		$.mobile.pageContainer.pagecontainer('change', '#p2', {
+			transition: 'flip',
+			changeHash: true,
+			reverse: false,
+			showLoadMsg: false
+		});
+		setTimeout(function () {
+			ScrollContenedor($('#H_ID_SENSOR').val());
+		},500);
+	}
+}
