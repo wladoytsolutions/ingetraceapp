@@ -334,12 +334,15 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 	
 	$("#p3Body").html("");
 	
+	alert($("#H_DESDE_NOTIFICACION").val());
+	
 	$("#p3Body").load(
 		"sensor.html",
 	function() {
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datosSensorTermico.html",
 			function() {
+				alert($("#H_DESDE_NOTIFICACION").val());
 				$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
 				$("#H_RAZON_SOCIAL").val(NombreCliente);
 				$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
@@ -362,7 +365,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						}, 
 				function(response) {
 					var json = jQuery.parseJSON(response);
-					
+					alert($("#H_DESDE_NOTIFICACION").val());
 					//TENDENCIA
 					var CuerpoDatos='';
 					var CuerpoAlarmas='';
@@ -391,7 +394,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 									autoclose:true,
 									orientation: "top auto"
 									});
-						
+						alert($("#H_DESDE_NOTIFICACION").val());
 						$("#JSON_DATOS").html(response);
 						var Promedio=0;
 						var Limite=0;
@@ -538,7 +541,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						reverse: true,
 						showLoadMsg: false
 					});
-					
+					alert($("#H_DESDE_NOTIFICACION").val());
 					//Quitando footer de jquery para que se vea el footer original
 					$('#p3Body').find('.ui-footer').remove();
 					//$('#p3Body').find('.ui-header').remove();
@@ -563,6 +566,7 @@ function VerGraficoSensorTermico(VerPopUp,SoloCerrarPopUp,ModalPopUp,IdCliente,N
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
+						alert($("#H_DESDE_NOTIFICACION").val());
 					}, 750);
 				});
 			});
@@ -613,6 +617,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 				NombreEquipo=d.NOMBRE_EQUIPO;
 			});
 		}).done(function(response) {
+			alert($("#H_DESDE_NOTIFICACION").val());
 			VerGraficoSensorTermico(false,true,'ModalPage_'+$.mobile.activePage.attr('id'),ID_CLIENTE,NombreCliente,ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,ID_SENSOR);
 		});
 	}
