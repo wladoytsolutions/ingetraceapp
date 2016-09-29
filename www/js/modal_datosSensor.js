@@ -696,7 +696,12 @@ function VolverAtras(event)
 			transition: 'pop'
 		});
 		var ValCK=getCK();
-		ValidarCKIncial(ValCK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
+		try {
+			ValidarCKIncial(ValCK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
+		}
+		catch(err) {
+			alert(err.message);
+		}
 	}
 	else
 	{
