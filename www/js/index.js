@@ -52,6 +52,7 @@ var app = {
 		push.on('registration', function(data) {
 			// data.registrationI
 			//alert(''+data.registrationId);
+			$("#H_TEXT_DEVICE").html(""+data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
@@ -577,6 +578,8 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
+			alert("Sucursal cargada");
+			alert($('#H_ID_CLIENTE_ACTUAL').val()+" VS "+FUN_ID_CLIENTE + "  y   "+$('#H_ID_SUCURSAL_ACTUAL').val()+" VS "+FUN_ID_SUC);
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
