@@ -696,19 +696,21 @@ function VolverAtras(event)
 			transition: 'pop'
 		});
 		BD_APP.transaction(function(tx) {
-			alert("Ok");
 			tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+				alert("Se hizo la query");
 				var Valor=""+rs.rows.item(0).json_sucursal;
 				alert(Valor);
 				Valor=atob(Valor);
 				
-			}, function(tx, error) {});
+			}, function(tx, error) {
+				alert(error.message);
+			});
 		});
 		/**
-		*/
+		
 		var ValCK=getCK();
 		ValidarCKIncial(ValCK,false,true,'ModalPage_'+$.mobile.activePage.attr('id'));
-
+		*/
 	}
 	else
 	{
