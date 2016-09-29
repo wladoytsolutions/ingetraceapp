@@ -194,7 +194,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val()+" IDCLI "+$("#H_ID_CLIENTE_ACTUAL").val());
+	alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val()+" IDCLI "+$("#H_ID_CLIENTE_ACTUAL").val()+" NUeva "+$("#H_SENSOR_PRUEBA_CARGADA").val());
 	var ValCK=getCK();
 	//Es de notificacion
 	
