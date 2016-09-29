@@ -584,7 +584,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			}
 			else
 			{
-				alert("Sucursal cargada pero Sensor duera de la suc");
+				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 			}
 		}
 		else
@@ -642,34 +642,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 										}
 										else
 										{
-											alert("Sensor duera de la suc");
-											var NombreCliente;
-											var NombreSucursal;
-											var IdSeccion;
-											var NombreSeccion;
-											var IdEquipo;
-											var NombreEquipo;
-
-											//Buscando datos restantes para el grafico
-											$.post(RUTACONTROL,{
-												accion: 'GetDatosEquipoSensor',
-												Id_cliente: FUN_ID_CLIENTE,
-												Id_sucursal: FUN_ID_SUC,
-												Id_sensor: FUN_ID_SENSOR
-											},
-											function(response) {			
-												var json = jQuery.parseJSON(response);
-												$.each(json, function(i, d) {
-													NombreCliente=d.RAZONSOCIAL;
-													NombreSucursal=d.NOMBRE_SUCURSAL;
-													IdSeccion=d.ID_SECCION;
-													NombreSeccion=d.NOMBRE_SECCION;
-													IdEquipo=d.ID_EQUIPO;
-													NombreEquipo=d.NOMBRE_EQUIPO;
-												});
-											}).done(function(response) {
-												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
-											});
+											CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 										}
 									}, 750);								
 									
@@ -694,6 +667,37 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 		CerrarSplash();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
+}
+function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
+{
+	var NombreCliente;
+	var NombreSucursal;
+	var IdSeccion;
+	var NombreSeccion;
+	var IdEquipo;
+	var NombreEquipo;
+
+	//Buscando datos restantes para el grafico
+	$.post(RUTACONTROL,{
+			accion: 'GetDatosEquipoSensor',
+			Id_cliente: FUN_ID_CLIENTE,
+			Id_sucursal: FUN_ID_SUC,
+			Id_sensor: FUN_ID_SENSOR
+			},
+	function(response) {			
+		var json = jQuery.parseJSON(response);
+		
+		$.each(json, function(i, d) {
+			NombreCliente=d.RAZONSOCIAL;
+			NombreSucursal=d.NOMBRE_SUCURSAL;
+			IdSeccion=d.ID_SECCION;
+			NombreSeccion=d.NOMBRE_SECCION;
+			IdEquipo=d.ID_EQUIPO;
+			NombreEquipo=d.NOMBRE_EQUIPO;
+		});
+	}).done(function(response) {
+	VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
+	});
 }
 function ValidarCKIncial(CK)
 {
