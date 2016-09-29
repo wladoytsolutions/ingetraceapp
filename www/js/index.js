@@ -317,11 +317,11 @@ function GenerarHTMLSensores(DATOS)
 	CargarMarquee();
 	$('#H_SUCURSAL_CARGADA').val("1");	
 }
-function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function VerGraficoSensorTermico(ModalPopUp,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
 	$(window).disablescroll();
 
-	$('#ModalPage2').popup('open', {
+	$('#'+ModalPopUp+'').popup('open', {
 		transition: 'pop'
 	});
 	
@@ -344,11 +344,6 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				$("#H_ID_EQUIPO").val(IdEquipo);
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
-				
-				if(HideSplash)
-				{
-					CerrarSplash();
-				}
 								
 				//HTML CARGADO
 				$.post(RUTACONTROL,
@@ -554,7 +549,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						}
 					}, 250);					
 				}).done(function(response) {
-					$('#ModalPage2').popup("close");
+					$('#'+ModalPopUp+'').popup("close");
 					$(window).disablescroll("undo");
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
