@@ -88,7 +88,7 @@ var app = {
 				$('#RowLogin').show();
 				BuscarCookie();
 			}
-		}, 500);
+		}, 750);
     }
 };
 $( document ).ready(function() {
@@ -639,6 +639,7 @@ function ValidarCKIncial(CK,HideSplash,CloseModal,ModalPopUp)
 			Valor=atob(Valor);
 			
 			var json = jQuery.parseJSON(Valor);
+			alert(Valor);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
 				
