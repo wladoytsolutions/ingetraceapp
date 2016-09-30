@@ -58,7 +58,7 @@ var app = {
 		});
 
 		pushPlugin.on('notification', function(data) {
-			alert(JSON.stringify(data)); 
+			//alert(JSON.stringify(data)); 
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
 			var ID_SUCURSAL;
@@ -590,7 +590,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
 			//Validar si estamos en la pantalla p3
-			var timeoutPage=100;
 			if($.mobile.activePage.attr('id')=="p3")
 			{
 				$.mobile.pageContainer.pagecontainer('change', '#p2', {
@@ -599,19 +598,19 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 					reverse: false,
 					showLoadMsg: false
 				});
-				timeoutPage=500;
 			}
-			setTimeout(function () {
-				//Validar si es la misma sursal
-				if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
-				{
-					$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
-				}
-				else
-				{
-					CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
-				}
-			}, timeoutPage);
+			alert($('#H_ID_CLIENTE_ACTUAL').val()+' vs '+FUN_ID_CLIENTE +' <_>'+ $('#H_ID_SUCURSAL_ACTUAL').val()+' vs '+FUN_ID_SUC);
+			//Validar si es la misma sursal
+			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
+			{
+				alert("Es de esta sucursal");
+				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
+			}
+			else
+			{
+				alert("Cargando otra sucursal");
+				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+			}
 		}
 		else
 		{		
