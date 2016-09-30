@@ -597,16 +597,16 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 					showLoadMsg: false
 				});
 			}
-			alert($('#H_ID_CLIENTE_ACTUAL').val()+' vs '+FUN_ID_CLIENTE +' <_>'+ $('#H_ID_SUCURSAL_ACTUAL').val()+' vs '+FUN_ID_SUC);
+			//alert($('#H_ID_CLIENTE_ACTUAL').val()+' vs '+FUN_ID_CLIENTE +' <_>'+ $('#H_ID_SUCURSAL_ACTUAL').val()+' vs '+FUN_ID_SUC);
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
-				alert("Es de esta sucursal");
+				//alert("Es de esta sucursal");
 				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
 			{
-				alert("Cargando otra sucursal");
+				//alert("Cargando otra sucursal");
 				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 			}
 		}
