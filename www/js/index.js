@@ -389,6 +389,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
 						$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
 						
+						/**
 						$("#inicio_filtroDatosSensor").datepicker({
 									format: "dd/mm/yyyy",
 									language:"es",
@@ -542,6 +543,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						// Render the chart
 						optionsLineal.title.text.push(NombreEquipo);
 					});
+					*/
 					$.mobile.pageContainer.pagecontainer('change', '#p3', {
 						transition: 'flip',
 						changeHash: true,
