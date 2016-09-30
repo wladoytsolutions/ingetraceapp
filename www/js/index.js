@@ -605,12 +605,10 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 				//Validar si es la misma sursal
 				if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 				{
-					pushPlugin.finish();
 					$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 				}
 				else
 				{
-					pushPlugin.finish();
 					CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 				}
 			}, timeoutPage);
