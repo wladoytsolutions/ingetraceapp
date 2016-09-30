@@ -1,6 +1,7 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
+var pushPlugin;
 
 var app = {
     // Application Constructor
@@ -34,7 +35,7 @@ var app = {
 		
 		app.receivedEvent('deviceready');
 
-		var push = PushNotification.init({
+		pushPlugin = PushNotification.init({
 			android: {
 				senderID: "964841478681",
 				sound: true, 
@@ -49,14 +50,14 @@ var app = {
 			windows: {}
 		});
 
-		push.on('registration', function(data) {
+		pushPlugin.on('registration', function(data) {
 			// data.registrationI
 			//alert(''+data.registrationId);
 			$("#H_TEXT_DEVICE").html(""+data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
-		push.on('notification', function(data) {
+		pushPlugin.on('notification', function(data) {
 			alert(JSON.stringify(data)); 
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
@@ -70,7 +71,8 @@ var app = {
 					ID_SENSOR=d.idsensor;					
 				}
 			});
-			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
+			pushPlugin.finish();
+			//CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
@@ -80,8 +82,9 @@ var app = {
 			// data.additionalData
 		});
 
-		push.on('error', function(e) {
+		pushPlugin.on('error', function(e) {
 			// e.message
+			alert(e.message);
 		});
     },
     // Update DOM on a Received Event
