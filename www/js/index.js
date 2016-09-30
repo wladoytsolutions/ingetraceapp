@@ -72,7 +72,7 @@ var app = {
 				}
 			});
 			pushPlugin.finish();
-			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
+			//CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
 			//alert(data.additionalData);
 			// data.message,
 			// data.title,
