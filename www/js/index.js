@@ -570,6 +570,13 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
+						try {
+							alert("Finalizando");
+							pushPlugin.finish();
+						}
+						catch(err) {
+							alert(err.message);
+						}
 					}, 750);
 				});
 			});
@@ -594,9 +601,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			}
 			else
 			{
-				pushPlugin.finish();
-				alert("Finalizada");
-				//CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 			}
 		}
 		else
@@ -705,7 +710,7 @@ function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			NombreEquipo=d.NOMBRE_EQUIPO;
 		});
 	}).done(function(response) {
-	VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
+		VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
 	});
 }
 function ValidarCKIncial(CK)
