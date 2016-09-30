@@ -359,7 +359,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				{
 					CerrarSplash();
 				}
-								
+				/**	
 				//HTML CARGADO
 				$.post(RUTACONTROL,
 						{
@@ -572,6 +572,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
 				});
+				*/
 			});
 	});
 }
