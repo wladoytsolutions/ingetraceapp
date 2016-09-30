@@ -573,6 +573,13 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					}, 750);
 				});
 				*/
+				$('#ModalPage2').popup("close");
+				$.mobile.pageContainer.pagecontainer('change', '#p3', {
+						transition: 'flip',
+						changeHash: true,
+						reverse: true,
+						showLoadMsg: false
+					});
 			});
 	});
 }
