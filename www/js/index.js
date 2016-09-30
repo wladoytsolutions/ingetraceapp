@@ -346,9 +346,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datosSensorTermico.html",
 			function() {
-				$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
 				$("#H_RAZON_SOCIAL").val(NombreCliente);
-				$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
 				$("#H_ID_NOMBRE_SUCURSAL").val(NombreSucursal);
 				$("#H_ID_SECCION").val(IdSeccion);
 				$("#H_NOMBRE_SECCION").val(NombreSeccion);
@@ -718,7 +716,7 @@ function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			NombreEquipo=d.NOMBRE_EQUIPO;
 		});
 	}).done(function(response) {
-	VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
+		VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
 	});
 }
 function ValidarCKIncial(CK)
