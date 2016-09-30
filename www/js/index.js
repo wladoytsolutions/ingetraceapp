@@ -360,7 +360,15 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					CerrarSplash();
 				}
 				
+				$.mobile.pageContainer.pagecontainer('change', '#p3', {
+						transition: 'flip',
+						changeHash: true,
+						reverse: true,
+						showLoadMsg: false
+					});
+				
 				//HTML CARGADO
+				/**
 				$.post(RUTACONTROL,
 						{
 							accion: "DatosGraficoSensorTermico",
@@ -542,13 +550,6 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						// Render the chart
 						optionsLineal.title.text.push(NombreEquipo);
 					});
-					*/
-					$.mobile.pageContainer.pagecontainer('change', '#p3', {
-						transition: 'flip',
-						changeHash: true,
-						reverse: true,
-						showLoadMsg: false
-					});
 					
 					//Quitando footer de jquery para que se vea el footer original
 					$('#p3Body').find('.ui-footer').remove();
@@ -573,8 +574,8 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
-					*/
 				});
+				*/
 			});
 	});
 }
