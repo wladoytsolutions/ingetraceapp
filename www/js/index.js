@@ -342,10 +342,10 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 	$("#p3Body").load(
 		"sensor.html",
 	function() {
-			/**
+			
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datosSensorTermico.html",
-			function() {
+			function() {/**
 				$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
 				$("#H_RAZON_SOCIAL").val(NombreCliente);
 				$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
@@ -575,8 +575,8 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
-				});
-			});*/
+				});*/
+			});
 	});
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
