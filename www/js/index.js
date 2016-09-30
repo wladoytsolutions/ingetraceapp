@@ -359,7 +359,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				{
 					CerrarSplash();
 				}
-				/**	
+				
 				//HTML CARGADO
 				$.post(RUTACONTROL,
 						{
@@ -566,20 +566,14 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				}).done(function(response) {
 					$('#ModalPage2').popup("close");
 					$(window).disablescroll("undo");
+					/**
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
+					*/
 				});
-				*/
-				$('#ModalPage2').popup("close");
-				$.mobile.pageContainer.pagecontainer('change', '#p3', {
-						transition: 'flip',
-						changeHash: true,
-						reverse: true,
-						showLoadMsg: false
-					});
 			});
 	});
 }
