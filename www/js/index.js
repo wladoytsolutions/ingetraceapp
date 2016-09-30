@@ -345,7 +345,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datosSensorTermico.html",
-			function() {/**
+			function() {
 				$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
 				$("#H_RAZON_SOCIAL").val(NombreCliente);
 				$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
@@ -369,7 +369,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					});
 				
 				//HTML CARGADO
-				/**
+
 				$.post(RUTACONTROL,
 						{
 							accion: "DatosGraficoSensorTermico",
@@ -391,7 +391,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					var PromedioSensor = new Array();
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
-					/**
+					
 					$.each(json, function(j, e) {
 						//Fecha hoy				
 						$("#FechaBitacoraHoy").html(e.FECHA_HOY);
@@ -569,13 +569,13 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				}).done(function(response) {
 					$('#ModalPage2').popup("close");
 					$(window).disablescroll("undo");
-					/**
+					
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
 					}, 750);
-				});*/
+				});
 			});
 	});
 }
