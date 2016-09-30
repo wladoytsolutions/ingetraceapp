@@ -589,19 +589,31 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
-			//Validar si es la misma sursal
-			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
+			//Validar si estamos en la pantalla p3
+			var timeoutPage=100;
+			if($.mobile.activePage.attr('id')=="p3")
 			{
-				pushPlugin.finish();
-				alert("Finalizada");
-				//$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
+				$.mobile.pageContainer.pagecontainer('change', '#p2', {
+					transition: 'flip',
+					changeHash: true,
+					reverse: false,
+					showLoadMsg: false
+				});
+				timeoutPage=500;
 			}
-			else
-			{
-				pushPlugin.finish();
-				alert("Finalizada");
-				//CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
-			}
+			setTimeout(function () {
+				//Validar si es la misma sursal
+				if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
+				{
+					pushPlugin.finish();
+					$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
+				}
+				else
+				{
+					pushPlugin.finish();
+					CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+				}
+			}, timeoutPage);
 		}
 		else
 		{		
