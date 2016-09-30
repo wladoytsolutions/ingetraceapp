@@ -382,14 +382,13 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					var PromedioSensor = new Array();
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
-					
+					/**
 					$.each(json, function(j, e) {
 						//Fecha hoy				
 						$("#FechaBitacoraHoy").html(e.FECHA_HOY);
 						$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
 						$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
 						
-						/**
 						$("#inicio_filtroDatosSensor").datepicker({
 									format: "dd/mm/yyyy",
 									language:"es",
