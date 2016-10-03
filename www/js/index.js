@@ -23,11 +23,11 @@ var app = {
 		
 		BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  if(res.rows.item(0).cnt=="0")
 			  {
-				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?)", ["Nada","Nada", "Nada"], function(tx, res){
+				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?)", ["Nada","Nada", "Nada", "Nada"], function(tx, res){
 				  });
 			  }
 			});
@@ -53,7 +53,7 @@ var app = {
 		pushPlugin.on('registration', function(data) {
 			// data.registrationI
 			//alert(''+data.registrationId);
-			$("#H_TEXT_DEVICE").html(""+data.registrationId);
+			$("#H_TEXT_DEVICE").html(data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
@@ -129,22 +129,31 @@ $( document ).ready(function() {
 		$('#RowLogin').hide();
 	}
 });
-function NuevoCall()
-{
-	
-}
 function RegistrarDispositivo(ID_device)
 {
-	$.post('http://www.ingetrace.cl/d-external/registro_device/grabar_id.php',{
-		Id_device: ID_device,
-	},
-	function(response) {
-		if(response=="ok")
-		{
-			$('#H_ID_DEVICE_NOTIFICACION').val(ID_device);
-		}
-	}).done(function(response) {
-		
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+			var id_device_bd=""+rs.rows.item(0).id_device;
+			
+			if(id_device_bd!="Nada")
+			{
+				//Si el id device cambio, se debe notificar el cambio al servidor
+				if(id_device_bd!=ID_device)
+				{
+					$.post(RUTACONTROL,{
+						accion		: 'UpdateIdDevice',
+						NewId_device: ID_device,
+						OldId_device: id_device_bd,
+						CK			: getCK()
+					},
+					function(response) {
+						
+					}).done(function(response) {
+						setIdDevice(ID_device);
+					});
+				}
+			}
+		}, function(tx, error) {});
 	});
 }
 function CerrarSplash()
@@ -163,6 +172,13 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
+		tx.executeSql(StringQuery);
+	});
+}
+function setIdDevice(IdDevice)
+{
+	BD_APP.transaction(function(tx) {
+		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";		
 		tx.executeSql(StringQuery);
 	});
 }
@@ -825,7 +841,8 @@ function login()
 	$.post(RUTACONTROL,{
 								accion: "login",
 								Uss: $("#txtUsuario").val(),
-								Pass: $("#txtContrasena").val()
+								Pass: $("#txtContrasena").val(),
+								Id_device: $("#H_TEXT_DEVICE").html()
 								}, 
 	function(response) {
 		//alert(""+response);
