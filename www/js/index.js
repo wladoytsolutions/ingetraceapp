@@ -25,7 +25,6 @@ var app = {
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
-			  alert(res.rows.item(0).cnt);
 			  if(res.rows.item(0).cnt=="0")
 			  {
 				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?)", ["Nada","Nada", "Nada", "Nada"], function(tx, res){
@@ -748,12 +747,9 @@ function ValidarCKIncial(CK)
 	var LOGO_CLIENTE="";
 	
 	BD_APP.transaction(function(tx) {
-		alert("ACA");
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
 			Valor=atob(Valor);
-			
-			alert(""+Valor);
 			
 			var json = jQuery.parseJSON(Valor);
 			$.each(json, function(i, d) {
