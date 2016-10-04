@@ -67,10 +67,10 @@ function Logout()
 					CK			: getCK()
 			},
 			function(response) {		
-				alert(response);
+				//alert(response);
 			}).done(function(response) {
-				//setCK('');
-				//window.location.href = "index.html";
+				setCK('');
+				window.location.href = "index.html";
 			});
 		}, function(tx, error) {});
 	});	
