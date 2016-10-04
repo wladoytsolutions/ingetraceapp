@@ -746,9 +746,8 @@ function ValidarCKIncial(CK)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
-	alert("ValidarCKIncial "+BD_APP);
-	
 	BD_APP.transaction(function(tx) {
+		alert("ACA");
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
 			Valor=atob(Valor);
@@ -808,7 +807,9 @@ function ValidarCKIncial(CK)
 				}
 			});
 			
-		}, function(tx, error) {});
+		}, function(tx, error) {
+			alert(""+error.message);
+		});
 	});
 }
 function ValidarCampos()
