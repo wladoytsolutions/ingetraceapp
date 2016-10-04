@@ -172,10 +172,6 @@ function setIdDevice(IdDevice)
 		tx.executeSql(StringQuery);
 	});
 }
-function deleteIdDevice()
-{
-	
-}
 function CargarMarquee()
 {
 	var marquee = $('div.marquee');
@@ -845,6 +841,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
+				setIdDevice($("#H_TEXT_DEVICE").html());
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {

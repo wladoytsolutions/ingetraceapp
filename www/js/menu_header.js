@@ -56,7 +56,6 @@ $( document ).ready(function() {
 function Logout()
 {
 	// Devuelve true cuando se encuentra el cookie
-	setCK('');
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 			var id_device=""+rs.rows.item(0).id_device;
@@ -70,6 +69,7 @@ function Logout()
 			function(response) {		
 				alert(response);
 			}).done(function(response) {
+				//setCK('');
 				//window.location.href = "index.html";
 			});
 		}, function(tx, error) {});
