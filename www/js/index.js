@@ -28,9 +28,6 @@ var app = {
 			  if(res.rows.item(0).cnt=="0")
 			  {
 				  tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada');");
-				  tx.executeSql("select json_sucursal from tbl_datos;", [], function(tx1, res2) {
-					alert(res2.rows.item(0).json_sucursal);
-				  });
 			  }
 			});
 		});
