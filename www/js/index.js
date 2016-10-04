@@ -218,7 +218,6 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("BUscando cookie");
 	var ValCK=getCK();
 	//Es de notificacion
 	
@@ -747,7 +746,7 @@ function ValidarCKIncial(CK)
 	var ESTADO="";
 	var LOGO_CLIENTE="";
 	
-	alert("ValidarCKIncial "+CK);
+	alert("ValidarCKIncial "+BD_APP);
 	
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
