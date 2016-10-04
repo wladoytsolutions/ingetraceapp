@@ -170,9 +170,6 @@ function setIdDevice(IdDevice)
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";		
 		tx.executeSql(StringQuery);
-		tx.executeSql("select id_device from tbl_datos;", [], function(tx1, res2) {
-			alert(res2.rows.item(0).id_device);
-		});
 	});
 }
 function CargarMarquee()
