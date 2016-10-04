@@ -27,7 +27,7 @@ var app = {
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  if(res.rows.item(0).cnt=="0")
 			  {
-				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?)", ["Nada","Nada", "Nada", "Nada"], function(tx, res){
+				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?,?)", ["Nada","Nada", "Nada", "Nada"], function(tx, res){
 				  });
 			  }
 			});
