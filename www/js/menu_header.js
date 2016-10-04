@@ -57,6 +57,7 @@ function Logout()
 {
 	// Devuelve true cuando se encuentra el cookie
 	setCK('');
+	deleteIdDevice();
 	// Misma ruta que hemos puesto para escribir el cookie...	
 	window.location.href = "index.html";
 }
