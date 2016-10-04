@@ -174,23 +174,7 @@ function setIdDevice(IdDevice)
 }
 function deleteIdDevice()
 {
-	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
-			var id_device=""+rs.rows.item(0).id_device;
-			
-			//Grabando datos de device
-			$.post(RUTACONTROL,{
-					accion		: 'EliminarDevice',
-					Id_device	: id_device,
-					CK			: getCK()
-			},
-			function(response) {		
-			
-			}).done(function(response) {
-				alert(response);
-			});
-		}, function(tx, error) {});
-	});
+	
 }
 function CargarMarquee()
 {

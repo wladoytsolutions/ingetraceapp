@@ -57,9 +57,23 @@ function Logout()
 {
 	// Devuelve true cuando se encuentra el cookie
 	setCK('');
-	deleteIdDevice();
-	// Misma ruta que hemos puesto para escribir el cookie...	
-	window.location.href = "index.html";
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+			var id_device=""+rs.rows.item(0).id_device;
+			
+			//Grabando datos de device
+			$.post(RUTACONTROL,{
+					accion		: 'EliminarDevice',
+					Id_device	: id_device,
+					CK			: getCK()
+			},
+			function(response) {		
+				alert(response);
+			}).done(function(response) {
+				//window.location.href = "index.html";
+			});
+		}, function(tx, error) {});
+	});	
 }
 function CambiarClienteSucursal()
 {
