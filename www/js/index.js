@@ -73,7 +73,7 @@ var app = {
 
 		pushPlugin.on('error', function(e) {
 			// e.message
-			alert(e.message);
+			//alert(e.message);
 		});
     },
     // Update DOM on a Received Event
