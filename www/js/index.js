@@ -50,8 +50,6 @@ var app = {
 		});
 
 		pushPlugin.on('registration', function(data) {
-			// data.registrationI
-			//alert(''+data.registrationId);
 			$("#H_TEXT_DEVICE").html(data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
@@ -71,13 +69,6 @@ var app = {
 				}
 			});
 			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
-			//alert(data.additionalData);
-			// data.message,
-			// data.title,
-			// data.count,
-			// data.sound,
-			// data.image,
-			// data.additionalData
 		});
 
 		pushPlugin.on('error', function(e) {
@@ -179,6 +170,9 @@ function setIdDevice(IdDevice)
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";		
 		tx.executeSql(StringQuery);
+		tx.executeSql("select id_device from tbl_datos;", [], function(tx1, res2) {
+			alert(res2.rows.item(0).id_device);
+		});
 	});
 }
 function CargarMarquee()
@@ -612,16 +606,13 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 					showLoadMsg: false
 				});
 			}
-			//alert($('#H_ID_CLIENTE_ACTUAL').val()+' vs '+FUN_ID_CLIENTE +' <_>'+ $('#H_ID_SUCURSAL_ACTUAL').val()+' vs '+FUN_ID_SUC);
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
-				//alert("Es de esta sucursal");
 				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
 			{
-				//alert("Cargando otra sucursal");
 				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 			}
 		}
@@ -846,7 +837,6 @@ function login()
 								Id_device: $("#H_TEXT_DEVICE").html()
 								}, 
 	function(response) {
-		//alert(""+response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
