@@ -57,9 +57,6 @@
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <access origin="*"/>
   <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
-  <plugin name="hu.dpal.phonegap.plugins.uniquedeviceid" spec="1.2.0" source="pgb" />
-  <plugin name="DeviceInformation" value="com.vliesaputra.cordova.plugins.DeviceInformation"/>
-  <plugin name="de.appplant.cordova.plugin.badge" spec="0.6.4" source="pgb" />
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
