@@ -55,10 +55,29 @@ $( document ).ready(function() {
 });
 function Logout()
 {
+	$('#ModalPage2').popup('open', {
+		transition: 'pop'
+	});
 	// Devuelve true cuando se encuentra el cookie
-	setCK('');
-	// Misma ruta que hemos puesto para escribir el cookie...	
-	window.location.href = "index.html";
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+			var id_device=""+rs.rows.item(0).id_device;
+			
+			//Grabando datos de device
+			$.post(RUTACONTROL,{
+					accion		: 'EliminarDevice',
+					Id_device	: id_device,
+					CK			: getCK()
+			},
+			function(response) {		
+				//alert(response);
+			}).done(function(response) {
+				setCK('');
+				$('#ModalPage2').popup("close");
+				window.location.href = "index.html";
+			});
+		}, function(tx, error) {});
+	});	
 }
 function CambiarClienteSucursal()
 {

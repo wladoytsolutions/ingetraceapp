@@ -1,7 +1,7 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
-
+var pushPlugin;
 
 var app = {
     // Application Constructor
@@ -21,21 +21,20 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		
-		BD_APP = sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
-			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT)');
+			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
 			  if(res.rows.item(0).cnt=="0")
 			  {
-				  tx.executeSql("INSERT INTO tbl_datos (id_cliente, id_sucursal,json_sucursal) VALUES (?,?,?)", ["Nada","Nada", "Nada"], function(tx, res){
-				  });
+				  tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada');");
 			  }
 			});
 		});
 		
 		app.receivedEvent('deviceready');
 
-		var push = PushNotification.init({
+		pushPlugin = PushNotification.init({
 			android: {
 				senderID: "964841478681",
 				sound: true, 
@@ -50,34 +49,31 @@ var app = {
 			windows: {}
 		});
 
-		push.on('registration', function(data) {
-			// data.registrationI
-			//alert(''+data.registrationId);
+		pushPlugin.on('registration', function(data) {
+			$("#H_TEXT_DEVICE").html(data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
 
-		push.on('notification', function(data) {
+		pushPlugin.on('notification', function(data) {
+			//alert(JSON.stringify(data)); 
 			$("#H_DESDE_NOTIFICACION").val("1");
+			var ID_CLIENTE;
+			var ID_SUCURSAL;
+			var ID_SENSOR;
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
-					$("#H_ID_CLIENTE_ACTUAL").val(d.idcliente);
-					$("#H_ID_SUCURSAL_ACTUAL").val(d.idsucursal);
-					$("#H_ID_SENSOR").val(d.idsensor);					
+					ID_CLIENTE=d.idcliente;
+					ID_SUCURSAL=d.idsucursal;
+					ID_SENSOR=d.idsensor;					
 				}
 			});
-			CargarNotificacion($("#H_ID_CLIENTE_ACTUAL").val(),$("#H_ID_SUCURSAL_ACTUAL").val(),$("#H_ID_SENSOR").val());
-			//alert(data.additionalData);
-			// data.message,
-			// data.title,
-			// data.count,
-			// data.sound,
-			// data.image,
-			// data.additionalData
+			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
 		});
 
-		push.on('error', function(e) {
+		pushPlugin.on('error', function(e) {
 			// e.message
+			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
 		});
     },
     // Update DOM on a Received Event
@@ -125,16 +121,29 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
-	$.post('http://www.ingetrace.cl/d-external/registro_device/grabar_id.php',{
-		Id_device: ID_device,
-	},
-	function(response) {
-		if(response=="ok")
-		{
-			$('#H_ID_DEVICE_NOTIFICACION').val(ID_device);
-		}
-	}).done(function(response) {
-		
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+			var id_device_bd=""+rs.rows.item(0).id_device;
+			
+			if(id_device_bd!="Nada")
+			{
+				//Si el id device cambio, se debe notificar el cambio al servidor
+				if(id_device_bd!=ID_device)
+				{
+					$.post(RUTACONTROL,{
+						accion		: 'UpdateIdDevice',
+						NewId_device: ID_device,
+						OldId_device: id_device_bd,
+						CK			: getCK()
+					},
+					function(response) {
+						
+					}).done(function(response) {
+						setIdDevice(ID_device);
+					});
+				}
+			}
+		}, function(tx, error) {});
 	});
 }
 function CerrarSplash()
@@ -153,6 +162,13 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
+		tx.executeSql(StringQuery);
+	});
+}
+function setIdDevice(IdDevice)
+{
+	BD_APP.transaction(function(tx) {
+		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";		
 		tx.executeSql(StringQuery);
 	});
 }
@@ -332,12 +348,11 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 	$("#p3Body").load(
 		"sensor.html",
 	function() {
+			
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datosSensorTermico.html",
 			function() {
-				$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
 				$("#H_RAZON_SOCIAL").val(NombreCliente);
-				$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
 				$("#H_ID_NOMBRE_SUCURSAL").val(NombreSucursal);
 				$("#H_ID_SECCION").val(IdSeccion);
 				$("#H_NOMBRE_SECCION").val(NombreSeccion);
@@ -349,8 +364,16 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				{
 					CerrarSplash();
 				}
-								
+				
+				$.mobile.pageContainer.pagecontainer('change', '#p3', {
+						transition: 'flip',
+						changeHash: true,
+						reverse: true,
+						showLoadMsg: false
+					});
+				
 				//HTML CARGADO
+
 				$.post(RUTACONTROL,
 						{
 							accion: "DatosGraficoSensorTermico",
@@ -532,12 +555,6 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						// Render the chart
 						optionsLineal.title.text.push(NombreEquipo);
 					});
-					$.mobile.pageContainer.pagecontainer('change', '#p3', {
-						transition: 'flip',
-						changeHash: true,
-						reverse: true,
-						showLoadMsg: false
-					});
 					
 					//Quitando footer de jquery para que se vea el footer original
 					$('#p3Body').find('.ui-footer').remove();
@@ -556,6 +573,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				}).done(function(response) {
 					$('#ModalPage2').popup("close");
 					$(window).disablescroll("undo");
+					
 					setTimeout(function () {
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
@@ -565,7 +583,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			});
 	});
 }
-function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
+function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 {	
 	//Verificando si hay CK
 	var ValCK=getCK();
@@ -575,10 +593,24 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
-			//Validar si es la misma sursal
-			if($('#H_ID_CLIENTE_ACTUAL').val()==ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==ID_SUC)
+			//Validar si estamos en la pantalla p3
+			if($.mobile.activePage.attr('id')=="p3")
 			{
-				$('#VerSensoresRegistrados_'+ID_SENSOR)[0].click();
+				$.mobile.pageContainer.pagecontainer('change', '#p2', {
+					transition: 'flip',
+					changeHash: true,
+					reverse: false,
+					showLoadMsg: false
+				});
+			}
+			//Validar si es la misma sursal
+			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
+			{
+				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
+			}
+			else
+			{
+				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 			}
 		}
 		else
@@ -591,9 +623,7 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 					var json_sucursal=""+rs.rows.item(0).json_sucursal;
 					json_sucursal=atob(json_sucursal);
 					
-					if(id_cliente==ID_CLIENTE && id_sucursal==ID_SUC)
-					{
-						var json = jQuery.parseJSON(json_sucursal);
+					var json = jQuery.parseJSON(json_sucursal);
 						$.each(json, function(i, d) {
 							ESTADO=d.ESTADO;
 							
@@ -602,17 +632,14 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 								//Cookie
 								setCK(''+d.CK);
 										
-								ID_CLIENTE=d.ID_CLIENTE;
-								ID_SUCURSAL=d.ID_SUC;
-										
 								//Cargando html
 								$("#p2").load( "inicio.html", function() {
 									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 									$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 									//Agregando menu
 									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
-										$('#H_ID_CLIENTE_ACTUAL').val(ID_CLIENTE);
-										$('#H_ID_SUCURSAL_ACTUAL').val(ID_SUCURSAL);
+										$('#H_ID_CLIENTE_ACTUAL').val(id_cliente);
+										$('#H_ID_SUCURSAL_ACTUAL').val(id_sucursal);
 													
 										//Estado de sucursal
 										$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
@@ -632,7 +659,14 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										VerGraficoSensorTermico(true,ID_CLIENTE,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('razon_social'),ID_SUC,$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+ID_SENSOR).attr('nombre_equipo'),ID_SENSOR);
+										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUC)
+										{
+											VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
+										}
+										else
+										{
+											CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+										}
 									}, 750);								
 									
 								});//Fin load cuerpo
@@ -646,7 +680,6 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 								$('#DivIngresar').show();
 							}
 						});
-					}
 					
 				}, function(tx, error) {});
 			});
@@ -657,6 +690,37 @@ function CargarNotificacion(ID_CLIENTE,ID_SUC,ID_SENSOR)
 		CerrarSplash();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
+}
+function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
+{
+	var NombreCliente;
+	var NombreSucursal;
+	var IdSeccion;
+	var NombreSeccion;
+	var IdEquipo;
+	var NombreEquipo;
+
+	//Buscando datos restantes para el grafico
+	$.post(RUTACONTROL,{
+			accion: 'GetDatosEquipoSensor',
+			Id_cliente: FUN_ID_CLIENTE,
+			Id_sucursal: FUN_ID_SUC,
+			Id_sensor: FUN_ID_SENSOR
+			},
+	function(response) {			
+		var json = jQuery.parseJSON(response);
+		
+		$.each(json, function(i, d) {
+			NombreCliente=d.RAZONSOCIAL;
+			NombreSucursal=d.NOMBRE_SUCURSAL;
+			IdSeccion=d.ID_SECCION;
+			NombreSeccion=d.NOMBRE_SECCION;
+			IdEquipo=d.ID_EQUIPO;
+			NombreEquipo=d.NOMBRE_EQUIPO;
+		});
+	}).done(function(response) {
+		VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
+	});
 }
 function ValidarCKIncial(CK)
 {
@@ -727,7 +791,9 @@ function ValidarCKIncial(CK)
 				}
 			});
 			
-		}, function(tx, error) {});
+		}, function(tx, error) {
+			alert("ERROR : "+error.message);
+		});
 	});
 }
 function ValidarCampos()
@@ -764,10 +830,10 @@ function login()
 	$.post(RUTACONTROL,{
 								accion: "login",
 								Uss: $("#txtUsuario").val(),
-								Pass: $("#txtContrasena").val()
+								Pass: $("#txtContrasena").val(),
+								Id_device: $("#H_TEXT_DEVICE").html()
 								}, 
 	function(response) {
-		//alert(""+response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
@@ -775,6 +841,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
+				setIdDevice($("#H_TEXT_DEVICE").html());
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
