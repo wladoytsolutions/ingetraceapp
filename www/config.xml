@@ -63,6 +63,7 @@
     <param name="SENDER_ID" value="964841478681" />
   </plugin>
   <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
+  <plugin name="fr.louisbl.cordova.gpslocation" spec="0.1.0" source="pgb" />
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
