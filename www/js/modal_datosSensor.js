@@ -1,5 +1,4 @@
 var BANDERA_TAB=false;
-
 $(document).ready(function() {
 	$("#ModalPage3").load("html_parts/modal_cargando.html");
 	$("#btn_buscarGrafico").prop('disabled', true);
