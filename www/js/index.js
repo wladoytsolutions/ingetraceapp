@@ -50,6 +50,7 @@ var app = {
 		});
 
 		pushPlugin.on('registration', function(data) {
+			alert(data.registrationId);
 			$("#H_TEXT_DEVICE").html(data.registrationId);
 			RegistrarDispositivo(data.registrationId);
 		});
