@@ -72,7 +72,7 @@ var app = {
 		});
 
 		pushPlugin.on('error', function(e) {
-			alert(e.message); 
+			alert(e.message);
 			//alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
 		});
     },
