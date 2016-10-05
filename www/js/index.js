@@ -72,8 +72,8 @@ var app = {
 		});
 
 		pushPlugin.on('error', function(e) {
-			// e.message
-			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
+			alert(e.message);
+			//alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
 		});
     },
     // Update DOM on a Received Event
