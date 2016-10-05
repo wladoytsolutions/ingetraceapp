@@ -60,6 +60,8 @@
   <plugin name="phonegap-plugin-push" spec="1.6.0">
     <param name="SENDER_ID" value="964841478681" />
   </plugin>
+  <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
+  <access origin="*" browserOnly="true"/>
   <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
