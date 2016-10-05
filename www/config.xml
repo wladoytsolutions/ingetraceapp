@@ -25,7 +25,7 @@
   <preference name="detect-data-types" value="true"/>
   <preference name="exit-on-suspend" value="false"/>
   <preference name="disable-cursor" value="false"/>
-  <preference name="android-targetSdkVersion" value="23"/>
+  <preference name="android-targetSdkVersion" value="20"/>
   <preference name="android-installLocation" value="auto"/>
   <!-- Splashscreen config -->  
   <preference name="SplashScreen" value="screen"/>  
@@ -60,8 +60,6 @@
   <plugin name="phonegap-plugin-push" spec="1.6.0">
     <param name="SENDER_ID" value="964841478681" />
   </plugin>
-  <plugin name="InAppBrowser" value="org.apache.cordova.InAppBrowser" />
-  <access origin="*" browserOnly="true"/>
   <plugin name="io.litehelpers.cordova.sqlite" spec="0.7.6" source="pgb" />
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
