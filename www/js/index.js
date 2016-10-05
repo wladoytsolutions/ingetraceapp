@@ -3,6 +3,13 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 var BD_APP=null;
 var pushPlugin;
 
+function successHandler (result) {
+    alert('result = ' + result);
+}
+function errorHandler (error) {
+    alert('error = ' + error);
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -33,48 +40,18 @@ var app = {
 		});
 		
 		app.receivedEvent('deviceready');
-
-		pushPlugin = PushNotification.init({
-			android: {
-				senderID: "964841478681",
-				sound: true, 
-                forceShow: true,
-                vibrate: true	
-			},
-			ios: {
-				alert: true,
-				badge: true,
-				sound: true
-			},
-			windows: {}
-		});
-
-		pushPlugin.on('registration', function(data) {
-			$("#H_TEXT_DEVICE").html(data.registrationId);
-			RegistrarDispositivo(data.registrationId);
-		});
-
-		pushPlugin.on('notification', function(data) {
-			//alert(JSON.stringify(data)); 
-			$("#H_DESDE_NOTIFICACION").val("1");
-			var ID_CLIENTE;
-			var ID_SUCURSAL;
-			var ID_SENSOR;
-			$.each(data.additionalData, function(i, d) {
-				if(""+i == "additionalData")
-				{
-					ID_CLIENTE=d.idcliente;
-					ID_SUCURSAL=d.idsucursal;
-					ID_SENSOR=d.idsensor;					
-				}
+		
+		pushNotification = window.plugins.pushNotification;
+		
+		if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+			pushNotification.register(
+			successHandler,
+			errorHandler,
+			{
+				"senderID":"964841478681",
+				"ecb":"onNotification"
 			});
-			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
-		});
-
-		pushPlugin.on('error', function(e) {
-			// e.message
-			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
-		});
+		}
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
