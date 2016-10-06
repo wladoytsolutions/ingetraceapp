@@ -738,8 +738,11 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
+	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	alert("Antes "+BD_APP);
 	alert("iniciando transaccion");
+		try {
+
 	BD_APP.transaction(function(tx) {
 		alert("Haciendo select");
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
@@ -806,6 +809,10 @@ function ValidarCKIncial(CK)
 			alert("ERROR : "+error.message);
 		});
 	});
+	}
+	catch(err) {
+		alert(err.message);
+	}
 }
 function ValidarCampos()
 {
