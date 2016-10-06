@@ -839,8 +839,8 @@ function login()
 								Id_device: $("#H_TEXT_DEVICE").html()
 								}, 
 	function(response) {
-		var json = jQuery.parseJSON(response);
 		alert(response);
+		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
 			{				
