@@ -161,7 +161,7 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 	alert("ACA "+json);
 	var StringJson=""+Base64.encode(""+json);
 	
-	alert(StrinJson);
+	alert(StringJson);
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
