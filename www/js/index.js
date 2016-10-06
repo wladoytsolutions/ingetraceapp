@@ -725,6 +725,7 @@ function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 }
 function ValidarCKIncial(CK)
 {
+	navigator.splashscreen.show();
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
 	
