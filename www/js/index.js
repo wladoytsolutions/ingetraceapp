@@ -21,7 +21,7 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
 		
-		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
@@ -121,7 +121,7 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 			var id_device_bd=""+rs.rows.item(0).id_device;
@@ -161,7 +161,7 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 {
 	var StringJson=""+Base64.encode(""+json);
 	
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
 		tx.executeSql(StringQuery);
@@ -169,7 +169,7 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 }
 function setIdDevice(IdDevice)
 {
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";		
 		tx.executeSql(StringQuery);
@@ -619,7 +619,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 		else
 		{		
 			//Validar si el sensor de la notificacion corresponde a la sucursal en la BD
-			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 			BD_APP.transaction(function(tx) {
 				tx.executeSql('SELECT id_cliente,id_sucursal,json_sucursal FROM tbl_datos', [], function(tx, rs) {
 					var id_cliente=""+rs.rows.item(0).id_cliente;
@@ -738,8 +738,7 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
-	alert("Antes");
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 2, createFromLocation: 1});
+	alert("Antes "+BD_APP);
 	alert("iniciando transaccion");
 	BD_APP.transaction(function(tx) {
 		alert("Haciendo select");
@@ -779,7 +778,7 @@ function ValidarCKIncial(CK)
 							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
 										
 							GenerarHTMLSensores(d);					
-							//ActualizarDashboard();
+							ActualizarDashboard();
 						});//Fin load menu
 						
 						$('#BodyPrincipal').pagecontainer('change', '#p2', {
