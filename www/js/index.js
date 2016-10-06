@@ -780,7 +780,7 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
-						}, 500);
+						}, 750);
 					});//Fin load cuerpo
 				}
 				else
