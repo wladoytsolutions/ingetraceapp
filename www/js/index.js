@@ -840,6 +840,7 @@ function login()
 								}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);
+		alert(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
 			{				
