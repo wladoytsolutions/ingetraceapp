@@ -158,8 +158,8 @@ function CerrarSplash()
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
-	alert("ACA ");
-	var StringJson=""+Base64.encode(json);
+	alert("ACA "+json);
+	var StringJson=""+Base64.encode(""+json);
 	
 	alert(StrinJson);
 	
