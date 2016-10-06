@@ -728,7 +728,7 @@ function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 }
 function ValidarCKIncial(CK)
 {
-	alert("Validando ck inicial");
+	alert("Valida ck inicial");
 	navigator.splashscreen.show();
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
@@ -738,11 +738,17 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
-	
+	alert("Antes");
+	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
+	alert("iniciando transaccion");
 	BD_APP.transaction(function(tx) {
+		alert("Haciendo select");
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
+			alert("Se obtienene "+rs.rows.item(0).json_sucursal);
 			var Valor=""+rs.rows.item(0).json_sucursal;
 			Valor=Base64.decode(Valor);
+			
+			alert("Valor "+Valor);
 			
 			var json = jQuery.parseJSON(Valor);
 			$.each(json, function(i, d) {
@@ -773,7 +779,7 @@ function ValidarCKIncial(CK)
 							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
 										
 							GenerarHTMLSensores(d);					
-							ActualizarDashboard();
+							//ActualizarDashboard();
 						});//Fin load menu
 						
 						$('#BodyPrincipal').pagecontainer('change', '#p2', {
