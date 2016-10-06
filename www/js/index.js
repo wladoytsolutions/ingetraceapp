@@ -158,10 +158,7 @@ function CerrarSplash()
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
-	alert("ACA "+json);
 	var StringJson=""+Base64.encode(""+json);
-	
-	alert(StringJson);
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
@@ -625,7 +622,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 					var id_cliente=""+rs.rows.item(0).id_cliente;
 					var id_sucursal=""+rs.rows.item(0).id_sucursal;
 					var json_sucursal=""+rs.rows.item(0).json_sucursal;
-					json_sucursal=atob(json_sucursal);
+					json_sucursal=Base64.decode(json_sucursal);
 					
 					var json = jQuery.parseJSON(json_sucursal);
 						$.each(json, function(i, d) {
@@ -740,7 +737,7 @@ function ValidarCKIncial(CK)
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			var Valor=""+rs.rows.item(0).json_sucursal;
-			Valor=atob(Valor);
+			Valor=Base64.decode(Valor);
 			
 			var json = jQuery.parseJSON(Valor);
 			$.each(json, function(i, d) {
@@ -845,7 +842,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
-				//setIdDevice($("#H_TEXT_DEVICE").html());
+				setIdDevice($("#H_TEXT_DEVICE").html());
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
