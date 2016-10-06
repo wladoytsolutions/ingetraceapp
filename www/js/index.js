@@ -158,11 +158,17 @@ function CerrarSplash()
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
+	alert("ACA ");
 	var StringJson=""+btoa(json);
 	
 	alert(StrinJson);
-	
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
+	try
+	{
+		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
+	}
+	catch(err) {
+		alert(err.message);
+	}
 	
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
@@ -839,7 +845,6 @@ function login()
 								Id_device: $("#H_TEXT_DEVICE").html()
 								}, 
 	function(response) {
-		alert(response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
