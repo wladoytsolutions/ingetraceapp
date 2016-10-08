@@ -4,10 +4,12 @@
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
   <splash platform="android" qualifier="port-ldpi" src="res/screen/android/splash-port-ldpi.png" />
   <splash platform="android" qualifier="port-mdpi" src="res/screen/android/splash-port-mdpi.png" />
+  <splash platform="android" qualifier="port-nodpi" src="res/screen/android/splash-port-mdpi.png" />
   <splash platform="android" qualifier="port-hdpi" src="res/screen/android/splash-port-hdpi.png" />
   <splash platform="android" qualifier="port-xhdpi" src="res/screen/android/splash-port-xhdpi.png" />
   <splash platform="android" qualifier="land-ldpi" src="res/screen/android/splash-land-ldpi.png" />
   <splash platform="android" qualifier="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
+  <splash platform="android" qualifier="land-nodpi" src="res/screen/android/splash-land-mdpi.png" />
   <splash platform="android" qualifier="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
   <splash platform="android" qualifier="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />
   <splash src="splash.png" />
@@ -26,7 +28,6 @@
   <preference name="exit-on-suspend" value="false"/>
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="20" />
-  <preference name="android-targetSdkVersion" value="20" />
   <preference name="android-installLocation" value="auto"/>
   <!-- Splashscreen config -->  
   <preference name="SplashScreen" value="screen"/>  
@@ -43,6 +44,7 @@
   <icon src="icon.png"/>
   <icon src="www/res/icon/android/icon-36-ldpi.png" gap:platform="android" gap:qualifier="ldpi"/>
   <icon src="www/res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="mdpi"/>
+  <icon src="www/res/icon/android/icon-48-mdpi.png" gap:platform="android" gap:qualifier="nodpi"/>  
   <icon src="www/res/icon/android/icon-72-hdpi.png" gap:platform="android" gap:qualifier="hdpi"/>
   <icon src="www/res/icon/android/icon-96-xhdpi.png" gap:platform="android" gap:qualifier="xhdpi"/>
   <icon src="www/res/icon/blackberry/icon-80.png" gap:platform="blackberry"/>
