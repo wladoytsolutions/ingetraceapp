@@ -35,11 +35,11 @@
   <preference name="SplashShowOnlyFirstTime" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false" />
   <!-- End of splashscreen config -->  
-  <gap:plugin name="org.apache.cordova.device"/>
+  <!--<gap:plugin name="org.apache.cordova.device"/>
   <gap:plugin name="org.apache.cordova.device-orientation"/>
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
   <gap:plugin name="org.apache.cordova.network-information"/>
-  <gap:plugin name="org.apache.cordova.vibration"/>
+  <gap:plugin name="org.apache.cordova.vibration-->
   <gap:config-file platform="android" parent="/manifest">
     <uses-feature android:name="android.permission.ACCESS_COARSE_LOCATION" android:required="false" />
     <uses-feature android:name="android.permission.ACCESS_FINE_LOCATION" android:required="false" />
