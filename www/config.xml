@@ -70,7 +70,6 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
   <gap:config-file platform="android" parent="/manifest" >
-    <uses-feature android:name="android.permission.ACCESS_COARSE_LOCATION" android:required="false" />
   </gap:config-file>
   <platform name="android">
     <allow-intent href="market:*"/>
