@@ -25,8 +25,8 @@
   <preference name="detect-data-types" value="true"/>
   <preference name="exit-on-suspend" value="false"/>
   <preference name="disable-cursor" value="false"/>
-  <preference name="android-minSdkVersion" value="17" />
-  <preference name="android-targetSdkVersion" value="20" />
+  <preference name="android-minSdkVersion" value="20" />
+  <preference name="android-targetSdkVersion" value="23" />
   <preference name="android-installLocation" value="auto"/>
   <!-- Splashscreen config -->  
   <preference name="SplashScreen" value="screen"/>  
@@ -72,17 +72,6 @@
   <platform name="android">
     <allow-intent href="market:*"/>
   </platform>
-  <edit-config file="AndroidManifest.xml" target="/manifest" mode="merge">
-   <supports-screens android:resizeable=["true"| "false"]
-                     android:smallScreens=["true" | "false"]
-                     android:normalScreens=["true" | "false"]
-                     android:largeScreens=["true" | "false"]
-                     android:xlargeScreens=["true" | "false"]
-                     android:anyDensity=["true" | "false"]
-                     android:requiresSmallestWidthDp="integer"
-                     android:compatibleWidthLimitDp="integer"
-                     android:largestWidthLimitDp="integer"/>
-  </edit-config>
   <platform name="ios">
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>
