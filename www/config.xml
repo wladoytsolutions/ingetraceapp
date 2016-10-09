@@ -40,7 +40,7 @@
   <gap:plugin name="org.apache.cordova.inappbrowser"/>
   <gap:plugin name="org.apache.cordova.network-information"/>
   <gap:plugin name="org.apache.cordova.vibration"/>
-  <gap:config-file platform="android" parent="/manifest" mode="add">
+  <gap:config-file platform="android" parent="/manifest">
     <uses-feature android:name="android.permission.ACCESS_COARSE_LOCATION" android:required="false" />
     <uses-feature android:name="android.permission.ACCESS_FINE_LOCATION" android:required="false" />
 	<uses-feature android:name="android.permission.ACCESS_NETWORK_STATE" android:required="false" />
