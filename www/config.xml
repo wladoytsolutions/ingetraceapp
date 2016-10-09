@@ -69,10 +69,17 @@
   <allow-intent href="sms:*"/>
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
-  <gap:config-file platform="android" parent="/manifest" >
-  </gap:config-file>
   <platform name="android">
     <allow-intent href="market:*"/>
+	<config-file target="AndroidManifest.xml" parent="/*">
+		<uses-feature android:name="android.permission.ACCESS_COARSE_LOCATION" android:required="false" />
+		<uses-feature android:name="android.permission.ACCESS_FINE_LOCATION" android:required="false" />
+		<uses-feature android:name="android.permission.ACCESS_NETWORK_STATE" android:required="false" />
+		<uses-feature android:name="android.permission.ACCESS_WIFI_STATE" android:required="false" />	
+		<uses-feature android:name="android.permission.INTERNET" android:required="false" />
+		<uses-feature android:name="android.permission.VIBRATE" android:required="false" />
+		<uses-feature android:name="android.permission.WAKE_LOCK" android:required="false" />
+    </config-file>
   </platform>
   <platform name="ios">
     <allow-intent href="itms:*"/>
