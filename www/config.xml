@@ -71,9 +71,6 @@
   <platform name="android">
     <allow-intent href="market:*"/>
   </platform>
-  <gap:config-file platform="android" parent="/manifest" mode="add">
-    <uses-permission android:name="com.some.app.permission.READ" />
-  </gap:config-file>
   <platform name="ios">
     <allow-intent href="itms:*"/>
     <allow-intent href="itms-apps:*"/>
