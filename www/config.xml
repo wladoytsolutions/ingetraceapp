@@ -26,7 +26,7 @@
   <preference name="exit-on-suspend" value="false"/>
   <preference name="disable-cursor" value="false"/>
   <preference name="android-minSdkVersion" value="14" />
-  <!--<preference name="android-targetSdkVersion" value="20"/>-->
+  <preference name="android-targetSdkVersion" value="20"/>
   <preference name="android-installLocation" value="auto"/>
   <!-- Splashscreen config -->  
   <preference name="SplashScreen" value="screen"/>  
@@ -55,8 +55,8 @@
   <icon src="www/res/icon/windows-phone/icon-48.png" gap:platform="winphone"/>
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <access origin="*"/>
-  <!--<gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>-->
-  <plugin spec="https://github.com/MobileChromeApps/cordova-crosswalk-engine.git" source="git" />
+  <gap:plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/>
+  <!--<plugin spec="https://github.com/MobileChromeApps/cordova-crosswalk-engine.git" source="git" />-->
   <plugin name="cordova-plugin-splashscreen" source="npm" />
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <plugin name="phonegap-plugin-push" spec="1.6.0">
