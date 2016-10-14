@@ -62,7 +62,7 @@
   <plugin name="phonegap-plugin-push" spec="1.6.0">
     <param name="SENDER_ID" value="964841478681" />
   </plugin>
-  <plugin name="cordova-sqlite-storage"/>
+  <plugin name="cordova-plugin-sqlite-2"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
