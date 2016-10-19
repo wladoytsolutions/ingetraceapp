@@ -55,7 +55,7 @@ var app = {
 		});
 
 		pushPlugin.on('notification', function(data) {
-			//alert(JSON.stringify(data)); 
+			alert(JSON.stringify(data)); 
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
 			var ID_SUCURSAL;
