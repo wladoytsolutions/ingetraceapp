@@ -162,23 +162,19 @@ function CerrarSplash()
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
 	var StringJson=""+Base64.encode(""+json);
-	/**
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_cliente='"+id_cliente+"', id_sucursal='"+id_sucursal+"', json_sucursal='"+StringJson+"'";		
 		tx.executeSql(StringQuery);
 	});
-	*/
 }
 function setIdDevice(IdDevice)
 {
-	/**
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";		
 		tx.executeSql(StringQuery);
 	});
-	*/
 }
 function CargarMarquee()
 {
