@@ -55,7 +55,6 @@ var app = {
 		});
 
 		pushPlugin.on('notification', function(data) {
-			alert(JSON.stringify(data)); 
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
 			var ID_SUCURSAL;
@@ -67,6 +66,9 @@ var app = {
 					ID_SUCURSAL=d.idsucursal;
 					ID_SENSOR=d.idsensor;					
 				}
+			});
+			pushPlugin.finish(function() {
+				alert('finish successfully called');
 			});
 			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
 		});
