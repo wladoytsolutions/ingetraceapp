@@ -48,7 +48,7 @@ function CargarDatosElectrico(Inicio,Termino)
 		transition: 'pop'
 	});
 	$('#PanelDatosElectrico').hide('fade');
-	//$(window).disablescroll();
+	$(window).disablescroll();
 	
 	//Fecha inicio
 	var FecIni=Inicio;

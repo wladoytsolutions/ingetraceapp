@@ -73,7 +73,7 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
-	//$(window).disablescroll();
+	$(window).disablescroll();
 	
 	$("#H_ID_SENSOR").val(IdSensor);
 	
@@ -155,7 +155,7 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
-	//$(window).disablescroll();
+	$(window).disablescroll();
 	
 	$("#H_ID_CLIENTE_ACTUAL").val(Id_cliente);
 	$("#H_ID_SUCURSAL_ACTUAL").val(Id_sucursal);
