@@ -209,7 +209,7 @@ function CambiarSucursal(Id_cliente,Id_sucursal)
 				LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
 				$("#LogoCliente").attr("src",LOGO_CLIENTE);	
 				
-				//GenerarHTMLSensores(d);
+				GenerarHTMLSensores(d);
 		});
 	}).done(function(response) {
 		$('#ModalPage2').popup("close");
