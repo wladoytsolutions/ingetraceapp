@@ -185,7 +185,7 @@ function CambiarSucursal(Id_cliente,Id_sucursal)
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
-	$(window).disablescroll();
+	//$(window).disablescroll();
 	
 	$.post(RUTACONTROL,{
 			accion: "CambiaSucursal",
@@ -212,7 +212,7 @@ function CambiarSucursal(Id_cliente,Id_sucursal)
 		});
 	}).done(function(response) {
 		$('#ModalPage2').popup("close");
-		$(window).disablescroll("undo");
+		//$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val(Id_cliente);
 		$('#H_ID_SUCURSAL_ACTUAL').val(Id_sucursal);
 		$('#DivInicio').css('height',$( window ).height()+'px');		
@@ -233,7 +233,7 @@ function CambiarClaveBD()
 	$("#txtContraseñaActual").prop("disabled", true);
 	
 	
-	$(window).disablescroll();
+	//$(window).disablescroll();
 	
 	$.post(RUTACONTROL,{
 								accion: "CambioClave",
