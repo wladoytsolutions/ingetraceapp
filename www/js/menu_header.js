@@ -216,7 +216,7 @@ function CambiarSucursal(Id_cliente,Id_sucursal)
 		$(window).disablescroll("undo");
 		$('#H_ID_CLIENTE_ACTUAL').val(Id_cliente);
 		$('#H_ID_SUCURSAL_ACTUAL').val(Id_sucursal);
-		$('#DivInicio').css('height',$( window ).height()+'px');		
+		//$('#DivInicio').css('height',$( window ).height()+'px');		
 	});
 }
 function CambiarClaveBD()
