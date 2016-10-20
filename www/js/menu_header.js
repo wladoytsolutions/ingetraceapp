@@ -16,6 +16,7 @@ $( document ).ready(function() {
 	
 	$("#btnCancelarCambioSuc").click(function(e) {
 		e.preventDefault();	
+		$(window).disablescroll("undo");
 		$('#ModalCambioSuc3').popup( "close" );
 	});
 	$("#btnCancelarCambioClave").click(function(e) {
