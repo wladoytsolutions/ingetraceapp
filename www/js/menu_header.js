@@ -86,7 +86,7 @@ function CambiarClienteSucursal()
 		var ID_CLIENTE_ACTUAL='';
 		var OpcionesClientes='';
 		
-		$(window).disablescroll();
+		//$(window).disablescroll();
 		$('#ModalPage2').popup('open', {
 			transition: 'pop'
 		});
@@ -158,7 +158,7 @@ function CambiarClienteSucursal()
 			$('#H_CARGA_CAMBIO_CLISUC').val('1');
 			$('#ModalPage2').popup("close");
 			
-			$(window).disablescroll("undo");
+			//$(window).disablescroll("undo");
 			
 			setTimeout(function () {
 				$('#ModalCambioSuc3').popup('open', {

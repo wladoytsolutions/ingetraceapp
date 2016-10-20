@@ -62,7 +62,7 @@ var app = {
 				{
 					ID_CLIENTE=d.idcliente;
 					ID_SUCURSAL=d.idsucursal;
-					ID_SENSOR=d.idsensor;					
+					ID_SENSOR=d.idsensor;
 				}
 			});
 			pushPlugin.finish();
