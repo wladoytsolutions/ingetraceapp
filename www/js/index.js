@@ -33,7 +33,7 @@ var app = {
 		});
 		app.receivedEvent('deviceready');
 		
-		DEVICEPLATFORM = device.platform;
+		DEVICEPLATFORM = ""+device.platform;
 		
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase(); 
 
