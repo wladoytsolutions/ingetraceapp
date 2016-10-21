@@ -31,6 +31,10 @@ var app = {
 			});
 		});
 		app.receivedEvent('deviceready');
+		
+		var devicePlatform = device.platform;
+		
+		alert(devicePlatform);
 
 		pushPlugin = PushNotification.init({
 			android: {
