@@ -2,6 +2,7 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 var BD_APP=null;
 var pushPlugin;
+var DEVICEPLATFORM;
 
 var app = {
     // Application Constructor
@@ -32,9 +33,9 @@ var app = {
 		});
 		app.receivedEvent('deviceready');
 		
-		var devicePlatform = device.platform;
+		DEVICEPLATFORM = device.platform;
 		
-		alert(devicePlatform);
+		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase(); 
 
 		pushPlugin = PushNotification.init({
 			android: {
@@ -839,7 +840,8 @@ function login()
 								accion: "login",
 								Uss: $("#txtUsuario").val(),
 								Pass: $("#txtContrasena").val(),
-								Id_device: $("#H_TEXT_DEVICE").html()
+								Id_device: $("#H_TEXT_DEVICE").html(),
+								Plataforma: DEVICEPLATFORM
 								}, 
 	function(response) {
 		var json = jQuery.parseJSON(response);
