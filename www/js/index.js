@@ -850,8 +850,8 @@ function login()
 			{				
 				//Cookie
 				setCK(''+d.CK);
-				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
-				setIdDevice($("#H_TEXT_DEVICE").html());
+				//setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
+				//setIdDevice($("#H_TEXT_DEVICE").html());
 				
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
@@ -880,6 +880,10 @@ function login()
 							reverse: false,
 							showLoadMsg: false
 						});
+						if(DEVICEPLATFORM == 'android')
+						{
+							$('#top-nav-plataform').css('background-color','#222222');
+						}
 						$('#ModalPage1').popup( "close" );
 					}, 500);
 				});//Fin load cuerpo
