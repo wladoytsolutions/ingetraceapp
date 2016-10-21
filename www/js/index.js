@@ -39,7 +39,7 @@ var app = {
 
 		pushPlugin = PushNotification.init({
 			android: {
-				senderID: "485509697255",
+				senderID: "570571190177",
 				sound: true, 
                 forceShow: true,
                 vibrate: true	
