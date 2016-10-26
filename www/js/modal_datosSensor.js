@@ -211,8 +211,7 @@ function CargarTabAlarmas()
 				FECHAINICIO	 : $('#inicio_filtroDatosSensor').val(),
 				FECHATERMINO : $('#termino_filtroDatosSensor').val()
 		}, 
-	function(response) {				
-			alert(response);
+	function(response) {
 			var json = jQuery.parseJSON(response);
 			
 			$.each(json, function(i, d) {
@@ -226,7 +225,6 @@ function CargarTabAlarmas()
 			
 			$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 			$("#DivCargandoAlarmas").hide("fade");
-			alert($("#tBodyDatosAlarmas").html());
 					
 	}).done(function(response) {						
 		setTimeout(function () {
@@ -245,7 +243,7 @@ function CargarTabAlarmas()
 			RecargarTablaAlarmas();
 		}, 500);
 			
-		//$("#H_TAB_ALARMAS_CARGADO").val("Ok");
+		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 		HabilitarBusqueda();
 		
 	});
@@ -528,9 +526,12 @@ function CargarDatos(Inicio,Termino)
 				
 			var chart = new Highcharts.Chart(optionsLineal);
 			$('#btn_buscarGrafico').prop("disabled",false);
-			$("#Li_TablaAlarmas").show("fade");
-			$("#Li_Tabla").show("fade");
-			$("#H_TAB_GRAFICO_CARGADO").val("ok");			
+			$("#H_TAB_GRAFICO_CARGADO").val("ok");
+			
+			setTimeout(function () {
+				$("#Li_TablaAlarmas").show("fade");
+				$("#Li_Tabla").show("fade");
+			}, 2000);
 	}
 function CargarBitacora(Id_alerta)
 {
