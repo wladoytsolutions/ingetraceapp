@@ -529,7 +529,6 @@ function CargarDatos(Inicio,Termino)
 			$("#H_TAB_GRAFICO_CARGADO").val("ok");
 			
 			setTimeout(function () {
-				alert("ACA");
 				$("#Li_TablaAlarmas").show("fade");
 				$("#Li_Tabla").show("fade");
 			}, 2000);
