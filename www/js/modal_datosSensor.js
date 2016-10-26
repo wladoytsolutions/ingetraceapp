@@ -1,5 +1,4 @@
 var BANDERA_TAB=false;
-var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 $(document).ready(function() {
 	$("#ModalPage3").load("html_parts/modal_cargando.html");
 	$("#btn_buscarGrafico").prop('disabled', true);
@@ -201,8 +200,6 @@ function CargarTabAlarmas()
 		
 	var CuerpoAlarmas='';
 	
-	alert(RUTACONTROL);
-	
 	//Buscar datos bitacora						
 	$.post(RUTACONTROL,{
 				accion 		 : 'CargarAlarmas',
@@ -248,7 +245,7 @@ function CargarTabAlarmas()
 			RecargarTablaAlarmas();
 		}, 500);
 			
-		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
+		//$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 		HabilitarBusqueda();
 		
 	});
