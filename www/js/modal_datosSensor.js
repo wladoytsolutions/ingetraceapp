@@ -200,6 +200,14 @@ function CargarTabAlarmas()
 		
 	var CuerpoAlarmas='';
 	
+	alert("CLIENTE_ACTUAL "+$('#H_ID_CLIENTE_ACTUAL').val());
+	alert("SUCURSAL_ACTUAL "+$('#H_ID_SUCURSAL_ACTUAL').val());
+	alert("ID_SECCION "+$('#H_ID_SECCION').val());
+	alert("ID_EQUIPO_ACTUAL "+$('#H_ID_EQUIPO').val());
+	alert("ID_SENSOR_ACTUAL "+$('#H_ID_SENSOR').val());
+	alert("INICIO_FILTRODATOSSENSOR "+$('#inicio_filtroDatosSensor').val());
+	alert("TERMINO_FILTRODATOSSENSOR "+$('#termino_filtroDatosSensor').val());
+	
 	//Buscar datos bitacora						
 	$.post(RUTACONTROL,{
 				accion 		 : 'CargarAlarmas',
