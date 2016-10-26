@@ -81,7 +81,6 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		alert("ACA");
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
