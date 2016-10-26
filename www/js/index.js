@@ -81,6 +81,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
+		alert("ACA");
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
@@ -336,7 +337,12 @@ function GenerarHTMLSensores(DATOS)
 		$('#DivElectrico').hide();
 	}	
 	CargarMarquee();
-	$('#H_SUCURSAL_CARGADA').val("1");	
+	$('#H_SUCURSAL_CARGADA').val("1");
+	
+	if(DEVICEPLATFORM == 'android')
+	{
+		$('#top-nav-plataform').css('background-color','#222222');
+	}
 }
 function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
 {
@@ -880,10 +886,6 @@ function login()
 							reverse: false,
 							showLoadMsg: false
 						});
-						if(DEVICEPLATFORM == 'android')
-						{
-							$('#top-nav-plataform').css('background-color','#222222');
-						}
 						$('#ModalPage1').popup( "close" );
 					}, 500);
 				});//Fin load cuerpo
