@@ -226,6 +226,7 @@ function CargarTabAlarmas()
 			
 			$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 			$("#DivCargandoAlarmas").hide("fade");
+			alert($("#tBodyDatosAlarmas").html());
 					
 	}).done(function(response) {						
 		setTimeout(function () {
@@ -241,7 +242,7 @@ function CargarTabAlarmas()
 				"order": [[ 0, "desc" ]]
 			});
 			BANDERA_TAB=false;
-			RecargarTablaAlarmas();
+			//RecargarTablaAlarmas();
 		}, 500);
 			
 		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
