@@ -590,10 +590,12 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						chart = new Highcharts.Chart(optionsLineal);
 						$('#btn_buscarGrafico').prop("disabled",false);
 						$("#H_TAB_GRAFICO_CARGADO").val("ok");
+						/**
 						setTimeout(function () {
 							$("#Li_TablaAlarmas").show("fade");
 							$("#Li_Tabla").show("fade");
 						}, 2000);
+						*/
 					}, 750);
 				});
 			});
