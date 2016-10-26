@@ -14,46 +14,47 @@ $( document ).ready(function() {
 		Logout();
 	});
 	
-	$("#btnCancelarCambioSuc").click(function(e) {
-		e.preventDefault();	
-		$(window).disablescroll("undo");
-		$('#ModalCambioSuc3').popup( "close" );
-	});
-	$("#btnCancelarCambioClave").click(function(e) {
-		e.preventDefault();	
-		$('#ModalClave3').popup( "close" );
-	});
-	
 	setTimeout(function () {
 		$('#Cbo_Cliente-button').attr('class','');
 		$('#Cbo_Sucursal-button').attr('class','');
 	}, 500);
-	
-	$("#btn_aceptarCambioSuc").click(function(e) {
-		e.preventDefault();
-		$('#ModalCambioSuc3').popup( "close" );
-		
-		setTimeout(function () {
-			CambiarSucursal($("#Cbo_Cliente").val(),$("#Cbo_Sucursal").val());
-		}, 500);
-	});
-	$("#btn_aceptarCambioClave").click(function(e) {
-		e.preventDefault();
-		$('#btnValidarCambioClave').trigger("click");
-		if(formularioCambioClave.checkValidity()){
-			if($('#txtContrasena1').val()==$('#txtContrasena2').val())
-			{
-				CambiarClaveBD();
-			}
-			else
-			{
-				$('#msjeCambioClave').html("Las contraseñas deben coincidir");
-				$('#alertMensajeCambioClave').show();
-			}
-		}
-	});
-	
 });
+function AceptarModalCambioClave(e)
+{
+	e.preventDefault();
+	$('#btnValidarCambioClave').trigger("click");
+	if(formularioCambioClave.checkValidity()){
+		if($('#txtContrasena1').val()==$('#txtContrasena2').val())
+		{
+			CambiarClaveBD();
+		}
+		else
+		{
+			$('#msjeCambioClave').html("Las contraseñas deben coincidir");
+			$('#alertMensajeCambioClave').show();
+		}
+	}
+}
+function CerrarModalCambioClave(e)
+{
+	e.preventDefault();	
+	$('#ModalClave3').popup( "close" );
+}
+function CerrarModalCambioSucursal(e)
+{
+	e.preventDefault();	
+	$(window).disablescroll("undo");
+	$('#ModalCambioSuc3').popup( "close" );
+}
+function AceptarModalCambioSucursal(e)
+{
+	e.preventDefault();
+	$('#ModalCambioSuc3').popup( "close" );
+		
+	setTimeout(function () {
+			CambiarSucursal($("#Cbo_Cliente").val(),$("#Cbo_Sucursal").val());
+	}, 500);
+}
 function Logout()
 {
 	$('#ModalPage2').popup('open', {
