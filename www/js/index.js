@@ -369,6 +369,8 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				$("#H_ID_EQUIPO").val(IdEquipo);
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
+				$('#H_IdClienteRecibido').val(IdCliente);
+				$('#H_IdSucursalRecibido').val(IdSucursal);
 				
 				if(HideSplash)
 				{
@@ -710,7 +712,7 @@ function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 	var NombreSeccion;
 	var IdEquipo;
 	var NombreEquipo;
-
+	
 	//Buscando datos restantes para el grafico
 	$.post(RUTACONTROL,{
 			accion: 'GetDatosEquipoSensor',
