@@ -252,6 +252,8 @@ function GenerarHTMLSensores(DATOS)
 	//Sensores termicos
 	var HtmlTermicos='';
 	
+	alert(DATOS.FECHA_HOY);
+	
 	$.each(DATOS.SENSORES_TERMICOS, function(j, e) {
 		
 		var NombreEquipo=e.NOMBRE_EQUIPO+'';
@@ -859,10 +861,7 @@ function login()
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
-			{	
-				//Fecha Hoy				
-				$("#H_FECHA_HOY").val(d.FECHA_HOY);
-				
+			{				
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
