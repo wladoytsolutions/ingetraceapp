@@ -252,7 +252,7 @@ function GenerarHTMLSensores(DATOS)
 	//Sensores termicos
 	var HtmlTermicos='';
 	
-	alert(DATOS.FECHA_HOY);
+	$("#H_FECHA_HOY").val(DATOS.FECHA_HOY);
 	
 	$.each(DATOS.SENSORES_TERMICOS, function(j, e) {
 		
