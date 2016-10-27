@@ -212,6 +212,7 @@ function CargarTabAlarmas()
 				FECHATERMINO : $('#termino_filtroDatosSensor').val()
 		}, 
 	function(response) {
+			alert(response);
 			var json = jQuery.parseJSON(response);
 			
 			$.each(json, function(i, d) {
@@ -243,7 +244,7 @@ function CargarTabAlarmas()
 			RecargarTablaAlarmas();
 		}, 500);
 			
-		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
+		//$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 		HabilitarBusqueda();
 		
 	});
