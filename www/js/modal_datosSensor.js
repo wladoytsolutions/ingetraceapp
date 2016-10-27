@@ -244,7 +244,7 @@ function CargarTabAlarmas()
 			RecargarTablaAlarmas();
 		}, 500);
 			
-		//$("#H_TAB_ALARMAS_CARGADO").val("Ok");
+		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 		HabilitarBusqueda();
 		
 	});

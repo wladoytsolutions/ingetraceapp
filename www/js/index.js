@@ -385,6 +385,23 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					});
 				
 				//HTML CARGADO
+				//Fecha hoy				
+				$("#FechaBitacoraHoy").html($("#H_FECHA_HOY").val());
+				$("#inicio_filtroDatosSensor").val($("#H_FECHA_HOY").val());
+				$("#termino_filtroDatosSensor").val($("#H_FECHA_HOY").val());
+						
+				$("#inicio_filtroDatosSensor").datepicker({
+					format: "dd/mm/yyyy",
+					language:"es",
+					autoclose:true,
+					orientation: "top auto"
+				});
+						
+				$("#termino_filtroDatosSensor").datepicker({ format: "dd/mm/yyyy",
+					language:"es",
+					autoclose:true,
+					orientation: "top auto"
+				});
 
 				$.post(RUTACONTROL,
 						{
@@ -408,25 +425,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
 					
-					$.each(json, function(j, e) {
-						//Fecha hoy				
-						$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-						$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-						$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
-						
-						$("#inicio_filtroDatosSensor").datepicker({
-									format: "dd/mm/yyyy",
-									language:"es",
-									autoclose:true,
-									orientation: "top auto"
-									});
-						
-						$("#termino_filtroDatosSensor").datepicker({ format: "dd/mm/yyyy",
-									language:"es",
-									autoclose:true,
-									orientation: "top auto"
-									});
-						
+					$.each(json, function(j, e) {						
 						$("#JSON_DATOS").html(response);
 						var Promedio=0;
 						var Limite=0;
@@ -860,7 +859,10 @@ function login()
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
-			{				
+			{	
+				//Fecha Hoy				
+				$("#H_FECHA_HOY").val(d.FECHA_HOY);
+				
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
