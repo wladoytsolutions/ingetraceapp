@@ -161,8 +161,10 @@ function CargarTabDatos()
 			"searching": false,
 			"order": [[ 0, "desc" ]]
 		});
-		BANDERA_TAB=false;
-		RecargarTablaDatos();	
+		BANDERA_TAB=false;			
+		setTimeout(function () {
+			RecargarTablaDatos();
+		}, 500);
 	}, 500);
 			
 	$("#H_TAB_DATOS_CARGADO").val("Ok");
@@ -385,8 +387,10 @@ function CargarDatos(Inicio,Termino)
 						"searching": false,
 						"order": [[ 0, "desc" ]]
 					});
-					BANDERA_TAB=false;
-					RecargarTablaAlarmas();
+					BANDERA_TAB=false;					
+					setTimeout(function () {
+						RecargarTablaAlarmas();
+					}, 500);
 				}, 500);
 				
 				$("#H_TAB_ALARMAS_CARGADO").val("Ok");
