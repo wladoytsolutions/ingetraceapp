@@ -70,9 +70,9 @@ var app = {
 				}
 			});
 			pushPlugin.finish();
-			setTimeout(function () {
+			/**setTimeout(function () {
 				CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
-			}, 2000);
+			}, 1000);*/
 					
 		});
 
@@ -86,7 +86,6 @@ var app = {
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
-				alert("Buscando cookie");
 				BuscarCookie();
 			}
 		}, 500);
