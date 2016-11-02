@@ -653,8 +653,8 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 										
 								//Cargando html
 								$("#p2").load( "inicio.html", function() {
-									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
-									$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+									//$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
+									//$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 									//Agregando menu
 									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
 										$('#H_ID_CLIENTE_ACTUAL').val(id_cliente);
