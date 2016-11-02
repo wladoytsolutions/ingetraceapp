@@ -57,7 +57,6 @@ var app = {
 		});
 
 		pushPlugin.on('notification', function(data) {
-			alert("Notificacion recibida");
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
 			var ID_SUCURSAL;
@@ -604,21 +603,17 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 {	
-	alert('Cargando Notificacion');
 	//Verificando si hay CK
 	var ValCK=getCK();
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
-		alert("Existe Cookie");
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
-			alert("La sucursal esta cargada");
 			//Validar si estamos en la pantalla p3
 			if($.mobile.activePage.attr('id')=="p3")
 			{
-				alert("Estamos en pagina 3 vamos a cambiar a pagina 2");
 				$.mobile.pageContainer.pagecontainer('change', '#p2', {
 					transition: 'flip',
 					changeHash: true,
@@ -629,12 +624,10 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
-				alert("El sensor corresponde a la sucursal actual");
 				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
 			{
-				alert("El sensor es de otra sucursal "+FUN_ID_CLIENTE+" , Suc "+FUN_ID_SUC+" , Id sensor "+FUN_ID_SENSOR);
 				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
 			}
 		}
