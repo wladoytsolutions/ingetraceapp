@@ -3,25 +3,6 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
-
-function onNotificationAPN (event) {
-    if (event.alert) {
-	   alert('alert');
-       alert(event.alert);
-    }
-
-    if (event.sound) {
-		alert('sound');
-        var snd = new Media(event.sound);
-        snd.play();
-    }
-
-    if (event.badge) {
-		alert('badge');
-        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
-    }
-}
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -65,8 +46,7 @@ var app = {
 			ios: {
 				alert: true,
 				badge: true,
-				sound: true,
-				ecb: onNotificationAPN
+				sound: true
 			},
 			windows: {}
 		});
@@ -90,8 +70,8 @@ var app = {
 					ID_SENSOR=d.idsensor;
 				}
 			});
-			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
 			pushPlugin.finish();
+			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);			
 		});
 
 		pushPlugin.on('error', function(e) {
