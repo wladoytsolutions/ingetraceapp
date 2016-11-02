@@ -4,6 +4,24 @@ var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
 
+function onNotificationAPN (event) {
+    if (event.alert) {
+	   alert('alert');
+       alert(event.alert);
+    }
+
+    if (event.sound) {
+		alert('sound');
+        var snd = new Media(event.sound);
+        snd.play();
+    }
+
+    if (event.badge) {
+		alert('badge');
+        window.plugins.pushNotification.setApplicationIconBadgeNumber(function(){}, function(){}, event.badge);
+    }
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -47,7 +65,8 @@ var app = {
 			ios: {
 				alert: true,
 				badge: true,
-				sound: true
+				sound: true,
+				ecb: onNotificationAPN
 			},
 			windows: {}
 		});
