@@ -70,9 +70,7 @@ var app = {
 				}
 			});
 			pushPlugin.finish();
-			setTimeout(function () {
-				CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
-			}, 500);
+			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
 					
 		});
 
