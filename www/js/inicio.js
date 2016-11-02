@@ -24,6 +24,8 @@ $( document ).ready(function() {
 	
 	setInterval(function(){ ParpadearAlarmaLocal(); }, 1000);
 	
+	$("#ModalPage2").load("html_parts/modal_cargando.html");
+	
 	document.addEventListener("backbutton", function(e){
     if($.mobile.activePage.is('#p2')){
         //e.preventDefault();
