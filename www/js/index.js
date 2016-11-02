@@ -70,7 +70,10 @@ var app = {
 				}
 			});
 			pushPlugin.finish();
-			CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);			
+			setTimeout(function () {
+				CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
+			}, 2000);
+					
 		});
 
 		pushPlugin.on('error', function(e) {
@@ -83,6 +86,7 @@ var app = {
 		setTimeout(function () {
 			if($("#H_DESDE_NOTIFICACION").val()!="1")
 			{
+				alert("Buscando cookie");
 				BuscarCookie();
 			}
 		}, 500);
