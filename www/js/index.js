@@ -653,42 +653,47 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 										
 								//Cargando html
 								$("#p2").load( "inicio.html", function() {
+									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html", function() {
+										$("#ModalClave3").load("html_parts/modal_cambioClave.html", function() {
+											$("#ModalPage2").load("html_parts/modal_cargando.html", function() {
+												//Agregando menu
+												$("#DivMenu").load("html_parts/menu_header.html",	function() {		
+													$('#H_ID_CLIENTE_ACTUAL').val(id_cliente);
+													$('#H_ID_SUCURSAL_ACTUAL').val(id_sucursal);
+																
+													//Estado de sucursal
+													$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
+													$("#IconoSucursal").html(d.ICONO_SUCURSAL);
+													$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
+													LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
+													$("#LogoCliente").attr("src",LOGO_CLIENTE);					
+																
+													GenerarHTMLSensores(d);									
+													ActualizarDashboard();
+												});//Fin load menu
+												
+												$('#BodyPrincipal').pagecontainer('change', '#p2', {
+													transition: 'flip',
+													changeHash: true,
+													reverse: false,
+													showLoadMsg: false
+												});
+												setTimeout(function () {
+													if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUC)
+													{
+														VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
+													}
+													else
+													{
+														CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+													}
+												}, 750);	
+											});
+										});
+									});
 									//$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 									//$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 									//$("#ModalPage2").load("html_parts/modal_cargando.html");
-									//Agregando menu
-									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
-										$('#H_ID_CLIENTE_ACTUAL').val(id_cliente);
-										$('#H_ID_SUCURSAL_ACTUAL').val(id_sucursal);
-													
-										//Estado de sucursal
-										$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
-										$("#IconoSucursal").html(d.ICONO_SUCURSAL);
-										$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
-										LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
-										$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-													
-										GenerarHTMLSensores(d);									
-										ActualizarDashboard();
-									});//Fin load menu
-									
-									$('#BodyPrincipal').pagecontainer('change', '#p2', {
-										transition: 'flip',
-										changeHash: true,
-										reverse: false,
-										showLoadMsg: false
-									});
-									setTimeout(function () {
-										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUC)
-										{
-											VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
-										}
-										else
-										{
-											CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
-										}
-									}, 750);								
-									
 								});//Fin load cuerpo
 							}
 							else
