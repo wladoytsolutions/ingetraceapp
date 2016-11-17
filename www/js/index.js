@@ -46,7 +46,7 @@ var app = {
 			ios: {
 				alert: true,
 				badge: true,
-				sound: "happy-jump.aif"
+				sound: true
 			},
 			windows: {}
 		});
