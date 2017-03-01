@@ -10,7 +10,7 @@ $(document).ready(function() {
 				$('#DivInicioOp').attr('class','form-group');
 				$('#DivTerminoOp').attr('class','form-group');
 					
-				var ValOp=ValidarFechasOperaciones();
+				var ValOp=ValidarFechasOperacionesSinLimite();
 				if(ValOp){
 					//guardar_registro();
 					$('#DivInicioOp').attr('class','form-group');
@@ -148,42 +148,6 @@ function RecargarTabla()
 	
 	//alert($(ThFecha).attr('style'));
 	
-}
-function ValidarFechasOperaciones()
-{
-	var Valido=false;
-	
-	var startDate = $('#inicio_filtroDatosSensorElectrico').val();
-	startDate=String(startDate);
-		
-	//Convertiendo a float
-	var anioIni=startDate.substring(6, 10);
-	var mesIni=startDate.substring(3, 5);
-	var diaIni=startDate.substring(0, 2);
-		
-	var FecIni = parseFloat(anioIni+mesIni+diaIni);
-	
-	var endDate = $('#termino_filtroDatosSensorElectrico').val();
-	endDate=String(endDate);
-		
-	//Convertiendo a float
-	var anioFin=endDate.substring(6, 10);
-	var mesFin=endDate.substring(3, 5);
-	var diaFin=endDate.substring(0, 2);
-		
-	var FecFin = parseFloat(anioFin+mesFin+diaFin);
-		
-	if(FecIni!=FecFin)
-	{
-		if(FecIni < FecFin){
-		   Valido=true;
-		}
-	}
-	else
-	{
-		Valido=true;
-	}
-	return Valido;
 }
 function VolverAtras(event)
 {
