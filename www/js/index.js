@@ -298,6 +298,9 @@ function GenerarHTMLSensores(DATOS)
 						
 	$.each(DATOS.SENSORES_ELECTRICOS, function(k, f) {
 		
+		alert('1-  '+f.IDSENSOR);
+		alert('2-  '+f.ID_SENSOR);
+		
 		ElectricosVisibles=true;
 		var NombreEquipo=f.EQUIPO+'';
 		var ClaseMarqueDiv='';
@@ -312,7 +315,7 @@ function GenerarHTMLSensores(DATOS)
 		HtmlElectricos+='<i class="fa fa-hdd-o fa-2x"></i></div><div class="col-xs-7 text-left '+ClaseMarqueDiv+'" style="padding-right: 0px;"><div class="'+ClaseMarque+'">'+NombreEquipo+'</div></div>';
 		HtmlElectricos+='<div id="SENAL_'+f.IDSENSOR+'" class="col-xs-2 text-right">'+f.SENAL+'</div>';
 		HtmlElectricos+='<div class="col-xs-1 text-right" style="padding-right: 0px;">';
-		HtmlElectricos+='<a id="VerSensoresRegistrados_'+f.ID_SENSOR+'" href="#" onclick="javascript:CargarGraficoSensorElectrico(event,\''+f.IDSENSOR+'\',\''+f.EQUIPO+'\');">';
+		HtmlElectricos+='<a id="VerSensoresRegistrados_'+f.IDSENSOR+'" href="#" onclick="javascript:CargarGraficoSensorElectrico(event,\''+f.IDSENSOR+'\',\''+f.EQUIPO+'\');">';
 		HtmlElectricos+='<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a></div></div></div>';
 		HtmlElectricos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
 							
