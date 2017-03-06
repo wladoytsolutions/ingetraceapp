@@ -629,7 +629,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SE
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
-				alert(''+$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('href'));
+				alert('Id sensor  '+FUN_ID_SENSOR+'   ->'+$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('href'));
 				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
