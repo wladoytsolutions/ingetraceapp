@@ -61,17 +61,19 @@ var app = {
 			var ID_CLIENTE;
 			var ID_SUCURSAL;
 			var ID_SENSOR;
+			var TIPO_SENSOR;
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
 					ID_CLIENTE=d.idcliente;
 					ID_SUCURSAL=d.idsucursal;
 					ID_SENSOR=d.idsensor;
+					TIPO_SENSOR=d.tipo_sensor;
 				}
 			});
 			pushPlugin.finish();
 			setTimeout(function () {
-				CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR);
+				CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR,TIPO_SENSOR);
 			}, 250);
 					
 		});
@@ -310,7 +312,7 @@ function GenerarHTMLSensores(DATOS)
 		HtmlElectricos+='<i class="fa fa-hdd-o fa-2x"></i></div><div class="col-xs-7 text-left '+ClaseMarqueDiv+'" style="padding-right: 0px;"><div class="'+ClaseMarque+'">'+NombreEquipo+'</div></div>';
 		HtmlElectricos+='<div id="SENAL_'+f.IDSENSOR+'" class="col-xs-2 text-right">'+f.SENAL+'</div>';
 		HtmlElectricos+='<div class="col-xs-1 text-right" style="padding-right: 0px;">';
-		HtmlElectricos+='<a idsensor="" id="VerSensoresRegistrados" href="#" onclick="javascript:CargarGraficoSensorElectrico(event,\''+f.IDSENSOR+'\',\''+f.EQUIPO+'\');">';
+		HtmlElectricos+='<a idsensor="" id="VerSensoresRegistrados_'+f.ID_SENSOR+'" href="#" onclick="javascript:CargarGraficoSensorElectrico(event,\''+f.IDSENSOR+'\',\''+f.EQUIPO+'\');">';
 		HtmlElectricos+='<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a></div></div></div>';
 		HtmlElectricos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
 							
@@ -604,7 +606,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			});
 	});
 }
-function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
+function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
 {	
 	//Verificando si hay CK
 	var ValCK=getCK();
@@ -631,7 +633,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			}
 			else
 			{
-				CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+				CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_SENSOR);				
 			}
 		}
 		else
@@ -683,11 +685,14 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 									setTimeout(function () {
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUC)
 										{
-											VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
+											if(FUN_TIPO_SENSOR=='T')
+											{
+												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
+											}
 										}
 										else
 										{
-											CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR);
+											CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_SENSOR);
 										}
 									}, 750);								
 									
@@ -713,7 +718,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
 }
-function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
+function CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_SENSOR)
 {
 	var NombreCliente;
 	var NombreSucursal;
@@ -741,7 +746,10 @@ function CargarSensorTermicoDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR)
 			NombreEquipo=d.NOMBRE_EQUIPO;
 		});
 	}).done(function(response) {
-		VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
+		if(FUN_TIPO_SENSOR=='T')
+		{
+			VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
+		}		
 	});
 }
 function ValidarCKIncial(CK)
