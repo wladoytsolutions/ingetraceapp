@@ -298,9 +298,6 @@ function GenerarHTMLSensores(DATOS)
 						
 	$.each(DATOS.SENSORES_ELECTRICOS, function(k, f) {
 		
-		alert('1-  '+f.IDSENSOR);
-		alert('2-  '+f.ID_SENSOR);
-		
 		ElectricosVisibles=true;
 		var NombreEquipo=f.EQUIPO+'';
 		var ClaseMarqueDiv='';
@@ -609,6 +606,94 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			});
 	});
 }
+function VerGraficoSensorElectrico(HideSplash,IdSensor,NombreEquipo)
+{
+	$(window).disablescroll();
+	
+	$('#ModalPage2').popup('open', {
+		transition: 'pop'
+	});
+	
+	$("#H_ID_SENSOR").val(IdSensor);
+	
+	$("#p3Body").load(
+		"sensor.html",
+	function() {
+		$("#RowContenidoCuerpoP3").load(
+			"html_parts/modal_datosSensorElectrico.html",
+		function() {
+			$('#H_SENSOR_ELECTRICO').val(IdSensor);
+			$("#TituloModalGrafico").html(NombreEquipo+'('+IdSensor+')');
+			
+			if(HideSplash)
+			{
+				CerrarSplash();
+			}
+			
+			var CuerpoDatos='';
+			
+				$.post(RUTACONTROL,{
+								accion 		 : 'DatosGraficoSensorElectrico',
+								ID_SENSOR    : IdSensor,
+								FechaInicio  : '',	
+								FechaTermino : ''
+								}, 
+				function(response) {
+							var json = jQuery.parseJSON(response);
+							
+							$("#inicio_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
+							$("#termino_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
+							
+							$.each(json.ITEMS, function(i, d) {
+								CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
+								
+								var imagen='';
+								if(d.ACCION=="Closed")
+								{
+									imagen='<i style="color: #08fa06" class="glyphicon glyphicon-off"></i>';
+								}
+								else
+								{
+									imagen='<i style="color: #fd0002" class="glyphicon glyphicon-off"></i>';
+								}
+								
+								CuerpoDatos+='<center>'+imagen+'</center><span style="display:none">'+d.ACCION+'</span></td>';
+								
+								CuerpoDatos+='<td style="width: 24%"><center>'+d.TIEMPO_DE_USO+'</center></td>';
+								CuerpoDatos+='</tr>';
+							});
+							
+							$("#tBodyDatosGrafico").html(CuerpoDatos);
+
+							$.mobile.pageContainer.pagecontainer('change', '#p3', {
+								transition: 'flip',
+								changeHash: true,
+								reverse: true,
+								showLoadMsg: false
+							});
+							
+				}).done(function(response) {
+					$('#ModalPage2').popup('close');
+					$(window).disablescroll("undo");
+					setTimeout(function () {
+						$("#TablaDatosSensores").dataTable({
+							"language": {
+								"url": "json/spanish.json"
+							},
+							"scrollY":        "230px",
+							"scrollCollapse": true,
+							"paging":         false,
+							"searching": false
+						});
+						$("#btn_buscarGrafico").prop('disabled', false);
+						setTimeout(function () {
+							RecargarTabla();
+						},1000);
+					}, 750);				
+				});		
+		});
+	});
+}
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
 {	
 	//Verificando si hay CK
@@ -632,7 +717,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SE
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
 			{
-				alert('Id sensor  '+FUN_ID_SENSOR+'   ->'+$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('href'));
 				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
