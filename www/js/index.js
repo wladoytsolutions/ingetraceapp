@@ -606,10 +606,11 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			});
 	});
 }
-function VerGraficoSensorElectrico(HideSplash,IdSensor,NombreEquipo)
+function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 {
 	$(window).disablescroll();
 	
+	alert("ACA");
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
@@ -627,7 +628,7 @@ function VerGraficoSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 			
 			if(HideSplash)
 			{
-				CerrarSplash();
+				//CerrarSplash();
 			}
 			
 			var CuerpoDatos='';

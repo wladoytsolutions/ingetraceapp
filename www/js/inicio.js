@@ -66,7 +66,7 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 {
 	event.preventDefault();
-	VerGraficoSensorElectrico(false,IdSensor,NombreEquipo);
+	VerSensorElectrico(false,IdSensor,NombreEquipo);
 }
 function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,Id_seccion, Nombre_seccion, Id_equipo, Nombre_equipo,Id_sensor)
 {
