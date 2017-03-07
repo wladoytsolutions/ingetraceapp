@@ -843,7 +843,11 @@ function CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_
 		if(FUN_TIPO_SENSOR=='T')
 		{
 			VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
-		}		
+		}
+		if(FUN_TIPO_SENSOR=='H')
+		{
+			VerSensorElectrico(true,FUN_ID_SENSOR,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'));
+		}
 	});
 }
 function ValidarCKIncial(CK)
