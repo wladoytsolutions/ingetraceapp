@@ -631,66 +631,68 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 			}
 			
 			var CuerpoDatos='';
-			/**
-				$.post(RUTACONTROL,{
-								accion 		 : 'DatosGraficoSensorElectrico',
-								ID_SENSOR    : IdSensor,
-								FechaInicio  : '',	
-								FechaTermino : ''
-								}, 
-				function(response) {
-							var json = jQuery.parseJSON(response);
+			
+			$.post(RUTACONTROL,{
+							accion 		 : 'DatosGraficoSensorElectrico',
+							ID_SENSOR    : IdSensor,
+							FechaInicio  : '',	
+							FechaTermino : ''
+							}, 
+			function(response) {
+			
+				var json = jQuery.parseJSON(response);
 							
-							$("#inicio_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
-							$("#termino_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
+				$("#inicio_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
+				$("#termino_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
 							
-							$.each(json.ITEMS, function(i, d) {
-								CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
+				$.each(json.ITEMS, function(i, d) {
+					CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
 								
-								var imagen='';
-								if(d.ACCION=="Closed")
-								{
-									imagen='<i style="color: #08fa06" class="glyphicon glyphicon-off"></i>';
-								}
-								else
-								{
-									imagen='<i style="color: #fd0002" class="glyphicon glyphicon-off"></i>';
-								}
+					var imagen='';
+					if(d.ACCION=="Closed")
+					{
+						imagen='<i style="color: #08fa06" class="glyphicon glyphicon-off"></i>';
+					}
+					else
+					{
+						imagen='<i style="color: #fd0002" class="glyphicon glyphicon-off"></i>';
+					}
 								
-								CuerpoDatos+='<center>'+imagen+'</center><span style="display:none">'+d.ACCION+'</span></td>';
-								
-								CuerpoDatos+='<td style="width: 24%"><center>'+d.TIEMPO_DE_USO+'</center></td>';
-								CuerpoDatos+='</tr>';
-							});
+					CuerpoDatos+='<center>'+imagen+'</center><span style="display:none">'+d.ACCION+'</span></td>';
+					
+					CuerpoDatos+='<td style="width: 24%"><center>'+d.TIEMPO_DE_USO+'</center></td>';
+					CuerpoDatos+='</tr>';
+				});
 							
-							$("#tBodyDatosGrafico").html(CuerpoDatos);
-					*/
-							$.mobile.pageContainer.pagecontainer('change', '#p3', {
-								transition: 'flip',
-								changeHash: true,
-								reverse: true,
-								showLoadMsg: false
-							});
+				$("#tBodyDatosGrafico").html(CuerpoDatos);
+
+				$.mobile.pageContainer.pagecontainer('change', '#p3', {
+					transition: 'flip',
+					changeHash: true,
+					reverse: true,
+					showLoadMsg: false
+				});
 							
-				}).done(function(response) {
-					$('#ModalPage2').popup('close');
-					$(window).disablescroll("undo");
-					setTimeout(function () {
-						$("#TablaDatosSensores").dataTable({
-							"language": {
-								"url": "json/spanish.json"
-							},
-							"scrollY":        "230px",
-							"scrollCollapse": true,
-							"paging":         false,
-							"searching": false
-						});
-						$("#btn_buscarGrafico").prop('disabled', false);
+			}).done(function(response) {			
+				$('#ModalPage2').popup('close');
+				$(window).disablescroll("undo");
+				setTimeout(function () {
+					$("#TablaDatosSensores").dataTable({
+						"language": {
+						"url": "json/spanish.json"
+						},
+						"scrollY":        "230px",
+						"scrollCollapse": true,
+						"paging":         false,
+						"searching": false
+					});
+					
+					$("#btn_buscarGrafico").prop('disabled', false);
 						setTimeout(function () {
 							RecargarTabla();
 						},1000);
-					}, 750);				
-				});		
+					}, 750);
+			});
 		});
 	});
 }
