@@ -610,7 +610,6 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 {
 	$(window).disablescroll();
 	
-	alert("ACA");
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
@@ -628,11 +627,11 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 			
 			if(HideSplash)
 			{
-				//CerrarSplash();
+				CerrarSplash();
 			}
 			
 			var CuerpoDatos='';
-			
+			/**
 				$.post(RUTACONTROL,{
 								accion 		 : 'DatosGraficoSensorElectrico',
 								ID_SENSOR    : IdSensor,
@@ -665,7 +664,7 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 							});
 							
 							$("#tBodyDatosGrafico").html(CuerpoDatos);
-
+					*/
 							$.mobile.pageContainer.pagecontainer('change', '#p3', {
 								transition: 'flip',
 								changeHash: true,
