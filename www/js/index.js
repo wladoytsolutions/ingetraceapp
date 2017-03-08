@@ -59,21 +59,34 @@ var app = {
 		pushPlugin.on('notification', function(data) {
 			$("#H_DESDE_NOTIFICACION").val("1");
 			var ID_CLIENTE;
+			var NOMBRE_CLIENTE;
 			var ID_SUCURSAL;
+			var NOMBRE_SUCURSAL;
+			var ID_SECCION;
+			var NOMBRE_SECCION;
+			var ID_EQUIPO;
+			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_SENSOR;
+			
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
-					ID_CLIENTE=d.idcliente;
-					ID_SUCURSAL=d.idsucursal;
-					ID_SENSOR=d.idsensor;
+					ID_CLIENTE=d.id_cliente;
+					NOMBRE_CLIENTE=d.nombre_cliente;
+					ID_SUCURSAL=d.id_sucursal;
+					NOMBRE_SUCURSAL=d.nombre_sucursal;
+					ID_SECCION=d.id_seccion;
+					NOMBRE_SECCION=d.nombre_seccion;
+					ID_EQUIPO=d.id_equipo;
+					NOMBRE_EQUIPO=d.nombre_equipo;
+					ID_SENSOR=d.id_sensor;
 					TIPO_SENSOR=d.tipo_sensor;
 				}
 			});
 			pushPlugin.finish();
 			setTimeout(function () {
-				CargarNotificacion(ID_CLIENTE,ID_SUCURSAL,ID_SENSOR,TIPO_SENSOR);
+				CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_SENSOR);
 			}, 250);
 					
 		});
@@ -696,7 +709,7 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 		});
 	});
 }
-function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
+function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
 {	
 	//Verificando si hay CK
 	var ValCK=getCK();
@@ -717,13 +730,21 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SE
 				});
 			}
 			//Validar si es la misma sursal
-			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUC)
+			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUCURSAL)
 			{
 				$('#VerSensoresRegistrados_'+FUN_ID_SENSOR)[0].click();
 			}
 			else
 			{
-				CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_SENSOR);				
+				//Otra sucursal
+				if(FUN_TIPO_SENSOR=='T')
+				{
+					VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR);
+				}
+				if(FUN_TIPO_SENSOR=='E')
+				{
+					VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
+				}			
 			}
 		}
 		else
@@ -773,20 +794,28 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SE
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUC)
+										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
 											if(FUN_TIPO_SENSOR=='T')
 											{
-												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUC,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
+												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
 											}
-											if(FUN_TIPO_SENSOR=='H')
+											if(FUN_TIPO_SENSOR=='E')
 											{
 												VerSensorElectrico(true,FUN_ID_SENSOR,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'));
 											}
 										}
 										else
 										{
-											CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_SENSOR);
+											//Otra sucursal
+											if(FUN_TIPO_SENSOR=='T')
+											{
+												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR);
+											}
+											if(FUN_TIPO_SENSOR=='E')
+											{
+												VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
+											}
 										}
 									}, 750);								
 									
@@ -811,44 +840,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR, FUN_TIPO_SE
 		CerrarSplash();
 		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
 	}
-}
-function CargarSensorDeOtraSuc(FUN_ID_CLIENTE,FUN_ID_SUC,FUN_ID_SENSOR,FUN_TIPO_SENSOR)
-{
-	var NombreCliente;
-	var NombreSucursal;
-	var IdSeccion;
-	var NombreSeccion;
-	var IdEquipo;
-	var NombreEquipo;
-	
-	//Buscando datos restantes para el grafico
-	$.post(RUTACONTROL,{
-			accion: 'GetDatosEquipoSensor',
-			Id_cliente: FUN_ID_CLIENTE,
-			Id_sucursal: FUN_ID_SUC,
-			Id_sensor: FUN_ID_SENSOR
-			},
-	function(response) {			
-		var json = jQuery.parseJSON(response);
-		
-		$.each(json, function(i, d) {
-			NombreCliente=d.RAZONSOCIAL;
-			NombreSucursal=d.NOMBRE_SUCURSAL;
-			IdSeccion=d.ID_SECCION;
-			NombreSeccion=d.NOMBRE_SECCION;
-			IdEquipo=d.ID_EQUIPO;
-			NombreEquipo=d.NOMBRE_EQUIPO;
-		});
-	}).done(function(response) {
-		if(FUN_TIPO_SENSOR=='T')
-		{
-			VerGraficoSensorTermico(true,FUN_ID_CLIENTE,NombreCliente,FUN_ID_SUC,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,FUN_ID_SENSOR);
-		}
-		if(FUN_TIPO_SENSOR=='H')
-		{
-			VerSensorElectrico(true,FUN_ID_SENSOR,NombreEquipo);
-		}
-	});
 }
 function ValidarCKIncial(CK)
 {
