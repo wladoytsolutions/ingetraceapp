@@ -90,6 +90,14 @@ var app = {
 				{
 					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_SENSOR);
 				}
+				else
+				{
+					alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val());
+					if($("#H_DESDE_NOTIFICACION").val()!="1")
+					{
+						BuscarCookie();
+					}
+				}
 			}, 250);
 					
 		});
