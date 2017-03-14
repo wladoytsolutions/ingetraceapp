@@ -92,8 +92,7 @@ var app = {
 				}
 				else
 				{
-					alert("Buscando cookie "+$("#H_DESDE_NOTIFICACION").val());
-					if($("#H_DESDE_NOTIFICACION").val()!="1")
+					if($("#H_DESDE_NOTIFICACION").val()=="1")
 					{
 						BuscarCookie();
 					}
