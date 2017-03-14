@@ -92,10 +92,7 @@ var app = {
 				}
 				else
 				{
-					if($("#H_DESDE_NOTIFICACION").val()=="1")
-					{
-						BuscarCookie();
-					}
+					BuscarCookie();
 				}
 			}, 250);
 					
