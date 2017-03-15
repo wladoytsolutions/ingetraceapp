@@ -92,7 +92,10 @@ var app = {
 				}
 				else
 				{
-					BuscarCookie();
+					if($('#H_SUCURSAL_CARGADA').val()!="1")
+					{
+						BuscarCookie();
+					}
 				}
 			}, 250);
 					
