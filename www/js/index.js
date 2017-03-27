@@ -1093,30 +1093,36 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 					var json = jQuery.parseJSON(json_sucursal);
 						$.each(json, function(i, d) {
 							ESTADO=d.ESTADO;
-							
+							alert(d.ESTADO);
 							if(d.ESTADO=="S")
 							{
 								//Cookie
 								setCK(''+d.CK);
-										
+								alert("setCK ok");
 								//Cargando html
 								$("#p2").load( "inicio.html", function() {
+									alert("load ok");
 									$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 									$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 									//Agregando menu
-									$("#DivMenu").load("html_parts/menu_header.html",	function() {		
+									$("#DivMenu").load("html_parts/menu_header.html",	function() {
+										alert("load menu header");
 										$('#H_ID_CLIENTE_ACTUAL').val(id_cliente);
 										$('#H_ID_SUCURSAL_ACTUAL').val(id_sucursal);
 													
+										alert("estado suc "+d.ESTADOSUCURSAL);
 										//Estado de sucursal
 										$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
 										$("#IconoSucursal").html(d.ICONO_SUCURSAL);
 										$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
 										LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
 										$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-													
-										GenerarHTMLSensores(d);									
+										alert("Generando html");			
+										GenerarHTMLSensores(d);		
+										alert("Htmlgenerado");
+										alert("ActualizarDashboard ");
 										ActualizarDashboard();
+										alert("ActualizarDashboard OK");
 									});//Fin load menu
 									
 									$('#BodyPrincipal').pagecontainer('change', '#p2', {
@@ -1125,6 +1131,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										reverse: false,
 										showLoadMsg: false
 									});
+									alert("Flip ok");
 									setTimeout(function () {
 										alert("ACA id_cliente->"+id_cliente+"id_sucursal->"+id_sucursal+" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_TIPO_SENSOR->"+FUN_TIPO_SENSOR);
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
