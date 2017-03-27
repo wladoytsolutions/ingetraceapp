@@ -60,6 +60,23 @@ function HabilitarBusqueda()
 	$('#termino_filtroDatosSensor').prop("disabled",false);
 	$('#btn_buscarGrafico').prop("disabled",false);
 }
+function getIconoTendencia(TENDENCIA)
+{
+	var IconoTendencia="";
+	if(TENDENCIA=="=")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-minus-sign" style="color: #f0ad4e"></i>';
+	}
+	if(TENDENCIA=="-")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-down" style="color: #5cb85c"></i>';
+	}
+	if(TENDENCIA=="+")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-up" style="color: #d9534f"></i>';
+	}
+	return IconoTendencia;
+}
 function CargarGrafico(e)
 {
 	e.preventDefault();
@@ -114,6 +131,8 @@ function CargarTabDatos()
 	var IconoTendencia='';
 			
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
+	
+	alert($("#H_TIPO_MODELO").val());
 	
 	//Si no es humedad
 	if($("#H_TIPO_MODELO").val()!="5")
