@@ -793,10 +793,8 @@ function GenerarGraficoSensor(json)
 				data: DataSensor
 			};				
 			optionsLineal.series.push(newSeriesData);
-
-							
-			// Render the chart
-			//optionsLineal.title.text.push(NombreEquipo);
+			
+			optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
 		});
 		alert("ACA  FIN");
 	}//Fin $("#H_TIPO_MODELO").val()!="5"
