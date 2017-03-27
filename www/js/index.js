@@ -1126,7 +1126,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										alert("ACA FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_TIPO_SENSOR->"+FUN_TIPO_SENSOR)
+										alert("ACA id_cliente->"+id_cliente+"id_sucursal->"+id_sucursal+" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_TIPO_SENSOR->"+FUN_TIPO_SENSOR);
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
 											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
