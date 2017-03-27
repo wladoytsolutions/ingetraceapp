@@ -67,7 +67,7 @@ var app = {
 			var ID_EQUIPO;
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
-			var TIPO_SENSOR;
+			var TIPO_MODELO;
 			
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
@@ -81,14 +81,14 @@ var app = {
 					ID_EQUIPO=d.id_equipo;
 					NOMBRE_EQUIPO=d.nombre_equipo;
 					ID_SENSOR=d.id_sensor;
-					TIPO_SENSOR=d.tipo_sensor;
+					TIPO_MODELO=d.tipo_modelo;
 				}
 			});
 			pushPlugin.finish();
 			setTimeout(function () {
-				if(TIPO_SENSOR!='M')
+				if(TIPO_MODELO!='M')
 				{
-					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_SENSOR);
+					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
 				}
 				else
 				{
@@ -283,6 +283,8 @@ function GenerarHTMLSensores(DATOS)
 	
 	$.each(DATOS.SENSORES_TERMICOS, function(j, e) {
 		
+		alert(e.TIPO_MODELO);
+		
 		var NombreEquipo=e.NOMBRE_EQUIPO+'';
 		var ClaseMarqueDiv='';
 		var ClaseMarque='';
@@ -297,7 +299,7 @@ function GenerarHTMLSensores(DATOS)
 		
 		HtmlTermicos+='<div style="min-height: 220px" class="col-lg-6 col-md-6 colmod" id="Contenedor_'+e.ID_SENSOR+'"><div class="panel panel-red"><div class="panel-heading"><div class="row">';
 		HtmlTermicos+='<div class="col-xs-1 text-left" style="padding-left: 5px; padding-right: 0px;"><span id="IconoSensor_'+e.ID_SENSOR+'">'+e.STATUS_EQUIPO+'</span></div><div class="col-xs-8 text-left '+ClaseMarqueDiv+'" style="padding-left: 5px; padding-right: 0px; top: 0px; margin-top: 0px;"><div class="'+ClaseMarque+'">'+NombreEquipo+'</div></div>';
-		HtmlTermicos+='<div class="col-xs-1 text-left" id="SENAL_'+e.ID_SENSOR+'" style="padding-left: 5px; padding-right: 5px;">'+e.SENAL+'</div><div class="col-xs-2 text-right"><a id="VerSensoresRegistrados_'+e.ID_SENSOR+'" href="#" onclick="javascript:CargarGraficoSensorTermico(event,\''+e.ID_CLIENTE+'\',\''+e.RAZON_SOCIAL+'\',\''+e.ID_SUCURSAL+'\',\''+e.NOMBRE_SUCURSAL+'\',\''+e.ID_SECCION+'\',\''+e.NOMBRE_SECCION+'\',\''+e.ID_EQUIPO+'\',\''+e.NOMBRE_EQUIPO+'\',\''+e.ID_SENSOR+'\');" razon_social="'+e.RAZON_SOCIAL+'" nombre_sucursal="'+e.NOMBRE_SUCURSAL+'" id_seccion="'+e.ID_SECCION+'" nombre_seccion="'+e.NOMBRE_SECCION+'" id_equipo="'+e.ID_EQUIPO+'" nombre_equipo="'+e.NOMBRE_EQUIPO+'">';
+		HtmlTermicos+='<div class="col-xs-1 text-left" id="SENAL_'+e.ID_SENSOR+'" style="padding-left: 5px; padding-right: 5px;">'+e.SENAL+'</div><div class="col-xs-2 text-right"><a id="VerSensoresRegistrados_'+e.ID_SENSOR+'" href="#" onclick="javascript:CargarGraficoSensorTermico(event,\''+e.ID_CLIENTE+'\',\''+e.RAZON_SOCIAL+'\',\''+e.ID_SUCURSAL+'\',\''+e.NOMBRE_SUCURSAL+'\',\''+e.ID_SECCION+'\',\''+e.NOMBRE_SECCION+'\',\''+e.ID_EQUIPO+'\',\''+e.NOMBRE_EQUIPO+'\',\''+e.ID_SENSOR+'\',\''+e.TIPO_MODELO+'\');" razon_social="'+e.RAZON_SOCIAL+'" nombre_sucursal="'+e.NOMBRE_SUCURSAL+'" id_seccion="'+e.ID_SECCION+'" nombre_seccion="'+e.NOMBRE_SECCION+'" id_equipo="'+e.ID_EQUIPO+'" nombre_equipo="'+e.NOMBRE_EQUIPO+'">';
 		HtmlTermicos+='<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span><div class="clearfix"></div></a></div></div></div>';
 		HtmlTermicos+='<div class="panel-body">';
 		HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-top: 10px;"> <h1 class="no-margins" id="TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
@@ -439,7 +441,7 @@ function GenerarHTMLSensores(DATOS)
 		$('#top-nav-plataform').css('background-color','#222222');
 	}
 }
-function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
 {
 	$(window).disablescroll();
 
@@ -506,7 +508,8 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 							IdSucursal: IdSucursal,
 							IdSeccion: 	IdSeccion,
 							IdEquipo: 	IdEquipo,
-							IdSensor:	IdSensor
+							IdSensor:	IdSensor,
+							TipoModelo: TipoModelo
 						}, 
 				function(response) {
 					var json = jQuery.parseJSON(response);
@@ -644,24 +647,22 @@ function GenerarGraficoSensor(json)
 	
 	var optionsLineal;
 	
-	try {
-
-					//TENDENCIA
-					var CuerpoDatos='';
-					var CuerpoAlarmas='';
-					var IconoTendencia='';
-					var DataSensor = new Array();
-					var DataSensorHumedad = new Array();
-					var LimiteSensor = new Array();
-					var PromedioSensor = new Array();
-					var Promedio=0;
-					var Limite=0;
-					var Promedio_Humedad=0;
-					var Limite_Humedad=0;
-					var Minimo=0;
+	//TENDENCIA
+	var CuerpoDatos='';
+	var CuerpoAlarmas='';
+	var IconoTendencia='';
+	var DataSensor = new Array();
+	var DataSensorHumedad = new Array();
+	var LimiteSensor = new Array();
+	var PromedioSensor = new Array();
+	var Promedio=0;
+	var Limite=0;
+	var Promedio_Humedad=0;
+	var Limite_Humedad=0;
+	var Minimo=0;
 					
-					if($("#H_TIPO_MODELO").val()!="5")
-					{		
+	if($("#H_TIPO_MODELO").val()!="5")
+	{		
 						$.each(json, function(j, e) {
 							//Fecha hoy				
 							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
@@ -1058,7 +1059,7 @@ function GenerarGraficoSensor(json)
 	alert("Todo ok");
 	return optionsLineal;
 }
-function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
+function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_MODELO)
 {	
 	//Verificando si hay CK
 	var ValCK=getCK();
@@ -1086,11 +1087,11 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 			else
 			{
 				//Otra sucursal
-				if(FUN_TIPO_SENSOR=='T')
+				if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 				{
-					VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR);
+					VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
 				}
-				if(FUN_TIPO_SENSOR=='E')
+				if(FUN_TIPO_MODELO=='2')
 				{
 					VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
 				}			
@@ -1145,11 +1146,11 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 									setTimeout(function () {
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
-											if(FUN_TIPO_SENSOR=='T')
+											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
 											{
-												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR);
+												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR,FUN_TIPO_MODELO);
 											}
-											if(FUN_TIPO_SENSOR=='E')
+											if(FUN_TIPO_SENSOR=='2')
 											{
 												VerSensorElectrico(true,FUN_ID_SENSOR,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'));
 											}
@@ -1157,11 +1158,11 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										else
 										{
 											//Otra sucursal
-											if(FUN_TIPO_SENSOR=='T')
+											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
 											{
-												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR);
+												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
 											}
-											if(FUN_TIPO_SENSOR=='E')
+											if(FUN_TIPO_SENSOR=='2')
 											{
 												VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
 											}

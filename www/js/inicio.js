@@ -58,10 +58,10 @@ function ScrollContenedor(Id_sensor)
 		scrollTop: NuevoScrollTop
 	}, 250);
 }
-function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor)
+function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
 {
 	event.preventDefault();
-	VerGraficoSensorTermico(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor);
+	VerGraficoSensorTermico(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo);
 }
 function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 {
