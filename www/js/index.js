@@ -440,6 +440,8 @@ function GenerarHTMLSensores(DATOS)
 }
 function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
 {
+	alert("Entramos a VerGraficoSensorTermico");
+	alert("IdCliente-> "+IdCliente+" NombreCliente->"+NombreCliente+" IdSucursal->"+IdSucursal+" NombreSucursal->"+NombreSucursal+" IdSeccion->"+IdSeccion+" NombreSeccion->"+NombreSeccion+" IdEquipo->"+IdEquipo+" NombreEquipo->"+NombreEquipo+" IdSensor->"+IdSensor+" TipoModelo->"+TipoModelo);
 	$(window).disablescroll();
 
 	$('#ModalPage2').popup('open', {
@@ -1129,6 +1131,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										{
 											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
 											{
+												alert("ACA ver grafico sensor");
 												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR,FUN_TIPO_MODELO);
 											}
 											if(FUN_TIPO_SENSOR=='2')
