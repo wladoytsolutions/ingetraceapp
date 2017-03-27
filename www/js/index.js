@@ -281,10 +281,7 @@ function GenerarHTMLSensores(DATOS)
 	
 	$("#H_FECHA_HOY").val(DATOS.FECHA_HOY);
 	
-	$.each(DATOS.SENSORES_TERMICOS, function(j, e) {
-		
-		alert(e.TIPO_MODELO);
-		
+	$.each(DATOS.SENSORES_TERMICOS, function(j, e) {		
 		var NombreEquipo=e.NOMBRE_EQUIPO+'';
 		var ClaseMarqueDiv='';
 		var ClaseMarque='';
