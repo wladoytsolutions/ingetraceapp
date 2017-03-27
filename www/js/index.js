@@ -1122,6 +1122,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										reverse: false,
 										showLoadMsg: false
 									});
+									alert("Antes Timeout");
 									setTimeout(function () {
 										alert("ACA222");
 										alert("ACA id_cliente->"+id_cliente+"id_sucursal->"+id_sucursal+" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_TIPO_SENSOR->"+FUN_TIPO_SENSOR);
