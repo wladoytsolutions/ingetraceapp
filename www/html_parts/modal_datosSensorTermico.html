@@ -1,4 +1,7 @@
 <div id="DialogGraficoContenido" class="modal-body" style="padding: 0px;"> <!-- /.row -->
+	<link href="plugin/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.es.min.js"></script>
 	<div class="row">
 			<div style="border: none" class="panel panel-default">
 				<div class="panel-body">
@@ -72,6 +75,8 @@
 											<th><center>FECHA</center></th>
 											<th><center>T ° </center></th>
 											<th><center>TENDENCIA</center></th>
+											<th id="ThHumedad" style="display:none"><center>Hum. %</center></th>
+											<th id="ThTendenciaHumedad" style="display:none"><center>TENDENCIA</center></th>
 										</tr>
 									</thead>
 									<tbody id="tBodyDatosGrafico">
@@ -98,6 +103,7 @@
 											<th><center>FECHA</center></th>
 											<th><center>TIPO</center></th>
 											<th><center>T ° </center></th>
+											<th id="Th_HMD" style="display:none"><center>%</center></th>
 										</tr>
 									</thead>
 									<tbody id="tBodyDatosAlarmas">
@@ -145,16 +151,13 @@
 	</div>
 	<div style="display:none" id="DivHidden">
 		<div id="tbl_DataGra"></div>
+		<iframe src="#" name="IframeAuxDatosSensorDescarga" id="IframeAuxDatosSensorDescarga"></iframe>
+		<a style="display:none" id="link_descargaArchivoDatosSensor" href="">Descargar Archivo</a>
 		<textarea id="JSON_DATOS"></textarea>
 		<input type="hidden" id="H_TAB_GRAFICO_CARGADO" value="" />
 		<input type="hidden" id="H_TAB_ALARMAS_CARGADO" value="" />
 		<input type="hidden" id="H_TAB_DATOS_CARGADO" value="" />
 		<input type="hidden" id="H_TabActivo" value="Grafico" />
-		<input type="hidden" id="H_IdClienteRecibido" value="" />
-		<input type="hidden" id="H_IdSucursalRecibido" value="" />
 	</div>
-</div>
-<div class="panel-footer" style="height: 90px">
-	<img style="height: 65px" class="img-responsive center-block" src="img/logo_normal.png">
 </div>
 <script type="text/javascript" charset="UTF-8" src="js/modal_datosSensor.js"></script>
