@@ -1122,18 +1122,20 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										reverse: false,
 										showLoadMsg: false
 									});
-									alert("Antes Timeout");
 									setTimeout(function () {
 										alert("ACA222");
-										alert("ACA id_cliente->"+id_cliente+"id_sucursal->"+id_sucursal+" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_TIPO_SENSOR->"+FUN_TIPO_SENSOR);
+										alert("ACA id_cliente->"+id_cliente);
+										alert("id_sucursal->"+id_sucursal);
+										alert(" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE);
+										alert(" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL);
+										alert(" FUN_TIPO_MODELO->"+FUN_TIPO_MODELO);
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
-											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
+											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 											{
-												alert("ACA ver grafico sensor");
 												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR,FUN_TIPO_MODELO);
 											}
-											if(FUN_TIPO_SENSOR=='2')
+											if(FUN_TIPO_MODELO=='2')
 											{
 												VerSensorElectrico(true,FUN_ID_SENSOR,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'));
 											}
@@ -1141,11 +1143,11 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										else
 										{
 											//Otra sucursal
-											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
+											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 											{
 												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
 											}
-											if(FUN_TIPO_SENSOR=='2')
+											if(FUN_TIPO_MODELO=='2')
 											{
 												VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
 											}
