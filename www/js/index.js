@@ -1052,11 +1052,6 @@ function GenerarGraficoSensor(json)
 							//optionsLineal.title.text.push(NombreEquipo);
 						});
 					}//Fin si es tipo 5
-	}
-	catch(err) {
-		alert(err.message);
-	}
-	alert("Todo ok");
 	return optionsLineal;
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_MODELO)
