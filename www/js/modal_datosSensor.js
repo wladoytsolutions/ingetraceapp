@@ -126,7 +126,6 @@ function CargarTabDatos()
 	BANDERA_TAB=true;
 	DesabilitarBusqueda();
 	$("#H_TAB_DATOS_CARGADO").val("");
-	$("#H_TAB_DATOS_CARGADO").val("");
 		
 	var CuerpoDatos=''; 
 	var IconoTendencia='';
