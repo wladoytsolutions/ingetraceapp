@@ -122,7 +122,6 @@ function getIconoTendencia(TENDENCIA)
 }
 function CargarTabDatos()
 {
-	alert("CargarTabDatos");
 	BANDERA_TAB=true;
 	DesabilitarBusqueda();
 	$("#H_TAB_DATOS_CARGADO").val("");
@@ -130,14 +129,10 @@ function CargarTabDatos()
 	var CuerpoDatos=''; 
 	var IconoTendencia='';
 	
-	alert("Obteniendo json");
-	
-	alert($("#JSON_DATOS").html());
 	
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
-	alert($("#JSON_DATOS").html());
 	//Si no es humedad
-	alert($("#H_TIPO_MODELO").val());
+	
 	if($("#H_TIPO_MODELO").val()!="5")
 	{
 		$.each(json, function(j, e) {
@@ -151,7 +146,6 @@ function CargarTabDatos()
 				CuerpoDatos+='</tr>';
 			});
 		});
-		alert("Fin eash");
 	}
 	
 	//Sensores HUMEDAD
@@ -176,12 +170,8 @@ function CargarTabDatos()
 		});
 	}
 	
-	alert(""+CuerpoDatos);
-	
 	$("#tBodyDatosGrafico").html(CuerpoDatos);
 	$("#DivCargandoDatos").hide("fade");
-
-	alert("OK");
 		
 	setTimeout(function () {
 		$("#DivTablaDatos").show("fade");				
