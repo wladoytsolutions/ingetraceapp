@@ -796,252 +796,247 @@ function GenerarGraficoSensor(json)
 			
 			optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
 		});
-		alert("ACA  FIN");
 	}//Fin $("#H_TIPO_MODELO").val()!="5"
 					
-					//Si es de humedad
-					if($("#H_TIPO_MODELO").val()=="5")
-					{
-						$.each(json, function(j, e) {
-							//Fecha hoy				
-							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-							$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-							$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+	//Si es de humedad
+	if($("#H_TIPO_MODELO").val()=="5")
+	{
+		$.each(json, function(j, e) {
+			//Fecha hoy				
+			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
 							
-							var Promedio=0;
-							var Limite=0;
-							var BanderaGrafico=false;
+			var Promedio=0;
+			var Limite=0;
+			var BanderaGrafico=false;
 							
-							//Tabla tendencia
-							$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
-								//Validando TENDENCIA en Iconos
-								if(!BanderaGrafico)
-								{
-									BanderaGrafico=true;								
-									Promedio=parseFloat(d.VAR_PROMEDIO);
-									Limite=parseFloat(d.LIMSUPC);
-									Promedio_Humedad=parseFloat(d.VAR_HMD_PROMEDIO);
-									Limite_Humedad=parseFloat(d.VAR_HMD_LIMSUPC);
-								}								
+			//Tabla tendencia
+			$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
+				//Validando TENDENCIA en Iconos
+				if(!BanderaGrafico)
+				{
+					BanderaGrafico=true;								
+					Promedio=parseFloat(d.VAR_PROMEDIO);
+					Limite=parseFloat(d.LIMSUPC);
+					Promedio_Humedad=parseFloat(d.VAR_HMD_PROMEDIO);
+					Limite_Humedad=parseFloat(d.VAR_HMD_LIMSUPC);
+				}								
 								
-								var ValorSensor=parseFloat(d.temperatura);
-								var ValorHumedad=parseFloat(d.humedad);
+				var ValorSensor=parseFloat(d.temperatura);
+				var ValorHumedad=parseFloat(d.humedad);
 								
-								var FECHAHORA=''+d.fechaHora;
+				var FECHAHORA=''+d.fechaHora;
 								
-								var anio=FECHAHORA.substring(0, 4);
-								var mes =FECHAHORA.substring(5, 7);
-								var dia =FECHAHORA.substring(8, 10);
+				var anio=FECHAHORA.substring(0, 4);
+				var mes =FECHAHORA.substring(5, 7);
+				var dia =FECHAHORA.substring(8, 10);
+				
+				var hora =FECHAHORA.substring(11, 13);
+				var min  =FECHAHORA.substring(14, 16);
+				var seg  =FECHAHORA.substring(17, 19);
 								
-								var hora =FECHAHORA.substring(11, 13);
-								var min  =FECHAHORA.substring(14, 16);
-								var seg  =FECHAHORA.substring(17, 19);
+				if(ValorSensor == -1)
+				{
+					ValorSensor=0;
+				}
+				if(ValorHumedad == -1)
+				{
+					ValorHumedad=0;
+				}
 								
-								if(ValorSensor == -1)
-								{
-									ValorSensor=0;
-								}
-								if(ValorHumedad == -1)
-								{
-									ValorHumedad=0;
-								}
+				var mesmenos1=parseInt(mes-1);
 								
-								var mesmenos1=parseInt(mes-1);
+				var item = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorSensor];
+				DataSensor.push(item);
 								
-								var item = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorSensor];
-								DataSensor.push(item);
+				var item2 = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorHumedad];
+				DataSensorHumedad.push(item2);
 								
-								var item2 = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorHumedad];
-								DataSensorHumedad.push(item2);
-								
-							});
+			});
 							
-							optionsLineal={
-								chart: {
-									zoomType: 'x',
-									renderTo: 'DivGraficoLineal',
-									events: {
-										load: function(){
-											this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
-										}
-									}
-								},
-								title: {
-									text: [],
-									style: {
-										fontSize: '15px'
-									},
-									align:'left',
-								},
-								subtitle: {
-									text:[],
-									useHTML: true,
-									
-								},
-								xAxis: {
-									type: 'datetime',
-									labels: {
-										overflow: 'justify'
-									},
-									dateTimeLabelFormats: { // don't display the dummy year
-										second: '%H:%M:%S'
-									}
-								},
-								yAxis: [],
-								tooltip: {
-									formatter:function(){
-										var NombreSerie=''+this.series.name;
-										var Medida='';
-										var HtmlMensaje= '<label style="color:'+this.series.color+'; font-weight: bold;">'+NombreSerie+'</label><br>'+Highcharts.dateFormat('%H:%M:%S',this.x)+' -> '+Highcharts.numberFormat(this.y,2);
-										if(NombreSerie.toUpperCase() =='HUMEDAD')
-										{
-											Medida='%';
-										}
-										else
-										{
-											Medida='°C';
-										}
-										return HtmlMensaje+=' '+Medida;
-									},
-									enabled: false
-								},
-								legend: {
-									layout: 'vertical',
-									align: 'left',
-									x: 80,
-									verticalAlign: 'top',
-									y: 55,
-									floating: true,
-									backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-								},
-								credits: {
-									enabled: false,
-								},
-								plotOptions: {
-									series: {
-										stickyTracking: false,
-										events: {
-											click: function(evt) {
-												this.chart.myTooltip.refresh(evt.point, evt);
-											},
-											mouseOut: function() {
-												this.chart.myTooltip.hide();
-											}                       
-										}
-										
-									}
-								},
-								series: []
-							};
+			optionsLineal={
+				chart: {
+					zoomType: 'x',
+					renderTo: 'DivGraficoLineal',
+					events: {
+						load: function(){
+							this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+						}
+					}
+				},
+				title: {
+					text: [],
+					style: {
+						fontSize: '15px'
+					},
+					align:'left',
+				},
+				subtitle: {
+					text:[],
+						useHTML: true,			
+				},
+				xAxis: {
+					type: 'datetime',
+					labels: {
+						overflow: 'justify'
+					},
+					dateTimeLabelFormats: { // don't display the dummy year
+						second: '%H:%M:%S'
+					}
+				},
+				yAxis: [],
+				tooltip: {
+					formatter:function(){
+						var NombreSerie=''+this.series.name;
+						var Medida='';
+						var HtmlMensaje= '<label style="color:'+this.series.color+'; font-weight: bold;">'+NombreSerie+'</label><br>'+Highcharts.dateFormat('%H:%M:%S',this.x)+' -> '+Highcharts.numberFormat(this.y,2);
+						if(NombreSerie.toUpperCase() =='HUMEDAD')
+						{
+							Medida='%';
+						}
+						else
+						{
+							Medida='°C';
+						}
+						return HtmlMensaje+=' '+Medida;
+					},
+					enabled: false
+				},
+				legend: {
+					layout: 'vertical',
+					align: 'left',
+					x: 80,
+					verticalAlign: 'top',
+					y: 55,
+					floating: true,
+					backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+				},
+				credits: {
+					enabled: false,
+				},
+				plotOptions: {
+					series: {
+						stickyTracking: false,
+						events: {
+							click: function(evt) {
+								this.chart.myTooltip.refresh(evt.point, evt);
+							},
+							mouseOut: function() {
+								this.chart.myTooltip.hide();
+							}                       
+						}
+					}
+				},
+				series: []
+			};
 							
-							//Datos temperatura
-							var SerieTemperatura = {
-								name: 'Temperatura',
-								type: 'spline',
-								color: Highcharts.getOptions().colors[1],
-								marker : {
-									enabled : false,
-								},
-								tooltip: {
-									valueSuffix: ' °C'
-								},
-								data: DataSensor
-							};				
-							optionsLineal.series.push(SerieTemperatura);
+			//Datos temperatura
+			var SerieTemperatura = {
+				name: 'Temperatura',
+				type: 'spline',
+				color: Highcharts.getOptions().colors[1],
+				marker : {
+					enabled : false,
+				},
+				tooltip: {
+					valueSuffix: ' °C'
+				},
+				data: DataSensor
+			};				
+			optionsLineal.series.push(SerieTemperatura);
 							
-							//Datos Humedad
-							var SerieHumedad = {
-								name: 'Humedad',
-								type: 'spline',
-								color: Highcharts.getOptions().colors[0],
-								yAxis: 1,
-								marker : {
-									enabled : false,
-								},
-								tooltip: {
-									valueSuffix: ' %'
-								},
-								data: DataSensorHumedad
-							};				
-							optionsLineal.series.push(SerieHumedad);
+			//Datos Humedad
+			var SerieHumedad = {
+				name: 'Humedad',
+				type: 'spline',
+				color: Highcharts.getOptions().colors[0],
+				yAxis: 1,
+				marker : {
+					enabled : false,
+				},
+				tooltip: {
+					valueSuffix: ' %'
+				},
+				data: DataSensorHumedad
+			};				
+			optionsLineal.series.push(SerieHumedad);
 							
-							var LineasY = {
-								title: {
-									text: 'Temperatura',
-									style: {
-										color: Highcharts.getOptions().colors[1]
-									}
-								},
-								labels: {
-									format: '{value} °C',
-									style: {
-										color: Highcharts.getOptions().colors[1]
-									}
-								},
-								plotLines: [{
-									//Promedio Temperatura
-									value: Promedio,
-									color: 'green',
-									dashStyle: 'shortdash',
-									width: 2,
-									label: {
-										text: 'Prom. Temp.'
-									}
-								},{
-									//Limite Temperatura
-									value: Limite,
-									color: 'red',
-									dashStyle: 'Solid',
-									width: 2,
-									label: {
-										text: 'Max. Temp'
-									}
-								}]
-							};
+			var LineasY = {
+				title: {
+					text: 'Temperatura',
+					style: {
+						color: Highcharts.getOptions().colors[1]
+					}
+				},
+				labels: {
+					format: '{value} °C',
+					style: {
+						color: Highcharts.getOptions().colors[1]
+					}
+				},
+				plotLines: [{
+					//Promedio Temperatura
+					value: Promedio,
+					color: 'green',
+					dashStyle: 'shortdash',
+					width: 2,
+					label: {
+						text: 'Prom. Temp.'
+					}
+					},{
+						//Limite Temperatura
+						value: Limite,
+						color: 'red',
+						dashStyle: 'Solid',
+						width: 2,
+						label: {
+							text: 'Max. Temp'
+						}
+					}]
+				};
 							
-							var LineasYDerecha = { // Secondary yAxis
-								title: {
-									text: 'Humedad',
-									style: {
-										color: Highcharts.getOptions().colors[0]
-									}
-								},
-								labels: {
-									format: '{value} %',
-									style: {
-										color: Highcharts.getOptions().colors[0]
-									}
-								},
-								opposite: true,
-								plotLines: [
-								{
-									//Promedio Humedad
-									value: Promedio_Humedad,
-									color: 'green',
-									dashStyle: 'ShortDot',
-									width: 2,
-									label: {
-										text: 'Prom. Hum.'
-									}
-								},{
-									//Limite Humedad
-									value: Limite_Humedad,
-									color: 'red',
-									dashStyle: 'ShortDot',
-									width: 2,
-									label: {
-										text: 'Max. Hum'
-									}
-								}
-								]
-							};
+				var LineasYDerecha = { // Secondary yAxis
+					title: {
+						text: 'Humedad',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					labels: {
+						format: '{value} %',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+					},
+					opposite: true,
+					plotLines: [{
+						//Promedio Humedad
+						value: Promedio_Humedad,
+						color: 'green',
+						dashStyle: 'ShortDot',
+						width: 2,
+						label: {
+							text: 'Prom. Hum.'
+						}
+					},{
+						//Limite Humedad
+						value: Limite_Humedad,
+						color: 'red',
+						dashStyle: 'ShortDot',
+						width: 2,
+						label: {
+							text: 'Max. Hum'
+							}
+					}]
+				};
 							
-							optionsLineal.yAxis.push(LineasY);
-							optionsLineal.yAxis.push(LineasYDerecha);
-							// Render the chart
-							//optionsLineal.title.text.push(NombreEquipo);
-						});
-					}//Fin si es tipo 5
+				optionsLineal.yAxis.push(LineasY);
+				optionsLineal.yAxis.push(LineasYDerecha);
+				// Render the chart
+				optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
+			});
+		}//Fin si es tipo 5
 	return optionsLineal;
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_MODELO)
