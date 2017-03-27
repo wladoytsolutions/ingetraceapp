@@ -1081,7 +1081,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 		}
 		else
 		{		
-			alert("ACA");
 			//Validar si el sensor de la notificacion corresponde a la sucursal en la BD
 			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 			BD_APP.transaction(function(tx) {
@@ -1127,6 +1126,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										showLoadMsg: false
 									});
 									setTimeout(function () {
+										alert("ACA FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_TIPO_SENSOR->"+FUN_TIPO_SENSOR)
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
 											if(FUN_TIPO_SENSOR=='1' || FUN_TIPO_SENSOR=='5')
