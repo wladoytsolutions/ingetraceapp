@@ -132,8 +132,6 @@ function CargarTabDatos()
 			
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
 	
-	alert($("#H_TIPO_MODELO").val());
-	
 	//Si no es humedad
 	if($("#H_TIPO_MODELO").val()!="5")
 	{
