@@ -497,7 +497,9 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					autoclose:true,
 					orientation: "top auto"
 				});
-
+				
+				alert("IdCliente ->"+IdCliente+" IdSucursal ->"+IdSucursal+" IdSeccion->"+IdSeccion+" IdEquipo->"+IdEquipo+" IdSensor->"+IdSensor+" TipoModelo->"+TipoModelo);
+				
 				$.post(RUTACONTROL,
 						{
 							accion: "DatosGraficoSensorTermico",
