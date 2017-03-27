@@ -81,9 +81,7 @@ function CargarGrafico(e)
 }
 function CargarDatosGrafico(e)
 {
-	alert("ACA");
 	e.preventDefault();
-	alert($("#H_TabActivo").val());
 	if($("#H_TabActivo").val()!="Datos")
 	{
 		//Validar si ya esta cargado
@@ -132,7 +130,9 @@ function CargarTabDatos()
 		
 	var CuerpoDatos='';
 	var IconoTendencia='';
-			
+	
+	alert("Obteniendo json");
+	
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
 	alert($("#JSON_DATOS").html());
 	//Si no es humedad
