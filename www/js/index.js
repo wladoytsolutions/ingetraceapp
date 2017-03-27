@@ -510,7 +510,6 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 							TipoModelo: TipoModelo
 						}, 
 				function(response) {
-					alert(response);
 					var json = jQuery.parseJSON(response);
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
@@ -659,6 +658,8 @@ function GenerarGraficoSensor(json)
 	var Promedio_Humedad=0;
 	var Limite_Humedad=0;
 	var Minimo=0;
+	
+	alert($("#H_TIPO_MODELO").val());
 	
 	if($("#H_TIPO_MODELO").val()!="5")
 	{		
