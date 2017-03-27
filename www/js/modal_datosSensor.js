@@ -81,7 +81,9 @@ function CargarGrafico(e)
 }
 function CargarDatosGrafico(e)
 {
+	alert("ACA");
 	e.preventDefault();
+	alert($("#H_TabActivo").val());
 	if($("#H_TabActivo").val()!="Datos")
 	{
 		//Validar si ya esta cargado
@@ -122,6 +124,7 @@ function getIconoTendencia(TENDENCIA)
 }
 function CargarTabDatos()
 {
+	alert("CargarTabDatos");
 	BANDERA_TAB=true;
 	DesabilitarBusqueda();
 	$("#H_TAB_DATOS_CARGADO").val("");
