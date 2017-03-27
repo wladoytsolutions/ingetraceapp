@@ -498,8 +498,6 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					orientation: "top auto"
 				});
 				
-				alert("IdCliente ->"+IdCliente+" IdSucursal ->"+IdSucursal+" IdSeccion->"+IdSeccion+" IdEquipo->"+IdEquipo+" IdSensor->"+IdSensor+" TipoModelo->"+TipoModelo);
-				
 				$.post(RUTACONTROL,
 						{
 							accion: "DatosGraficoSensorTermico",
@@ -511,6 +509,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 							TipoModelo: TipoModelo
 						}, 
 				function(response) {
+					alert(response);
 					var json = jQuery.parseJSON(response);
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
