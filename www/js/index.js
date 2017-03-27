@@ -640,9 +640,7 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 	});
 }
 function GenerarGraficoSensor(json)
-{
-	
-	
+{	
 	var optionsLineal;
 	
 	//TENDENCIA
@@ -661,7 +659,6 @@ function GenerarGraficoSensor(json)
 	
 	if($("#H_TIPO_MODELO").val()!="5")
 	{	
-		alert("ACA entrando");
 		$.each(json, function(j, e) {
 			//Fecha hoy				
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
@@ -672,7 +669,6 @@ function GenerarGraficoSensor(json)
 			var Limite=0;
 			var BanderaGrafico=false;
 			
-			alert("Antes de each");
 			//Tabla tendencia
 			$.each(e.JSON_DATOS, function(i, d) {
 				//Validando TENDENCIA en Iconos
@@ -704,16 +700,14 @@ function GenerarGraficoSensor(json)
 				DataSensor.push(item);
 			});
 			
-			alert("easch ok");
-			
 			optionsLineal={
 				chart: {
 					zoomType: 'x',
 					renderTo: 'DivGraficoLineal',
 					events: {
 						load: function(){
-						this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
-					}
+							this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+						}
 					}
 				},
 				title: {
@@ -764,8 +758,6 @@ function GenerarGraficoSensor(json)
 				series: []
 			};
 			
-			alert("Config ok");
-			
 			var LineasY = {
 				title: {
 					text: 'T °'
@@ -788,8 +780,6 @@ function GenerarGraficoSensor(json)
 					}
 				}]
 			};
-			
-			alert("Lineas y cargadas");
 							
 			optionsLineal.yAxis.push(LineasY);
 							
@@ -806,7 +796,7 @@ function GenerarGraficoSensor(json)
 
 							
 			// Render the chart
-			optionsLineal.title.text.push(NombreEquipo);
+			//optionsLineal.title.text.push(NombreEquipo);
 		});
 		alert("ACA  FIN");
 	}//Fin $("#H_TIPO_MODELO").val()!="5"
