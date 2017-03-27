@@ -128,7 +128,7 @@ function CargarTabDatos()
 	$("#H_TAB_DATOS_CARGADO").val("");
 	$("#H_TAB_DATOS_CARGADO").val("");
 		
-	var CuerpoDatos='';
+	var CuerpoDatos=''; 
 	var IconoTendencia='';
 	
 	alert("Obteniendo json");
