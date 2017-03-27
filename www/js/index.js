@@ -659,155 +659,157 @@ function GenerarGraficoSensor(json)
 	var Limite_Humedad=0;
 	var Minimo=0;
 	
-	alert($("#H_TIPO_MODELO").val());
-	
 	if($("#H_TIPO_MODELO").val()!="5")
-	{		
-						$.each(json, function(j, e) {
-							//Fecha hoy				
-							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-							$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-							$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+	{	
+		alert("ACA entrando");
+		$.each(json, function(j, e) {
+			//Fecha hoy				
+			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
 							
-							var Promedio=0;
-							var Limite=0;
-							var BanderaGrafico=false;
-							
-							//Tabla tendencia
-							$.each(e.JSON_DATOS, function(i, d) {
-								//Validando TENDENCIA en Iconos
-								if(!BanderaGrafico)
-								{
-									BanderaGrafico=true;								
-									Promedio=parseFloat(d.VAR_PROMEDIO);
-									Limite=parseFloat(d.LIMSUPC);
-								}								
+			var Promedio=0;
+			var Limite=0;
+			var BanderaGrafico=false;
+			
+			alert("Antes de each");
+			//Tabla tendencia
+			$.each(e.JSON_DATOS, function(i, d) {
+				//Validando TENDENCIA en Iconos
+				if(!BanderaGrafico)
+				{
+					BanderaGrafico=true;								
+					Promedio=parseFloat(d.VAR_PROMEDIO);
+					Limite=parseFloat(d.LIMSUPC);
+				}								
 								
-								var ValorSensor=parseFloat(d.TEMPERATURA);
+				var ValorSensor=parseFloat(d.TEMPERATURA);
 								
-								var FECHAHORA=''+d.FECHA_HORA;
+				var FECHAHORA=''+d.FECHA_HORA;
 								
-								var anio=FECHAHORA.substring(0, 4);
-								var mes =FECHAHORA.substring(5, 7);
-								var dia =FECHAHORA.substring(8, 10);
+				var anio=FECHAHORA.substring(0, 4);
+				var mes =FECHAHORA.substring(5, 7);
+				var dia =FECHAHORA.substring(8, 10);
 								
-								var hora =FECHAHORA.substring(11, 13);
-								var min  =FECHAHORA.substring(14, 16);
-								var seg  =FECHAHORA.substring(17, 19);
+				var hora =FECHAHORA.substring(11, 13);
+				var min  =FECHAHORA.substring(14, 16);
+				var seg  =FECHAHORA.substring(17, 19);
 								
-								if(ValorSensor == -1)
-								{
-									ValorSensor=0;
-								}
+				if(ValorSensor == -1)
+				{
+					ValorSensor=0;
+				}
 								
-								var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
-								DataSensor.push(item);
-							});
+				var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
+				DataSensor.push(item);
+			});
+			
+			alert("easch ok");
+			
+			optionsLineal={
+				chart: {
+					zoomType: 'x',
+					renderTo: 'DivGraficoLineal',
+					events: {
+						load: function(){
+						this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+					}
+					}
+				},
+				title: {
+					text: [],
+					style: {
+						fontSize: '15px'
+					},
+					align:'left',
+				},
+				subtitle: {
+					text:[],
+					useHTML: true,
+				},
+				xAxis: {
+					type: 'datetime',
+					labels: {
+					overflow: 'justify'
+					},
+					dateTimeLabelFormats: { // don't display the dummy year
+						second: '%H:%M:%S'
+					}
+				},
+				yAxis: [],
+				legend: {
+					enabled: false
+				},
+				tooltip: {
+					headerFormat: '<b>{series.name}</b><br>',
+					pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
+					enabled: false
+				},
+				credits: {
+					enabled: false,
+				},
+				plotOptions: {
+					series: {
+					stickyTracking: false,
+						events: {
+							click: function(evt) {
+								this.chart.myTooltip.refresh(evt.point, evt);
+							},
+							mouseOut: function() {
+								this.chart.myTooltip.hide();
+							}                       
+						}				
+					}
+				},
+				series: []
+			};
+			
+			alert("Config ok");
+			
+			var LineasY = {
+				title: {
+					text: 'T °'
+				},
+				plotLines: [{
+					value: Promedio,
+					color: 'green',
+					dashStyle: 'shortdash',
+					width: 2,
+					label: {
+						text: 'Prom.'
+					}
+				}, {
+					value: Limite,
+					color: 'red',
+					dashStyle: 'Solid',
+					width: 2,
+					label: {
+						text: 'Max.'
+					}
+				}]
+			};
+			
+			alert("Lineas y cargadas");
 							
-							optionsLineal={
-								chart: {
-									zoomType: 'x',
-									renderTo: 'DivGraficoLineal',
-									events: {
-										load: function(){
-											this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
-										}
-									}
-								},
-								title: {
-									text: [],
-									style: {
-										fontSize: '15px'
-									},
-									align:'left',
-								},
-								subtitle: {
-									text:[],
-									useHTML: true,
-									
-								},
-								xAxis: {
-									type: 'datetime',
-									labels: {
-										overflow: 'justify'
-									},
-									dateTimeLabelFormats: { // don't display the dummy year
-										second: '%H:%M:%S'
-									}
-								},
-								yAxis: [],
-								legend: {
-										enabled: false
-									},
-								tooltip: {
-									headerFormat: '<b>{series.name}</b><br>',
-									pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
-									enabled: false
-								},
-								credits: {
-									enabled: false,
-								},
-								plotOptions: {
-									series: {
-										stickyTracking: false,
-										events: {
-											click: function(evt) {
-												this.chart.myTooltip.refresh(evt.point, evt);
-											},
-											mouseOut: function() {
-												this.chart.myTooltip.hide();
-											}                       
-										}
-										
-									}
-								},
-								series: []
-							};
+			optionsLineal.yAxis.push(LineasY);
 							
-							var LineasY = {
-										title: {
-											text: 'T °'
-										},
-										plotLines: [{
-											value: Promedio,
-											color: 'green',
-											dashStyle: 'shortdash',
-											width: 2,
-											label: {
-												text: 'Prom.'
-											}
-										}, {
-											value: Limite,
-											color: 'red',
-											dashStyle: 'Solid',
-											width: 2,
-											label: {
-												text: 'Max.'
-											}
-											}]
-							};
-							
-							optionsLineal.yAxis.push(LineasY);
-							
-							//Datos
-							var cloneToolTip = null;
-							
-							var newSeriesData = {
-								type: 'spline',
-								name: 'Sensor',
-								marker : {
-									enabled : true,
-									radius : 1
-								},
-								data: DataSensor
-							};				
-							optionsLineal.series.push(newSeriesData);
+			var newSeriesData = {
+				type: 'spline',
+				name: 'Sensor',
+				marker : {
+					enabled : true,
+					radius : 1
+				},
+				data: DataSensor
+			};				
+			optionsLineal.series.push(newSeriesData);
 
 							
-							// Render the chart
-							optionsLineal.title.text.push(NombreEquipo);
-						});
-					}//Fin $("#H_TIPO_MODELO").val()!="5"
+			// Render the chart
+			optionsLineal.title.text.push(NombreEquipo);
+		});
+		alert("ACA  FIN");
+	}//Fin $("#H_TIPO_MODELO").val()!="5"
 					
 					//Si es de humedad
 					if($("#H_TIPO_MODELO").val()=="5")
