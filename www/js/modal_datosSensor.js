@@ -399,147 +399,16 @@ function CargarDatos(Inicio,Termino)
 			
 	}
 }
-	function CrearGraficoInicial()
-	{
-		var optionsLineal;
+function CrearGraficoInicial()
+{
+	var optionsLineal;
+
+	var json = jQuery.parseJSON($("#JSON_DATOS").html());
 	
-		var json = jQuery.parseJSON($("#JSON_DATOS").html());
-				
-			//TENDENCIA
-			var CuerpoDatos='';
-			var CuerpoAlarmas='';
-			var IconoTendencia='';
-			var DataSensor = new Array();
-			var LimiteSensor = new Array();
-			var PromedioSensor = new Array();
-			
-			var Promedio=0;
-			var Limite=0;
-			var Minimo=0;
-			var vuelta0=false;
-			$.each(json, function(j, e) {
-				$.each(e.JSON_DATOS, function(i, d){
-					if(!vuelta0)
-					{
-						Promedio=parseFloat(d.VAR_PROMEDIO);
-						Limite=parseFloat(d.LIMSUPC);
-						Minimo=parseFloat(d.VAR_MIN);
-						vuelta0=true;
-					}
-						
-					var ValorSensor=parseFloat(d.TEMPERATURA);
-						
-					var FECHAHORA=''+d.FECHA_HORA;
-					
-					var anio=FECHAHORA.substring(0, 4);
-					var mes =FECHAHORA.substring(5, 7);
-					var dia =FECHAHORA.substring(8, 10);
-						
-					var hora =FECHAHORA.substring(11, 13);
-					var min  =FECHAHORA.substring(14, 16);
-					var seg  =FECHAHORA.substring(17, 19);
-						
-					if(ValorSensor == -1)
-					{
-						ValorSensor=0;
-					}
-						
-					var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
-					DataSensor.push(item);
-				});
-			});
-				
-				optionsLineal={
-						chart: {
-							renderTo: 'DivGraficoLineal',
-							zoomType: 'x'
-						},
-						title: {
-							text: [],
-							style: {
-								fontSize: '15px'
-							},
-							align:'left',
-						},
-						subtitle: {
-							text:[],
-							useHTML: true,
-							
-						},
-						xAxis: {
-							type: 'datetime',
-							labels: {
-								overflow: 'justify'
-							},
-							dateTimeLabelFormats: { // don't display the dummy year
-								second: '%H:%M:%S'
-							}
-						},
-						yAxis: [],
-						legend: {
-							enabled: false
-						},
-						tooltip: {
-							headerFormat: '<b>{series.name}</b><br>',
-							pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} ºC'
-						},
-						credits: {
-							enabled: false,
-						},
-						series: []
-				};
-				
-				var LineasY = {
-							title: {
-								text: 'T º'
-							},
-							plotLines: [{
-								value: Promedio,
-								color: 'green',
-								dashStyle: 'shortdash',
-								width: 2,
-								label: {
-									text: 'Prom.'
-								}
-							}, {
-								value: Limite,
-								color: 'red',
-								dashStyle: 'Solid',
-								width: 2,
-								label: {
-									text: 'Max.'
-								}
-								}]
-				};				
-				optionsLineal.yAxis.push(LineasY);
-				
-					
-				//Datos
-				var newSeriesData = {
-					type: 'spline',
-					name: 'Sensor',
-					marker : {
-						enabled : true,
-						radius : 1
-					},
-					data: DataSensor
-				};				
-				optionsLineal.series.push(newSeriesData);			
-				
-				// Render the chart
-				optionsLineal.title.text.push($("#H_NOMBRE_EQUIPO").val()+'');
-				//Tabla tendencia
-				
-			var chart = new Highcharts.Chart(optionsLineal);
-			$('#btn_buscarGrafico').prop("disabled",false);
-			$("#H_TAB_GRAFICO_CARGADO").val("ok");
-			/**
-			setTimeout(function () {
-				$("#Li_TablaAlarmas").show("fade");
-				$("#Li_Tabla").show("fade");
-			}, 2000);
-			*/
-	}
+	var chart = new Highcharts.Chart(optionsLineal);
+	$('#btn_buscarGrafico').prop("disabled",false);
+	$("#H_TAB_GRAFICO_CARGADO").val("ok");
+}
 function CargarBitacora(Id_alerta)
 {
 	$("#H_ID_ALERTA").val(Id_alerta);

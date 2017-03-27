@@ -312,7 +312,74 @@ function GenerarHTMLSensores(DATOS)
 		HtmlTermicos+='<h1 id="Cota_'+e.ID_SENSOR+'" class="no-margins">'+e.COTA+'</h1><small>Límite</small></div><div class="col-xs-8 text-center stack-order">';
 		HtmlTermicos+='<h3 id="Tr_sens_'+e.ID_SENSOR+'" class="no-margins"><div align="center">'+e.ALARMA+'</div></h3>';
 		HtmlTermicos+='<small>Ult. Alarma</small></div></div></div></div></div>';
-	});					
+	});
+
+	//Sensores humedad	
+	$.each(DATOS.SENSORES_HUMEDAD, function(j, e) {
+		var NombreEquipo=e.NOMBRE_EQUIPO+'';
+		var ClaseMarqueDiv='';
+		var ClaseMarque='';
+		
+		if(NombreEquipo.length>19)
+		{
+			ClaseMarqueDiv='marquee';
+			ClaseMarque='marquee-text';
+		}
+		
+		TermicosVisibles=true;
+		
+		HtmlTermicos+='<div class="col-lg-6 col-md-6 colmod" style="min-height: 220px"><div class="panel panel-red"><div class="panel-heading"><div class="row">';
+		HtmlTermicos+='<div class="col-xs-1 text-left" style="padding-left: 5px; padding-right: 0px;">';
+		HtmlTermicos+='<span id="IconoSensor_'+e.ID_SENSOR+'">'+e.STATUS_EQUIPO+'</span>';
+		HtmlTermicos+='</div>';
+		HtmlTermicos+=e.DIV_NOMBRE_EQUIPO;
+		HtmlTermicos+='<div class="col-xs-1 text-left" id="HMD_SENAL_{ID_SENSOR}" style="padding-left: 5px; padding-right: 5px;">';
+		HtmlTermicos+=e.SENAL;
+		HtmlTermicos+='</div>';
+		HtmlTermicos+='<div class="col-xs-2 text-right">';
+		HtmlTermicos+='<a href="#" onclick="javascript:CargarGraficoSensorTermico(event,\''+e.ID_CLIENTE+'\',\''+e.RAZON_SOCIAL+'\',\''+e.ID_SUCURSAL+'\',\''+e.NOMBRE_SUCURSAL+'\',\''+e.ID_SECCION+'\',\''+e.NOMBRE_SECCION+'\',\''+e.ID_EQUIPO+'\',\''+e.NOMBRE_EQUIPO+'\',\''+e.ID_SENSOR+'\',\''+e.TIPO_MODELO+'\');" id="VerSensoresRegistrados">';
+		HtmlTermicos+='<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
+		HtmlTermicos+='<div class="clearfix"></div></a></div></div></div>';
+		HtmlTermicos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
+		HtmlTermicos+='<small><span id="HMD_HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>M&iacute;nima</small>';
+		HtmlTermicos+='</div>';
+		HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-left: 5px;padding-right: 5px;"> ';
+		HtmlTermicos+=e.TEMPERATURA;
+		HtmlTermicos+='<div align="center" style="display:none" id="Fecha_'+e.ID_SENSOR+'">'+e.FECHA+'</div>';
+		HtmlTermicos+='<small><span id="Hora_'+e.ID_SENSOR+'">'+e.HORA+'</span><br>Actual</small>';
+		HtmlTermicos+='</div>';
+		HtmlTermicos+='<div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="TempMax_'+e.ID_SENSOR+'">'+e.MAXIMA+'</h1>';
+		HtmlTermicos+='<small><span id="HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HORA_MAXIMA+'</span><br>M&aacute;xima</small>';
+		HtmlTermicos+='</div></div>';
+		HtmlTermicos+='<div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="Cota_'+e.ID_SENSOR+'">'+e.COTA+'</h1><small>L&iacute;mite</small></div>';
+		HtmlTermicos+='<div class="col-xs-8 text-center stack-order"><h3 class="no-margins" id="Tr_sens_'+e.ID_SENSOR+'">';
+		HtmlTermicos+='<div id="Cont_Alarma_Temp_'+e.ID_SENSOR+'" align="center">'+e.ALARMA+'</div>';
+		HtmlTermicos+='</h3><small>Ult. Alarma</small></div>';
+		HtmlTermicos+='</div>';
+		HtmlTermicos+='<div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_Min_'+e.ID_SENSOR+'">'+e.HMD_MINIMA+'%</h1>';
+		HtmlTermicos+='<small><span id="HMD_HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HMD_HORA_MINIMA+'</span><br>M&iacute;nima</small>';
+		HtmlTermicos+='</div>';
+		HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-left: 5px;padding-right: 5px;">';
+		HtmlTermicos+=e.HUMEDAD;
+		HtmlTermicos+='<div align="center" style="display:none" id="HMD_Fecha_'+e.ID_SENSOR+'">'+e.HMD_FECHA+'</div>';
+		HtmlTermicos+='<small><span id="HMD_Hora_'+e.ID_SENSOR+'">'+e.HMD_HORA+'</span><br>Actual</small>';
+		HtmlTermicos+='</div>';
+		HtmlTermicos+='<div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_Max_'+e.ID_SENSOR+'">'+e.HMD_MAXIMA+'%</h1>';
+		HtmlTermicos+='<small><span id="HMD_HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HMD_HORA_MAXIMA+'</span><br>M&aacute;xima</small>';
+		HtmlTermicos+='</div></div>';
+		HtmlTermicos+='<div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_Cota_'+e.ID_SENSOR+'">'+e.HMD_Cota+'%</h1>';
+		HtmlTermicos+='<small>L&iacute;mite</small></div>';
+		HtmlTermicos+='<div class="col-xs-8 text-center stack-order"><h3 class="no-margins" id="HMD_Tr_sens_'+e.ID_SENSOR+'">';
+		HtmlTermicos+='<div id="Cont_Alarma_Humedad_'+e.ID_SENSOR+'" align="center">'+e.HMD_ULT_ALARMA+'</div>';
+		HtmlTermicos+='</h3><small>Ult. Alarma</small></div>';
+		HtmlTermicos+='</div></div></div></div>';
+	});	
 	
 	$("#ContenedorSensoresTermicos").html(HtmlTermicos);
 						
@@ -454,147 +521,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
 					
-					$.each(json, function(j, e) {						
-						$("#JSON_DATOS").html(response);
-						var Promedio=0;
-						var Limite=0;
-						var BanderaGrafico=false;
-						
-						//Tabla tendencia
-						$.each(e.JSON_DATOS, function(i, d) {
-							//Validando TENDENCIA en Iconos
-							if(!BanderaGrafico)
-							{
-								BanderaGrafico=true;								
-								Promedio=parseFloat(d.VAR_PROMEDIO);
-								Limite=parseFloat(d.LIMSUPC);
-							}								
-							
-							var ValorSensor=parseFloat(d.TEMPERATURA);
-							
-							var FECHAHORA=''+d.FECHA_HORA;
-							
-							var anio=FECHAHORA.substring(0, 4);
-							var mes =FECHAHORA.substring(5, 7);
-							var dia =FECHAHORA.substring(8, 10);
-							
-							var hora =FECHAHORA.substring(11, 13);
-							var min  =FECHAHORA.substring(14, 16);
-							var seg  =FECHAHORA.substring(17, 19);
-							
-							if(ValorSensor == -1)
-							{
-								ValorSensor=0;
-							}
-							
-							var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
-							DataSensor.push(item);
-							
-						});
-						
-						optionsLineal={
-							chart: {
-								zoomType: 'x',
-								renderTo: 'DivGraficoLineal',
-								events: {
-									load: function(){
-										this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
-									}
-								}
-							},
-							title: {
-								text: [],
-								style: {
-									fontSize: '15px'
-								},
-								align:'left',
-							},
-							subtitle: {
-								text:[],
-								useHTML: true,
-								
-							},
-							xAxis: {
-								type: 'datetime',
-								labels: {
-									overflow: 'justify'
-								},
-								dateTimeLabelFormats: { // don't display the dummy year
-									second: '%H:%M:%S'
-								}
-							},
-							yAxis: [],
-							legend: {
-									enabled: false
-								},
-							tooltip: {
-								headerFormat: '<b>{series.name}</b><br>',
-								pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
-								enabled: false
-							},
-							credits: {
-								enabled: false,
-							},
-							plotOptions: {
-								series: {
-									stickyTracking: false,
-									events: {
-										click: function(evt) {
-											this.chart.myTooltip.refresh(evt.point, evt);
-										},
-										mouseOut: function() {
-											this.chart.myTooltip.hide();
-										}                       
-									}
-									
-								}
-							},
-							series: []
-						};
-						
-						var LineasY = {
-									title: {
-										text: 'T °'
-									},
-									plotLines: [{
-										value: Promedio,
-										color: 'green',
-										dashStyle: 'shortdash',
-										width: 2,
-										label: {
-											text: 'Prom.'
-										}
-									}, {
-										value: Limite,
-										color: 'red',
-										dashStyle: 'Solid',
-										width: 2,
-										label: {
-											text: 'Max.'
-										}
-										}]
-						};
-						
-						optionsLineal.yAxis.push(LineasY);
-						
-						//Datos
-						var cloneToolTip = null;
-						
-						var newSeriesData = {
-							type: 'spline',
-							name: 'Sensor',
-							marker : {
-								enabled : true,
-								radius : 1
-							},
-							data: DataSensor
-						};				
-						optionsLineal.series.push(newSeriesData);
-
-						
-						// Render the chart
-						optionsLineal.title.text.push(NombreEquipo);
-					});
+					optionsLineal=GenerarGraficoSensor(json);
 					
 					//Quitando footer de jquery para que se vea el footer original
 					$('#p3Body').find('.ui-footer').remove();
@@ -718,6 +645,417 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 			});
 		});
 	});
+}
+function GenerarGraficoSensor(json)
+{
+	var optionsLineal;
+	
+					//TENDENCIA
+					var CuerpoDatos='';
+					var CuerpoAlarmas='';
+					var IconoTendencia='';
+					var DataSensor = new Array();
+					var DataSensorHumedad = new Array();
+					var LimiteSensor = new Array();
+					var PromedioSensor = new Array();
+					var Promedio=0;
+					var Limite=0;
+					var Promedio_Humedad=0;
+					var Limite_Humedad=0;
+					var Minimo=0;
+					
+					if($("#H_TIPO_MODELO").val()!="5")
+					{		
+						$.each(json, function(j, e) {
+							//Fecha hoy				
+							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+							$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+							$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+							
+							var Promedio=0;
+							var Limite=0;
+							var BanderaGrafico=false;
+							
+							//Tabla tendencia
+							$.each(e.JSON_DATOS, function(i, d) {
+								//Validando TENDENCIA en Iconos
+								if(!BanderaGrafico)
+								{
+									BanderaGrafico=true;								
+									Promedio=parseFloat(d.VAR_PROMEDIO);
+									Limite=parseFloat(d.LIMSUPC);
+								}								
+								
+								var ValorSensor=parseFloat(d.TEMPERATURA);
+								
+								var FECHAHORA=''+d.FECHA_HORA;
+								
+								var anio=FECHAHORA.substring(0, 4);
+								var mes =FECHAHORA.substring(5, 7);
+								var dia =FECHAHORA.substring(8, 10);
+								
+								var hora =FECHAHORA.substring(11, 13);
+								var min  =FECHAHORA.substring(14, 16);
+								var seg  =FECHAHORA.substring(17, 19);
+								
+								if(ValorSensor == -1)
+								{
+									ValorSensor=0;
+								}
+								
+								var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
+								DataSensor.push(item);
+							});
+							
+							optionsLineal={
+								chart: {
+									zoomType: 'x',
+									renderTo: 'DivGraficoLineal',
+									events: {
+										load: function(){
+											this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+										}
+									}
+								},
+								title: {
+									text: [],
+									style: {
+										fontSize: '15px'
+									},
+									align:'left',
+								},
+								subtitle: {
+									text:[],
+									useHTML: true,
+									
+								},
+								xAxis: {
+									type: 'datetime',
+									labels: {
+										overflow: 'justify'
+									},
+									dateTimeLabelFormats: { // don't display the dummy year
+										second: '%H:%M:%S'
+									}
+								},
+								yAxis: [],
+								legend: {
+										enabled: false
+									},
+								tooltip: {
+									headerFormat: '<b>{series.name}</b><br>',
+									pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
+									enabled: false
+								},
+								credits: {
+									enabled: false,
+								},
+								plotOptions: {
+									series: {
+										stickyTracking: false,
+										events: {
+											click: function(evt) {
+												this.chart.myTooltip.refresh(evt.point, evt);
+											},
+											mouseOut: function() {
+												this.chart.myTooltip.hide();
+											}                       
+										}
+										
+									}
+								},
+								series: []
+							};
+							
+							var LineasY = {
+										title: {
+											text: 'T °'
+										},
+										plotLines: [{
+											value: Promedio,
+											color: 'green',
+											dashStyle: 'shortdash',
+											width: 2,
+											label: {
+												text: 'Prom.'
+											}
+										}, {
+											value: Limite,
+											color: 'red',
+											dashStyle: 'Solid',
+											width: 2,
+											label: {
+												text: 'Max.'
+											}
+											}]
+							};
+							
+							optionsLineal.yAxis.push(LineasY);
+							
+							//Datos
+							var cloneToolTip = null;
+							
+							var newSeriesData = {
+								type: 'spline',
+								name: 'Sensor',
+								marker : {
+									enabled : true,
+									radius : 1
+								},
+								data: DataSensor
+							};				
+							optionsLineal.series.push(newSeriesData);
+
+							
+							// Render the chart
+							optionsLineal.title.text.push(NombreEquipo);
+						});
+					}//Fin $("#H_TIPO_MODELO").val()!="5"
+					
+					//Si es de humedad
+					if($("#H_TIPO_MODELO").val()=="5")
+					{
+						$.each(json, function(j, e) {
+							//Fecha hoy				
+							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+							$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+							$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+							
+							var Promedio=0;
+							var Limite=0;
+							var BanderaGrafico=false;
+							
+							//Tabla tendencia
+							$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
+								//Validando TENDENCIA en Iconos
+								if(!BanderaGrafico)
+								{
+									BanderaGrafico=true;								
+									Promedio=parseFloat(d.VAR_PROMEDIO);
+									Limite=parseFloat(d.LIMSUPC);
+									Promedio_Humedad=parseFloat(d.VAR_HMD_PROMEDIO);
+									Limite_Humedad=parseFloat(d.VAR_HMD_LIMSUPC);
+								}								
+								
+								var ValorSensor=parseFloat(d.temperatura);
+								var ValorHumedad=parseFloat(d.humedad);
+								
+								var FECHAHORA=''+d.fechaHora;
+								
+								var anio=FECHAHORA.substring(0, 4);
+								var mes =FECHAHORA.substring(5, 7);
+								var dia =FECHAHORA.substring(8, 10);
+								
+								var hora =FECHAHORA.substring(11, 13);
+								var min  =FECHAHORA.substring(14, 16);
+								var seg  =FECHAHORA.substring(17, 19);
+								
+								if(ValorSensor == -1)
+								{
+									ValorSensor=0;
+								}
+								if(ValorHumedad == -1)
+								{
+									ValorHumedad=0;
+								}
+								
+								var mesmenos1=parseInt(mes-1);
+								
+								var item = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorSensor];
+								DataSensor.push(item);
+								
+								var item2 = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorHumedad];
+								DataSensorHumedad.push(item2);
+								
+							});
+							
+							optionsLineal={
+								chart: {
+									zoomType: 'x',
+									renderTo: 'DivGraficoLineal',
+									events: {
+										load: function(){
+											this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);                    
+										}
+									}
+								},
+								title: {
+									text: [],
+									style: {
+										fontSize: '15px'
+									},
+									align:'left',
+								},
+								subtitle: {
+									text:[],
+									useHTML: true,
+									
+								},
+								xAxis: {
+									type: 'datetime',
+									labels: {
+										overflow: 'justify'
+									},
+									dateTimeLabelFormats: { // don't display the dummy year
+										second: '%H:%M:%S'
+									}
+								},
+								yAxis: [],
+								tooltip: {
+									formatter:function(){
+										var NombreSerie=''+this.series.name;
+										var Medida='';
+										var HtmlMensaje= '<label style="color:'+this.series.color+'; font-weight: bold;">'+NombreSerie+'</label><br>'+Highcharts.dateFormat('%H:%M:%S',this.x)+' -> '+Highcharts.numberFormat(this.y,2);
+										if(NombreSerie.toUpperCase() =='HUMEDAD')
+										{
+											Medida='%';
+										}
+										else
+										{
+											Medida='°C';
+										}
+										return HtmlMensaje+=' '+Medida;
+									},
+									enabled: false
+								},
+								legend: {
+									layout: 'vertical',
+									align: 'left',
+									x: 80,
+									verticalAlign: 'top',
+									y: 55,
+									floating: true,
+									backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+								},
+								credits: {
+									enabled: false,
+								},
+								plotOptions: {
+									series: {
+										stickyTracking: false,
+										events: {
+											click: function(evt) {
+												this.chart.myTooltip.refresh(evt.point, evt);
+											},
+											mouseOut: function() {
+												this.chart.myTooltip.hide();
+											}                       
+										}
+										
+									}
+								},
+								series: []
+							};
+							
+							//Datos temperatura
+							var SerieTemperatura = {
+								name: 'Temperatura',
+								type: 'spline',
+								color: Highcharts.getOptions().colors[1],
+								marker : {
+									enabled : false,
+								},
+								tooltip: {
+									valueSuffix: ' °C'
+								},
+								data: DataSensor
+							};				
+							optionsLineal.series.push(SerieTemperatura);
+							
+							//Datos Humedad
+							var SerieHumedad = {
+								name: 'Humedad',
+								type: 'spline',
+								color: Highcharts.getOptions().colors[0],
+								yAxis: 1,
+								marker : {
+									enabled : false,
+								},
+								tooltip: {
+									valueSuffix: ' %'
+								},
+								data: DataSensorHumedad
+							};				
+							optionsLineal.series.push(SerieHumedad);
+							
+							var LineasY = {
+								title: {
+									text: 'Temperatura',
+									style: {
+										color: Highcharts.getOptions().colors[1]
+									}
+								},
+								labels: {
+									format: '{value} °C',
+									style: {
+										color: Highcharts.getOptions().colors[1]
+									}
+								},
+								plotLines: [{
+									//Promedio Temperatura
+									value: Promedio,
+									color: 'green',
+									dashStyle: 'shortdash',
+									width: 2,
+									label: {
+										text: 'Prom. Temp.'
+									}
+								},{
+									//Limite Temperatura
+									value: Limite,
+									color: 'red',
+									dashStyle: 'Solid',
+									width: 2,
+									label: {
+										text: 'Max. Temp'
+									}
+								}]
+							};
+							
+							var LineasYDerecha = { // Secondary yAxis
+								title: {
+									text: 'Humedad',
+									style: {
+										color: Highcharts.getOptions().colors[0]
+									}
+								},
+								labels: {
+									format: '{value} %',
+									style: {
+										color: Highcharts.getOptions().colors[0]
+									}
+								},
+								opposite: true,
+								plotLines: [
+								{
+									//Promedio Humedad
+									value: Promedio_Humedad,
+									color: 'green',
+									dashStyle: 'ShortDot',
+									width: 2,
+									label: {
+										text: 'Prom. Hum.'
+									}
+								},{
+									//Limite Humedad
+									value: Limite_Humedad,
+									color: 'red',
+									dashStyle: 'ShortDot',
+									width: 2,
+									label: {
+										text: 'Max. Hum'
+									}
+								}
+								]
+							};
+							
+							optionsLineal.yAxis.push(LineasY);
+							optionsLineal.yAxis.push(LineasYDerecha);
+							// Render the chart
+							//optionsLineal.title.text.push(NombreEquipo);
+						});
+					}//Fin si es tipo 5
+	return optionsLineal;
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
 {	
