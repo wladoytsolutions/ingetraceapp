@@ -60,23 +60,6 @@ function HabilitarBusqueda()
 	$('#termino_filtroDatosSensor').prop("disabled",false);
 	$('#btn_buscarGrafico').prop("disabled",false);
 }
-function getIconoTendencia(TENDENCIA)
-{
-	var IconoTendencia="";
-	if(TENDENCIA=="=")
-	{
-		IconoTendencia='<i class="glyphicon glyphicon-minus-sign" style="color: #f0ad4e"></i>';
-	}
-	if(TENDENCIA=="-")
-	{
-		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-down" style="color: #5cb85c"></i>';
-	}
-	if(TENDENCIA=="+")
-	{
-		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-up" style="color: #d9534f"></i>';
-	}
-	return IconoTendencia;
-}
 function CargarGrafico(e)
 {
 	e.preventDefault();
@@ -119,6 +102,23 @@ function CargarDatosGrafico(e)
 			}
 		}
 	}
+}
+function getIconoTendencia(TENDENCIA)
+{
+	var IconoTendencia="";
+	if(TENDENCIA=="=")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-minus-sign" style="color: #f0ad4e"></i>';
+	}
+	if(TENDENCIA=="-")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-down" style="color: #5cb85c"></i>';
+	}
+	if(TENDENCIA=="+")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-up" style="color: #d9534f"></i>';
+	}
+	return IconoTendencia;
 }
 function CargarTabDatos()
 {
