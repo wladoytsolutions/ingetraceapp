@@ -511,14 +511,6 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				function(response) {
 					var json = jQuery.parseJSON(response);
 					
-					//TENDENCIA
-					var CuerpoDatos='';
-					var CuerpoAlarmas='';
-					var IconoTendencia='';
-					var DataSensor = new Array();
-					var LimiteSensor = new Array();
-					var PromedioSensor = new Array();
-					
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
 					
 					optionsLineal=GenerarGraficoSensor(json);
@@ -648,8 +640,12 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 }
 function GenerarGraficoSensor(json)
 {
+	
+	
 	var optionsLineal;
 	
+	try {
+
 					//TENDENCIA
 					var CuerpoDatos='';
 					var CuerpoAlarmas='';
@@ -1055,6 +1051,11 @@ function GenerarGraficoSensor(json)
 							//optionsLineal.title.text.push(NombreEquipo);
 						});
 					}//Fin si es tipo 5
+	}
+	catch(err) {
+		alert(err.message);
+	}
+	alert("Todo ok");
 	return optionsLineal;
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_SENSOR)
