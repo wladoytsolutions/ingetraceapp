@@ -511,7 +511,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						}, 
 				function(response) {
 					var json = jQuery.parseJSON(response);
-					
+					$("#JSON_DATOS").html(response);
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
 					
 					optionsLineal=GenerarGraficoSensor(json);
