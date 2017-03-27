@@ -115,36 +115,43 @@ function CargarTabDatos()
 			
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
 	
-	$.each(json, function(j, e) {
-		$.each(e.JSON_DATOS, function(i, d) {
-			//Validando TENDENCIA en Iconos
-			if(d.TENDENCIA=="=")
-			{
-				IconoTendencia='<i class="glyphicon glyphicon-minus-sign" style="color: #f0ad4e"></i>';
-			}
-			if(d.TENDENCIA=="-")
-			{
-				IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-down" style="color: #5cb85c"></i>';
-			}
-			if(d.TENDENCIA=="+")
-			{
-				IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-up" style="color: #d9534f"></i>';
-			}
-							
-			if($("#H_DESDE").val()=="MONITOR")
-			{
-				CuerpoDatos+='<tr><td><center>'+d.FECHA_HORA+'</center></td>';
-				CuerpoDatos+='<td><center>'+d.TEMPERATURA+'</center></td>';		
-				CuerpoDatos+='<td width="51%"><center>'+IconoTendencia+'</center><span style="display:none">'+d.TENDENCIA+'</span></td></tr>';
-			}
-			else
-			{
-				CuerpoDatos+='<tr><td><center>'+d.FECHA_HORA+'</center></td>';
+	//Si no es humedad
+	if($("#H_TIPO_MODELO").val()!="5")
+	{
+		$.each(json, function(j, e) {
+			$.each(e.JSON_DATOS, function(i, d) {
+				CuerpoDatos+='<tr>';
+				CuerpoDatos+='<td><center>'+d.FECHA_HORA+'</center></td>';
 				CuerpoDatos+='<td><center>'+d.TEMPERATURA+'</center></td>';	
-				CuerpoDatos+='<td width="49%"><center>'+IconoTendencia+'</center><span style="display:none">'+d.TENDENCIA+'</span></td></tr>';
-			}
+				CuerpoDatos+='<td width="49%"><center>'+getIconoTendencia(d.TENDENCIA+'')+'</center><span style="display:none">'+d.TENDENCIA+'</span></td>';
+				CuerpoDatos+='<td style=display:none><center></center></td>';	
+				CuerpoDatos+='<td style=display:none><center></center></td>';	
+				CuerpoDatos+='</tr>';
+			});
 		});
-	});
+	}
+	
+	//Sensores HUMEDAD
+	if($("#H_TIPO_MODELO").val()=="5")
+	{
+		$.each(json, function(j, e) {
+			
+			$("#ThHumedad").show();
+			$("#ThTendenciaHumedad").show();
+						
+			var celda=0;
+			
+			$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
+					CuerpoDatos+='<tr>';
+					CuerpoDatos+='<td><center>'+d.fechaHora+'</center></td>';
+					CuerpoDatos+='<td><center>'+d.temperatura+'</center></td>';
+					CuerpoDatos+='<td width="29%"><center>'+getIconoTendencia(d.temperatura_tendencia+'')+'</center><span style="display:none">'+d.temperatura_tendencia+'</span></td>';
+					CuerpoDatos+='<td><center>'+d.humedad+'</center></td>';
+					CuerpoDatos+='<td><center>'+getIconoTendencia(d.humedad_tendencia+'')+'</center></td>';
+					CuerpoDatos+='</tr>';
+			});
+		});
+	}
 			
 	$("#tBodyDatosGrafico").html(CuerpoDatos);
 	$("#DivCargandoDatos").hide("fade");
