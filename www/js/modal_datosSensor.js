@@ -131,8 +131,9 @@ function CargarTabDatos()
 	var IconoTendencia='';
 			
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
-	
+	alert($("#JSON_DATOS").html());
 	//Si no es humedad
+	alert($("#H_TIPO_MODELO").val());
 	if($("#H_TIPO_MODELO").val()!="5")
 	{
 		$.each(json, function(j, e) {
@@ -146,6 +147,7 @@ function CargarTabDatos()
 				CuerpoDatos+='</tr>';
 			});
 		});
+		alert("Fin eash");
 	}
 	
 	//Sensores HUMEDAD
@@ -169,10 +171,14 @@ function CargarTabDatos()
 			});
 		});
 	}
-			
+	
+	alert(""+CuerpoDatos);
+	
 	$("#tBodyDatosGrafico").html(CuerpoDatos);
 	$("#DivCargandoDatos").hide("fade");
-					
+
+	alert("OK");
+		
 	setTimeout(function () {
 		$("#DivTablaDatos").show("fade");				
 		$("#TablaDatosSensores").dataTable({
