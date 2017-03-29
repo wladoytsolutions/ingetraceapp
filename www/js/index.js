@@ -440,8 +440,6 @@ function GenerarHTMLSensores(DATOS)
 }
 function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
 {
-	alert("Entramos a VerGraficoSensorTermico");
-	alert("IdCliente-> "+IdCliente+" NombreCliente->"+NombreCliente+" IdSucursal->"+IdSucursal+" NombreSucursal->"+NombreSucursal+" IdSeccion->"+IdSeccion+" NombreSeccion->"+NombreSeccion+" IdEquipo->"+IdEquipo+" NombreEquipo->"+NombreEquipo+" IdSensor->"+IdSensor+" TipoModelo->"+TipoModelo);
 	$(window).disablescroll();
 
 	$('#ModalPage2').popup('open', {
@@ -659,8 +657,9 @@ function GenerarGraficoSensor(json)
 	var Limite_Humedad=0;
 	var Minimo=0;
 	
-	if($("#H_TIPO_MODELO").val()!="5")
-	{	
+	//Si es 5
+	if($("#H_TIPO_MODELO").val()=="1")
+	{
 		$.each(json, function(j, e) {
 			//Fecha hoy				
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
@@ -1037,6 +1036,9 @@ function GenerarGraficoSensor(json)
 				optionsLineal.yAxis.push(LineasYDerecha);
 				// Render the chart
 				optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
+				
+				$("#Cnt_TendenciaTemperatura").html("Tend.");
+				$("#Cnt_TendenciaHumedad").html("Tend.");
 			});
 		}//Fin si es tipo 5
 	return optionsLineal;
@@ -1123,12 +1125,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										alert("ACA222");
-										alert("ACA id_cliente->"+id_cliente);
-										alert("id_sucursal->"+id_sucursal);
-										alert(" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE);
-										alert(" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL);
-										alert(" FUN_TIPO_MODELO->"+FUN_TIPO_MODELO);
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
 											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
