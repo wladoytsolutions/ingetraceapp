@@ -904,15 +904,6 @@ function GenerarGraficoSensor(json)
 					},
 					enabled: false
 				},
-				legend: {
-					layout: 'vertical',
-					align: 'left',
-					x: 80,
-					verticalAlign: 'top',
-					y: 55,
-					floating: true,
-					backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
-				},
 				credits: {
 					enabled: false,
 				},
