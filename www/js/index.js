@@ -1073,8 +1073,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 			}
 		}
 		else
-		{		
-			alert("Sucursal no cargada cargando la sucursal");
+		{
 			//Validar si el sensor de la notificacion corresponde a la sucursal en la BD
 			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 			BD_APP.transaction(function(tx) {
@@ -1117,11 +1116,8 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										alert("Sucursal cargada ok");
-										alert("id_cliente->"+id_cliente+" FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" id_sucursal->"+id_sucursal+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL);
 										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
 										{
-											alert(FUN_TIPO_MODELO);
 											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 											{
 												alert("FUN_ID_CLIENTE->"+FUN_ID_CLIENTE+" FUN_NOMBRE_CLIENTE->"+FUN_NOMBRE_CLIENTE+" FUN_ID_SUCURSAL->"+FUN_ID_SUCURSAL+" FUN_NOMBRE_SUCURSAL->"+FUN_NOMBRE_SUCURSAL+" FUN_ID_SECCION->"+FUN_ID_SECCION+" FUN_NOMBRE_SECCION->"+FUN_NOMBRE_SECCION+" FUN_ID_EQUIPO->"+FUN_ID_EQUIPO+" FUN_NOMBRE_EQUIPO->"+FUN_NOMBRE_EQUIPO+" FUN_ID_SENSOR->"+FUN_ID_SENSOR+" FUN_TIPO_MODELO->"+FUN_TIPO_MODELO);
@@ -1134,8 +1130,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										}
 										else
 										{
-											alert("Otra sucursal");
-											alert("FUN_TIPO_MODELO->"+FUN_TIPO_MODELO);
 											//Otra sucursal
 											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 											{
