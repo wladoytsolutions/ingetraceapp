@@ -4,21 +4,28 @@ $(document).ready(function() {
 		
 	$("#btn_buscarGraficoElectrico").click(function(e) {
 			e.preventDefault();
+			alert("ACA");
 			$("#btnValidar").trigger("click");
+			alert("Click");
 			if(formularioBusqueda.checkValidity())
 			{
+				alert("Formulario valido");
 				$('#DivInicioOp').attr('class','form-group');
 				$('#DivTerminoOp').attr('class','form-group');
 					
-				var ValOp=ValidarFechasOperacionesSinLimite();
+				var ValOp=ValidarFechasOperaciones();
+				alert("Fechas validadas");
 				if(ValOp){
 					//guardar_registro();
 					$('#DivInicioOp').attr('class','form-group');
 					$('#DivTerminoOp').attr('class','form-group');
+					
+					alert("Limpiando tabla");
 						
 					//CARGANDO DATOS
 					$("#TablaDatosSensores").dataTable().fnDestroy();
-					$("#tBodyDatosGrafico").html("");TablaDatosSensores
+					$("#tBodyDatosGrafico").html("");
+					alert("Cargando Datos electrico");
 					CargarDatosElectrico($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
 				}else
 				{
@@ -40,14 +47,13 @@ $(document).ready(function() {
 									language:"es",
 									autoclose:true,
 									orientation: "top auto"
-									});	
+									});
 });
 function CargarDatosElectrico(Inicio,Termino)
 {
 	$('#ModalPage3').popup('open', {
 		transition: 'pop'
 	});
-	$('#PanelDatosElectrico').hide('fade');
 	$(window).disablescroll();
 	
 	//Fecha inicio
@@ -69,7 +75,8 @@ function CargarDatosElectrico(Inicio,Termino)
 						FechaTermino : fecha_termino
 							}, 
 	function(response) {
-			var json = jQuery.parseJSON(response);			
+			var json = jQuery.parseJSON(response);
+			
 			$.each(json.ITEMS, function(i, d) {
 				CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
 							
@@ -89,29 +96,53 @@ function CargarDatosElectrico(Inicio,Termino)
 				CuerpoDatos+='</tr>';
 			});
 						
-			$("#tBodyDatosGrafico").html(CuerpoDatos);						
+			$("#tBodyDatosGrafico").html(CuerpoDatos);
+						
+			$("#tbl_DataGra").html($("#PanelBodyTablaDatosSensor").html());			
+
+			$.mobile.pageContainer.pagecontainer('change', '#p3', {
+					transition: 'flip',
+					changeHash: true,
+					reverse: true,
+					showLoadMsg: false
+			});
+						
 	}).done(function(response) {
-		$('#ModalPage3').popup('close');
+		$('#ModalPage2').popup('close');
 		$(window).disablescroll("undo");
 		setTimeout(function () {
 			$("#TablaDatosSensores").dataTable({
-				"language": {
-					"url": "json/spanish.json"
-				},
-				"scrollY":        "230px",
-				"scrollCollapse": true,
-				"paging":         false,
-				"searching": false
+					"language": {
+						"url": "json/spanish.json"
+					},
+					"scrollY":        "230px",
+					"scrollCollapse": true,
+					"paging":         false,
+					"searching": false
 			});
-			$("#btn_buscarGrafico").prop('disabled', false);
 			setTimeout(function () {
 				RecargarTabla();
-			},750);
-		}, 750);	
+			}, 250);		
+			$("#btn_buscarGrafico").prop('disabled', false);
+		}, 750);				
 	});
 }
 function RecargarTabla()
-{	
+{
+	var divProblemas=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');		
+	$(divProblemas).css('width','100%');
+	
+	var tablaProblemas=$(divProblemas).find('table');
+	$(tablaProblemas).css('width','100%');
+	$(tablaProblemas).attr('style','margin-left: 0px; width: 100%; margin-bottom: -2px;');
+	
+	var divProblemas=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');		
+	$(divProblemas).css('width','100%');
+	
+	var tablaProblemas=$(divProblemas).find('table');
+	$(tablaProblemas).css('width','100%');
+	$(tablaProblemas).attr('style','margin-left: 0px; width: 100%; margin-bottom: -2px;');
+	
 	var divProblemas=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');		
 	$(divProblemas).css('width','100%');
 		
@@ -126,28 +157,42 @@ function RecargarTabla()
 	
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
+}
+function ValidarFechasOperaciones()
+{
+	var Valido=false;
 	
-	$('#PanelDatosElectrico').show('fade');
+	var startDate = $('#inicio_filtroDatosSensorElectrico').val();
+	startDate=String(startDate);
+		
+	//Convertiendo a float
+	var anioIni=startDate.substring(6, 10);
+	var mesIni=startDate.substring(3, 5);
+	var diaIni=startDate.substring(0, 2);
+		
+	var FecIni = parseFloat(anioIni+mesIni+diaIni);
 	
-	var TrThead=$(tablefoot).find('tr');
-	
-	var TrParent=$('#tBodyDatosGrafico').find('tr:eq(0)');
-	
-	var widthFecha=$(TrParent).find('td:eq(0)').width();
-	var widthEstado=$(TrParent).find('td:eq(1)').width();
-	var widthTiempo=$(TrParent).find('td:eq(2)').width();
-	
-	var ThFecha = $(TrThead).find('th:eq(0)');	
-	$(ThFecha).attr('style','width: '+widthFecha+'px; position: relative; top: 50%; transform: translateY(-25%);');
-	
-	var ThEstado = $(TrThead).find('th:eq(1)');	
-	$(ThEstado).attr('style','width: '+widthEstado+'px; position: relative; top: 50%; transform: translateY(-25%);');
-	
-	var ThTiempo = $(TrThead).find('th:eq(2)');	
-	$(ThTiempo).attr('style','width: '+widthTiempo+'px;');
-	
-	//alert($(ThFecha).attr('style'));
-	
+	var endDate = $('#termino_filtroDatosSensorElectrico').val();
+	endDate=String(endDate);
+		
+	//Convertiendo a float
+	var anioFin=endDate.substring(6, 10);
+	var mesFin=endDate.substring(3, 5);
+	var diaFin=endDate.substring(0, 2);
+		
+	var FecFin = parseFloat(anioFin+mesFin+diaFin);
+		
+	if(FecIni!=FecFin)
+	{
+		if(FecIni < FecFin){
+		   Valido=true;
+		}
+	}
+	else
+	{
+		Valido=true;
+	}
+	return Valido;
 }
 function VolverAtras(event)
 {

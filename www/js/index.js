@@ -633,7 +633,7 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 					$("#btn_buscarGrafico").prop('disabled', false);
 						setTimeout(function () {
 							RecargarTabla();
-						},1000);
+						},250);
 					}, 750);
 			});
 		});

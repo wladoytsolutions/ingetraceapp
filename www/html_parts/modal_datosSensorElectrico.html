@@ -4,6 +4,9 @@
 }
 </style>
 <div id="DialogGraficoContenido" class="modal-body" style="padding: 0px;"> <!-- /.row -->
+	<link href="plugin/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" type="text/css" rel="stylesheet">
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.es.min.js"></script>
 	<div class="row">
 			<div style="border: none" class="panel panel-default">
 				<div class="panel-body">
@@ -39,8 +42,8 @@
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
-					  <div id="Tabla_grafico" aria-labelledby="Tabla_grafico-tab" class="tab-pane fade active in" role="tabpanel">
-						<div id="PanelDatosElectrico" class="panel panel-default" style="display:none">
+					  <div aria-labelledby="Tabla_grafico-tab" id="Tabla_grafico" class="tab-pane fade active in" role="tabpanel">
+						<div class="panel panel-default">
 							<div class="panel-body" id="PanelBodyTablaDatosSensor" style="height:280px">
 								<div id="DivCargandoTablaGrafico" style="display:none">
 									<center>
@@ -50,9 +53,9 @@
 								<table class="table table-hover" id="TablaDatosSensores">
 									<thead>
 										<tr>
-											<th style="width:20%;position: relative;top: 50%;transform: translateY(-25%);"><center>FECHA</center></th>
-											<th style="position: relative;top: 50%;transform: translateY(-25%);"><center>ESTADO </center></th>
-											<th style="width:20$"><center>TIEMPO <br>(hh:mm:ss)</center></th>
+											<th><center>FECHA</center></th>
+											<th><center>ESTADO </center></th>
+											<th><center>TIEMPO<br/>(hh:mm:ss)</center></th>
 										</tr>
 									</thead>
 									<tbody id="tBodyDatosGrafico">
@@ -66,8 +69,8 @@
 	</div>
 	<div style="display:none" id="DivHidden">
 		<div id="tbl_DataGra"></div>
-		<!--<iframe src="#" name="IframeAuxDatosSensorElectricoDescarga" id="IframeAuxDatosSensorElectricoDescarga"></iframe>
-		<a style="display:none" id="link_descargaArchivoDatosSensor" href="">Descargar Archivo</a>  -->
+		<iframe src="#" name="IframeAuxDatosSensorElectricoDescarga" id="IframeAuxDatosSensorElectricoDescarga"></iframe>
+		<a style="display:none" id="link_descargaArchivoDatosSensor" href="">Descargar Archivo</a>  
 	</div>
 </div>
 <div id="DivHidden" style="display:none">
