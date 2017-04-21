@@ -1,3 +1,6 @@
+			.LabelAlarma{
+				color:red;
+			}
 			.ErrorCarga
 			{
 				box-sizing: border-box;
@@ -12,6 +15,15 @@
 				text-align: center;
 				vertical-align: baseline;
 				white-space: nowrap;
+			}
+			div.marquee-cargada {
+				white-space:no-wrap;
+				overflow:hidden;
+			}
+			div.marquee-cargada > div.marquee-text {
+				white-space:nowrap;
+				display:inline;
+				width:auto;
 			}
 			div.marquee {
 				white-space:no-wrap;

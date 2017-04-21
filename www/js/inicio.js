@@ -252,35 +252,42 @@ function ActualizarDashboard()
 			
 			$("#SENAL_"+d.IDSENSOR+"").html(d.SENAL);
 			
-			if(d.TIPO_SENSOR=="Termico")
+			var BanderaAlerta=false;
+			
+			if(d.TIPO_SENSOR=="Termico" || d.TIPO_SENSOR=="Humedad")
 			{
-				if($.trim($("#Alarma_"+d.IDSENSOR+"").html())!=$.trim(d.ALARMA))
+				//ALARMA TEMPERATURA
+				if($.trim($("#Cont_Alarma_Temp_"+d.IDSENSOR+"").html())!=$.trim(d.ALARMA))
 				{
-					$("#Alarma_"+d.IDSENSOR+"").html(d.ALARMA);
-					ParpadearActualizar("Alarma_"+d.IDSENSOR+"");
+					$("#Cont_Alarma_Temp_"+d.IDSENSOR+"").html(d.ALARMA);
+					ParpadearActualizar("Cont_Alarma_Temp_"+d.IDSENSOR+"");
+				}
+				
+				//ALARMA HUMEDAD				
+				if($.trim($("#Cont_Alarma_Humedad_"+d.IDSENSOR+"").html())!=$.trim(d.HMD_ULT_ALARMA))
+				{
+					$("#Cont_Alarma_Humedad_"+d.IDSENSOR+"").html(d.HMD_ULT_ALARMA);
+					ParpadearActualizar("Cont_Alarma_Humedad_"+d.IDSENSOR+"");
 				}
 				
 				if($.trim(d.STATUS_EQUIPO)=='')
 				{
-					$('#IconoSensor_'+d.IDSENSOR+'').html('<i class="glyphicon glyphicon-ok-circle" style="color: #08fa06"></i>');					
-					var NuevoH1='<h1 id="Temp_'+d.IDSENSOR+'" class="no-margins" title="'+$('#Temp_'+d.IDSENSOR+'').attr('title')+'" >';
-						NuevoH1+=$('#Temp_'+d.IDSENSOR+'').html()+'</h1>';
-					
-					$('#ParentTemp_'+d.IDSENSOR).html(NuevoH1);
+					$('#IconoSensor_'+d.IDSENSOR+'').html('<i class="glyphicon glyphicon-ok-circle" style="color: #08fa06"></i>');
+					$('#Temp_'+d.IDSENSOR+'').css('color','');
+					$('#Temp_'+d.IDSENSOR+'').attr('class','no-margins Cifras');
+					$('#Temp_'+d.IDSENSOR+'').unbind();
 				}
 				else
 				{
+					BanderaAlerta=true;
 					$('#IconoSensor_'+d.IDSENSOR+'').html('<i class="glyphicon glyphicon-remove-circle parpadear" style="color: #fd0002"></i>');
 					$('#Temp_'+d.IDSENSOR+'').css('color','#fd0002');
-					$('#Temp_'+d.IDSENSOR+'').attr('class','no-margins parpadear');
+					$('#Temp_'+d.IDSENSOR+'').attr('class','no-margins Cifras parpadear');
 				}
 				
 				if($("#Hora_"+d.IDSENSOR+"").html()!=d.HORA)
 				{
 					var IconoTendencia='';
-					var ColorTendencia='';
-					
-										var IconoTendencia='';
 					var ColorTendencia='';
 					
 					//Validando TENDENCIA en Iconos
@@ -300,7 +307,8 @@ function ActualizarDashboard()
 					{
 						IconoTendencia='&#x2191;';
 						ColorTendencia='#d9534f';
-					}					
+					}
+					
 					//alert(TemperaturaAnterior+" VS "+TemperaturaActual+" --> "+IconoTendencia);
 					
 					$('#Temp_'+d.IDSENSOR+'').html(d.TEMPERATURA+'<span id="ICON_TENDENCIA_'+d.IDSENSOR+'" style="float: right; margin-left: -4px; margin-top: -4px;"></span>');
@@ -331,11 +339,94 @@ function ActualizarDashboard()
 					ParpadearActualizar("HORA_MINIMA_"+d.IDSENSOR+"");
 				}
 				
-				//HORA MINIMA
+				//HORA MAXIMA
 				if($("#HORA_MAXIMA_"+d.IDSENSOR+"").html()!=d.HORA_MAXIMA)
 				{
 					$("#HORA_MAXIMA_"+d.IDSENSOR+"").html(d.HORA_MAXIMA);					
 					ParpadearActualizar("HORA_MAXIMA_"+d.IDSENSOR+"");
+				}
+				
+				//#SI ES HUMEDAD#//
+				if(d.TIPO_SENSOR=="Humedad")
+				{
+					$("#HMD_SENAL_"+d.IDSENSOR+"").html(d.SENAL);
+					
+					if($.trim(d.STATUS_EQUIPO_HMD)=='')
+					{
+						if(!BanderaAlerta)
+						{
+							$('#IconoSensor_'+d.IDSENSOR+'').html('<i class="glyphicon glyphicon-ok-circle" style="color: #08fa06"></i>');
+						}
+						$('#Humedad_'+d.IDSENSOR+'').css('color','');
+						$('#Humedad_'+d.IDSENSOR+'').attr('class','Cifras no-margins');
+						$('#Humedad_'+d.IDSENSOR+'').unbind();
+					}
+					else
+					{
+						$('#IconoSensor_'+d.IDSENSOR+'').html('<i class="glyphicon glyphicon-remove-circle parpadear" style="color: #fd0002"></i>');
+						$('#Humedad_'+d.IDSENSOR+'').css('color','#fd0002');
+						$('#Humedad_'+d.IDSENSOR+'').attr('class','no-margins Cifras parpadear');
+					}
+					
+					if($("#HMD_Hora_"+d.IDSENSOR+"").html()!=d.HMD_HORA)
+					{
+						var IconoTendencia='';
+						var ColorTendencia='';
+						
+						//Validando TENDENCIA en Iconos
+						if(d.HMD_TENDENCIA=="=")
+						{
+							IconoTendencia='-';
+							ColorTendencia='#f0ad4e';
+						}
+						//BAJA
+						if(d.HMD_TENDENCIA=="-")
+						{
+							IconoTendencia='&#x2193;';
+							ColorTendencia='#5cb85c';
+						}
+						//SUBE
+						if(d.HMD_TENDENCIA=="+")
+						{
+							IconoTendencia='&#x2191;';
+							ColorTendencia='#d9534f';
+						}
+						
+						//alert(TemperaturaAnterior+" VS "+TemperaturaActual+" --> "+IconoTendencia);
+						
+						$('#Humedad_'+d.IDSENSOR+'').html(d.HUMEDAD+'%<span id="HMD_ICON_TENDENCIA_'+d.IDSENSOR+'" style="float: right; margin-left: -4px; margin-top: -4px;"></span>');
+						$("#HMD_ICON_TENDENCIA_"+d.IDSENSOR+"").html(" "+IconoTendencia);
+						$('#HMD_ICON_TENDENCIA_'+d.IDSENSOR+'').css('color',ColorTendencia);
+						$("#HMD_Hora_"+d.IDSENSOR+"").html(d.HMD_HORA);					
+						ParpadearActualizar("Humedad_"+d.IDSENSOR+"");	
+						ParpadearActualizar("HMD_Hora_"+d.IDSENSOR+"");	
+					}
+					//HMD MINIMA
+					if($("#HMD_Min_"+d.IDSENSOR+"").html()!=(d.HMD_MINIMA+"%"))
+					{
+						$("#HMD_Min_"+d.IDSENSOR+"").html(d.HMD_MINIMA+"%");
+						ParpadearActualizar("HMD_Min_"+d.IDSENSOR+"");
+					}
+					//HMD MAXIMA
+					if($("#HMD_Max_"+d.IDSENSOR+"").html()!=(d.HMD_MAXIMA+"%"))
+					{
+						$("#HMD_Max_"+d.IDSENSOR+"").html(d.HMD_MAXIMA+"%");				
+						ParpadearActualizar("HMD_Max_"+d.IDSENSOR+"");
+					}
+					
+					//HORA MINIMA
+					if($("#HMD_HORA_MINIMA_"+d.IDSENSOR+"").html()!=d.HMD_HORA_MINIMA)
+					{
+						$("#HMD_HORA_MINIMA_"+d.IDSENSOR+"").html(d.HMD_HORA_MINIMA);					
+						ParpadearActualizar("HMD_HORA_MINIMA_"+d.IDSENSOR+"");
+					}
+					
+					//HORA MAXIMA
+					if($("#HMD_HORA_MAXIMA_"+d.IDSENSOR+"").html()!=d.HMD_HORA_MAXIMA)
+					{
+						$("#HMD_HORA_MAXIMA_"+d.IDSENSOR+"").html(d.HMD_HORA_MAXIMA);					
+						ParpadearActualizar("HMD_HORA_MAXIMA_"+d.IDSENSOR+"");
+					}
 				}
 			}
 			if(d.TIPO_SENSOR=="Electrico")

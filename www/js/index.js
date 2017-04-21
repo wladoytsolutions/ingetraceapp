@@ -228,7 +228,7 @@ function CargarMarquee()
 		  setTimeout(function () {  
 		   interval = setInterval(mar.marquee,inter);
 		   }, 2000);
-	  
+		$(this).removeClass("marquee").addClass("marquee-cargada");
 	});
 }
 function getUrlVars() {
