@@ -3,30 +3,29 @@ $(document).ready(function() {
 	$("#btn_buscarGraficoElectrico").prop('disabled', false);		
 		
 	$("#btn_buscarGraficoElectrico").click(function(e) {
-			e.preventDefault();
-			$("#btnValidar").trigger("click");
-			if(formularioBusqueda.checkValidity())
-			{
+		e.preventDefault();
+		$("#btnValidar").trigger("click");
+		if(formularioBusqueda.checkValidity())
+		{
+			$('#DivInicioOp').attr('class','form-group');
+			$('#DivTerminoOp').attr('class','form-group');
+				
+			var ValOp=ValidarFechasOperaciones();
+			if(ValOp){
+				//guardar_registro();
 				$('#DivInicioOp').attr('class','form-group');
 				$('#DivTerminoOp').attr('class','form-group');
-					
-				var ValOp=ValidarFechasOperaciones();
-				if(ValOp){
-					//guardar_registro();
-					$('#DivInicioOp').attr('class','form-group');
-					$('#DivTerminoOp').attr('class','form-group');
 						
-					//CARGANDO DATOS
-					$("#TablaDatosSensores").dataTable().fnDestroy();
-					$("#tBodyDatosGrafico").html("");
-					CargarDatosElectrico($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
-				}else
-				{
-					$('#DivInicioOp').attr('class','form-group has-error');
-					$('#DivTerminoOp').attr('class','form-group has-error');
-					alert("La fecha de termino de operaciones("+$('#termino_filtroDatosSensorElectrico').val()+") es menor a la fecha de inicio de operaciones("+$('#inicio_filtroDatosSensorElectrico').val()+")");
-				}
+				//CARGANDO DATOS
+				$("#TablaDatosSensores").dataTable().fnDestroy();
+				$("#tBodyDatosGrafico").html("");
+				CargarDatosElectrico($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
+			}else{
+				$('#DivInicioOp').attr('class','form-group has-error');
+				$('#DivTerminoOp').attr('class','form-group has-error');
+				alert("La fecha de termino de operaciones("+$('#termino_filtroDatosSensorElectrico').val()+") es menor a la fecha de inicio de operaciones("+$('#inicio_filtroDatosSensorElectrico').val()+")");
 			}
+		}
 	});
 		
 	
