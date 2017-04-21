@@ -4,28 +4,21 @@ $(document).ready(function() {
 		
 	$("#btn_buscarGraficoElectrico").click(function(e) {
 			e.preventDefault();
-			alert("ACA");
 			$("#btnValidar").trigger("click");
-			alert("Click");
 			if(formularioBusqueda.checkValidity())
 			{
-				alert("Formulario valido");
 				$('#DivInicioOp').attr('class','form-group');
 				$('#DivTerminoOp').attr('class','form-group');
 					
 				var ValOp=ValidarFechasOperaciones();
-				alert("Fechas validadas");
 				if(ValOp){
 					//guardar_registro();
 					$('#DivInicioOp').attr('class','form-group');
 					$('#DivTerminoOp').attr('class','form-group');
-					
-					alert("Limpiando tabla");
 						
 					//CARGANDO DATOS
 					$("#TablaDatosSensores").dataTable().fnDestroy();
 					$("#tBodyDatosGrafico").html("");
-					alert("Cargando Datos electrico");
 					CargarDatosElectrico($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
 				}else
 				{
