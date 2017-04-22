@@ -551,6 +551,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 }
 function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 {
+	alert("VerSensorElectrico");
 	$(window).disablescroll();
 	
 	$('#ModalPage2').popup('open', {
@@ -1061,6 +1062,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 			}
 			else
 			{
+				alert("Otra sucursal "+FUN_TIPO_MODELO);
 				//Otra sucursal
 				if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 				{
