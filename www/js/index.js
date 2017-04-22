@@ -1042,6 +1042,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
+		alert("Sucursal cargada "+$('#H_SUCURSAL_CARGADA').val());
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
