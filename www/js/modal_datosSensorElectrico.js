@@ -110,7 +110,8 @@ function CargarDatosElectrico(Inicio,Termino)
 					"scrollY":        "230px",
 					"scrollCollapse": true,
 					"paging":         false,
-					"searching": false
+					"searching": false,
+					"order": [[ 0, "desc" ]]
 			});
 			setTimeout(function () {
 				RecargarTabla();
