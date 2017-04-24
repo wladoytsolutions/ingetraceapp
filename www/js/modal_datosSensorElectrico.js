@@ -115,7 +115,7 @@ function CargarDatosElectrico(Inicio,Termino)
 			});
 			setTimeout(function () {
 				RecargarTabla();
-			}, 250);		
+			}, 3000);		
 			$("#btn_buscarGrafico").prop('disabled', false);
 		}, 750);				
 	});
