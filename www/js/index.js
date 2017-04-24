@@ -627,7 +627,8 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 						"scrollY":        "230px",
 						"scrollCollapse": true,
 						"paging":         false,
-						"searching": false
+						"searching": false,
+						"order": [[ 0, "desc" ]]
 					});
 					
 					$("#btn_buscarGrafico").prop('disabled', false);
