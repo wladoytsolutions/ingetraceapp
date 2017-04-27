@@ -482,9 +482,9 @@ function CargarDatos(Inicio,Termino)
 		var optionsLineal;
 	
 		var json = jQuery.parseJSON($("#JSON_DATOS").html());
-		optionsLineal=GenerarGraficoSensor(json);
+		//optionsLineal=GenerarGraficoSensor(json);
 		
-		var chart = new Highcharts.Chart(optionsLineal);
+		//var chart = new Highcharts.Chart(optionsLineal);
 		$('#btn_buscarGrafico').prop("disabled",false);
 		$("#Li_TablaAlarmas").show("fade");
 		$("#Li_Tabla").show("fade");
