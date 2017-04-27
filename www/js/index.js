@@ -664,8 +664,15 @@ function GenerarGraficoSensor(json)
 		$.each(json, function(j, e) {
 			//Fecha hoy				
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			if($("#inicio_filtroDatosSensor").val()=="")
+			{
+				$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			}
+			if($("#termino_filtroDatosSensor").val()=="")
+			{
+				$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			}
+			
 							
 			var Promedio=0;
 			var Limite=0;
