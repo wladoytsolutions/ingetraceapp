@@ -1,4 +1,5 @@
 var BANDERA_TAB=false;
+
 $(document).ready(function() {
 	$("#ModalPage3").load("html_parts/modal_cargando.html");
 	$("#btn_buscarGrafico").prop('disabled', true);
@@ -47,7 +48,81 @@ $(document).ready(function() {
 				GuardarBitacora();
 			}
 		});
+		
+	
+		$("#inicio_filtroDatosSensor").datepicker({
+									format: "dd/mm/yyyy",
+									language:"es",
+									autoclose:true,
+									orientation: "top auto"
+									});
+		$("#termino_filtroDatosSensor").datepicker({ format: "dd/mm/yyyy",
+									language:"es",
+									autoclose:true,
+									orientation: "top auto"
+									});
 });
+function CrearCuerpoTablaAlarmas(json)
+{
+	var CuerpoAlarmas='';
+	$.each(json, function(i, d) {
+		CuerpoAlarmas+='<tr style="text-align: center; cursor:pointer" onclick="javascript:CargarBitacora('+d.Id_alerta+');">';
+		CuerpoAlarmas+='<td width="38%">'+d.Id_alerta+'</td>';
+		CuerpoAlarmas+='<td><span style="display:none">'+d.Fecha_Numerica+'</span>'+d.Fecha_Hora+'</td>';
+		CuerpoAlarmas+='<td width="20%">'+d.TipoAlerta+'</td>';
+		if($('#H_TIPO_MODELO').val() == "5")
+		{
+			if(d.TipoAlerta=="AC" || d.TipoAlerta=="DC")
+			{
+				CuerpoAlarmas+='<td width="9%"><label class="LabelAlarma">'+d.temperatura+'</label></td>';
+			}
+			else
+			{
+				CuerpoAlarmas+='<td width="9%">'+d.temperatura+'</td>';
+			}
+		}
+		else
+		{
+			CuerpoAlarmas+='<td width="9%">'+d.temperatura+'</td>';
+		}
+		//Si es tipo temperatura humedad
+		if($('#H_TIPO_MODELO').val() == "5")
+		{
+			if(d.TipoAlerta=="H1" || d.TipoAlerta=="H2")
+			{
+				CuerpoAlarmas+='<td width="9%"><label class="LabelAlarma">'+d.humedad+'</label></td>';
+			}
+			else
+			{
+				CuerpoAlarmas+='<td width="9%">'+d.humedad+'</td>';
+			}
+		}
+		else
+		{
+			CuerpoAlarmas+='<td width="9%" style="display:none">'+d.humedad+'</td>';
+		}
+				
+		CuerpoAlarmas+='</tr>';
+	});
+	return CuerpoAlarmas;
+}
+function getIconoTendencia(TENDENCIA)
+{
+	var IconoTendencia="";
+	if(TENDENCIA=="=")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-minus-sign" style="color: #f0ad4e"></i>';
+	}
+	if(TENDENCIA=="-")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-down" style="color: #5cb85c"></i>';
+	}
+	if(TENDENCIA=="+")
+	{
+		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-up" style="color: #d9534f"></i>';
+	}
+	return IconoTendencia;
+}
 function DesabilitarBusqueda()
 {
 	$('#inicio_filtroDatosSensor').prop("disabled",true);
@@ -103,36 +178,21 @@ function CargarDatosGrafico(e)
 		}
 	}
 }
-function getIconoTendencia(TENDENCIA)
-{
-	var IconoTendencia="";
-	if(TENDENCIA=="=")
-	{
-		IconoTendencia='<i class="glyphicon glyphicon-minus-sign" style="color: #f0ad4e"></i>';
-	}
-	if(TENDENCIA=="-")
-	{
-		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-down" style="color: #5cb85c"></i>';
-	}
-	if(TENDENCIA=="+")
-	{
-		IconoTendencia='<i class="glyphicon glyphicon-circle-arrow-up" style="color: #d9534f"></i>';
-	}
-	return IconoTendencia;
-}
 function CargarTabDatos()
 {
 	BANDERA_TAB=true;
 	DesabilitarBusqueda();
 	$("#H_TAB_DATOS_CARGADO").val("");
+	$("#H_TAB_DATOS_CARGADO").val("");
 		
-	var CuerpoDatos=''; 
+	var CuerpoDatos='';
 	var IconoTendencia='';
 	
+	alert($("#JSON_DATOS").html());
 	
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
-	//Si no es humedad
 	
+	//Si no es humedad
 	if($("#H_TIPO_MODELO").val()!="5")
 	{
 		$.each(json, function(j, e) {
@@ -169,15 +229,15 @@ function CargarTabDatos()
 			});
 		});
 	}
-	
+			
 	$("#tBodyDatosGrafico").html(CuerpoDatos);
 	$("#DivCargandoDatos").hide("fade");
-		
+					
 	setTimeout(function () {
 		$("#DivTablaDatos").show("fade");				
 		$("#TablaDatosSensores").dataTable({
 			"language": {
-				"url": 'json/spanish.json'
+				"url": "json/spanish.json"
 			},
 			"scrollY":        "230px",
 			"scrollCollapse": true,
@@ -185,10 +245,10 @@ function CargarTabDatos()
 			"searching": false,
 			"order": [[ 0, "desc" ]]
 		});
-		BANDERA_TAB=false;			
+		BANDERA_TAB=false;
 		setTimeout(function () {
 			RecargarTablaDatos();
-		}, 500);
+			}, 250);
 	}, 500);
 			
 	$("#H_TAB_DATOS_CARGADO").val("Ok");
@@ -229,32 +289,31 @@ function CargarTabAlarmas()
 	//Buscar datos bitacora						
 	$.post(RUTACONTROL,{
 				accion 		 : 'CargarAlarmas',
-				ID_CLIENTE   : $('#H_IdClienteRecibido').val(),
-				ID_SUCURSAL  : $('#H_IdSucursalRecibido').val(),
+				ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
+				ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
 				ID_SECCION   : $('#H_ID_SECCION').val(),
 				ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 				ID_SENSOR    : $('#H_ID_SENSOR').val(),
 				FECHAINICIO	 : $('#inicio_filtroDatosSensor').val(),
 				FECHATERMINO : $('#termino_filtroDatosSensor').val()
 		}, 
-	function(response) {
+	function(response) {				
 			var json = jQuery.parseJSON(response);
 			
-			$.each(json, function(i, d) {
-				CuerpoAlarmas+='<tr style="text-align: center; cursor:pointer" onclick="javascript:CargarBitacora('+d.ID_ALERTA+');">';
-				CuerpoAlarmas+='<td width="38%">'+d.ID_ALERTA+'</td>';
-				CuerpoAlarmas+='<td><span style="display:none">'+d.FECHA_NUMERICA+'</span>'+d.FECHA_HORA+'</td>';
-				CuerpoAlarmas+='<td width="20%">'+d.TIPO_ALERTA+'</td>';
-				CuerpoAlarmas+='<td width="9%">'+d.TEMPERATURA+'</td>';
-				CuerpoAlarmas+='</tr>';
-			});
+			if($('#H_TIPO_MODELO').val()=="5")
+			{
+				$('#Th_HMD').show();
+			}
+			
+			CuerpoAlarmas=CrearCuerpoTablaAlarmas(json);
 			
 			$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 			$("#DivCargandoAlarmas").hide("fade");
 					
-	}).done(function(response) {						
+	}).done(function(response) {					
 		setTimeout(function () {
-			$("#DivTablaAlarmas").show("fade");				
+			$("#DivTablaAlarmas").show("fade");			
+			
 			$("#TablaDatosAlarmas").dataTable({
 				"language": {
 					"url": "json/spanish.json"
@@ -268,7 +327,7 @@ function CargarTabAlarmas()
 			BANDERA_TAB=false;
 			setTimeout(function () {
 				RecargarTablaAlarmas();
-			}, 500);
+			}, 250);
 		}, 500);
 			
 		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
@@ -311,7 +370,8 @@ function CargarDatos(Inicio,Termino)
 					accion 		 	: 'DatosGraficoSensorTermico',
 					IdSensor    	: $('#H_ID_SENSOR').val(),
 					fecha_inicio    : fecha_inicio,
-					fecha_termino   : fecha_termino
+					fecha_termino   : fecha_termino,
+					TipoModelo    	: $('#H_TIPO_MODELO').val()
 					}, 
 			function(response) {
 				$("#JSON_DATOS").html(response);
@@ -345,7 +405,8 @@ function CargarDatos(Inicio,Termino)
 					accion 		 	: 'DatosGraficoSensorTermico',
 					IdSensor    	: $('#H_ID_SENSOR').val(),
 					fecha_inicio    : fecha_inicio,
-					fecha_termino   : fecha_termino
+					fecha_termino   : fecha_termino,
+					TipoModelo    	: $('#H_TIPO_MODELO').val()
 					}, 
 			function(response) {
 				$("#JSON_DATOS").html(response);
@@ -362,7 +423,7 @@ function CargarDatos(Inicio,Termino)
 			//Mostrando cargando
 			BANDERA_TAB=true;
 			$("#DivTablaAlarmas").hide();
-			$("#DivCargandoAlarmas").show("fade");
+			$("#DivCargandoAlarmas").show("fade");			
 			
 			$("#TablaDatosAlarmas").dataTable().fnDestroy();
 			$("#tBodyDatosAlarmas").html("");
@@ -386,21 +447,14 @@ function CargarDatos(Inicio,Termino)
 			function(response) {				
 				var json = jQuery.parseJSON(response);
 				
-				$.each(json, function(i, d) {
-					CuerpoAlarmas+='<tr style="text-align: center; cursor:pointer" onclick="javascript:CargarBitacora('+d.ID_ALERTA+');">';
-					CuerpoAlarmas+='<td width="38%">'+d.ID_ALERTA+'</td>';
-					CuerpoAlarmas+='<td><span style="display:none">'+d.FECHA_NUMERICA+'</span>'+d.FECHA_HORA+'</td>';
-					CuerpoAlarmas+='<td width="20%">'+d.TIPO_ALERTA+'</td>';
-					CuerpoAlarmas+='<td width="9%">'+d.TEMPERATURA+'</td>';
-					CuerpoAlarmas+='</tr>';
-				});
+				CuerpoAlarmas=CrearCuerpoTablaAlarmas(json);
 				
 				$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 				$("#DivCargandoAlarmas").hide("fade");
 						
 			}).done(function(response) {						
 				setTimeout(function () {
-					$("#DivTablaAlarmas").show("fade");				
+					$("#DivTablaAlarmas").show("fade");		
 					$("#TablaDatosAlarmas").dataTable({
 						"language": {
 							"url": "json/spanish.json"
@@ -411,10 +465,10 @@ function CargarDatos(Inicio,Termino)
 						"searching": false,
 						"order": [[ 0, "desc" ]]
 					});
-					BANDERA_TAB=false;					
+					BANDERA_TAB=false;
 					setTimeout(function () {
 						RecargarTablaAlarmas();
-					}, 500);
+					}, 250);
 				}, 500);
 				
 				$("#H_TAB_ALARMAS_CARGADO").val("Ok");
@@ -423,16 +477,19 @@ function CargarDatos(Inicio,Termino)
 			
 	}
 }
-function CrearGraficoInicial()
-{
-	var optionsLineal;
-
-	var json = jQuery.parseJSON($("#JSON_DATOS").html());
+	function CrearGraficoInicial()
+	{
+		var optionsLineal;
 	
-	var chart = new Highcharts.Chart(optionsLineal);
-	$('#btn_buscarGrafico').prop("disabled",false);
-	$("#H_TAB_GRAFICO_CARGADO").val("ok");
-}
+		var json = jQuery.parseJSON($("#JSON_DATOS").html());
+		optionsLineal=GenerarGraficoSensor(json);
+		
+		var chart = new Highcharts.Chart(optionsLineal);
+		$('#btn_buscarGrafico').prop("disabled",false);
+		$("#Li_TablaAlarmas").show("fade");
+		$("#Li_Tabla").show("fade");
+		$("#H_TAB_GRAFICO_CARGADO").val("ok");	
+	}
 function CargarBitacora(Id_alerta)
 {
 	$("#H_ID_ALERTA").val(Id_alerta);
@@ -484,7 +541,7 @@ function GuardarBitacora()
 				accion 		: 'GuardarBitacora',
 				ID_ALERTA   : $('#H_ID_ALERTA').val(),
 				COMENTARIO  : $('#txtcomentario_bitacora').val(),
-				CK			: getCK()
+				CK			: ''+getCookie('INGSCE_INF')
 				}, 
 	function(response) {			
 		var json = jQuery.parseJSON(response);
@@ -578,20 +635,8 @@ function ValidarFechasOperaciones()
 		Respuesta="ok";
 	}
 	if(Valido)
-	{		
-		var fechaInicio = new Date(anioIni+'-'+mesIni+'-'+diaIni+'').getTime();
-		var fechaFin    = new Date(anioFin+'-'+mesFin+'-'+diaFin+'').getTime();
-			
-		var diff = fechaFin - fechaInicio;
-
-		var Dif=diff/(1000*60*60*24);
-		
-		if(Dif>7)
-		{
-			Valido=false;
-			Respuesta="exceso";
-		}
-		
+	{
+		var Dif=FecFin-FecIni;
 		if(Dif>7)
 		{
 			Valido=false;
@@ -615,8 +660,8 @@ function VolverAtras(event)
 	},500);
 }
 function RecargarTablaDatos()
-{		
-	var divProblemas2=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');		
+{
+	var divProblemas2 = $("#PanelBodyTablaDatosSensor").find(".dataTables_scrollHeadInner");
 	$(divProblemas2).css('width','100%');
 	
 	var tablaProblemas2=$(divProblemas2).find('table');
