@@ -188,7 +188,7 @@ function CargarTabDatos()
 	var CuerpoDatos='';
 	var IconoTendencia='';
 	
-	alert($("#JSON_DATOS").html());
+	//alert($("#JSON_DATOS").html());
 	
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
 	
