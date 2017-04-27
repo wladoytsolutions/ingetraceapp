@@ -1,3 +1,6 @@
+<div class="modal-header" style="padding: 5px 10px;">
+    <h6 class="modal-title"><b id="TituloModalGrafico"></b></h6>
+</div>
 <div id="DialogGraficoContenido" class="modal-body" style="padding: 0px;"> <!-- /.row -->
 	<link href="plugin/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" type="text/css" rel="stylesheet">
 	<script type="text/javascript" charset="UTF-8" src="plugin/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
@@ -8,20 +11,22 @@
 					<form onsubmit="return false;" action="" method="post" name="formularioBusqueda" id="formularioBusqueda" role="form">
 						<input type="submit" style="display:none" name="btnValidar" id="btnValidar">
 						<div class="row">	  
-						  <div class="col-xs-6" style="max-width: 100px; padding-left: 0px; padding-right: 0px;">
+						  <div class="col-xs-6" style="max-width: 130px">
 							<div class="form-group" id="DivInicioOp">
-							  <label for="inicio_filtroDatosSensor" class="control-label"><b>(*) Inicio OP: </b></label>
-							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="inicio_filtroDatosSensor" name="inicio_filtroDatosSensor" value="" placeholder="dd/mm/YYYY" title="Ingrese inicio de operaci?n del sensor" required="" readonly="readonly" style="max-width:100%">
+							  <label for="inicio_filtroDatosSensor" class="control-label">(*) Inicio OP: </label>
+							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="inicio_filtroDatosSensor" name="inicio_filtroDatosSensor" value="11/07/2016" placeholder="dd/mm/YYYY" title="Ingrese inicio de operaci?n del sensor" required="" readonly="readonly" style="max-width:100%">
 							</div>
 						  </div>
-						  <div class="col-xs-6" style="max-width: 100px; padding-left: 0px; padding-right: 0px; margin-left: 5px;">
+						  <div class="col-xs-6" style="max-width: 130px">
 							<div class="form-group" id="DivTerminoOp">
-							  <label for="termino_filtroDatosSensor" class="control-label"><b>Termino OP: </b></label>
-							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="termino_filtroDatosSensor" name="termino_filtroDatosSensor" value="" placeholder="dd/mm/YYYY" title="Ingrese termino de operaci?n del sensor" required="" readonly="readonly" style="max-width:100%">
+							  <label for="termino_filtroDatosSensor" class="control-label">Termino OP: </label>
+							  <input type="text" class="form-control" data-date-format="mm/dd/yyyy" id="termino_filtroDatosSensor" name="termino_filtroDatosSensor" value="11/07/2016" placeholder="dd/mm/YYYY" title="Ingrese termino de operaci?n del sensor" required="" readonly="readonly" style="max-width:100%">
 							</div>
 						  </div>
-							<div style="max-width: 90px; padding-left: 5px; padding-right: 5px; padding-top: 25px;" class="col-xs-6">
-								<button id="btn_buscarGrafico" class="btn btn-primary ui-btn ui-shadow ui-corner-all" type="button"><b> Buscar</b></button>
+						</div>
+						<div class="row">
+							<div class="col-xs-6" style="max-width: 130px">
+								<button type="button" class="btn btn-primary" id="btn_buscarGrafico"><b> Buscar</b></button>
 							</div>
 						</div>
 					</form>
@@ -30,16 +35,16 @@
 		<div class="bs-example bs-example-tabs" role="tabpanel" data-example-id="togglable-tabs">
 			<ul id="myTab" class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active">
-					<a id="GraficoSensor-tab" href="#GraficoSensor" onclick="javascript:CargarGrafico(event);">
-					<b>Gr&aacute;fico</b></a>
+					<a href="#GraficoSensor" id="GraficoSensor-tab" role="tab" data-toggle="tab" aria-controls="GraficoSensor" aria-expanded="true">
+					Gr&aacute;fico </a>
 				</li>
 				<li style="display: block;" role="presentation" id="Li_Tabla" class="">
-					<a id="Tabla_datos-tab" href="#Tabla_grafico" onclick="javascript:CargarDatosGrafico(event);">
-					 <b>Datos</b></a>
+					<a aria-expanded="false" onclick="javascript:RecargarTabla();" href="#Tabla_grafico" role="tab" id="Tabla_grafico-tab" data-toggle="tab" aria-controls="Tabla_grafico">
+					 Datos </a>
 				</li>
 				<li style="display: block;" role="presentation" id="Li_TablaAlarmas" class="">
-					<a id="Tabla_alarmas-tab" href="#Tabla_alarmas" onclick="javascript:CargarAlarmas(event);">
-					<b>Alarmas</b></a>
+					<a aria-expanded="false" onclick="javascript:RecargarTabla();" href="#Tabla_alarmas" role="tab" id="Tabla_alarmas-tab" data-toggle="tab" aria-controls="Tabla_alarmas">
+					 Alarmas </a>
 				</li>
 			</ul>
 			<div class="tab-content" id="myTabContent">
@@ -47,12 +52,7 @@
 					<div class="panel panel-default">
 						<div class="panel-body" id="PanelBodyGraficoSensor" style="height:250px">
 							<div class="row">
-								<div class="col-md-12" style="height: 250px; padding-left: 0px; padding-right: 0px;">
-									<div id="DivCargandoGrafico" style="display:none">
-										<center>
-											<img src="img/loading.gif" alt="cargando..." align="middle" />
-										</center>
-									</div>
+								<div class="col-md-12" style="height: 250px; padding-left: 0px; padding-right: 0px;">		
 									<div id="DivGraficoLineal" style="height: 245px;">
 									</div>
 								</div>
@@ -63,25 +63,30 @@
 				  <div aria-labelledby="Tabla_grafico-tab" id="Tabla_grafico" class="tab-pane fade" role="tabpanel">
 					<div class="panel panel-default">
 						<div class="panel-body" id="PanelBodyTablaDatosSensor" style="height:280px">
-							<div id="DivCargandoDatos" style="display:none">
+							<div id="DivCargandoTablaGrafico" style="display:none">
 								<center>
 									<img src="img/loading.gif" alt="cargando..." align="middle" />
 								</center>
 							</div>
-							<div id="DivTablaDatos" style="display:none">
-								<table class="table table-hover" id="TablaDatosSensores">
-									<thead>
-										<tr>
-											<th><center>FECHA</center></th>
-											<th><center>T ° </center></th>
-											<th><center>TENDENCIA</center></th>
-											<th id="ThHumedad" style="display:none"><center>Hum. %</center></th>
-											<th id="ThTendenciaHumedad" style="display:none"><center>TENDENCIA</center></th>
-										</tr>
-									</thead>
-									<tbody id="tBodyDatosGrafico">
-									</tbody>
-								</table>
+							<table class="table table-hover" id="TablaDatosSensores">
+								<thead>
+									<tr>
+										<th><center>FECHA</center></th>
+										<th><center>T ° </center></th>
+										<th><center>TENDENCIA</center></th>
+									</tr>
+								</thead>
+								<tbody id="tBodyDatosGrafico">
+								</tbody>
+							</table>
+						</div>
+						<br /><br />
+						<div class="row">
+							<div class="col-lg-12 text-right">
+								<button style="" name="btn_descargarDetalleDatosSensorExcel" id="btn_descargarDetalleDatosSensorExcel" tabindex="4" class="btn btn-success">
+									<i class="fa fa-download" id="icon_bajarArchivoDatosSensor"></i><label>&nbsp; Descargar</label> 
+								</button>
+								<a style="display:none" id="link_descargaControlTemperatura" href="">Descargar Archivo</a>  
 							</div>
 						</div>
 						<br />
@@ -90,26 +95,24 @@
 				  <div aria-labelledby="Tabla_alarmas-tab" id="Tabla_alarmas" class="tab-pane fade" role="tabpanel">
 					<div class="panel panel-default">
 						<div class="panel-body" id="PanelBodyTablaDatosAlarma" style="height:280px">
-							<div id="DivCargandoAlarmas" style="display:none">
+							<div id="DivCargandoTablaAlarmas" style="display:none">
 								<center>
 									<img src="img/loading.gif" alt="cargando..." align="middle" />
 								</center>
 							</div>
-							<div id="DivTablaAlarmas" style="display:none">
-								<table class="table table-hover" id="TablaDatosAlarmas" cellspacing="0" width="100%">
-									<thead>
-										<tr>
-											<th><center>ID ALARMA</center></th>
-											<th><center>FECHA</center></th>
-											<th><center>TIPO</center></th>
-											<th><center>T ° </center></th>
-											<th id="Th_HMD" style="display:none"><center>%</center></th>
-										</tr>
-									</thead>
-									<tbody id="tBodyDatosAlarmas">
-									</tbody>
-								</table>
-							</div>
+							<table class="table table-hover" id="TablaDatosAlarmas" cellspacing="0" width="100%">
+								<thead>
+									<tr>
+										<th><center>ID ALARMA</center></th>
+										<th><center>FECHA</center></th>
+										<th><center>TIPO</center></th>
+										<th><center>T ° </center></th>
+										<th id="Th_HMD" style="display:none"><center>%</center></th>
+									</tr>
+								</thead>
+								<tbody id="tBodyDatosAlarmas">
+								</tbody>
+							</table>
 						</div>				
 					</div>
 					<br /><br />
@@ -125,7 +128,7 @@
 							<div class="panel-heading" role="tab" id="BitacoraHeader">
 							  <h4 class="panel-title">
 								<label id="tituloBitacora">Bitacora</label>
-								<span id="registros_bitacora" class="badge" style="float: right; margin-top: -20px; margin-right: 16px;">2</span>
+								<span id="registros_bitacora" class="badge" style="float: right">2</span>
 							  </h4>
 							</div>
 							<div id="DivDatosBitacora" class="panel-collapse collapse" role="tabpanel" aria-labelledby="BitacoraHeader">
@@ -151,11 +154,9 @@
 	</div>
 	<div style="display:none" id="DivHidden">
 		<div id="tbl_DataGra"></div>
-		<textarea id="JSON_DATOS"></textarea>
-		<input type="hidden" id="H_TAB_GRAFICO_CARGADO" value="" />
-		<input type="hidden" id="H_TAB_ALARMAS_CARGADO" value="" />
-		<input type="hidden" id="H_TAB_DATOS_CARGADO" value="" />
-		<input type="hidden" id="H_TabActivo" value="Grafico" />
 	</div>
+</div>
+<div class="modal-footer">
+	<button class="btn btn-primary" style="" onclick="javascript:CerrarModalGrafico(event);" id="btnCerrarGrafico" type="button"><b>Cerrar</b></button>
 </div>
 <script type="text/javascript" charset="UTF-8" src="js/modal_datosSensor.js"></script>
