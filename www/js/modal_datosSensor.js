@@ -646,19 +646,6 @@ function ValidarFechasOperaciones()
 		
 	return Respuesta;
 }
-function VolverAtras(event)
-{
-	event.preventDefault();
-	$.mobile.pageContainer.pagecontainer('change', '#p2', {
-		transition: 'flip',
-		changeHash: true,
-		reverse: false,
-		showLoadMsg: false
-	});
-	setTimeout(function () {
-		ScrollContenedor($('#H_ID_SENSOR').val());
-	},500);
-}
 function RecargarTablaDatos()
 {
 	var divProblemas2 = $("#PanelBodyTablaDatosSensor").find(".dataTables_scrollHeadInner");

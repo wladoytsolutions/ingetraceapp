@@ -327,7 +327,7 @@ function GenerarHTMLSensores(DATOS)
 		
 		TermicosVisibles=true;
 		
-		HtmlTermicos+='<div class="col-lg-6 col-md-6 colmod" style="min-height: 220px"><div class="panel panel-red"><div class="panel-heading"><div class="row">';
+		HtmlTermicos+='<div class="col-lg-6 col-md-6 colmod" style="min-height: 220px" id="Contenedor_'+e.ID_SENSOR+'"><div class="panel panel-red"><div class="panel-heading"><div class="row">';
 		HtmlTermicos+='<div class="col-xs-1 text-left" style="padding-left: 5px; padding-right: 0px;">';
 		HtmlTermicos+='<span id="IconoSensor_'+e.ID_SENSOR+'">'+e.STATUS_EQUIPO+'</span>';
 		HtmlTermicos+='</div>';
