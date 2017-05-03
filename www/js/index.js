@@ -92,6 +92,11 @@ var app = {
 				}
 				else
 				{
+					navigator.notification.alert(
+						'You are the winner!',  // message
+						'Game Over',            // title
+						'Done'                  // buttonName
+					);
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
 						BuscarCookie();
