@@ -68,10 +68,14 @@ var app = {
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_MODELO;
+			var TITULO_NOTIFICACION;
+			var MENSAJE_NOTIFICACION;
 			
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
+					TITULO_NOTIFICACION=d.titulo_notificacion;
+					MENSAJE_NOTIFICACION=d.mensaje_notificacion;
 					ID_CLIENTE=d.id_cliente;
 					NOMBRE_CLIENTE=d.nombre_cliente;
 					ID_SUCURSAL=d.id_sucursal;
@@ -93,9 +97,9 @@ var app = {
 				else
 				{
 					navigator.notification.alert(
-						'You are the winner!',  // message
-						'Game Over',            // title
-						'Done'                  // buttonName
+						''+MENSAJE_NOTIFICACION,  // message
+						''+TITULO_NOTIFICACION,            // title
+						'Aceptar'                  // buttonName
 					);
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
