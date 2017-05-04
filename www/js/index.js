@@ -1210,11 +1210,7 @@ function ValidarCKIncial(CK)
 							
 					//Cargando html
 					$("#p2").load( "inicio.html", function() {
-						$("#ModalNotificacionp2").load("html_parts/modal_MensajeNotificacion.html", function() {
-							var BotonAceptar=$("#ModalNotificacionp2").find(".botonaceptarmodal");
-							$(BotonAceptar).attr('id','btnAceptarNotificacionPage2');
-							$(BotonAceptar).attr('onclick','javascript:CerrarModalNotificacionP2(event)');
-						});
+						$("#ModalNotificacionp2").load("html_parts/modal_MensajeNotificacion.html");
 						
 						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
@@ -1242,7 +1238,6 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
-							setTimeout(function () {
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
 							{
 								MOSTRAR_MENSAJE_NOTIFICACION=false;
@@ -1252,7 +1247,6 @@ function ValidarCKIncial(CK)
 									transition: 'pop'
 								});
 							}
-							}, 250);
 						}, 750);
 					});//Fin load cuerpo
 				}
@@ -1303,6 +1297,7 @@ function CerrarModalErrorP1(e)
 }
 function CerrarModalNotificacionP2(e)
 {
+	alert("ACA");
 	e.preventDefault();
 	$('#ModalNotificacionp2').popup('close');
 }
