@@ -1301,6 +1301,11 @@ function CerrarModalErrorP1(e)
 	e.preventDefault();
 	$('#ModalErrorp1').popup('close');
 }
+function CerrarModalNotificacionP2(e)
+{
+	e.preventDefault();
+	$('#ModalNotificacionp2').popup('close');
+}
 function login()
 {
 	$('#DivIngresar').hide();
