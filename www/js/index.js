@@ -73,23 +73,25 @@ var app = {
 			var ID_SENSOR;
 			var TIPO_MODELO;
 			alert(JSON.stringify(data));
+			
+			alert(''+data.title);
+			
+			TITULO_NOTIFICACION=''+data.title;
+			MENSAJE_NOTIFICACION=''+data.message;
+			
 			$.each(data.additionalData.info, function(i, d) {
-				if(""+i == "additionalData")
-				{
-					TITULO_NOTIFICACION=d.titulo_notificacion;
-					MENSAJE_NOTIFICACION=d.mensaje_notificacion;
-					ID_CLIENTE=d.id_cliente;
-					NOMBRE_CLIENTE=d.nombre_cliente;
-					ID_SUCURSAL=d.id_sucursal;
-					NOMBRE_SUCURSAL=d.nombre_sucursal;
-					ID_SECCION=d.id_seccion;
-					NOMBRE_SECCION=d.nombre_seccion;
-					ID_EQUIPO=d.id_equipo;
-					NOMBRE_EQUIPO=d.nombre_equipo;
-					ID_SENSOR=d.id_sensor;
-					TIPO_MODELO=d.tipo_modelo;
-				}
+				ID_CLIENTE=d.id_cliente;
+				NOMBRE_CLIENTE=d.nombre_cliente;
+				ID_SUCURSAL=d.id_sucursal;
+				NOMBRE_SUCURSAL=d.nombre_sucursal;
+				ID_SECCION=d.id_seccion;
+				NOMBRE_SECCION=d.nombre_seccion;
+				ID_EQUIPO=d.id_equipo;
+				NOMBRE_EQUIPO=d.nombre_equipo;
+				ID_SENSOR=d.id_sensor;
+				TIPO_MODELO=d.tipo_modelo;
 			});
+			
 			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			//pushPlugin.finish();
 			setTimeout(function () {
