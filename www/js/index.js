@@ -91,6 +91,7 @@ var app = {
 				}
 			});
 			alert("data "+data);
+			alert(JSON.stringify(data));
 			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			//pushPlugin.finish();
 			setTimeout(function () {
