@@ -72,6 +72,8 @@ var app = {
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_MODELO;
+			alert(DEVICEPLATFORM);
+			
 			alert(JSON.stringify(data));
 			
 			alert(''+data.title);
