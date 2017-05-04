@@ -101,6 +101,10 @@ var app = {
 					{
 						BuscarCookie();
 					}
+					else
+					{
+						MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
+					}
 				}
 			}, 250);
 					
@@ -125,6 +129,7 @@ function MensajeAlerta(Titulo,Mensaje)
 {
 	navigator.notification.alert(
 		Mensaje,  // message
+		alertDismissed,         // callback
 		Titulo,            // title
 		'Aceptar'                  // buttonName
 	);
@@ -1244,7 +1249,6 @@ function ValidarCKIncial(CK)
 							CerrarSplash();
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
 							{
-								alert("Mostrando mensaje");
 								MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
 							}
 						}, 750);
