@@ -254,8 +254,11 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
+	alert("Busca cookie");
 	var ValCK=getCK();
 	//Es de notificacion
+	
+	alert("Cookie ValCK->"+ValCK);
 	
 	var UbicacionPage=''+window.location.hash;
 		
@@ -1187,7 +1190,9 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 }
 function ValidarCKIncial(CK)
 {
+	alert("ValidarCKIncial");
 	navigator.splashscreen.show();
+	alert("Ocultando ingresar");
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
 	
@@ -1196,18 +1201,22 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
+	alert("Cargando BD_APP");
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 
 	BD_APP.transaction(function(tx) {
+		alert("Transaccion");
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			
 			var Valor=""+rs.rows.item(0).json_sucursal;
+			alert("Valor->"+Valor);
 			Valor=Base64.decode(Valor);
 			
 			var json = jQuery.parseJSON(Valor);
+			alert(json);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
-				
+				alert(""+ESTADO);
 				if(d.ESTADO=="S")
 				{
 					//Cookie
@@ -1217,9 +1226,11 @@ function ValidarCKIncial(CK)
 					ID_SUCURSAL=d.ID_SUC;
 							
 					//Cargando html
+					alert(""+ID_CLIENTE+" -> "+ID_SUCURSAL);
 					$("#p2").load( "inicio.html", function() {
+						alert("Load -> inicio.html");
 						$("#ModalNotificacionp2").load("html_parts/modal_MensajeNotificacion.html");
-						
+						alert("Load -> modal_MensajeNotificacion.html");
 						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 						//Agregando menu
@@ -1233,8 +1244,9 @@ function ValidarCKIncial(CK)
 							$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
 							LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
 							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-										
-							GenerarHTMLSensores(d);					
+							alert("Generando HTML");
+							GenerarHTMLSensores(d);
+							alert("Actualizando");
 							ActualizarDashboard();
 						});//Fin load menu
 						
