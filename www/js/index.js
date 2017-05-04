@@ -96,6 +96,14 @@ var app = {
 			});
 			
 			**/
+			
+			navigator.notification.alert(
+				'You are the winner!',  // message
+				alertDismissed,         // callback
+				'Game Over',            // title
+				'Done'                  // buttonName
+			);
+			
 			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			//pushPlugin.finish();
 			setTimeout(function () {
@@ -130,6 +138,9 @@ var app = {
 		}, 500);
     }
 };
+function alertDismissed() {
+    // do something
+}
 $( document ).ready(function() {
 	$("#ModalErrorp1").load("html_parts/modal_MensajeError.html", function() {
 		var BotonAceptar=$("#ModalErrorp1").find(".botonaceptarmodal");
