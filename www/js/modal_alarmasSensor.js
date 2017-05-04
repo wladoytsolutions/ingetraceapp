@@ -123,3 +123,16 @@ function RecargarTabla()
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
 }
+function VolverAtras(event)
+{
+	event.preventDefault();
+	$.mobile.pageContainer.pagecontainer('change', '#p2', {
+		transition: 'flip',
+		changeHash: true,
+		reverse: false,
+		showLoadMsg: false
+	});
+	setTimeout(function () {
+		ScrollContenedor($('#H_ID_SENSOR').val());
+	},500);
+}

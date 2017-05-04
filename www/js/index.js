@@ -332,7 +332,7 @@ function GenerarHTMLSensores(DATOS)
 		HtmlTermicos+='<span id="IconoSensor_'+e.ID_SENSOR+'">'+e.STATUS_EQUIPO+'</span>';
 		HtmlTermicos+='</div>';
 		HtmlTermicos+=e.DIV_NOMBRE_EQUIPO;
-		HtmlTermicos+='<div class="col-xs-1 text-left" id="HMD_SENAL_'+e.ID_SENSOR+'" style="padding-left: 5px; padding-right: 5px;">';
+		HtmlTermicos+='<div class="col-xs-1 text-left" id="HMD_SENAL_{ID_SENSOR}" style="padding-left: 5px; padding-right: 5px;">';
 		HtmlTermicos+=e.SENAL;
 		HtmlTermicos+='</div>';
 		HtmlTermicos+='<div class="col-xs-2 text-right">';
@@ -340,8 +340,8 @@ function GenerarHTMLSensores(DATOS)
 		HtmlTermicos+='<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
 		HtmlTermicos+='<div class="clearfix"></div></a></div></div></div>';
 		HtmlTermicos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
-		HtmlTermicos+='<h1 class="no-margins Cifras" id="TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
-		HtmlTermicos+='<small><span id="HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>M&iacute;nima</small>';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
+		HtmlTermicos+='<small><span id="HMD_HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>M&iacute;nima</small>';
 		HtmlTermicos+='</div>';
 		HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-left: 5px;padding-right: 5px;"> ';
 		HtmlTermicos+=e.TEMPERATURA;
@@ -664,15 +664,8 @@ function GenerarGraficoSensor(json)
 		$.each(json, function(j, e) {
 			//Fecha hoy				
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-			if($("#inicio_filtroDatosSensor").val()=="")
-			{
-				$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-			}
-			if($("#termino_filtroDatosSensor").val()=="")
-			{
-				$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
-			}
-			
+			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
 							
 			var Promedio=0;
 			var Limite=0;
