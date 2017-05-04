@@ -102,6 +102,7 @@ var app = {
 					}
 					else
 					{
+						alert("Desade Notificacion");
 						MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
 					}
 				}
@@ -1248,6 +1249,7 @@ function ValidarCKIncial(CK)
 							CerrarSplash();
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
 							{
+								MOSTRAR_MENSAJE_NOTIFICACION=false;
 								MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
 							}
 						}, 750);
