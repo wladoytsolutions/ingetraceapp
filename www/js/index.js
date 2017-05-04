@@ -78,6 +78,7 @@ var app = {
 			
 			TITULO_NOTIFICACION=''+data.title;
 			MENSAJE_NOTIFICACION=''+data.message;
+			alert(data.additionalData.info.tipo_modelo);
 			
 			$.each(data.additionalData.info, function(i, d) {
 				ID_CLIENTE=d.id_cliente;
