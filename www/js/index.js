@@ -3,6 +3,9 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
+var MOSTRAR_MENSAJE_NOTIFICACION=false;
+var TITULO_NOTIFICACION="";
+var MENSAJE_NOTIFICACION="";
 var app = {
     // Application Constructor
     initialize: function() {
@@ -68,8 +71,6 @@ var app = {
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_MODELO;
-			var TITULO_NOTIFICACION;
-			var MENSAJE_NOTIFICACION;
 			
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
@@ -96,19 +97,7 @@ var app = {
 				}
 				else
 				{
-					//Android
-					if(DEVICEPLATFORM=="android")
-					{
-						navigator.notification.alert(
-							''+MENSAJE_NOTIFICACION,  // message
-							'Aceptar',            	  // title
-							''+TITULO_NOTIFICACION    // buttonName
-						);
-					}
-					else
-					{
-						alert(''+MENSAJE_NOTIFICACION);
-					}
+					MOSTRAR_MENSAJE_NOTIFICACION=true;
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
 						BuscarCookie();
@@ -1221,6 +1210,12 @@ function ValidarCKIncial(CK)
 							
 					//Cargando html
 					$("#p2").load( "inicio.html", function() {
+						$("#ModalNotificacionp2").load("html_parts/modal_MensajeNotificacion.html", function() {
+							var BotonAceptar=$("#ModalNotificacionp2").find(".botonaceptarmodal");
+							$(BotonAceptar).attr('id','btnAceptarNotificacionPage2');
+							$(BotonAceptar).attr('onclick','javascript:CerrarModalNotificacionP2(event)');
+						});
+						
 						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 						//Agregando menu
@@ -1247,6 +1242,17 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
+							alert("ACA");
+							if(MOSTRAR_MENSAJE_NOTIFICACION)
+							{
+								alert("Mostrando notificacion");
+								MOSTRAR_MENSAJE_NOTIFICACION=false;
+								$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
+								$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
+								$('#ModalNotificacionp2').popup('open', {
+									transition: 'pop'
+								});
+							}
 						}, 750);
 					});//Fin load cuerpo
 				}
@@ -1279,6 +1285,13 @@ function ValidarCampos()
 function MostrarModalErrorP1(Mensaje)
 {
 	$("#MensajeErrorTexto").html(Mensaje);
+	$('#ModalErrorp1').popup('open', {
+		transition: 'pop'
+	});
+}
+function MostrarModalNotificacionP1()
+{
+	$("#MensajeErrorTexto").html();
 	$('#ModalErrorp1').popup('open', {
 		transition: 'pop'
 	});
