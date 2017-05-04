@@ -87,7 +87,6 @@ var app = {
 			ID_SENSOR=data.additionalData.info.id_sensor;
 			TIPO_MODELO=data.additionalData.info.tipo_modelo;
 			
-			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			pushPlugin.finish();
 			setTimeout(function () {
 				if(TIPO_MODELO!='M')
