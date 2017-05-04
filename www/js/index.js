@@ -61,7 +61,7 @@ var app = {
 
 		pushPlugin.on('notification', function(data) {
 			$("#H_DESDE_NOTIFICACION").val("1");
-			alert("ACA");
+			
 			var ID_CLIENTE;
 			var NOMBRE_CLIENTE;
 			var ID_SUCURSAL;
@@ -72,40 +72,23 @@ var app = {
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_MODELO;
-			alert(DEVICEPLATFORM);
-			
-			alert(JSON.stringify(data));
-			
-			alert(''+data.title);
 			
 			TITULO_NOTIFICACION=''+data.title;
 			MENSAJE_NOTIFICACION=''+data.message;
-			alert(data.additionalData.info.tipo_modelo);
-			/*
-			$.each(data.additionalData.info, function(i, d) {
-				ID_CLIENTE=d.id_cliente;
-				NOMBRE_CLIENTE=d.nombre_cliente;
-				ID_SUCURSAL=d.id_sucursal;
-				NOMBRE_SUCURSAL=d.nombre_sucursal;
-				ID_SECCION=d.id_seccion;
-				NOMBRE_SECCION=d.nombre_seccion;
-				ID_EQUIPO=d.id_equipo;
-				NOMBRE_EQUIPO=d.nombre_equipo;
-				ID_SENSOR=d.id_sensor;
-				TIPO_MODELO=d.tipo_modelo;
-			});
 			
-			**/
-			
-			navigator.notification.alert(
-				'You are the winner!',  // message
-				alertDismissed,         // callback
-				'Game Over',            // title
-				'Done'                  // buttonName
-			);
+			ID_CLIENTE=data.additionalData.info.id_cliente;
+			NOMBRE_CLIENTE=data.additionalData.info.nombre_cliente;
+			ID_SUCURSAL=data.additionalData.info.id_sucursal;
+			NOMBRE_SUCURSAL=data.additionalData.info.nombre_sucursal;
+			ID_SECCION=data.additionalData.info.id_seccion;
+			NOMBRE_SECCION=data.additionalData.info.nombre_seccion;
+			ID_EQUIPO=data.additionalData.info.id_equipo;
+			NOMBRE_EQUIPO=data.additionalData.info.nombre_equipo;
+			ID_SENSOR=data.additionalData.info.id_sensor;
+			TIPO_MODELO=data.additionalData.info.tipo_modelo;
 			
 			alert("TIPO_MODELO_>"+TIPO_MODELO);
-			//pushPlugin.finish();
+			pushPlugin.finish();
 			setTimeout(function () {
 				if(TIPO_MODELO!='M')
 				{
@@ -138,6 +121,14 @@ var app = {
 		}, 500);
     }
 };
+function MensajeAlerta(Titulo,Mensaje)
+{
+	navigator.notification.alert(
+		Mensaje,  // message
+		Titulo,            // title
+		'Aceptar'                  // buttonName
+	);
+}
 function alertDismissed() {
     // do something
 }
@@ -265,15 +256,10 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert("Busca cookie");
 	var ValCK=getCK();
-	//Es de notificacion
-	
-	alert("Cookie ValCK->"+ValCK);
-	
+	//Es de notificacion	
 	var UbicacionPage=''+window.location.hash;
-		
-		
+	
 	if(UbicacionPage=='#p2')
 	{
 		window.location.href = "index.html?Origen=p2";
@@ -1201,9 +1187,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 }
 function ValidarCKIncial(CK)
 {
-	alert("ValidarCKIncial");
 	navigator.splashscreen.show();
-	alert("Ocultando ingresar");
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
 	
@@ -1212,22 +1196,17 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
-	alert("Cargando BD_APP");
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 
 	BD_APP.transaction(function(tx) {
-		alert("Transaccion");
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 			
 			var Valor=""+rs.rows.item(0).json_sucursal;
-			alert("Valor->"+Valor);
 			Valor=Base64.decode(Valor);
 			
 			var json = jQuery.parseJSON(Valor);
-			alert(json);
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
-				alert(""+ESTADO);
 				if(d.ESTADO=="S")
 				{
 					//Cookie
@@ -1237,11 +1216,7 @@ function ValidarCKIncial(CK)
 					ID_SUCURSAL=d.ID_SUC;
 							
 					//Cargando html
-					alert(""+ID_CLIENTE+" -> "+ID_SUCURSAL);
 					$("#p2").load( "inicio.html", function() {
-						alert("Load -> inicio.html");
-						$("#ModalNotificacionp2").load("html_parts/modal_MensajeNotificacion.html");
-						alert("Load -> modal_MensajeNotificacion.html");
 						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 						//Agregando menu
@@ -1255,9 +1230,7 @@ function ValidarCKIncial(CK)
 							$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);	
 							LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
 							$("#LogoCliente").attr("src",LOGO_CLIENTE);					
-							alert("Generando HTML");
 							GenerarHTMLSensores(d);
-							alert("Actualizando");
 							ActualizarDashboard();
 						});//Fin load menu
 						
@@ -1268,19 +1241,12 @@ function ValidarCKIncial(CK)
 							showLoadMsg: false
 						});
 						setTimeout(function () {
-							alert("ACA");
 							CerrarSplash();
-							/**
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
 							{
-								MOSTRAR_MENSAJE_NOTIFICACION=false;
-								$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
-								$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
-								$('#ModalNotificacionp2').popup('open', {
-									transition: 'pop'
-								});
+								alert("Mostrando mensaje");
+								MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
 							}
-							*/
 						}, 750);
 					});//Fin load cuerpo
 				}
@@ -1328,12 +1294,6 @@ function CerrarModalErrorP1(e)
 {
 	e.preventDefault();
 	$('#ModalErrorp1').popup('close');
-}
-function CerrarModalNotificacionP2(e)
-{
-	alert("ACA");
-	e.preventDefault();
-	$('#ModalNotificacionp2').popup('close');
 }
 function login()
 {
