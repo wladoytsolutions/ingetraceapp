@@ -72,7 +72,7 @@ var app = {
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_MODELO;
-			
+			alert(JSON.stringify(data));
 			$.each(data.additionalData.info, function(i, d) {
 				if(""+i == "additionalData")
 				{
