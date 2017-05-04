@@ -1246,6 +1246,7 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
+							/**
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
 							{
 								MOSTRAR_MENSAJE_NOTIFICACION=false;
@@ -1255,6 +1256,7 @@ function ValidarCKIncial(CK)
 									transition: 'pop'
 								});
 							}
+							*/
 						}, 750);
 					});//Fin load cuerpo
 				}
