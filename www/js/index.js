@@ -90,7 +90,8 @@ var app = {
 					TIPO_MODELO=d.tipo_modelo;
 				}
 			});
-			alert(TIPO_MODELO);
+			alert("data "+data);
+			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			//pushPlugin.finish();
 			setTimeout(function () {
 				if(TIPO_MODELO!='M')
