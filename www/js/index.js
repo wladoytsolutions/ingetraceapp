@@ -3,6 +3,9 @@ var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.ph
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
+var MOSTRAR_MENSAJE_NOTIFICACION=false;
+var TITULO_NOTIFICACION="";
+var MENSAJE_NOTIFICACION="";
 var app = {
     // Application Constructor
     initialize: function() {
@@ -72,6 +75,8 @@ var app = {
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
+					TITULO_NOTIFICACION=d.titulo_notificacion;
+					MENSAJE_NOTIFICACION=d.mensaje_notificacion;
 					ID_CLIENTE=d.id_cliente;
 					NOMBRE_CLIENTE=d.nombre_cliente;
 					ID_SUCURSAL=d.id_sucursal;
@@ -92,9 +97,18 @@ var app = {
 				}
 				else
 				{
+					MOSTRAR_MENSAJE_NOTIFICACION=true;
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
 						BuscarCookie();
+					}
+					else
+					{
+						$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
+						$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
+						$('#ModalNotificacionp2').popup('open', {
+							transition: 'pop'
+						});
 					}
 				}
 			}, 250);
@@ -327,12 +341,12 @@ function GenerarHTMLSensores(DATOS)
 		
 		TermicosVisibles=true;
 		
-		HtmlTermicos+='<div class="col-lg-6 col-md-6 colmod" style="min-height: 220px"><div class="panel panel-red"><div class="panel-heading"><div class="row">';
+		HtmlTermicos+='<div class="col-lg-6 col-md-6 colmod" style="min-height: 220px" id="Contenedor_'+e.ID_SENSOR+'"><div class="panel panel-red"><div class="panel-heading"><div class="row">';
 		HtmlTermicos+='<div class="col-xs-1 text-left" style="padding-left: 5px; padding-right: 0px;">';
 		HtmlTermicos+='<span id="IconoSensor_'+e.ID_SENSOR+'">'+e.STATUS_EQUIPO+'</span>';
 		HtmlTermicos+='</div>';
 		HtmlTermicos+=e.DIV_NOMBRE_EQUIPO;
-		HtmlTermicos+='<div class="col-xs-1 text-left" id="HMD_SENAL_{ID_SENSOR}" style="padding-left: 5px; padding-right: 5px;">';
+		HtmlTermicos+='<div class="col-xs-1 text-left" id="HMD_SENAL_'+e.ID_SENSOR+'" style="padding-left: 5px; padding-right: 5px;">';
 		HtmlTermicos+=e.SENAL;
 		HtmlTermicos+='</div>';
 		HtmlTermicos+='<div class="col-xs-2 text-right">';
@@ -340,8 +354,8 @@ function GenerarHTMLSensores(DATOS)
 		HtmlTermicos+='<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>';
 		HtmlTermicos+='<div class="clearfix"></div></a></div></div></div>';
 		HtmlTermicos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
-		HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
-		HtmlTermicos+='<small><span id="HMD_HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>M&iacute;nima</small>';
+		HtmlTermicos+='<h1 class="no-margins Cifras" id="TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
+		HtmlTermicos+='<small><span id="HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>M&iacute;nima</small>';
 		HtmlTermicos+='</div>';
 		HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-left: 5px;padding-right: 5px;"> ';
 		HtmlTermicos+=e.TEMPERATURA;
@@ -664,8 +678,15 @@ function GenerarGraficoSensor(json)
 		$.each(json, function(j, e) {
 			//Fecha hoy				
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			if($("#inicio_filtroDatosSensor").val()=="")
+			{
+				$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			}
+			if($("#termino_filtroDatosSensor").val()=="")
+			{
+				$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			}
+			
 							
 			var Promedio=0;
 			var Limite=0;
@@ -1197,6 +1218,8 @@ function ValidarCKIncial(CK)
 							
 					//Cargando html
 					$("#p2").load( "inicio.html", function() {
+						$("#ModalNotificacionp2").load("html_parts/modal_MensajeNotificacion.html");
+						
 						$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
 						$("#ModalClave3").load("html_parts/modal_cambioClave.html");
 						//Agregando menu
@@ -1223,6 +1246,15 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
+							if(MOSTRAR_MENSAJE_NOTIFICACION)
+							{
+								MOSTRAR_MENSAJE_NOTIFICACION=false;
+								$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
+								$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
+								$('#ModalNotificacionp2').popup('open', {
+									transition: 'pop'
+								});
+							}
 						}, 750);
 					});//Fin load cuerpo
 				}
@@ -1259,10 +1291,23 @@ function MostrarModalErrorP1(Mensaje)
 		transition: 'pop'
 	});
 }
+function MostrarModalNotificacionP1()
+{
+	$("#MensajeErrorTexto").html();
+	$('#ModalErrorp1').popup('open', {
+		transition: 'pop'
+	});
+}
 function CerrarModalErrorP1(e)
 {
 	e.preventDefault();
 	$('#ModalErrorp1').popup('close');
+}
+function CerrarModalNotificacionP2(e)
+{
+	alert("ACA");
+	e.preventDefault();
+	$('#ModalNotificacionp2').popup('close');
 }
 function login()
 {
