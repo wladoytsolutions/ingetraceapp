@@ -61,6 +61,7 @@ var app = {
 
 		pushPlugin.on('notification', function(data) {
 			$("#H_DESDE_NOTIFICACION").val("1");
+			alert("ACA");
 			var ID_CLIENTE;
 			var NOMBRE_CLIENTE;
 			var ID_SUCURSAL;
@@ -89,7 +90,8 @@ var app = {
 					TIPO_MODELO=d.tipo_modelo;
 				}
 			});
-			pushPlugin.finish();
+			alert(TIPO_MODELO);
+			//pushPlugin.finish();
 			setTimeout(function () {
 				if(TIPO_MODELO!='M')
 				{
@@ -101,14 +103,6 @@ var app = {
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
 						BuscarCookie();
-					}
-					else
-					{
-						$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
-						$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
-						$('#ModalNotificacionp2').popup('open', {
-							transition: 'pop'
-						});
 					}
 				}
 			}, 250);
