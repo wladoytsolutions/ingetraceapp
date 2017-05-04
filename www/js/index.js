@@ -96,10 +96,11 @@ var app = {
 				}
 				else
 				{
+					//Android
 					navigator.notification.alert(
 						''+MENSAJE_NOTIFICACION,  // message
-						''+TITULO_NOTIFICACION,            // title
-						'Aceptar'                  // buttonName
+						'Aceptar',            // title
+						''+TITULO_NOTIFICACION                  // buttonName
 					);
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
