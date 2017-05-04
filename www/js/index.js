@@ -99,8 +99,8 @@ var app = {
 					//Android
 					navigator.notification.alert(
 						''+MENSAJE_NOTIFICACION,  // message
-						'Aceptar',            // title
-						''+TITULO_NOTIFICACION                  // buttonName
+						'Aceptar',            	  // title
+						''+TITULO_NOTIFICACION    // buttonName
 					);
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
