@@ -1245,6 +1245,7 @@ function ValidarCKIncial(CK)
 							showLoadMsg: false
 						});
 						setTimeout(function () {
+							alert("ACA");
 							CerrarSplash();
 							/**
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
