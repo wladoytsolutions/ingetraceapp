@@ -97,11 +97,18 @@ var app = {
 				else
 				{
 					//Android
-					navigator.notification.alert(
-						''+MENSAJE_NOTIFICACION,  // message
-						'Aceptar',            	  // title
-						''+TITULO_NOTIFICACION    // buttonName
-					);
+					if(DEVICEPLATFORM=="android")
+					{
+						navigator.notification.alert(
+							''+MENSAJE_NOTIFICACION,  // message
+							'Aceptar',            	  // title
+							''+TITULO_NOTIFICACION    // buttonName
+						);
+					}
+					else
+					{
+						alert(''+MENSAJE_NOTIFICACION);
+					}
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
 						BuscarCookie();
