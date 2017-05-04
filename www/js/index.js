@@ -72,7 +72,7 @@ var app = {
 			var NOMBRE_EQUIPO;
 			var ID_SENSOR;
 			var TIPO_MODELO;
-			
+			alert(JSON.stringify(data.additionalData));
 			$.each(data.additionalData, function(i, d) {
 				if(""+i == "additionalData")
 				{
@@ -90,8 +90,6 @@ var app = {
 					TIPO_MODELO=d.tipo_modelo;
 				}
 			});
-			alert("data "+data);
-			alert(JSON.stringify(data));
 			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			//pushPlugin.finish();
 			setTimeout(function () {
