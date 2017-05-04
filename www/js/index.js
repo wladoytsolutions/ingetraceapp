@@ -102,12 +102,11 @@ var app = {
 					}
 					else
 					{
-						alert("Desade Notificacion");
+						MOSTRAR_MENSAJE_NOTIFICACION=false;
 						MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
 					}
 				}
 			}, 250);
-					
 		});
 
 		pushPlugin.on('error', function(e) {
@@ -1247,11 +1246,13 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
-							if(MOSTRAR_MENSAJE_NOTIFICACION)
-							{
-								MOSTRAR_MENSAJE_NOTIFICACION=false;
-								MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
-							}
+							setTimeout(function () {
+								if(MOSTRAR_MENSAJE_NOTIFICACION)
+								{
+									MOSTRAR_MENSAJE_NOTIFICACION=false;
+									MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
+								}
+							}, 500);
 						}, 750);
 					});//Fin load cuerpo
 				}
