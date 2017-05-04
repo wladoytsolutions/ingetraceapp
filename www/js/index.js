@@ -102,6 +102,14 @@ var app = {
 					{
 						BuscarCookie();
 					}
+					else
+					{
+						$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
+						$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
+						$('#ModalNotificacionp2').popup('open', {
+							transition: 'pop'
+						});
+					}
 				}
 			}, 250);
 					
