@@ -1242,10 +1242,9 @@ function ValidarCKIncial(CK)
 						});
 						setTimeout(function () {
 							CerrarSplash();
-							alert("ACA");
+							setTimeout(function () {
 							if(MOSTRAR_MENSAJE_NOTIFICACION)
 							{
-								alert("Mostrando notificacion");
 								MOSTRAR_MENSAJE_NOTIFICACION=false;
 								$("#TituloMensajeNotificacion").html(TITULO_NOTIFICACION);
 								$("#MensajeNotificacion").html(MENSAJE_NOTIFICACION);
@@ -1253,6 +1252,7 @@ function ValidarCKIncial(CK)
 									transition: 'pop'
 								});
 							}
+							}, 250);
 						}, 750);
 					});//Fin load cuerpo
 				}
