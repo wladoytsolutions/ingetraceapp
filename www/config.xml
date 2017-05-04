@@ -50,7 +50,6 @@
     <param name="SENDER_ID" value="570571190177" />
   </plugin>
   <plugin name="cordova-plugin-sqlite-2" spec="1.0.4"/>
-  
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
