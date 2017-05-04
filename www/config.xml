@@ -107,11 +107,6 @@
 	<splash src="res/screen/ios/Default-667h.png" width="750" height="1334"/>
 	<splash src="res/screen/ios/Default-736h.png" width="1242" height="2208"/>
 	<splash src="res/screen/ios/Default-Landscape-736h.png" width="2208" height="1242"/>
-	<!-- Storyboard method (supports all devices):
-      -- Important: If you use the storyboard method, legacy images are 
-      -- copied but ignored.
-      -- Note: images are determined by scale, idiom, and size traits. The following
-      -- are suggested based on current device form factors -->
     <splash src="res/screen/ios/Default@2x~iphone~anyany.png" />
     <splash src="res/screen/ios/Default@2x~iphone~comany.png" />
     <splash src="res/screen/ios/Default@2x~iphone~comcom.png" />
