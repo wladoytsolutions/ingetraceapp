@@ -79,7 +79,7 @@ var app = {
 			TITULO_NOTIFICACION=''+data.title;
 			MENSAJE_NOTIFICACION=''+data.message;
 			alert(data.additionalData.info.tipo_modelo);
-			
+			/*
 			$.each(data.additionalData.info, function(i, d) {
 				ID_CLIENTE=d.id_cliente;
 				NOMBRE_CLIENTE=d.nombre_cliente;
@@ -93,6 +93,7 @@ var app = {
 				TIPO_MODELO=d.tipo_modelo;
 			});
 			
+			**/
 			alert("TIPO_MODELO_>"+TIPO_MODELO);
 			//pushPlugin.finish();
 			setTimeout(function () {
