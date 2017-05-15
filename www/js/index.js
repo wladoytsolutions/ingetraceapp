@@ -1,5 +1,6 @@
-var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
+//var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
+var RUTACONTROL='http://ingetrace.participa.cl/d-external_movil/control/control.php';
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
@@ -727,7 +728,6 @@ function GenerarGraficoSensor(json)
 				var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
 				DataSensor.push(item);
 			});
-			
 			
 			LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);		
 			
