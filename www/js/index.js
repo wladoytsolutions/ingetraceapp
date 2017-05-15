@@ -728,6 +728,7 @@ function GenerarGraficoSensor(json)
 				DataSensor.push(item);
 			});
 			
+			
 			LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);		
 			
 			optionsLineal={
