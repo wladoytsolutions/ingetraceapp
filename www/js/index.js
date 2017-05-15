@@ -667,6 +667,7 @@ function GenerarGraficoSensor(json)
 	var CuerpoAlarmas='';
 	var IconoTendencia='';
 	var DataSensor = new Array();
+	var LimitesPuerta = new Array();
 	var DataSensorHumedad = new Array();
 	var LimiteSensor = new Array();
 	var PromedioSensor = new Array();
@@ -727,6 +728,8 @@ function GenerarGraficoSensor(json)
 				DataSensor.push(item);
 			});
 			
+			LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);		
+			
 			optionsLineal={
 				chart: {
 					zoomType: 'x',
@@ -748,15 +751,7 @@ function GenerarGraficoSensor(json)
 					text:[],
 					useHTML: true,
 				},
-				xAxis: {
-					type: 'datetime',
-					labels: {
-					overflow: 'justify'
-					},
-					dateTimeLabelFormats: { // don't display the dummy year
-						second: '%H:%M:%S'
-					}
-				},
+				xAxis: [],
 				yAxis: [],
 				legend: {
 					enabled: false
@@ -785,6 +780,18 @@ function GenerarGraficoSensor(json)
 				series: []
 			};
 			
+			//Linea Eje X
+			var LineasX	= {
+				plotBands: LimitesPuerta,
+				type: 'datetime',
+				labels: {
+					overflow: 'justify'
+				},
+				dateTimeLabelFormats: { // don't display the dummy year
+					second: '%H:%M:%S'
+				}
+			};
+			
 			var LineasY = {
 				title: {
 					text: 'T °'
@@ -807,8 +814,9 @@ function GenerarGraficoSensor(json)
 					}
 				}]
 			};
-							
+			
 			optionsLineal.yAxis.push(LineasY);
+			optionsLineal.xAxis.push(LineasX);
 							
 			var newSeriesData = {
 				type: 'spline',
@@ -881,6 +889,8 @@ function GenerarGraficoSensor(json)
 				DataSensorHumedad.push(item2);
 								
 			});
+			
+			LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);	
 							
 			optionsLineal={
 				chart: {
@@ -979,7 +989,19 @@ function GenerarGraficoSensor(json)
 				data: DataSensorHumedad
 			};				
 			optionsLineal.series.push(SerieHumedad);
-							
+			
+			//Linea Eje X
+			var LineasX	= {
+				plotBands: LimitesPuerta,
+				type: 'datetime',
+				labels: {
+					overflow: 'justify'
+				},
+				dateTimeLabelFormats: { // don't display the dummy year
+					second: '%H:%M:%S'
+				}
+			};
+			
 			var LineasY = {
 				title: {
 					text: 'Temperatura',
@@ -1051,6 +1073,7 @@ function GenerarGraficoSensor(json)
 							
 				optionsLineal.yAxis.push(LineasY);
 				optionsLineal.yAxis.push(LineasYDerecha);
+				optionsLineal.xAxis.push(LineasX);
 				// Render the chart
 				optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
 				
@@ -1370,4 +1393,51 @@ function login()
 	}).done(function(response) {
 		$(window).disablescroll("undo");
 	});
+}
+function GetLimitesPuerta(Datos)
+{
+	var LimitesPuerta = new Array();
+	
+	for (i = 0; i < Datos.length; i++) {
+		//Recorrer todos menos el ultimo
+		if((i+1)!= Datos.length)
+		{
+			//Saber si es punultimo
+			if((i+1)==(Datos.length-1))
+			{							
+				var plot= GenararOpcionesPuerta(i,Datos);
+				LimitesPuerta.push(plot);
+				break;
+			}
+			else
+			{
+				var plot= GenararOpcionesPuerta(i,Datos);
+				LimitesPuerta.push(plot);
+			}
+		}
+	}
+	return LimitesPuerta;
+}
+function GenararOpcionesPuerta(i,jsonPuerta)
+{
+	var MesMenos1=parseInt(jsonPuerta[i]['FechaHora'].substring(5, 7))-1;
+	var MesMenos1Siguiente=parseInt(jsonPuerta[i+1]['FechaHora'].substring(5, 7))-1;
+		
+	var ColorArea='';
+	if(jsonPuerta[i]['Estado']=='Closed')
+	{
+		ColorArea='#eeffee';
+	}
+	else
+	{
+		ColorArea='#ffdbdb';
+	}
+					
+	var plot= {// mark the weekend
+		color: ColorArea,
+		from: Date.UTC(parseInt(jsonPuerta[i]['FechaHora'].substring(0, 4)),MesMenos1,parseInt(jsonPuerta[i]['FechaHora'].substring(8, 10)),parseInt(jsonPuerta[i]['FechaHora'].substring(11, 13)),parseInt(jsonPuerta[i]['FechaHora'].substring(14, 16)),parseInt(jsonPuerta[i]['FechaHora'].substring(17, 19))),
+		to: Date.UTC(parseInt(jsonPuerta[i+1]['FechaHora'].substring(0, 4)),MesMenos1Siguiente,parseInt(jsonPuerta[i+1]['FechaHora'].substring(8, 10)),parseInt(jsonPuerta[i+1]['FechaHora'].substring(11, 13)),parseInt(jsonPuerta[i+1]['FechaHora'].substring(14, 16)),parseInt(jsonPuerta[i+1]['FechaHora'].substring(17, 19)))
+	};
+		
+	return plot;
 }
