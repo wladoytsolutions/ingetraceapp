@@ -368,11 +368,15 @@ function CargarDatos(Inicio,Termino)
 			//Se cargara el grafico al JSON
 			$.post(RUTACONTROL,{
 					accion 		 	: 'DatosGraficoSensorTermico',
-					IdSensor    	: $('#H_ID_SENSOR').val(),
+					IdCliente		: $('#H_ID_CLIENTE_ACTUAL').val(),
+					IdSucursal		: $('#H_ID_SUCURSAL_ACTUAL').val(),
+					IdSeccion		: $('#H_ID_SECCION').val(),
+					IdEquipo		: $('#H_ID_EQUIPO').val(),
+					IdSensor		: $('#H_ID_SENSOR').val(),
 					fecha_inicio    : fecha_inicio,
 					fecha_termino   : fecha_termino,
 					TipoModelo    	: $('#H_TIPO_MODELO').val()
-					}, 
+			}, 
 			function(response) {
 				$("#JSON_DATOS").html(response);
 				$("#DivGraficoLineal").show("fade");
@@ -403,7 +407,11 @@ function CargarDatos(Inicio,Termino)
 			//Se cargara el grafico al JSON
 			$.post(RUTACONTROL,{
 					accion 		 	: 'DatosGraficoSensorTermico',
-					IdSensor    	: $('#H_ID_SENSOR').val(),
+					IdCliente		: $('#H_ID_CLIENTE_ACTUAL').val(),
+					IdSucursal		: $('#H_ID_SUCURSAL_ACTUAL').val(),
+					IdSeccion		: $('#H_ID_SECCION').val(),
+					IdEquipo		: $('#H_ID_EQUIPO').val(),
+					IdSensor		: $('#H_ID_SENSOR').val(),
 					fecha_inicio    : fecha_inicio,
 					fecha_termino   : fecha_termino,
 					TipoModelo    	: $('#H_TIPO_MODELO').val()
