@@ -1,8 +1,11 @@
 var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
 <<<<<<< HEAD
+<<<<<<< HEAD
 var RUTACONTROL='http://ingetrace.participa.cl/d-external_movil/control/control.php';
 =======
+=======
+>>>>>>> d2d271337d6b29e14fd391a11d10e6491e7a8147
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
@@ -1152,7 +1155,11 @@ function login()
 		$(window).disablescroll("undo");
 	});
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d2d271337d6b29e14fd391a11d10e6491e7a8147
 =======
 }
 >>>>>>> d2d271337d6b29e14fd391a11d10e6491e7a8147

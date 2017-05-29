@@ -375,7 +375,11 @@ function CargarDatos(Inicio,Termino)
 					fecha_termino   : fecha_termino,
 					TipoModelo    	: $('#H_TIPO_MODELO').val()
 <<<<<<< HEAD
+<<<<<<< HEAD
 					},
+=======
+					}, 
+>>>>>>> d2d271337d6b29e14fd391a11d10e6491e7a8147
 =======
 					}, 
 >>>>>>> d2d271337d6b29e14fd391a11d10e6491e7a8147
