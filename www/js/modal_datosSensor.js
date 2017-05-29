@@ -3,7 +3,7 @@ var BANDERA_TAB=false;
 $(document).ready(function() {
 	$("#ModalPage3").load("html_parts/modal_cargando.html");
 	$("#btn_buscarGrafico").prop('disabled', true);
-		
+
 		$("#btn_buscarGrafico").click(function(e) {
 			e.preventDefault();
 			$("#btnValidar").trigger("click");
@@ -11,13 +11,13 @@ $(document).ready(function() {
 			{
 				$('#DivInicioOp').attr('class','form-group');
 				$('#DivTerminoOp').attr('class','form-group');
-					
+
 				var ValOp=ValidarFechasOperaciones();
 				if(ValOp=="ok"){
 					//guardar_registro();
 					$('#DivInicioOp').attr('class','form-group');
 					$('#DivTerminoOp').attr('class','form-group');
-						
+
 					//CARGANDO DATOS
 					$("#TablaDatosSensores").dataTable().fnDestroy();
 					$("#tBodyDatosGrafico").html("");
@@ -41,15 +41,15 @@ $(document).ready(function() {
 				}
 			}
 		});
-		
-		$("#btnGrabarBitacora").click(function(e) { 
+
+		$("#btnGrabarBitacora").click(function(e) {
 			$("#btnValidarIngresoBitacora").trigger("click");
 			if(formularioIngresoBitacora.checkValidity()){
 				GuardarBitacora();
 			}
 		});
-		
-	
+
+
 		$("#inicio_filtroDatosSensor").datepicker({
 									format: "dd/mm/yyyy",
 									language:"es",
@@ -101,7 +101,7 @@ function CrearCuerpoTablaAlarmas(json)
 		{
 			CuerpoAlarmas+='<td width="9%" style="display:none">'+d.humedad+'</td>';
 		}
-				
+
 		CuerpoAlarmas+='</tr>';
 	});
 	return CuerpoAlarmas;
@@ -149,7 +149,7 @@ function CargarGrafico(e)
 				setTimeout(function () {
 					CrearGraficoInicial();
 				}, 500);
-				
+
 			}
 		}
 	}
@@ -184,14 +184,14 @@ function CargarTabDatos()
 	DesabilitarBusqueda();
 	$("#H_TAB_DATOS_CARGADO").val("");
 	$("#H_TAB_DATOS_CARGADO").val("");
-		
+
 	var CuerpoDatos='';
 	var IconoTendencia='';
-	
+
 	//alert($("#JSON_DATOS").html());
-	
+
 	var json = jQuery.parseJSON($("#JSON_DATOS").html());
-	
+
 	//Si no es humedad
 	if($("#H_TIPO_MODELO").val()!="5")
 	{
@@ -199,25 +199,25 @@ function CargarTabDatos()
 			$.each(e.JSON_DATOS, function(i, d) {
 				CuerpoDatos+='<tr>';
 				CuerpoDatos+='<td><center>'+d.FECHA_HORA+'</center></td>';
-				CuerpoDatos+='<td><center>'+d.TEMPERATURA+'</center></td>';	
+				CuerpoDatos+='<td><center>'+d.TEMPERATURA+'</center></td>';
 				CuerpoDatos+='<td width="49%"><center>'+getIconoTendencia(d.TENDENCIA+'')+'</center><span style="display:none">'+d.TENDENCIA+'</span></td>';
-				CuerpoDatos+='<td style=display:none><center></center></td>';	
-				CuerpoDatos+='<td style=display:none><center></center></td>';	
+				CuerpoDatos+='<td style=display:none><center></center></td>';
+				CuerpoDatos+='<td style=display:none><center></center></td>';
 				CuerpoDatos+='</tr>';
 			});
 		});
 	}
-	
+
 	//Sensores HUMEDAD
 	if($("#H_TIPO_MODELO").val()=="5")
 	{
 		$.each(json, function(j, e) {
-			
+
 			$("#ThHumedad").show();
 			$("#ThTendenciaHumedad").show();
-						
+
 			var celda=0;
-			
+
 			$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
 					CuerpoDatos+='<tr>';
 					CuerpoDatos+='<td><center>'+d.fechaHora+'</center></td>';
@@ -229,17 +229,18 @@ function CargarTabDatos()
 			});
 		});
 	}
-			
+
 	$("#tBodyDatosGrafico").html(CuerpoDatos);
 	$("#DivCargandoDatos").hide("fade");
-					
+
 	setTimeout(function () {
-		$("#DivTablaDatos").show("fade");				
+		$("#DivTablaDatos").show("fade");
 		$("#TablaDatosSensores").dataTable({
 			"language": {
 				"url": "json/spanish.json"
 			},
 			"scrollY":        "230px",
+			"bInfo"	 :	false,
 			"scrollCollapse": true,
 			"paging":         false,
 			"searching": false,
@@ -250,7 +251,7 @@ function CargarTabDatos()
 			RecargarTablaDatos();
 			}, 250);
 	}, 500);
-			
+
 	$("#H_TAB_DATOS_CARGADO").val("Ok");
 	HabilitarBusqueda();
 }
@@ -283,10 +284,10 @@ function CargarTabAlarmas()
 	BANDERA_TAB=true;
 	DesabilitarBusqueda();
 	$("#H_TAB_ALARMAS_CARGADO").val("");
-		
+
 	var CuerpoAlarmas='';
-	
-	//Buscar datos bitacora						
+
+	//Buscar datos bitacora
 	$.post(RUTACONTROL,{
 				accion 		 : 'CargarAlarmas',
 				ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
@@ -296,29 +297,30 @@ function CargarTabAlarmas()
 				ID_SENSOR    : $('#H_ID_SENSOR').val(),
 				FECHAINICIO	 : $('#inicio_filtroDatosSensor').val(),
 				FECHATERMINO : $('#termino_filtroDatosSensor').val()
-		}, 
-	function(response) {				
+		},
+	function(response) {
 			var json = jQuery.parseJSON(response);
-			
+
 			if($('#H_TIPO_MODELO').val()=="5")
 			{
 				$('#Th_HMD').show();
 			}
-			
+
 			CuerpoAlarmas=CrearCuerpoTablaAlarmas(json);
-			
+
 			$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 			$("#DivCargandoAlarmas").hide("fade");
-					
-	}).done(function(response) {					
+
+	}).done(function(response) {
 		setTimeout(function () {
-			$("#DivTablaAlarmas").show("fade");			
-			
+			$("#DivTablaAlarmas").show("fade");
+
 			$("#TablaDatosAlarmas").dataTable({
 				"language": {
 					"url": "json/spanish.json"
 				},
 				"scrollY":        "230px",
+				"bInfo"	 :	false,
 				"scrollCollapse": true,
 				"paging":         false,
 				"searching": false,
@@ -329,41 +331,41 @@ function CargarTabAlarmas()
 				RecargarTablaAlarmas();
 			}, 250);
 		}, 500);
-			
+
 		$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 		HabilitarBusqueda();
-		
+
 	});
 }
 function CargaOKEXCEL(RutaArchivo)
-{	
+{
 	$("#link_descargaArchivoDatosSensor").attr("href","excel/archivos_creados/"+RutaArchivo);
 }
 function CargarDatos(Inicio,Termino)
 {
-	var VistaTab=$("#H_TabActivo").val();		
-		
+	var VistaTab=$("#H_TabActivo").val();
+
 	$("#H_TAB_GRAFICO_CARGADO").val("");
 	$("#H_TAB_ALARMAS_CARGADO").val("");
 	$("#H_TAB_DATOS_CARGADO").val("");
-		
+
 	if(VistaTab=="Grafico")
 	{
 			//Mostrando cargando
 			BANDERA_TAB=true;
 			$("#DivGraficoLineal").hide();
 			$("#DivCargandoGrafico").show("fade");
-			
+
 			//Fecha inicio
 			var FecIni=Inicio;
-			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);			
+			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
 			$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
-				
+
 			//Fecha termino
 			var FecTerm=Termino;
 			var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
 			$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
-			
+
 			var CuerpoAlarmas='';
 			//Se cargara el grafico al JSON
 			$.post(RUTACONTROL,{
@@ -376,7 +378,7 @@ function CargarDatos(Inicio,Termino)
 					fecha_inicio    : fecha_inicio,
 					fecha_termino   : fecha_termino,
 					TipoModelo    	: $('#H_TIPO_MODELO').val()
-			}, 
+					},
 			function(response) {
 				$("#JSON_DATOS").html(response);
 				$("#DivGraficoLineal").show("fade");
@@ -392,17 +394,17 @@ function CargarDatos(Inicio,Termino)
 			BANDERA_TAB=true;
 			$("#DivTablaDatos").hide();
 			$("#DivCargandoDatos").show("fade");
-			
+
 			//Fecha inicio
 			var FecIni=Inicio;
-			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);			
+			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
 			$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
-				
+
 			//Fecha termino
 			var FecTerm=Termino;
 			var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
 			$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
-			
+
 			var CuerpoAlarmas='';
 			//Se cargara el grafico al JSON
 			$.post(RUTACONTROL,{
@@ -415,7 +417,7 @@ function CargarDatos(Inicio,Termino)
 					fecha_inicio    : fecha_inicio,
 					fecha_termino   : fecha_termino,
 					TipoModelo    	: $('#H_TIPO_MODELO').val()
-					}, 
+					},
 			function(response) {
 				$("#JSON_DATOS").html(response);
 				$("#TablaDatosSensores").dataTable().fnDestroy();
@@ -431,17 +433,17 @@ function CargarDatos(Inicio,Termino)
 			//Mostrando cargando
 			BANDERA_TAB=true;
 			$("#DivTablaAlarmas").hide();
-			$("#DivCargandoAlarmas").show("fade");			
-			
+			$("#DivCargandoAlarmas").show("fade");
+
 			$("#TablaDatosAlarmas").dataTable().fnDestroy();
 			$("#tBodyDatosAlarmas").html("");
-			
+
 			DesabilitarBusqueda();
 			$("#H_TAB_ALARMAS_CARGADO").val("");
-			
+
 			var CuerpoAlarmas='';
-			
-			//Buscar datos bitacora						
+
+			//Buscar datos bitacora
 			$.post(RUTACONTROL,{
 					accion 		 : 'CargarAlarmas',
 					ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
@@ -451,23 +453,24 @@ function CargarDatos(Inicio,Termino)
 					ID_SENSOR    : $('#H_ID_SENSOR').val(),
 					FECHAINICIO	 : $('#inicio_filtroDatosSensor').val(),
 					FECHATERMINO : $('#termino_filtroDatosSensor').val()
-					}, 
-			function(response) {				
+					},
+			function(response) {
 				var json = jQuery.parseJSON(response);
-				
+
 				CuerpoAlarmas=CrearCuerpoTablaAlarmas(json);
-				
+
 				$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 				$("#DivCargandoAlarmas").hide("fade");
-						
-			}).done(function(response) {						
+
+			}).done(function(response) {
 				setTimeout(function () {
-					$("#DivTablaAlarmas").show("fade");		
+					$("#DivTablaAlarmas").show("fade");
 					$("#TablaDatosAlarmas").dataTable({
 						"language": {
 							"url": "json/spanish.json"
 						},
 						"scrollY":        "230px",
+						"bInfo"	 :	false,
 						"scrollCollapse": true,
 						"paging":         false,
 						"searching": false,
@@ -478,32 +481,32 @@ function CargarDatos(Inicio,Termino)
 						RecargarTablaAlarmas();
 					}, 250);
 				}, 500);
-				
+
 				$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 				HabilitarBusqueda();
 			});
-			
+
 	}
 }
 	function CrearGraficoInicial()
 	{
 		var optionsLineal;
-	
+
 		var json = jQuery.parseJSON($("#JSON_DATOS").html());
 		optionsLineal=GenerarGraficoSensor(json);
-		
+
 		var chart = new Highcharts.Chart(optionsLineal);
 		$('#btn_buscarGrafico').prop("disabled",false);
 		$("#Li_TablaAlarmas").show("fade");
 		$("#Li_Tabla").show("fade");
-		$("#H_TAB_GRAFICO_CARGADO").val("ok");	
+		$("#H_TAB_GRAFICO_CARGADO").val("ok");
 	}
 function CargarBitacora(Id_alerta)
 {
 	$("#H_ID_ALERTA").val(Id_alerta);
 	$("#DivBitacora").hide("blind");
 	$("#DivCargandoBitacora").show("blind");
-	//Buscar datos bitacora						
+	//Buscar datos bitacora
 	$.post(RUTACONTROL,{
 			accion 		 : 'CargarBitacora',
 			ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
@@ -512,27 +515,27 @@ function CargarBitacora(Id_alerta)
 			ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 			ID_SENSOR    : $('#H_ID_SENSOR').val(),
 			ID_ALERTA	 : Id_alerta
-			}, 
-	function(response) {	
+			},
+	function(response) {
 		$("#DivCargandoBitacora").hide("blind");
-		
+
 		var json = jQuery.parseJSON(response);
-			
+
 		var CantidadBitacoras='0';
-		var ContenidoBitacoras='';									
-		
+		var ContenidoBitacoras='';
+
 		$.each(json, function(i, d) {
 			CantidadBitacoras=d.CANTIDAD_REGISTROS;
-			
+
 			ContenidoBitacoras+='<span class="list-group-item">';
 			ContenidoBitacoras+='<h5 class="list-group-item-heading"><b>'+d.NOMBRE+' '+d.EMAIL+' - '+d.FECHAHORA+'</b></h5>';
 			ContenidoBitacoras+='<h6 class="list-group-item-text">'+d.COMENTARIO+'</h6>';
 			ContenidoBitacoras+='</span>';
 		});
-			
+
 		$("#registros_bitacora").html(CantidadBitacoras);
 		$("#DivContenidoDeBitacoras").html(ContenidoBitacoras);
-		$("#tituloBitacora").html("Bitacora ("+$('#H_ID_ALERTA').val()+")");			
+		$("#tituloBitacora").html("Bitacora ("+$('#H_ID_ALERTA').val()+")");
 	}).done(function(response) {
 		$("#DivBitacora").show("blind");
 		$('html, body').animate({
@@ -541,42 +544,42 @@ function CargarBitacora(Id_alerta)
 	});
 }
 function GuardarBitacora()
-{		
+{
 	$("#DivBitacora").hide("blind");
-	$("#DivCargandoBitacora").show("blind");		
-	//Buscar datos bitacora						
+	$("#DivCargandoBitacora").show("blind");
+	//Buscar datos bitacora
 	$.post(RUTACONTROL,{
 				accion 		: 'GuardarBitacora',
 				ID_ALERTA   : $('#H_ID_ALERTA').val(),
 				COMENTARIO  : $('#txtcomentario_bitacora').val(),
 				CK			: ''+getCookie('INGSCE_INF')
-				}, 
-	function(response) {			
+				},
+	function(response) {
 		var json = jQuery.parseJSON(response);
-			
+
 		var CantidadBitacoras=parseInt($("#registros_bitacora").html());
 		var ContenidoBitacoras='';
-			
+
 		$.each(json, function(i, d) {
 			CantidadBitacoras++;
-				
+
 			ContenidoBitacoras+='<span class="list-group-item">';
 			ContenidoBitacoras+='<h5 class="list-group-item-heading"><b>'+d.NOMBRE+' '+d.EMAIL+' - '+d.FECHAHORA+'</b></h5>';
 			ContenidoBitacoras+='<h6 class="list-group-item-text">'+d.COMENTARIO+'</h6>';
 			ContenidoBitacoras+='</span>';
-		});					
-			
+		});
+
 		$("#registros_bitacora").html(CantidadBitacoras);
 		$("#DivContenidoDeBitacoras").append(ContenidoBitacoras);
-			
+
 		$("#DivDatosBitacora").attr("class","panel-collapse collapse");
 		$("#DivDatosBitacora").css("height"," height: 0px");
 		$("#DivDatosBitacora").attr("aria-expanded","false");
-			
-		$("#txtcomentario_bitacora").val("");	
+
+		$("#txtcomentario_bitacora").val("");
 		//Buscar datos bitacora
 	}).done(function(response) {
-		$("#DivCargandoBitacora").hide("blind");	
+		$("#DivCargandoBitacora").hide("blind");
 		$("#DivBitacora").show("blind");
 	});
 }
@@ -586,18 +589,18 @@ function MostrarBitacora()
 }
 function RecargarTabla()
 {
-	var divProblemas=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');		
+	var divProblemas=$('#PanelBodyTablaDatosSensor').find('.dataTables_scrollHeadInner');
 	$(divProblemas).css('width','100%');
-		
+
 	var tablefoot=$(divProblemas).find('table');
 	$(tablefoot).css('margin-bottom','0');
-		
+
 	var tablaProblemas=$(divProblemas).find('table');
 	$(tablaProblemas).css('width','100%');
-		
-	var divProblemas2=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');		
+
+	var divProblemas2=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');
 	$(divProblemas2).css('width','100%');
-	
+
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
 }
@@ -605,27 +608,27 @@ function ValidarFechasOperaciones()
 {
 	var Valido=false;
 	var Respuesta="";
-	
+
 	var startDate = $('#inicio_filtroDatosSensor').val();
 	startDate=String(startDate);
-		
+
 	//Convertiendo a float
 	var anioIni=startDate.substring(6, 10);
 	var mesIni=startDate.substring(3, 5);
 	var diaIni=startDate.substring(0, 2);
-		
+
 	var FecIni = parseFloat(anioIni+mesIni+diaIni);
-		
+
 	var endDate = $('#termino_filtroDatosSensor').val();
 	endDate=String(endDate);
-		
+
 	//Convertiendo a float
 	var anioFin=endDate.substring(6, 10);
 	var mesFin=endDate.substring(3, 5);
 	var diaFin=endDate.substring(0, 2);
-	
+
 	var FecFin = parseFloat(anioFin+mesFin+diaFin);
-		
+
 	if(FecIni!=FecFin)
 	{
 		if(FecIni < FecFin){
@@ -651,23 +654,23 @@ function ValidarFechasOperaciones()
 			Respuesta="exceso";
 		}
 	}
-		
+
 	return Respuesta;
 }
 function RecargarTablaDatos()
 {
 	var divProblemas2 = $("#PanelBodyTablaDatosSensor").find(".dataTables_scrollHeadInner");
 	$(divProblemas2).css('width','100%');
-	
+
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
 	$(tablaProblemas2).attr('style','margin-left: 0px; width: 100%; margin-bottom: -2px;');
 }
 function RecargarTablaAlarmas()
-{		
-	var divProblemas2=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');		
+{
+	var divProblemas2=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');
 	$(divProblemas2).css('width','100%');
-	
+
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
 	$(tablaProblemas2).attr('style','margin-left: 0px; width: 100%; margin-bottom: -2px;');
