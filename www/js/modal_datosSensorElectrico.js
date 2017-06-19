@@ -11,7 +11,7 @@ $(document).ready(function() {
 				$('#DivTerminoOp').attr('class','form-group');
 
 				var ValOp=ValidarFechasOperaciones();
-				if(ValOp){
+				if(ValOp=="ok"){
 					//guardar_registro();
 					$('#DivInicioOp').attr('class','form-group');
 					$('#DivTerminoOp').attr('class','form-group');
@@ -19,12 +19,23 @@ $(document).ready(function() {
 					//CARGANDO DATOS
 					$("#TablaDatosSensores").dataTable().fnDestroy();
 					$("#tBodyDatosGrafico").html("");
-					CargarDatosElectrico($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
+					$("#TablaDatosAlarmas").dataTable().fnDestroy();
+					$("#tBodyDatosAlarmas").html("");
+					CargarDatos($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
 				}else
 				{
-					$('#DivInicioOp').attr('class','form-group has-error');
-					$('#DivTerminoOp').attr('class','form-group has-error');
-					alert("La fecha de termino de operaciones("+$('#termino_filtroDatosSensorElectrico').val()+") es menor a la fecha de inicio de operaciones("+$('#inicio_filtroDatosSensorElectrico').val()+")");
+					if(ValOp=="intervalo")
+					{
+						$('#DivInicioOp').attr('class','form-group has-error');
+						$('#DivTerminoOp').attr('class','form-group has-error');
+						alert("La fecha de termino de operaciones("+$('#termino_filtroDatosSensorElectrico').val()+") es menor a la fecha de inicio de operaciones("+$('#inicio_filtroDatosSensorElectrico').val()+")");
+					}
+					if(ValOp=="exceso")
+					{
+						$('#DivInicioOp').attr('class','form-group has-error');
+						$('#DivTerminoOp').attr('class','form-group has-error');
+						alert("La diferencia de dias excede los 7 dias");
+					}
 				}
 			}
 	});
@@ -155,6 +166,7 @@ function RecargarTabla()
 function ValidarFechasOperaciones()
 {
 	var Valido=false;
+	var Respuesta="";
 
 	var startDate = $('#inicio_filtroDatosSensorElectrico').val();
 	startDate=String(startDate);
@@ -180,11 +192,32 @@ function ValidarFechasOperaciones()
 	{
 		if(FecIni < FecFin){
 		   Valido=true;
+		   Respuesta="ok";
+		}
+		else
+		{
+			Respuesta="intervalo";
 		}
 	}
 	else
 	{
 		Valido=true;
+		Respuesta="ok";
 	}
-	return Valido;
+	if(Valido)
+	{
+		var fechaInicio = new Date(anioIni+'-'+mesIni+'-'+diaIni+'').getTime();
+		var fechaFin    = new Date(anioFin+'-'+mesFin+'-'+diaFin+'').getTime();
+
+		var diff = fechaFin - fechaInicio;
+
+		var Dif=diff/(1000*60*60*24);
+
+		if(Dif>7)
+		{
+			Valido=false;
+			Respuesta="exceso";
+		}
+	}
+	return Respuesta;
 }

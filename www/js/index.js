@@ -1,6 +1,6 @@
 //var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
-var RUTACONTROL='http://ingetrace.participa.cl/d-external_movil/control/control.php';
+var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
@@ -380,7 +380,7 @@ function GenerarHTMLSensores(DATOS)
     HtmlTermicos+='</div></div>';
     HtmlTermicos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
     HtmlTermicos+='<h1 class="no-margins Cifras" id="TempMin_'+e.ID_SENSOR+'">'+e.MINIMA+'</h1>';
-    HtmlTermicos+='<small><span id="HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>M&iacute;nima</small>';
+    HtmlTermicos+='<small><span id="HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HORA_MINIMA+'</span><br>Mínima</small>';
     HtmlTermicos+='</div>';
     HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-left: 5px;padding-right: 5px;"> ';
     HtmlTermicos+=e.TEMPERATURA;
@@ -389,17 +389,17 @@ function GenerarHTMLSensores(DATOS)
     HtmlTermicos+='</div>';
     HtmlTermicos+='<div class="col-xs-4 text-center stack-order">';
     HtmlTermicos+='<h1 class="no-margins Cifras" id="TempMax_'+e.ID_SENSOR+'">'+e.MAXIMA+'</h1>';
-    HtmlTermicos+='<small><span id="HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HORA_MAXIMA+'</span><br>M&aacute;xima</small>';
+    HtmlTermicos+='<small><span id="HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HORA_MAXIMA+'</span><br>Máxima</small>';
     HtmlTermicos+='</div></div>';
     HtmlTermicos+='<div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
-    HtmlTermicos+='<h1 class="no-margins Cifras" id="Cota_'+e.ID_SENSOR+'">'+e.COTA+'</h1><small>L&iacute;mite</small></div>';
+    HtmlTermicos+='<h1 class="no-margins Cifras" id="Cota_'+e.ID_SENSOR+'">'+e.COTA+'</h1><small>Límite</small></div>';
     HtmlTermicos+='<div class="col-xs-8 text-center stack-order"><h3 class="no-margins" id="Tr_sens_'+e.ID_SENSOR+'">';
     HtmlTermicos+='<div id="Cont_Alarma_Temp_'+e.ID_SENSOR+'" align="center">'+e.ALARMA+'</div>';
     HtmlTermicos+='</h3><small>Ult. Alarma</small></div>';
     HtmlTermicos+='</div>';
     HtmlTermicos+='<div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
     HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_Min_'+e.ID_SENSOR+'">'+e.HMD_MINIMA+'%</h1>';
-    HtmlTermicos+='<small><span id="HMD_HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HMD_HORA_MINIMA+'</span><br>M&iacute;nima</small>';
+    HtmlTermicos+='<small><span id="HMD_HORA_MINIMA_'+e.ID_SENSOR+'">'+e.HMD_HORA_MINIMA+'</span><br>Mínima</small>';
     HtmlTermicos+='</div>';
     HtmlTermicos+='<div class="col-xs-4 text-center stack-order" style="padding-left: 5px;padding-right: 5px;">';
     HtmlTermicos+=e.HUMEDAD;
@@ -408,16 +408,44 @@ function GenerarHTMLSensores(DATOS)
     HtmlTermicos+='</div>';
     HtmlTermicos+='<div class="col-xs-4 text-center stack-order">';
     HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_Max_'+e.ID_SENSOR+'">'+e.HMD_MAXIMA+'%</h1>';
-    HtmlTermicos+='<small><span id="HMD_HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HMD_HORA_MAXIMA+'</span><br>M&aacute;xima</small>';
+    HtmlTermicos+='<small><span id="HMD_HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HMD_HORA_MAXIMA+'</span><br>Máxima</small>';
     HtmlTermicos+='</div></div>';
     HtmlTermicos+='<div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
     HtmlTermicos+='<h1 class="no-margins Cifras" id="HMD_Cota_'+e.ID_SENSOR+'">'+e.HMD_Cota+'%</h1>';
-    HtmlTermicos+='<small>L&iacute;mite</small></div>';
+    HtmlTermicos+='<small>Límite</small></div>';
     HtmlTermicos+='<div class="col-xs-8 text-center stack-order"><h3 class="no-margins" id="HMD_Tr_sens_'+e.ID_SENSOR+'">';
     HtmlTermicos+='<div id="Cont_Alarma_Humedad_'+e.ID_SENSOR+'" align="center">'+e.HMD_ULT_ALARMA+'</div>';
     HtmlTermicos+='</h3><small>Ult. Alarma</small></div>';
     HtmlTermicos+='</div></div></div></div>';
   });
+	
+	//Sensores solo puerta
+	$.each(DATOS.SENSORES_SOLO_PUERTA, function(j, e) {
+		var NombreEquipo=e.NOMBRE_EQUIPO+'';
+		var ClaseMarqueDiv='';
+		var ClaseMarque='';
+
+		if(NombreEquipo.length>19)
+		{
+			ClaseMarqueDiv='marquee';
+			ClaseMarque='marquee-text';
+		}
+
+		TermicosVisibles=true;
+		
+		HtmlTermicos+='<div class="col-lg-6 col-md-6 colmod"><div class="panel panel-red"><div class="panel-heading"><div class="row"><div class="col-xs-1 text-left" style="padding-left: 5px; padding-right: 0px;">';
+		HtmlTermicos+='<span id="IconoSensor_'+e.IDSENSOR+'">'+e.STATUS_EQUIPO+'</span></div>';
+		HtmlTermicos+=e.DIV_NOMBRE_EQUIPO;
+		HtmlTermicos+='<div id="SENAL_'+e.IDSENSOR+'" class="col-xs-2 text-right">'+e.SENAL+'</i></div>';
+		HtmlTermicos+='<div class="col-xs-1 text-right" style="padding-right: 0px;">';
+		HtmlTermicos+='<a href="#" onclick="javascript:CargarSensorSoloPuerta(event,\''+e.ID_CLIENTE+'\',\''+e.RAZON_SOCIAL+'\',\''+e.ID_SUCURSAL+'\',\''+e.NOMBRE_SUCURSAL+'\',\''+e.ID_SECCION+'\',\''+e.NOMBRE_SECCION+'\',\''+e.ID_EQUIPO+'\',\''+e.NOMBRE_EQUIPO+'\',\''+e.IDSENSOR+'\',\'6\');" id="VerSensoresRegistrados" IdSensor=""><span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>';
+		
+		HtmlTermicos+='</div></div></div>';
+		HtmlTermicos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
+		HtmlTermicos+='<h1 class="no-margins" id="Estado_'+e.IDSENSOR+'">'+e.ICONO_ESTADO+'</h1><small>Estado</small></div>';
+		HtmlTermicos+='<div class="col-xs-8 text-center stack-order"><h3 class="no-margins"><div align="center" id="Desde_'+e.IDSENSOR+'">'+e.FECHA_HORA+'</div></h3><small>Desde</small></div>';
+		HtmlTermicos+='</div></div></div></div>';
+	});
 
 	$("#ContenedorSensoresTermicos").html(HtmlTermicos);
 
@@ -585,6 +613,72 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 						*/
 					}, 750);
 				});
+			});
+	});
+}
+function VerSensorSoloPuerta(HideSplash,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
+{
+	$(window).disablescroll();
+	$('#ModalPage2').popup('open', {
+		transition: 'pop'
+	});
+
+	$("#p3Body").html("");
+	
+	$("#p3Body").load(
+		"sensor.html",
+	function() {
+			$("#RowContenidoCuerpoP3").load(
+				"html_parts/modal_datos_sensor_solo_puerta.html",
+			function() {
+				
+				$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
+				$("#H_RAZON_SOCIAL").val(NombreCliente);
+				$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
+				$("#H_ID_NOMBRE_SUCURSAL").val(NombreSucursal);
+				$("#H_ID_SECCION").val(IdSeccion);
+				$("#H_NOMBRE_SECCION").val(NombreSeccion);
+				$("#H_ID_EQUIPO").val(IdEquipo);
+				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
+				$("#H_ID_SENSOR").val(IdSensor);
+				$("#H_TIPO_MODELO").val(TipoModelo);
+				
+				if(HideSplash)
+				{
+					CerrarSplash();
+				}
+				
+				$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
+					
+
+					$.mobile.pageContainer.pagecontainer('change', '#p3', {
+						transition: 'flip',
+						changeHash: true,
+						reverse: true,
+						showLoadMsg: false
+					});
+
+					//Quitando footer de jquery para que se vea el footer original
+					$('#p3Body').find('.ui-footer').remove();
+					//$('#p3Body').find('.ui-header').remove();
+
+					setTimeout(function () {
+						if($('#H_CARGA_SENSOR').val()=="0")
+						{
+							$('#H_CARGA_SENSOR').val("1");
+						}
+						else
+						{
+							$('#p3').attr('style','padding-top: 0px; padding-bottom: 0px; min-height: 395px;');
+						}
+					}, 250);
+				
+					$('#ModalPage2').popup("close");
+					$(window).disablescroll("undo");
+					setTimeout(function () {
+						$('#btn_buscarGrafico').prop("disabled",false);
+						$("#H_TAB_GRAFICO_CARGADO").val("ok");
+					}, 750);
 			});
 	});
 }

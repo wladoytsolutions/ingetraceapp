@@ -68,6 +68,11 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 	event.preventDefault();
 	VerSensorElectrico(false,IdSensor,NombreEquipo);
 }
+function CargarSensorSoloPuerta(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
+{
+	event.preventDefault();
+	VerSensorSoloPuerta(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo);
+}
 function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,Id_seccion, Nombre_seccion, Id_equipo, Nombre_equipo,Id_sensor)
 {
 	$('#ModalPage2').popup('open', {
@@ -301,13 +306,13 @@ function ActualizarDashboard()
 					//BAJA
 					if(d.TENDENCIA=="-")
 					{
-						IconoTendencia='&#x2193;';
+						IconoTendencia='↓';
 						ColorTendencia='#5cb85c';
 					}
 					//SUBE
 					if(d.TENDENCIA=="+")
 					{
-						IconoTendencia='&#x2191;';
+						IconoTendencia='↑';
 						ColorTendencia='#d9534f';
 					}
 
@@ -384,13 +389,13 @@ function ActualizarDashboard()
 						//BAJA
 						if(d.HMD_TENDENCIA=="-")
 						{
-							IconoTendencia='&#x2193;';
+							IconoTendencia='↓';
 							ColorTendencia='#5cb85c';
 						}
 						//SUBE
 						if(d.HMD_TENDENCIA=="+")
 						{
-							IconoTendencia='&#x2191;';
+							IconoTendencia='↑';
 							ColorTendencia='#d9534f';
 						}
 
