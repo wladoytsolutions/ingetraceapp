@@ -181,7 +181,6 @@ function CargarTodasLasAlarmas(event)
 		var json = jQuery.parseJSON(response);
 		CuerpoDatos=GenerarTablaDeAlertas(json);
 		$("#tBodyDatosAlarmas").html(CuerpoDatos);
-
 	}).done(function(response) {
 		$(window).disablescroll("undo");
 		setTimeout(function () {
