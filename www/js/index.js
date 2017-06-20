@@ -1284,32 +1284,18 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 										showLoadMsg: false
 									});
 									setTimeout(function () {
-										if(id_cliente==FUN_ID_CLIENTE && id_sucursal==FUN_ID_SUCURSAL)
+										//Otra sucursal
+										if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 										{
-											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
-											{
-												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR,FUN_TIPO_MODELO);
-											}
-											if(FUN_TIPO_MODELO=='2')
-											{
-												VerSensorElectrico(true,FUN_ID_SENSOR,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'));
-											}
-											if(FUN_TIPO_MODELO=='6')
-											{
-												VerSensorSoloPuerta(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR,FUN_TIPO_MODELO);
-											}
+											VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
 										}
-										else
+										if(FUN_TIPO_MODELO=='2')
 										{
-											//Otra sucursal
-											if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
-											{
-												VerGraficoSensorTermico(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
-											}
-											if(FUN_TIPO_MODELO=='2')
-											{
-												VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
-											}
+											VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
+										}
+										if(FUN_TIPO_MODELO=='6')
+										{
+											VerSensorSoloPuerta(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
 										}
 									}, 750);
 
