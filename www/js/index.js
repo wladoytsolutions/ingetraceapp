@@ -524,6 +524,8 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datosSensorTermico.html",
 			function() {
+				$("#H_ID_CLIENTE").val(IdCliente);
+				$("#H_ID_SUCURSAL").val(IdSucursal);
 				$("#H_ID_SECCION").val(IdSeccion);
 				$("#H_NOMBRE_SECCION").val(NombreSeccion);
 				$("#H_ID_EQUIPO").val(IdEquipo);
@@ -629,6 +631,8 @@ function VerSensorSoloPuerta(HideSplash,IdCliente,NombreCliente,IdSucursal,Nombr
 			$("#RowContenidoCuerpoP3").load(
 				"html_parts/modal_datos_sensor_solo_puerta.html",
 			function() {
+				$("#H_ID_CLIENTE").val(IdCliente);
+				$("#H_ID_SUCURSAL").val(IdSucursal);
 				$("#H_ID_SECCION").val(IdSeccion);
 				$("#H_NOMBRE_SECCION").val(NombreSeccion);
 				$("#H_ID_EQUIPO").val(IdEquipo);
@@ -1198,7 +1202,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
-		alert("Sucursal cargada "+$('#H_SUCURSAL_CARGADA').val());
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
@@ -1212,8 +1215,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 					showLoadMsg: false
 				});
 			}
-			alert("FUN_TIPO_MODELO "+FUN_TIPO_MODELO);
-			alert($('#H_ID_CLIENTE_ACTUAL').val()+","+FUN_ID_CLIENTE +","+ $('#H_ID_SUCURSAL_ACTUAL').val()+","+FUN_ID_SUCURSAL);
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUCURSAL)
 			{
