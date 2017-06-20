@@ -112,20 +112,8 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 								},
 				function(response) {
 							var json = jQuery.parseJSON(response);
-							$.each(json, function(i, d) {
-								$("#FechaBitacoraHoy").html(d.FECHA_HOY);
-
-								//Recorriendo alertas
-								$.each(d.ALERTAS, function(j, e) {
-									CuerpoDatos+='<tr style="text-align: center; cursor:pointer" onclick="javascript:CargarBitacora('+e.Id_alerta+');">';
-									CuerpoDatos+='<td width="38%">'+e.Id_alerta+'</td>';
-									CuerpoDatos+='<td><span style="display:none">'+e.Fecha_Numerica+'</span>'+e.Fecha_Hora+'</td>';
-									CuerpoDatos+='<td width="20%">'+e.TipoAlerta+'</td>';
-									CuerpoDatos+='<td width="9%">'+e.temperatura+'</td>';
-									CuerpoDatos+='</tr>';
-								});
-							});
-							$("#tBodyDatosAlarmas").html(CuerpoDatos);
+							CuerpoAlarmas=GenerarTablaDeAlertas(json);
+							$("#tBodyDatosAlarmas").html(CuerpoAlarmas);
 
 							$.mobile.pageContainer.pagecontainer('change', '#p3', {
 								transition: 'flip',
@@ -144,7 +132,6 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 									$('#p3').attr('style','padding-top: 0px; padding-bottom: 0px; min-height: 395px;');
 								}
 							}, 250);
-
 				}).done(function(response) {
 					$('#ModalPage2').popup('close');
 					$(window).disablescroll("undo");
@@ -185,23 +172,11 @@ function CargarTodasLasAlarmas(event)
 						ID_SUCURSAL		 : $("#H_ID_SUCURSAL_ACTUAL").val(),
 						ID_SECCION		 : $("#H_ID_SECCION").val(),
 						ID_EQUIPO		 : $("#H_ID_EQUIPO").val(),
-						ID_SENSOR		 : $("#H_ID_SENSOR").val()
+						ID_SENSOR		 : $("#H_ID_SENSOR").val(),
+						TIPO		 	 : $('#H_TIPO_MODELO').val()
 	}, function(response) {
 		var json = jQuery.parseJSON(response);
-			$.each(json, function(i, d) {
-				$("#FechaBitacoraHoy").html(d.FECHA_HOY);
-
-				//Recorriendo alertas
-				$.each(d.ALERTAS, function(j, e) {
-					CuerpoDatos+='<tr style="text-align: center; cursor:pointer" onclick="javascript:CargarBitacora('+e.Id_alerta+');">';
-					CuerpoDatos+='<td width="38%">'+e.Id_alerta+'</td>';
-					CuerpoDatos+='<td><span style="display:none">'+e.Fecha_Numerica+'</span>'+e.Fecha_Hora+'</td>';
-					CuerpoDatos+='<td width="20%">'+e.TipoAlerta+'</td>';
-					CuerpoDatos+='<td width="9%">'+e.temperatura+'</td>';
-					CuerpoDatos+='</tr>';
-				});
-			});
-
+		CuerpoDatos=GenerarTablaDeAlertas(json);
 		$("#tBodyDatosAlarmas").html(CuerpoDatos);
 
 	}).done(function(response) {
@@ -218,7 +193,10 @@ function CargarTodasLasAlarmas(event)
 					"searching": false,
 					"order": [[ 0, "desc" ]]
 			});
-			RecargarTablaAlarmas();
+			setTimeout(function () {
+				RecargarTablaAlarmas();
+			}, 250);
+
 			$('#ModalCargandoAlarma').popup('close');
 		}, 750);
 	});
@@ -488,6 +466,62 @@ function ParpadearAlarmaLocal()
 {
 	$(".parpadear").fadeOut(500);
 	$(".parpadear").fadeIn(500);
+}
+function GenerarTablaDeAlertas(json)
+{
+	var CuerpoAlarmas='';
+
+	if($('#H_TIPO_MODELO').val()=="5")
+	{
+		$('#Th_HMD').show();
+	}
+
+	$.each(json, function(i, d) {
+		$("#FechaBitacoraHoy").html(d.FECHA_HOY);
+
+		//Recorriendo alertas
+		$.each(d.ALERTAS, function(j, e) {
+			CuerpoAlarmas+='<tr style="text-align: center; cursor:pointer" onclick="javascript:CargarBitacora('+e.Id_alerta+');">';
+			CuerpoAlarmas+='<td width="38%">'+e.Id_alerta+'</td>';
+			CuerpoAlarmas+='<td><span style="display:none">'+e.Fecha_Numerica+'</span>'+e.Fecha_Hora+'</td>';
+			CuerpoAlarmas+='<td width="20%">'+e.TipoAlerta+'</td>';
+
+			if($('#H_TIPO_MODELO').val() == "5")
+			{
+				if(e.Tipo_modelo=="1")
+				{
+					CuerpoAlarmas+='<td width="9%"><label class="LabelAlarma">'+e.temperatura+'</label></td>';
+				}
+				else
+				{
+					CuerpoAlarmas+='<td width="9%">'+e.temperatura+'</td>';
+				}
+			}
+			else
+			{
+				CuerpoAlarmas+='<td width="9%">'+e.temperatura+'</td>';
+			}
+
+			//Si es tipo temperatura humedad
+			if($('#H_TIPO_MODELO').val() == "5")
+			{
+				if(e.Tipo_modelo=="5")
+				{
+					CuerpoAlarmas+='<td width="9%"><label class="LabelAlarma">'+e.humedad+'</label></td>';
+				}
+				else
+				{
+					CuerpoAlarmas+='<td width="9%">'+e.humedad+'</td>';
+				}
+			}
+			else
+			{
+				CuerpoAlarmas+='<td width="9%" style="display:none">'+e.humedad+'</td>';
+			}
+			CuerpoAlarmas+='</tr>';
+		});
+	});
+	return CuerpoAlarmas;
 }
 function VolverAtras(event)
 {
