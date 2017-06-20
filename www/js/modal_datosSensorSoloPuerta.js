@@ -92,6 +92,7 @@ function RecargarTabla()
 }
 function RecargarTablaAlarmasSoloPuerta()
 {
+	alert($('#PanelBodyTablaDatosAlarma').html());
 	var divProblemas2=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');		
 	$(divProblemas2).css('width','100%');
 	
@@ -99,7 +100,7 @@ function RecargarTablaAlarmasSoloPuerta()
 	
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
-	$(tablaProblemas2).attr('style','margin-left: 0px; width: 100%; margin-bottom: -2px;');
+	$(tablaProblemas2).attr('style','margin-left: 0px; width: 100%;margin-bottom: 0px;');
 	alert($(tablaProblemas2).html());
 }
 function ValidarFechasOperaciones()
