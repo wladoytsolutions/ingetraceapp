@@ -1193,11 +1193,8 @@ function GenerarGraficoSensor(json)
 }
 function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR, FUN_TIPO_MODELO)
 {
-	alert('ACA');
 	//Verificando si hay CK
 	var ValCK=getCK();
-	
-	alert('Sucursal cargada '+$('#H_SUCURSAL_CARGADA').val());
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
@@ -1214,7 +1211,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 					showLoadMsg: false
 				});
 			}
-			alert($('#H_ID_CLIENTE_ACTUAL').val()+'->'+FUN_ID_CLIENTE +'<->'+ $('#H_ID_SUCURSAL_ACTUAL').val()+'->'+FUN_ID_SUCURSAL);
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUCURSAL)
 			{

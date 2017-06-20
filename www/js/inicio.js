@@ -62,9 +62,9 @@ function CargarGraficoSensorTermico(event,IdCliente,NombreCliente,IdSucursal,Nom
 {
 	event.preventDefault();
 	
-	$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
+	$("#H_ID_CLIENTE").val(IdCliente);
 	$("#H_RAZON_SOCIAL").val(NombreCliente);
-	$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
+	$("#H_ID_SUCURSAL").val(IdSucursal);
 	$("#H_ID_NOMBRE_SUCURSAL").val(NombreSucursal);
 	VerGraficoSensorTermico(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo);
 }
@@ -76,9 +76,9 @@ function CargarGraficoSensorElectrico(event,IdSensor,NombreEquipo)
 function CargarSensorSoloPuerta(event,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo)
 {
 	event.preventDefault();
-	$("#H_ID_CLIENTE_ACTUAL").val(IdCliente);
+	$("#H_ID_CLIENTE").val(IdCliente);
 	$("#H_RAZON_SOCIAL").val(NombreCliente);
-	$("#H_ID_SUCURSAL_ACTUAL").val(IdSucursal);
+	$("#H_ID_SUCURSAL").val(IdSucursal);
 	$("#H_ID_NOMBRE_SUCURSAL").val(NombreSucursal);
 	VerSensorSoloPuerta(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo);
 }
