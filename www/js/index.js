@@ -90,6 +90,7 @@ var app = {
 
 			pushPlugin.finish();
 			setTimeout(function () {
+				alert(TIPO_MODELO);
 				if(TIPO_MODELO!='M')
 				{
 					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
