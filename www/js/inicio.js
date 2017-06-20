@@ -148,7 +148,9 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 								"searching": false,
 								"order": [[ 0, "desc" ]]
 						});
-						RecargarTablaAlarmas();
+						setTimeout(function () {
+							RecargarTablaAlarmas();
+						}, 250);
 					}, 750);
 				});
 		});
@@ -166,8 +168,6 @@ function CargarTodasLasAlarmas(event)
 
 	$('#TablaDatosAlarmas').dataTable().fnDestroy();
 	$('#tBodyDatosAlarmas').html("");
-	
-	alert($("#H_ID_CLIENTE_ACTUAL").val()+","+$("#H_ID_SUCURSAL_ACTUAL").val()+","+$("#H_ID_SECCION").val()+","+$("#H_ID_EQUIPO").val()+","+$("#H_ID_SENSOR").val()+","+$("#H_TIPO_MODELO").val()+",");
 
 	$.post(RUTACONTROL,{
 						accion 			 : 'Alarmas_Equipo_Sensor',
