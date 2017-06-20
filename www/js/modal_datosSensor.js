@@ -290,8 +290,8 @@ function CargarTabAlarmas()
 	//Buscar datos bitacora
 	$.post(RUTACONTROL,{
 				accion 		 : 'CargarAlarmas',
-				ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-				ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+				ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+				ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 				ID_SECCION   : $('#H_ID_SECCION').val(),
 				ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 				ID_SENSOR    : $('#H_ID_SENSOR').val(),
@@ -370,8 +370,8 @@ function CargarDatos(Inicio,Termino)
 			//Se cargara el grafico al JSON
 			$.post(RUTACONTROL,{
 					accion 		 	: 'DatosGraficoSensorTermico',
-					IdCliente		: $('#H_ID_CLIENTE_ACTUAL').val(),
-					IdSucursal		: $('#H_ID_SUCURSAL_ACTUAL').val(),
+					IdCliente		: $('#H_ID_CLIENTE').val(),
+					IdSucursal		: $('#H_ID_SUCURSAL').val(),
 					IdSeccion		: $('#H_ID_SECCION').val(),
 					IdEquipo		: $('#H_ID_EQUIPO').val(),
 					IdSensor		: $('#H_ID_SENSOR').val(),
@@ -409,8 +409,8 @@ function CargarDatos(Inicio,Termino)
 			//Se cargara el grafico al JSON
 			$.post(RUTACONTROL,{
 					accion 		 	: 'DatosGraficoSensorTermico',
-					IdCliente		: $('#H_ID_CLIENTE_ACTUAL').val(),
-					IdSucursal		: $('#H_ID_SUCURSAL_ACTUAL').val(),
+					IdCliente		: $('#H_ID_CLIENTE').val(),
+					IdSucursal		: $('#H_ID_SUCURSAL').val(),
 					IdSeccion		: $('#H_ID_SECCION').val(),
 					IdEquipo		: $('#H_ID_EQUIPO').val(),
 					IdSensor		: $('#H_ID_SENSOR').val(),
@@ -446,8 +446,8 @@ function CargarDatos(Inicio,Termino)
 			//Buscar datos bitacora
 			$.post(RUTACONTROL,{
 					accion 		 : 'CargarAlarmas',
-					ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-					ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+					ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+					ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 					ID_SECCION   : $('#H_ID_SECCION').val(),
 					ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 					ID_SENSOR    : $('#H_ID_SENSOR').val(),
@@ -509,8 +509,8 @@ function CargarBitacora(Id_alerta)
 	//Buscar datos bitacora
 	$.post(RUTACONTROL,{
 			accion 		 : 'CargarBitacora',
-			ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-			ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+			ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+			ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 			ID_SECCION   : $('#H_ID_SECCION').val(),
 			ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 			ID_SENSOR    : $('#H_ID_SENSOR').val(),

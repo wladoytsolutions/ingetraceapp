@@ -249,8 +249,8 @@ function GenerarHTML(Datos)
 
 			$.post(RUTACONTROL,{
 				accion 		 : 'DatosSensorPuerta',
-				ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-				ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+				ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+				ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 				ID_SECCION   : $('#H_ID_SECCION').val(),
 				ID_EQUIPO  	 : $('#H_ID_EQUIPO').val(),
 				fecha_inicio : FechaInicio,
@@ -318,8 +318,8 @@ function GenerarHTML(Datos)
 			//Buscar datos bitacora
 			$.post(RUTACONTROL,{
 					accion 		 : 'CargarAlarmas',
-					ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-					ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+					ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+					ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 					ID_SECCION   : $('#H_ID_SECCION').val(),
 					ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 					ID_SENSOR    : $('#H_ID_SENSOR').val(),
@@ -363,8 +363,8 @@ function GenerarHTML(Datos)
 		//Buscar datos bitacora
 		$.post(RUTACONTROL,{
 				accion 		 : 'CargarBitacora',
-				ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-				ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+				ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+				ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 				ID_SECCION   : $('#H_ID_SECCION').val(),
 				ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 				ID_SENSOR    : $('#H_ID_SENSOR').val(),
@@ -480,8 +480,8 @@ function GenerarHTML(Datos)
 		//Buscar datos bitacora
 		$.post(RUTACONTROL,{
 				accion 		 : 'CargarAlarmas',
-				ID_CLIENTE   : $('#H_ID_CLIENTE_ACTUAL').val(),
-				ID_SUCURSAL  : $('#H_ID_SUCURSAL_ACTUAL').val(),
+				ID_CLIENTE   : $('#H_ID_CLIENTE').val(),
+				ID_SUCURSAL  : $('#H_ID_SUCURSAL').val(),
 				ID_SECCION   : $('#H_ID_SECCION').val(),
 				ID_EQUIPO    : $('#H_ID_EQUIPO').val(),
 				ID_SENSOR    : $('#H_ID_SENSOR').val(),
