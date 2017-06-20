@@ -1198,6 +1198,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 	
 	if(ValCK!="undefined" && ValCK!="" && ValCK.toUpperCase()!="NULL")
 	{
+		alert("Sucursal cargada "+$('#H_SUCURSAL_CARGADA').val());
 		//Validar si la sucursal esta cargada
 		if($('#H_SUCURSAL_CARGADA').val()=="1")
 		{
@@ -1211,6 +1212,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 					showLoadMsg: false
 				});
 			}
+			alert($('#H_ID_CLIENTE_ACTUAL').val()+","+FUN_ID_CLIENTE +","+ $('#H_ID_SUCURSAL_ACTUAL').val()+","+FUN_ID_SUCURSAL);
 			//Validar si es la misma sursal
 			if($('#H_ID_CLIENTE_ACTUAL').val()==FUN_ID_CLIENTE && $('#H_ID_SUCURSAL_ACTUAL').val()==FUN_ID_SUCURSAL)
 			{
