@@ -90,6 +90,20 @@ function RecargarTabla()
 	$(tablaProblemas).css('width','100%');
 	$(tablaProblemas).css('margin-bottom','0px');
 }
+function RecargarTablaAlarmasSoloPuerta()
+{
+	var divProblemas=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');
+
+	var tablaProblemas=$(divProblemas).find('table');
+
+	var PrimeraCelda=$(tablaProblemas).find('.sorting_asc');
+	//$(PrimeraCelda).trigger('click');
+	//$(PrimeraCelda).trigger('click');
+
+	$(divProblemas).css('width','100%');
+	$(tablaProblemas).css('width','100%');
+	$(tablaProblemas).css('margin-bottom','0px');
+}
 function ValidarFechasOperaciones()
 {
 	var Valido=false;
@@ -347,7 +361,9 @@ function GenerarHTML(Datos)
 					});
 					BANDERA_TAB=false;
 				}, 500);
-
+				setTimeout(function () {
+					RecargarTablaAlarmasSoloPuerta();
+				}, 250);
 				$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 				$("#H_TAB_GRAFICO_CARGADO").val("");
 				HabilitarBusqueda();
