@@ -95,9 +95,12 @@ function RecargarTablaAlarmasSoloPuerta()
 	var divProblemas2=$('#PanelBodyTablaDatosAlarma').find('.dataTables_scrollHeadInner');		
 	$(divProblemas2).css('width','100%');
 	
+	alert($(divProblemas2).html());
+	
 	var tablaProblemas2=$(divProblemas2).find('table');
 	$(tablaProblemas2).css('width','100%');
 	$(tablaProblemas2).attr('style','margin-left: 0px; width: 100%; margin-bottom: -2px;');
+	alert($(tablaProblemas2).html());
 }
 function ValidarFechasOperaciones()
 {
