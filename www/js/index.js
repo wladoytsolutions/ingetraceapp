@@ -1225,7 +1225,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 			}
 			else
 			{
-				alert('Otra sucursal ->'+FUN_TIPO_MODELO);
+				alert('OtraSucursal '+FUN_TIPO_MODELO);
 				//Otra sucursal
 				if(FUN_TIPO_MODELO=='1' || FUN_TIPO_MODELO=='5')
 				{
