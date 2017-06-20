@@ -73,7 +73,7 @@ function CargarSensorSoloPuerta(event,IdCliente,NombreCliente,IdSucursal,NombreS
 	event.preventDefault();
 	VerSensorSoloPuerta(false,IdCliente,NombreCliente,IdSucursal,NombreSucursal,IdSeccion,NombreSeccion,IdEquipo,NombreEquipo,IdSensor,TipoModelo);
 }
-function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,Id_seccion, Nombre_seccion, Id_equipo, Nombre_equipo,Id_sensor)
+function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,Id_seccion, Nombre_seccion, Id_equipo, Nombre_equipo,Id_sensor,Tipo)
 {
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
@@ -107,7 +107,8 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 								NOMBRE_SECCION   : Nombre_seccion,
 								ID_EQUIPO		 : Id_equipo,
 								NOMBRE_EQUIPO	 : Nombre_equipo,
-								ID_SENSOR		 : Id_sensor
+								ID_SENSOR		 : Id_sensor,
+								TIPO			 : Tipo
 								},
 				function(response) {
 							var json = jQuery.parseJSON(response);

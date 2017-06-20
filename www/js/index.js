@@ -90,7 +90,6 @@ var app = {
 
 			pushPlugin.finish();
 			setTimeout(function () {
-				alert(TIPO_MODELO);
 				if(TIPO_MODELO!='M')
 				{
 					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
@@ -439,7 +438,7 @@ function GenerarHTMLSensores(DATOS)
 		HtmlTermicos+=e.DIV_NOMBRE_EQUIPO;
 		HtmlTermicos+='<div id="SENAL_'+e.IDSENSOR+'" class="col-xs-2 text-right">'+e.SENAL+'</i></div>';
 		HtmlTermicos+='<div class="col-xs-1 text-right" style="padding-right: 0px;">';
-		HtmlTermicos+='<a href="#" onclick="javascript:CargarSensorSoloPuerta(event,\''+e.ID_CLIENTE+'\',\''+e.RAZON_SOCIAL+'\',\''+e.ID_SUCURSAL+'\',\''+e.NOMBRE_SUCURSAL+'\',\''+e.ID_SECCION+'\',\''+e.NOMBRE_SECCION+'\',\''+e.ID_EQUIPO+'\',\''+e.NOMBRE_EQUIPO+'\',\''+e.IDSENSOR+'\',\'6\');" id="VerSensoresRegistrados" IdSensor=""><span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>';
+		HtmlTermicos+='<a href="#" onclick="javascript:CargarSensorSoloPuerta(event,\''+e.ID_CLIENTE+'\',\''+e.RAZON_SOCIAL+'\',\''+e.ID_SUCURSAL+'\',\''+e.NOMBRE_SUCURSAL+'\',\''+e.ID_SECCION+'\',\''+e.NOMBRE_SECCION+'\',\''+e.ID_EQUIPO+'\',\''+e.NOMBRE_EQUIPO+'\',\''+e.IDSENSOR+'\',\'6\');" id="VerSensoresRegistrados_'+e.IDSENSOR+'" razon_social="'+e.RAZON_SOCIAL+'" idsensor="'+e.IDSENSOR+'" nombre_sucursal="'+e.NOMBRE_SUCURSAL+'" id_seccion="'+e.ID_SECCION+'" nombre_seccion="'+e.NOMBRE_SECCION+'" id_equipo="'+e.ID_EQUIPO+'" nombre_equipo="'+e.NOMBRE_EQUIPO+'"><span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span></a>';
 		
 		HtmlTermicos+='</div></div></div>';
 		HtmlTermicos+='<div class="panel-body"><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
@@ -1235,6 +1234,10 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 				{
 					VerSensorElectrico(true,FUN_ID_SENSOR,FUN_NOMBRE_EQUIPO);
 				}
+				if(FUN_TIPO_MODELO=='6')
+				{
+					VerSensorSoloPuerta(true,FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FUN_NOMBRE_SUCURSAL,FUN_ID_SECCION,FUN_NOMBRE_SECCION,FUN_ID_EQUIPO,FUN_NOMBRE_EQUIPO,FUN_ID_SENSOR,FUN_TIPO_MODELO);
+				}
 			}
 		}
 		else
@@ -1290,6 +1293,10 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 											if(FUN_TIPO_MODELO=='2')
 											{
 												VerSensorElectrico(true,FUN_ID_SENSOR,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'));
+											}
+											if(FUN_TIPO_MODELO=='6')
+											{
+												VerSensorSoloPuerta(true,FUN_ID_CLIENTE,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('razon_social'),FUN_ID_SUCURSAL,$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_sucursal'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_seccion'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('id_equipo'),$('#VerSensoresRegistrados_'+FUN_ID_SENSOR).attr('nombre_equipo'),FUN_ID_SENSOR,FUN_TIPO_MODELO);
 											}
 										}
 										else
