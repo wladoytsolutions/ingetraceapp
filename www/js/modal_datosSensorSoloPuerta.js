@@ -362,7 +362,7 @@ function GenerarHTML(Datos)
 				}, 500);
 				setTimeout(function () {
 					RecargarTablaAlarmasSoloPuerta();
-				}, 250);
+				}, 750);
 				$("#H_TAB_ALARMAS_CARGADO").val("Ok");
 				$("#H_TAB_GRAFICO_CARGADO").val("");
 				HabilitarBusqueda();
