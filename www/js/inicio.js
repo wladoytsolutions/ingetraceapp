@@ -178,7 +178,6 @@ function CargarTodasLasAlarmas(event)
 						ID_SENSOR		 : $("#H_ID_SENSOR").val(),
 						TIPO		 	 : $('#H_TIPO_MODELO').val()
 	}, function(response) {
-		alert(response);
 		var json = jQuery.parseJSON(response);
 		CuerpoDatos=GenerarTablaDeAlertas(json);
 		$("#tBodyDatosAlarmas").html(CuerpoDatos);
