@@ -520,10 +520,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 	$("#p3Body").load(
 		"sensor.html",
 	function() {
-
-			$("#RowContenidoCuerpoP3").load(
-				"html_parts/modal_datosSensorTermico.html",
-			function() {
+		
 				$("#H_ID_CLIENTE").val(IdCliente);
 				$("#H_ID_SUCURSAL").val(IdSucursal);
 				$("#H_ID_SECCION").val(IdSeccion);
@@ -532,8 +529,10 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
 				$("#H_TIPO_MODELO").val(TipoModelo);
-				$('#H_IdClienteRecibido').val(IdCliente);
-				$('#H_IdSucursalRecibido').val(IdSucursal);
+
+			$("#RowContenidoCuerpoP3").load(
+				"html_parts/modal_datosSensorTermico.html",
+			function() {
 
 				if(HideSplash)
 				{
@@ -628,9 +627,6 @@ function VerSensorSoloPuerta(HideSplash,IdCliente,NombreCliente,IdSucursal,Nombr
 	$("#p3Body").load(
 		"sensor.html",
 	function() {
-			$("#RowContenidoCuerpoP3").load(
-				"html_parts/modal_datos_sensor_solo_puerta.html",
-			function() {
 				$("#H_ID_CLIENTE").val(IdCliente);
 				$("#H_ID_SUCURSAL").val(IdSucursal);
 				$("#H_ID_SECCION").val(IdSeccion);
@@ -639,7 +635,10 @@ function VerSensorSoloPuerta(HideSplash,IdCliente,NombreCliente,IdSucursal,Nombr
 				$("#H_NOMBRE_EQUIPO").val(NombreEquipo);
 				$("#H_ID_SENSOR").val(IdSensor);
 				$("#H_TIPO_MODELO").val(TipoModelo);
-				
+		
+			$("#RowContenidoCuerpoP3").load(
+				"html_parts/modal_datos_sensor_solo_puerta.html",
+			function() {
 				if(HideSplash)
 				{
 					CerrarSplash();
