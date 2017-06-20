@@ -85,6 +85,7 @@ function CargarAlarmaSensor(Id_cliente,Razon_social,Id_sucursal,Nombre_sucursal,
 	$("#H_ID_SECCION").val(Id_seccion);
 	$("#H_ID_EQUIPO").val(Id_equipo);
 	$("#H_ID_SENSOR").val(Id_sensor);
+	$('#H_TIPO_MODELO').val(Tipo);
 
 	$("#p3Body").load(
 		"sensor.html",
@@ -165,6 +166,8 @@ function CargarTodasLasAlarmas(event)
 
 	$('#TablaDatosAlarmas').dataTable().fnDestroy();
 	$('#tBodyDatosAlarmas').html("");
+	
+	alert($("#H_ID_CLIENTE_ACTUAL").val()+","+$("#H_ID_SUCURSAL_ACTUAL").val()+","+$("#H_ID_SECCION").val()+","+$("#H_ID_EQUIPO").val()+","+$("#H_ID_SENSOR").val()+","+$("#H_TIPO_MODELO").val()+",");
 
 	$.post(RUTACONTROL,{
 						accion 			 : 'Alarmas_Equipo_Sensor',
@@ -175,6 +178,7 @@ function CargarTodasLasAlarmas(event)
 						ID_SENSOR		 : $("#H_ID_SENSOR").val(),
 						TIPO		 	 : $('#H_TIPO_MODELO').val()
 	}, function(response) {
+		alert(response);
 		var json = jQuery.parseJSON(response);
 		CuerpoDatos=GenerarTablaDeAlertas(json);
 		$("#tBodyDatosAlarmas").html(CuerpoDatos);
