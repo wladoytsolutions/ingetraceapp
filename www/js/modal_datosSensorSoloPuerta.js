@@ -520,6 +520,9 @@ function GenerarHTML(Datos)
 					"order": [[ 0, "desc" ]]
 				});
 				BANDERA_TAB=false;
+				setTimeout(function () {
+					RecargarTablaAlarmasSoloPuerta();
+				}, 500);
 			}, 500);
 
 			$("#H_TAB_ALARMAS_CARGADO").val("Ok");
