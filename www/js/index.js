@@ -1,7 +1,7 @@
 //var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://localhost/web_ingetrace/external_movil/control/control.php';
-//var RUTACONTROL='http://ingetrace.participa.cl/external_movil/control/control.php';
-var RUTACONTROL='http://35.163.42.97:8080/ingetrace/external_movil/control/control.php';
+var RUTACONTROL='http://www.ingetrace.cl/external_movil/control/control.php';
+//var RUTACONTROL='http://35.163.42.97:8080/ingetrace/external_movil/control/control.php';
 var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
