@@ -714,9 +714,16 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 			function(response) {
 
 				var json = jQuery.parseJSON(response);
-
+				
 				$("#inicio_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
+				var FecIni=json['FECHA_HOY'];
+				var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
+				$('#inicio_filtroDatosSensorElectrico').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+
 				$("#termino_filtroDatosSensorElectrico").val(json['FECHA_HOY']);
+				var FecTerm=json['FECHA_HOY'];
+				var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
+				$('#termino_filtroDatosSensorElectrico').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
 
 				$.each(json.ITEMS, function(i, d) {
 					CuerpoDatos+='<tr><td style="width: 19%"><center>'+d.HORA+'</center></td><td style="width: 21%">';
@@ -795,14 +802,16 @@ function GenerarGraficoSensor(json)
 		$.each(json, function(j, e) {
 			//Fecha hoy
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-			if($("#inicio_filtroDatosSensor").val()=="")
-			{
-				$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-			}
-			if($("#termino_filtroDatosSensor").val()=="")
-			{
-				$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
-			}
+			
+			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			var FecIni=e.FECHA_HOY;
+			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
+			$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+								
+			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			var FecTerm=e.FECHA_HOY;
+			var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
+			$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
 
 
 			var Promedio=0;
@@ -951,8 +960,16 @@ function GenerarGraficoSensor(json)
 		$.each(json, function(j, e) {
 			//Fecha hoy
 			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+			
 			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			var FecIni=e.FECHA_HOY;
+			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
+			$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+								
 			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			var FecTerm=e.FECHA_HOY;
+			var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
+			$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
 
 			var Promedio=0;
 			var Limite=0;
