@@ -19,9 +19,7 @@ $(document).ready(function() {
 					//CARGANDO DATOS
 					$("#TablaDatosSensores").dataTable().fnDestroy();
 					$("#tBodyDatosGrafico").html("");
-					$("#TablaDatosAlarmas").dataTable().fnDestroy();
-					$("#tBodyDatosAlarmas").html("");
-					CargarDatos($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
+					CargarDatosElectrico($('#inicio_filtroDatosSensorElectrico').val(),$('#termino_filtroDatosSensorElectrico').val());
 				}else
 				{
 					if(ValOp=="intervalo")
