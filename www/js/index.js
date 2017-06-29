@@ -762,6 +762,7 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 						"url": "json/spanish.json"
 						},
 						"scrollY":        "230px",
+						"bInfo"	 :	false,
 						"scrollCollapse": true,
 						"paging":         false,
 						"searching": false,

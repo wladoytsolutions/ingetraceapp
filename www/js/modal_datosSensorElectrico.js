@@ -121,7 +121,8 @@ function CargarDatosElectrico(Inicio,Termino)
 					"bInfo"	 :	false,
 					"scrollCollapse": true,
 					"paging":         false,
-					"searching": false
+					"searching": false,
+					"order": [[ 0, "desc" ]]
 			});
 			setTimeout(function () {
 				RecargarTabla();
