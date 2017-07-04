@@ -343,7 +343,7 @@ function GenerarHTMLSensores(DATOS)
     HtmlTermicos+='<small><span id="HORA_MAXIMA_'+e.ID_SENSOR+'">'+e.HORA_MAXIMA+'</span><br>Máxima</small>';
     HtmlTermicos+='</div></div><div class="row col-with-divider"><div class="col-xs-4 text-center stack-order">';
     HtmlTermicos+='<h1 id="Cota_'+e.ID_SENSOR+'" class="no-margins">'+e.COTA+'</h1><small>Límite</small></div><div class="col-xs-8 text-center stack-order">';
-    HtmlTermicos+='<h3 id="Tr_sens_'+e.ID_SENSOR+'" class="no-margins"><div align="center">'+e.ALARMA+'</div></h3>';
+    HtmlTermicos+='<h3 id="Cont_Alarma_Temp_'+e.ID_SENSOR+'" class="no-margins">'+e.ALARMA+'</h3>';
     HtmlTermicos+='<small>Ult. Alarma</small></div></div></div></div></div>';
   });
 
