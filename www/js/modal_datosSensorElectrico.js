@@ -61,7 +61,6 @@ function CargarDatosElectrico(Inicio,Termino)
 	//Fecha inicio
 	var FecIni=Inicio;
 	var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
-	alert(fecha_inicio);
 	$('#inicio_filtroDatosSensorElectrico').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
 
 	//Fecha termino
@@ -70,6 +69,8 @@ function CargarDatosElectrico(Inicio,Termino)
 	$('#termino_filtroDatosSensorElectrico').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
 
 	var CuerpoDatos='';
+
+	alert('Enviada '+fecha_inicio);
 
 	$.post(RUTACONTROL,{
 						accion 		 : 'DatosGraficoSensorElectrico',
