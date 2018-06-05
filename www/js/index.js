@@ -181,6 +181,7 @@ function RegistrarDispositivo(ID_device)
 
 			if(id_device_bd!="Nada")
 			{
+				alert(id_device_bd+" VS "+ID_device);
 				//Si el id device cambio, se debe notificar el cambio al servidor
 				if(id_device_bd!=ID_device)
 				{
