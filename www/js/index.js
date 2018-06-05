@@ -70,10 +70,9 @@ var app = {
 					
 					if(id_device_bd!="Nada")
 					{
+						//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
 						//Si el id device cambio, se debe notificar el cambio al servidor
-						if(id_device_bd!=ID_device)
-						{
-							$.ajax({
+						$.ajax({
 								url	: RUTACONTROL,
 								type: 'POST',
 								data: 
@@ -85,7 +84,10 @@ var app = {
 								},
 							  	async: false
 							}). done(function(response) {
-								setIdDevice(ID_device);
+								if(id_device_bd!=ID_device)
+								{
+									setIdDevice(ID_device);
+								}
 								
 								setTimeout(function () {
 									if($('#H_DESDE_NOTIFICACION').val()!='1')
@@ -94,7 +96,6 @@ var app = {
 									}
 								}, 500);
 							});
-						}
 					}
 					else
 					{
