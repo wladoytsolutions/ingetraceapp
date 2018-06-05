@@ -67,8 +67,7 @@ var app = {
 			BD_APP.transaction(function(tx) {
 				tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 					var id_device_bd=""+rs.rows.item(0).id_device;
-
-					MensajeAlerta('Id Device',id_device_bd);
+					
 					if(id_device_bd!="Nada")
 					{
 						//Si el id device cambio, se debe notificar el cambio al servidor
