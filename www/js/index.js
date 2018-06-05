@@ -87,6 +87,7 @@ var app = {
 							  	async: false
 							}). done(function(response) {
 								alert(response);
+								
 								setIdDevice(ID_device);
 								
 								setTimeout(function () {
