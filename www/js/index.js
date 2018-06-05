@@ -59,17 +59,27 @@ var app = {
 
 		pushPlugin.on('registration', function(data) {
 			$("#H_TEXT_DEVICE").html(data.registrationId);
-			RegistrarDispositivo(data.registrationId);
-			setTimeout(function () {
-				if($("#H_DESDE_NOTIFICACION").val()!="1")
-				{
-					BuscarCookie();
-				}
-			}, 500);
+			var registro=RegistrarDispositivo(data.registrationId);
+			
+			MensajeAlerta('Registro Push',registro);
+			
+			if(registro=="registrado" || registro=="actualizado")
+			{
+				setTimeout(function () {
+					if($('#H_DESDE_NOTIFICACION').val()!='1')
+					{
+						BuscarCookie();
+					}
+				}, 500);
+			}
+			else
+			{
+				MensajeAlerta('Error','No se ha podido registrar el dispositivo para las notificaciones');
+			}
 		});
 
 		pushPlugin.on('notification', function(data) {
-			$("#H_DESDE_NOTIFICACION").val("1");
+			$('#H_DESDE_NOTIFICACION').val('1');
 
 			var ID_CLIENTE;
 			var NOMBRE_CLIENTE;
@@ -174,6 +184,8 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
+	var respuesta="";
+	
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
@@ -181,8 +193,9 @@ function RegistrarDispositivo(ID_device)
 
 			if(id_device_bd!="Nada")
 			{
+				respuesta="registrado";
 				//Si el id device cambio, se debe notificar el cambio al servidor
-				if(id_device_bd==ID_device)
+				if(id_device_bd!=ID_device)
 				{
 					$.post(RUTACONTROL,{
 						accion		: 'UpdateIdDevice',
@@ -192,7 +205,8 @@ function RegistrarDispositivo(ID_device)
 						async		: false
 					},
 					function(response) {
-						MensajeAlerta('Query',response);
+						//MensajeAlerta('Query',response);
+						respuesta="actualizado";
 					}).done(function(response) {
 						setIdDevice(ID_device);
 					});
@@ -200,6 +214,8 @@ function RegistrarDispositivo(ID_device)
 			}
 		}, function(tx, error) {});
 	});
+	
+	return respuesta;
 }
 function CerrarSplash()
 {
