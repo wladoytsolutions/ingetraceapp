@@ -59,10 +59,44 @@ var app = {
 
 		pushPlugin.on('registration', function(data) {
 			$("#H_TEXT_DEVICE").html(data.registrationId);
-			var registro=RegistrarDispositivo(data.registrationId);
 			
-			MensajeAlerta('Registro Push',registro);
+			var ID_device=''+data.registrationId;
 			
+			//Validando el Id device
+			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
+			BD_APP.transaction(function(tx) {
+				tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+					var id_device_bd=""+rs.rows.item(0).id_device;
+
+					MensajeAlerta('Id Device',id_device_bd);
+					if(id_device_bd!="Nada")
+					{
+						//Si el id device cambio, se debe notificar el cambio al servidor
+						if(id_device_bd!=ID_device)
+						{
+							$.ajax({
+								url	: RUTACONTROL,
+								type: 'POST',
+								data: 
+								{
+									accion		: 'UpdateIdDevice',
+									NewId_device: ID_device,
+									OldId_device: id_device_bd,
+									CK			: getCK()
+								},
+							  	async: false
+							}). done(function(response) {
+								setIdDevice(ID_device);
+							});
+						}
+					}
+					
+					MensajeAlerta('Termino','ACA');
+				}, function(tx, error) {
+				});
+			});
+			
+			/**
 			if(registro=="registrado" || registro=="actualizado")
 			{
 				setTimeout(function () {
@@ -76,6 +110,7 @@ var app = {
 			{
 				MensajeAlerta('Error','No se ha podido registrar el dispositivo para las notificaciones');
 			}
+			*/
 		});
 
 		pushPlugin.on('notification', function(data) {
@@ -184,8 +219,6 @@ $( document ).ready(function() {
 });
 function RegistrarDispositivo(ID_device)
 {
-	var respuesta="";
-	
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
@@ -194,7 +227,6 @@ function RegistrarDispositivo(ID_device)
 			MensajeAlerta('Id Device',id_device_bd);
 			if(id_device_bd!="Nada")
 			{
-				respuesta="registrado";
 				//Si el id device cambio, se debe notificar el cambio al servidor
 				if(id_device_bd!=ID_device)
 				{
@@ -207,18 +239,14 @@ function RegistrarDispositivo(ID_device)
 					},
 					function(response) {
 						//MensajeAlerta('Query',response);
-						respuesta="actualizado";
 					}).done(function(response) {
 						setIdDevice(ID_device);
 					});
 				}
 			}
 		}, function(tx, error) {
-			respuesta="no registrado";
 		});
 	});
-	
-	return respuesta;
 }
 function CerrarSplash()
 {
