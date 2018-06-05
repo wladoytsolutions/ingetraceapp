@@ -88,32 +88,28 @@ var app = {
 							}). done(function(response) {
 								alert(response);
 								setIdDevice(ID_device);
+								
+								setTimeout(function () {
+									if($('#H_DESDE_NOTIFICACION').val()!='1')
+									{
+										BuscarCookie();
+									}
+								}, 500);
 							});
 						}
 					}
-					
-					setTimeout(function () {
-						if($('#H_DESDE_NOTIFICACION').val()!='1')
-						{
-							BuscarCookie();
-						}
-					}, 500);
-					
+					else
+					{
+						setTimeout(function () {
+							if($('#H_DESDE_NOTIFICACION').val()!='1')
+							{
+								BuscarCookie();
+							}
+						}, 500);
+					}
 				}, function(tx, error) {
-					MensajeAlerta('Error de BD','ACA');
 				});
 			});
-			
-			/**
-			if(registro=="registrado" || registro=="actualizado")
-			{
-
-			}
-			else
-			{
-				MensajeAlerta('Error','No se ha podido registrar el dispositivo para las notificaciones');
-			}
-			*/
 		});
 
 		pushPlugin.on('notification', function(data) {
