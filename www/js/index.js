@@ -71,7 +71,7 @@ var app = {
 					if(id_device_bd!="Nada")
 					{
 						//Si el id device cambio, se debe notificar el cambio al servidor
-						if(id_device_bd==ID_device)
+						if(id_device_bd!=ID_device)
 						{
 							$.ajax({
 								url	: RUTACONTROL,
