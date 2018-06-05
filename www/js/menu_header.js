@@ -65,7 +65,7 @@ function Logout()
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 			var id_device=""+rs.rows.item(0).id_device;
 			
-			//Grabando datos de device
+			//Eliminando datos de device
 			$.post(RUTACONTROL,{
 					accion		: 'EliminarDevice',
 					Id_device	: id_device,

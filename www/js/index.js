@@ -8,6 +8,7 @@ var DEVICEPLATFORM;
 var MOSTRAR_MENSAJE_NOTIFICACION=false;
 var TITULO_NOTIFICACION="";
 var MENSAJE_NOTIFICACION="";
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -59,6 +60,12 @@ var app = {
 		pushPlugin.on('registration', function(data) {
 			$("#H_TEXT_DEVICE").html(data.registrationId);
 			RegistrarDispositivo(data.registrationId);
+			setTimeout(function () {
+				if($("#H_DESDE_NOTIFICACION").val()!="1")
+				{
+					BuscarCookie();
+				}
+			}, 500);
 		});
 
 		pushPlugin.on('notification', function(data) {
@@ -110,7 +117,6 @@ var app = {
 				}
 			}, 250);
 		});
-
 		pushPlugin.on('error', function(e) {
 			// e.message
 			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
@@ -118,12 +124,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-		setTimeout(function () {
-			if($("#H_DESDE_NOTIFICACION").val()!="1")
-			{
-				BuscarCookie();
-			}
-		}, 500);
+		
     }
 };
 function MensajeAlerta(Titulo,Mensaje)
@@ -187,7 +188,8 @@ function RegistrarDispositivo(ID_device)
 						accion		: 'UpdateIdDevice',
 						NewId_device: ID_device,
 						OldId_device: id_device_bd,
-						CK			: getCK()
+						CK			: getCK(),
+						async		: false
 					},
 					function(response) {
 
