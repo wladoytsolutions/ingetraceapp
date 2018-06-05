@@ -72,7 +72,7 @@ var app = {
 					if(id_device_bd!="Nada")
 					{
 						//Si el id device cambio, se debe notificar el cambio al servidor
-						if(id_device_bd!=ID_device)
+						if(id_device_bd==ID_device)
 						{
 							$.ajax({
 								url	: RUTACONTROL,
@@ -86,25 +86,28 @@ var app = {
 								},
 							  	async: false
 							}). done(function(response) {
+								alert(response);
 								setIdDevice(ID_device);
 							});
 						}
 					}
 					
-					MensajeAlerta('Termino','ACA');
+					setTimeout(function () {
+						if($('#H_DESDE_NOTIFICACION').val()!='1')
+						{
+							BuscarCookie();
+						}
+					}, 500);
+					
 				}, function(tx, error) {
+					MensajeAlerta('Error de BD','ACA');
 				});
 			});
 			
 			/**
 			if(registro=="registrado" || registro=="actualizado")
 			{
-				setTimeout(function () {
-					if($('#H_DESDE_NOTIFICACION').val()!='1')
-					{
-						BuscarCookie();
-					}
-				}, 500);
+
 			}
 			else
 			{
