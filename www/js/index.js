@@ -212,7 +212,9 @@ function RegistrarDispositivo(ID_device)
 					});
 				}
 			}
-		}, function(tx, error) {});
+		}, function(tx, error) {
+			respuesta="no registrado";
+		});
 	});
 	
 	return respuesta;
