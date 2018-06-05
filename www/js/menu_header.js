@@ -57,6 +57,7 @@ function AceptarModalCambioSucursal(e)
 }
 function Logout()
 {
+	setIdDevice('Nada');
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});

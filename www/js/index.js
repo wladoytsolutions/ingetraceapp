@@ -214,37 +214,6 @@ $( document ).ready(function() {
 		$('#RowLogin').hide();
 	}
 });
-function RegistrarDispositivo(ID_device)
-{
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
-	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
-			var id_device_bd=""+rs.rows.item(0).id_device;
-			
-			MensajeAlerta('Id Device',id_device_bd);
-			if(id_device_bd!="Nada")
-			{
-				//Si el id device cambio, se debe notificar el cambio al servidor
-				if(id_device_bd!=ID_device)
-				{
-					$.post(RUTACONTROL,{
-						accion		: 'UpdateIdDevice',
-						NewId_device: ID_device,
-						OldId_device: id_device_bd,
-						CK			: getCK(),
-						async		: false
-					},
-					function(response) {
-						//MensajeAlerta('Query',response);
-					}).done(function(response) {
-						setIdDevice(ID_device);
-					});
-				}
-			}
-		}, function(tx, error) {
-		});
-	});
-}
 function CerrarSplash()
 {
 	try {
