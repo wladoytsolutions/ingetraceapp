@@ -5,7 +5,7 @@
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
   <!--<splash src="splash.png" />-->
   <content src="index.html"/>
-  <!--<preference name="phonegap-version" value="cli-8.0.0" />-->
+  <preference name="phonegap-version" value="cli-8.0.0" />
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="Fullscreen" value="true"/>
