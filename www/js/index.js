@@ -3,7 +3,7 @@
 var RUTACONTROL='http://www.ingetrace.cl/external_movil/control/control.php';
 //var RUTACONTROL='http://35.163.42.97:8080/ingetrace/external_movil/control/control.php';
 var BD_APP=null;
-var pushPlugin;
+//var pushPlugin;
 var DEVICEPLATFORM;
 var MOSTRAR_MENSAJE_NOTIFICACION=false;
 var TITULO_NOTIFICACION="";
@@ -41,11 +41,14 @@ var app = {
 		DEVICEPLATFORM = ""+device.platform;
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 
-		pushPlugin = PushNotification.init({
+		const pushPlugin = PushNotification.init({
 			android: {
 				sound: true,
                 forceShow: true,
                 vibrate: true
+			},
+			browser: {
+				pushServiceURL: 'http://push.api.phonegap.com/v1/push'
 			},
 			ios: {
 				alert: true,
