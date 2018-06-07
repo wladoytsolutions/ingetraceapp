@@ -39,7 +39,7 @@ var app = {
 		app.receivedEvent('deviceready');
 
 		DEVICEPLATFORM = ""+device.platform;
-
+		alert(DEVICEPLATFORM);
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 
 		pushPlugin = PushNotification.init({
