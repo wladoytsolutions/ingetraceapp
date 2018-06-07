@@ -34,7 +34,9 @@
   <platform name="android">
   	<resource-file src="google-services.json" target="google-services.json" />
   </platform>
-  <plugin name="phonegap-plugin-push" spec="2.2.3"/>
+  <plugin name="phonegap-plugin-push" spec="~2.2.0">
+    <variable name="FCM_VERSION" value="15.0.0" />
+  </plugin>
   <plugin name="cordova-plugin-sqlite-2" spec="1.0.5"/>
   <plugin name="cordova-plugin-dialogs" spec="2.0.1"/>
   <platform name="android">
