@@ -36,7 +36,7 @@
   	<resource-file src="google-services.json" target="google-services.json" /> 
   </platform> 
   <plugin name="phonegap-plugin-push" spec="2.2.3">
-    <param name="SENDER_ID" value="1:311425347794:android:6743f6380cfd1ed6" />
+  	<param name="SENDER_ID" value="570571190177" />
   </plugin>
   <plugin name="cordova-plugin-sqlite-2" spec="1.0.5"/>
   <plugin name="cordova-plugin-dialogs" spec="2.0.1"/>

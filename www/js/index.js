@@ -41,38 +41,129 @@ var app = {
 		DEVICEPLATFORM = ""+device.platform;
 
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
-		
-		var push = PushNotification.init({
+
+		pushPlugin = PushNotification.init({
 			android: {
-			},
-			browser: {
+				senderID: "570571190177",
+				sound: true,
+                forceShow: true,
+                vibrate: true
 			},
 			ios: {
-				alert: "true",
-				badge: "true",
-				sound: "true"
+				alert: true,
+				badge: true,
+				sound: true
 			},
 			windows: {}
 		});
 
-		push.on('registration', (data) => {
-			// data.registrationId
-			alert(data.registrationId);
+		pushPlugin.on('registration', function(data) {
+			$("#H_TEXT_DEVICE").html(data.registrationId);
+			
+			var ID_device=''+data.registrationId;
+			
+			//Validando el Id device
+			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
+			BD_APP.transaction(function(tx) {
+				tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+					var id_device_bd=""+rs.rows.item(0).id_device;
+					
+					if(id_device_bd!="Nada")
+					{
+						//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
+						//Si el id device cambio, se debe notificar el cambio al servidor
+						$.ajax({
+								url	: RUTACONTROL,
+								type: 'POST',
+								data: 
+								{
+									accion		: 'UpdateIdDevice',
+									NewId_device: ID_device,
+									OldId_device: id_device_bd,
+									CK			: getCK()
+								},
+							  	async: false
+							}). done(function(response) {
+								if(id_device_bd!=ID_device)
+								{
+									setIdDevice(ID_device);
+								}
+								
+								setTimeout(function () {
+									if($('#H_DESDE_NOTIFICACION').val()!='1')
+									{
+										BuscarCookie();
+									}
+								}, 500);
+							});
+					}
+					else
+					{
+						setTimeout(function () {
+							if($('#H_DESDE_NOTIFICACION').val()!='1')
+							{
+								BuscarCookie();
+							}
+						}, 500);
+					}
+				}, function(tx, error) {
+				});
+			});
 		});
 
-		push.on('notification', (data) => {
-			// data.message,
-			// data.title,
-			// data.count,
-			// data.sound,
-			// data.image,
-			// data.additionalData
-		});
+		pushPlugin.on('notification', function(data) {
+			$('#H_DESDE_NOTIFICACION').val('1');
 
-		push.on('error', (e) => {
+			var ID_CLIENTE;
+			var NOMBRE_CLIENTE;
+			var ID_SUCURSAL;
+			var NOMBRE_SUCURSAL;
+			var ID_SECCION;
+			var NOMBRE_SECCION;
+			var ID_EQUIPO;
+			var NOMBRE_EQUIPO;
+			var ID_SENSOR;
+			var TIPO_MODELO;
+
+			TITULO_NOTIFICACION=''+data.title;
+			MENSAJE_NOTIFICACION=''+data.message;
+
+			ID_CLIENTE=data.additionalData.info.id_cliente;
+			NOMBRE_CLIENTE=data.additionalData.info.nombre_cliente;
+			ID_SUCURSAL=data.additionalData.info.id_sucursal;
+			NOMBRE_SUCURSAL=data.additionalData.info.nombre_sucursal;
+			ID_SECCION=data.additionalData.info.id_seccion;
+			NOMBRE_SECCION=data.additionalData.info.nombre_seccion;
+			ID_EQUIPO=data.additionalData.info.id_equipo;
+			NOMBRE_EQUIPO=data.additionalData.info.nombre_equipo;
+			ID_SENSOR=data.additionalData.info.id_sensor;
+			TIPO_MODELO=data.additionalData.info.tipo_modelo;
+
+			pushPlugin.finish();
+			setTimeout(function () {
+				if(TIPO_MODELO!='M')
+				{
+					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
+				}
+				else
+				{
+					MOSTRAR_MENSAJE_NOTIFICACION=true;
+					if($('#H_SUCURSAL_CARGADA').val()!="1")
+					{
+						BuscarCookie();
+					}
+					else
+					{
+						MOSTRAR_MENSAJE_NOTIFICACION=false;
+						MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
+					}
+				}
+			}, 250);
+		});
+		pushPlugin.on('error', function(e) {
 			// e.message
+			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
 		});
-
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
