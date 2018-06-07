@@ -41,15 +41,13 @@ var app = {
 		DEVICEPLATFORM = ""+device.platform;
 
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
-		alert(DEVICEPLATFORM);
+
 		pushPlugin = PushNotification.init({
 			android: {
+				senderID: "311425347794",
 				sound: true,
                 forceShow: true,
                 vibrate: true
-			},
-			browser: {
-				pushServiceURL: 'http://push.api.phonegap.com/v1/push'
 			},
 			ios: {
 				alert: true,
@@ -60,8 +58,9 @@ var app = {
 		});
 
 		pushPlugin.on('registration', function(data) {
-			alert(data.registrationId);
 			$("#H_TEXT_DEVICE").html(data.registrationId);
+			
+			alert(data.registrationId);
 			
 			var ID_device=''+data.registrationId;
 			
