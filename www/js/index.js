@@ -41,12 +41,15 @@ var app = {
 		DEVICEPLATFORM = ""+device.platform;
 
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
-
+		alert(DEVICEPLATFORM);
 		pushPlugin = PushNotification.init({
 			android: {
 				sound: true,
                 forceShow: true,
                 vibrate: true
+			},
+			browser: {
+				pushServiceURL: 'http://push.api.phonegap.com/v1/push'
 			},
 			ios: {
 				alert: true,

@@ -1,31 +1,31 @@
 {
   "project_info": {
-    "project_number": "570571190177",
-    "firebase_url": "https://notingetrace.firebaseio.com",
-    "project_id": "notingetrace",
-    "storage_bucket": "notingetrace.appspot.com"
+    "project_number": "311425347794",
+    "firebase_url": "https://ingetracespa.firebaseio.com",
+    "project_id": "ingetracespa",
+    "storage_bucket": "ingetracespa.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:570571190177:android:6743f6380cfd1ed6",
+        "mobilesdk_app_id": "1:311425347794:android:6743f6380cfd1ed6",
         "android_client_info": {
           "package_name": "com.phonegap.ingetrace"
         }
       },
       "oauth_client": [
         {
-          "client_id": "570571190177-hkha2f3jc8q8qtfa0b6plhhc6mrqfl89.apps.googleusercontent.com",
+          "client_id": "311425347794-bpjs8vcrb025p8lb3oh3jbdp0e97u3bj.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "570571190177-hkha2f3jc8q8qtfa0b6plhhc6mrqfl89.apps.googleusercontent.com",
+          "client_id": "311425347794-bpjs8vcrb025p8lb3oh3jbdp0e97u3bj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBY6PO9bVp0nkvknmhDOj5Bh-7Kp9tthSU"
+          "current_key": "AIzaSyBqiFBQcnFqWALGtpDdOOwtYHHc2koojW4"
         }
       ],
       "services": {
