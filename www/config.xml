@@ -33,11 +33,8 @@
   <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
   <plugin name="cordova-plugin-whitelist" spec="1.3.3"/>
   <plugin name="phonegap-plugin-push" spec="2.2.3">
-    <param name="SENDER_ID" value="311425347794" />
+    <param name="SENDER_ID" value="1:311425347794:android:6743f6380cfd1ed6" />
   </plugin>
-  <platform name="android"> 
-  	<resource-file src="google-services.json" target="google-services.json" /> 
-  </platform>
   <plugin name="cordova-plugin-sqlite-2" spec="1.0.5"/>
   <plugin name="cordova-plugin-dialogs" spec="2.0.1"/>
   <platform name="android">
