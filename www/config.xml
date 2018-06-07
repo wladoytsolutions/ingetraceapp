@@ -4,7 +4,7 @@
   <description>INGETRACE es una compañía dedicada al desarrollo de soluciones tecnológicas con el foco principal en la innovación sobre los procesos de control críticos para la rentabilidad de distintas industrias.</description>
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
   <content src="index.html"/>
-  <preference name="phonegap-version" value="cli-7.1.0" />
+  <preference name="phonegap-version" value="cli-6.5.0" />
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="Fullscreen" value="true"/>
@@ -35,9 +35,7 @@
   <platform name="android"> 
   	<resource-file src="google-services.json" target="google-services.json" /> 
   </platform> 
-  <plugin name="phonegap-plugin-push" spec="2.2.3">
-  	<param name="SENDER_ID" value="570571190177" />
-  </plugin>
+  <plugin name="phonegap-plugin-push" spec="2.2.3"/>
   <plugin name="cordova-plugin-sqlite-2" spec="1.0.5"/>
   <plugin name="cordova-plugin-dialogs" spec="2.0.1"/>
   <platform name="android">
