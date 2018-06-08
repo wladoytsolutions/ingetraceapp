@@ -33,9 +33,9 @@
   <icon src="icon.png"/>
 	
   <!-- Other -->
-  <icon src="www/res/icon/webos/icon-64.png" gap:platform="webos"/>
-  <icon src="www/res/icon/windows-phone/icon-48.png" gap:platform="winphone"/>
-  <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
+  <icon src="res/icon/webos/icon-64.png" gap:platform="webos"/>
+  <icon src="res/icon/windows-phone/icon-48.png" gap:platform="winphone"/>
+  <icon src="res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <access origin="*"/>
   <!-- <plugin name="cordova-plugin-crosswalk-webview-pgb-adapt" source="npm" version="1.4.0-dev-11"/> -->
   <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
@@ -60,10 +60,10 @@
 	  <splash qualifier="land-mdpi" src="res/screen/android/splash-land-mdpi.png" />
 	  <splash qualifier="land-hdpi" src="res/screen/android/splash-land-hdpi.png" />
 	  <splash qualifier="land-xhdpi" src="res/screen/android/splash-land-xhdpi.png" />	  
-	  <icon src="www/res/icon/android/icon-36-ldpi.png" qualifier="ldpi"/>
-	  <icon src="www/res/icon/android/icon-48-mdpi.png" qualifier="mdpi"/>
-	  <icon src="www/res/icon/android/icon-72-hdpi.png" qualifier="hdpi"/>
-	  <icon src="www/res/icon/android/icon-96-xhdpi.png" qualifier="xhdpi"/>
+	  <icon src="res/icon/android/icon-36-ldpi.png" qualifier="ldpi"/>
+	  <icon src="res/icon/android/icon-48-mdpi.png" qualifier="mdpi"/>
+	  <icon src="res/icon/android/icon-72-hdpi.png" qualifier="hdpi"/>
+	  <icon src="res/icon/android/icon-96-xhdpi.png" qualifier="xhdpi"/>
     <allow-intent href="market:*"/>
   </platform>
   <platform name="ios">
