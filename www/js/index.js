@@ -47,7 +47,9 @@ var app = {
 				senderID: "570571190177",
 				sound: true,
                 forceShow: true,
-                vibrate: true
+                vibrate: true,
+				icon: 'icon-96-xhdpi.png',
+    			iconColor: 'blue'
 			},
 			ios: {
 				alert: true,
