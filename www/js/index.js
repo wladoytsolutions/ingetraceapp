@@ -44,12 +44,13 @@ var app = {
 
 		pushPlugin = PushNotification.init({
 			android: {
-				senderID: "570571190177",
-				sound: true,
-                forceShow: true,
-                vibrate: true,
-				icon: 'icon-96-xhdpi.png',
-    			iconColor: 'blue'
+				'senderID': "570571190177",
+				'sound': true,
+                'forceShow': true,
+                'vibrate': true,
+				'image': 'http://www.ingetrace.cl/icon-96-xhdpi.png',
+				'image-type': 'circle',
+    			'iconColor': 'blue'
 			},
 			ios: {
 				alert: true,
