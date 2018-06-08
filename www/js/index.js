@@ -47,10 +47,7 @@ var app = {
 				'senderID': "570571190177",
 				'sound': true,
                 'forceShow': true,
-                'vibrate': true,
-				'image': 'http://www.ingetrace.cl/icon-96-xhdpi.png',
-				'image-type': 'circle',
-    			'iconColor': 'blue'
+                'vibrate': true
 			},
 			ios: {
 				alert: true,
