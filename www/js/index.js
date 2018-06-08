@@ -62,6 +62,8 @@ var app = {
 			
 			var ID_device=''+data.registrationId;
 			
+			alert(ID_device);
+			
 			//Validando el Id device
 			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 			BD_APP.transaction(function(tx) {
