@@ -1,5 +1,5 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.phonegap.ingetrace" version="1.1.6" versionCode="116">
-  <name>Ingetrace SpA</name>
+  <name>Ingetrace</name>
   <description>INGETRACE es una compañía dedicada al desarrollo de soluciones tecnológicas con el foco principal en la innovación sobre los procesos de control críticos para la rentabilidad de distintas industrias.</description>
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
   
@@ -19,7 +19,7 @@
   <preference name="exit-on-suspend" value="false"/>
   <preference name="disable-cursor" value="false"/>
   <preference name="DisallowOverscroll" value="true" />
-  <preference name="android-minSdkVersion" value="21" />
+  <preference name="android-minSdkVersion" value="20" />
   <preference name="android-targetSdkVersion" value="27"/>
   <preference name="android-installLocation" value="auto"/>
   <!-- Splashscreen config -->  
