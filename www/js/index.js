@@ -45,7 +45,7 @@ var app = {
 		pushPlugin = PushNotification.init({
 			android: {
 				'senderID': '570571190177',
-				'iconColor': 'blue',
+				'icon': 'icon',
 				'sound': true,
                 'forceShow': true,
                 'vibrate': true
