@@ -47,8 +47,7 @@ var app = {
 				'senderID': '570571190177',
 				'sound': true,
                 'forceShow': true,
-                'vibrate': true,
-				'icon': 'icon'
+                'vibrate': true
 			},
 			ios: {
 				alert: true,
