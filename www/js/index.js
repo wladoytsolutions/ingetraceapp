@@ -1489,7 +1489,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
-				setIdDevice($("#H_TEXT_DEVICE").html());
+				//setIdDevice($("#H_TEXT_DEVICE").html());
 
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
