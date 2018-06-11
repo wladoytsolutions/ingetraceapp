@@ -48,7 +48,7 @@ var app = {
 				sound: true,
                 forceShow: true,
                 vibrate: true,
-				iconColor: '#ffffff'
+				iconColor: '#e8eef4'
 			},
 			ios: {
 				alert: true,
