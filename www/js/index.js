@@ -115,6 +115,8 @@ var app = {
 		});
 
 		pushPlugin.on('notification', function(data) {
+			
+			alert('ACA');
 			$('#H_DESDE_NOTIFICACION').val('1');
 
 			var ID_CLIENTE;
@@ -130,6 +132,8 @@ var app = {
 
 			TITULO_NOTIFICACION=''+data.title;
 			MENSAJE_NOTIFICACION=''+data.message;
+			
+			alert(TITULO_NOTIFICACION);
 
 			ID_CLIENTE=data.additionalData.info.id_cliente;
 			NOMBRE_CLIENTE=data.additionalData.info.nombre_cliente;
