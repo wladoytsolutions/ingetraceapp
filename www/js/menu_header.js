@@ -68,7 +68,6 @@ function Logout()
 			var StringQuery="UPDATE tbl_datos SET id_device='Nada'";
 			tx.executeSql(StringQuery);
 			
-			alert('Eliminando');
 			//Eliminando datos de device
 			$.post(RUTACONTROL,{
 					accion		: 'EliminarDevice',
