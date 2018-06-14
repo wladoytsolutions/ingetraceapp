@@ -57,7 +57,6 @@ function AceptarModalCambioSucursal(e)
 }
 function Logout()
 {
-	setIdDevice('Nada');
 	$('#ModalPage2').popup('open', {
 		transition: 'pop'
 	});
@@ -65,8 +64,10 @@ function Logout()
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 			var id_device=""+rs.rows.item(0).id_device;
+			var StringQuery="UPDATE tbl_datos SET id_device='Nada'";
+			tx.executeSql(StringQuery);
 			
-			alert(id_device);
+			alert('Eliminando');
 			//Eliminando datos de device
 			$.post(RUTACONTROL,{
 					accion		: 'EliminarDevice',
@@ -77,6 +78,7 @@ function Logout()
 				//alert(response);
 			}).done(function(response) {
 				setCK('');
+				//setIdDevice('Nada');
 				$('#ModalPage2').popup("close");
 				window.location.href = "index.html";
 			});
