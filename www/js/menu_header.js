@@ -75,7 +75,7 @@ function Logout()
 					Id_device	: id_device,
 					CK			: getCK()
 			},
-			function(response) {		
+			function(response) {
 				//alert(response);
 			}).done(function(response) {
 				setCK('');
