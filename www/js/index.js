@@ -103,7 +103,7 @@ var app = {
 					else
 					{
 						//Si es nada se registrara en BD local
-						if(id_device_bd!="Nada")
+						if(id_device_bd=="Nada")
 						{
 							setIdDevice(ID_device);
 						}
