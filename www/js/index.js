@@ -103,7 +103,11 @@ var app = {
 					else
 					{
 						//Si es nada se registrara en BD local
-						setIdDevice(ID_device);
+						if(id_device_bd=="Nada")
+						{
+							setIdDevice(ID_device);
+						}
+						
 						setTimeout(function () {
 							if($('#H_DESDE_NOTIFICACION').val()!='1')
 							{
