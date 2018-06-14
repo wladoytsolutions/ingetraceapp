@@ -64,7 +64,6 @@ function Logout()
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 			var id_device=""+rs.rows.item(0).id_device;
-			
 			var StringQuery="UPDATE tbl_datos SET id_device='Nada'";
 			tx.executeSql(StringQuery);
 			
@@ -74,7 +73,7 @@ function Logout()
 					Id_device	: id_device,
 					CK			: getCK()
 			},
-			function(response) {
+			function(response) {		
 				//alert(response);
 			}).done(function(response) {
 				setCK('');
