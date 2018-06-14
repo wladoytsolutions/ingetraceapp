@@ -147,6 +147,9 @@ var app = {
 			NOMBRE_EQUIPO=data.additionalData.info.nombre_equipo;
 			ID_SENSOR=data.additionalData.info.id_sensor;
 			TIPO_MODELO=data.additionalData.info.tipo_modelo;
+			
+			alert('Off');
+			pushPlugin.off();
 
 			pushPlugin.finish();
 			setTimeout(function () {
