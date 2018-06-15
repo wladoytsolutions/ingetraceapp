@@ -51,7 +51,7 @@ var app = {
     },
 	onResume: function() {
 		ConfigurarNotificaciones();
-		alert('Disparado');
+		//alert('Disparado');
 	}
 };
 function ConfigurarNotificaciones()
