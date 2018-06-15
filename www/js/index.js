@@ -42,21 +42,8 @@ var app = {
 		DEVICEPLATFORM = ""+device.platform;
 
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
-		
-		ConfigurarNotificaciones();
 
-    },
-    receivedEvent: function(id) {
-		
-    },
-	onResume: function() {
-		ConfigurarNotificaciones();
-		//alert('Disparado');
-	}
-};
-function ConfigurarNotificaciones()
-{
-	pushPlugin = PushNotification.init({
+		pushPlugin = PushNotification.init({
 			android: {
 				senderID: '570571190177',
 				sound: true,
@@ -192,7 +179,14 @@ function ConfigurarNotificaciones()
 			// e.message
 			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
 		});
-}
+    },
+    receivedEvent: function(id) {
+		
+    },
+	onResume: function() {
+		alert('Resume');
+	}
+};
 function MensajeAlerta(Titulo,Mensaje)
 {
 	navigator.notification.alert(
