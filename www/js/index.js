@@ -149,8 +149,9 @@ var app = {
 			TIPO_MODELO=data.additionalData.info.tipo_modelo;
 			
 			//pushPlugin.off();
-			alert('Des registrando');
-			push.unregister();
+			alert('Des unsubscribe');
+			//push.unregister();
+			push.unsubscribe();
 
 			pushPlugin.finish();
 			setTimeout(function () {
