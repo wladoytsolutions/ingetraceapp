@@ -38,7 +38,7 @@
   <icon src="www/res/icon/windows-phone/icon-62-tile.png" gap:platform="winphone"/>
   <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone" gap:role="background"/>
   <access origin="*"/>
-  <plugin name="cordova-plugin-crosswalk-webview" source="npm" version="2.4.0"/>
+  <plugin name="corber" source="npm" version="1.2.8"/>
   <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
   <plugin name="cordova-plugin-whitelist" spec="1.3.3"/>
   <plugin name="phonegap-plugin-push" spec="1.11.1">
