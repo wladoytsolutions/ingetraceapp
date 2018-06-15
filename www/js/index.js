@@ -20,15 +20,13 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+		document.addEventListener('resume', this.onResume, false);
     },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
-		
-		document.addEventListener('resume', this.onResume, false);
-		
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
@@ -182,7 +180,6 @@ var app = {
 			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
 		});
     },
-    // Update DOM on a Received Event
     receivedEvent: function(id) {
 		
     },
