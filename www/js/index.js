@@ -50,6 +50,7 @@ var app = {
 		
     },
 	onResume: function() {
+		CerrarSplash();
 		ConfigurarNotificaciones();
 		//alert('Disparado');
 	}
