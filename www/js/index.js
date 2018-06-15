@@ -50,7 +50,8 @@ var app = {
 		
     },
 	onResume: function() {
-		alert('Resume');
+		ConfigurarNotificaciones();
+		alert('Disparado');
 	}
 };
 function ConfigurarNotificaciones()
