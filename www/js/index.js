@@ -52,7 +52,7 @@ var app = {
 			},
 			ios: {
 				alert: true,
-				badge: true,
+				badge: false,
 				sound: true
 			},
 			windows: {}
@@ -149,9 +149,9 @@ var app = {
 			TIPO_MODELO=data.additionalData.info.tipo_modelo;
 			
 			//pushPlugin.off();
-			alert('Des unsubscribe');
+			//alert('Des unsubscribe');
 			//push.unregister();
-			push.unsubscribe();
+			//push.unsubscribe();
 
 			pushPlugin.finish();
 			setTimeout(function () {
