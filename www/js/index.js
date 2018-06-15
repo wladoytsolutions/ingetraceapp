@@ -110,6 +110,7 @@ function ConfigurarNotificaciones()
 								setTimeout(function () {
 									if($('#H_DESDE_NOTIFICACION').val()!='1')
 									{
+										alert('Buscando aca 01');
 										BuscarCookie();
 									}
 								}, 500);
@@ -126,6 +127,7 @@ function ConfigurarNotificaciones()
 						setTimeout(function () {
 							if($('#H_DESDE_NOTIFICACION').val()!='1')
 							{
+								alert('Buscando aca 02');
 								BuscarCookie();
 							}
 						}, 500);
@@ -179,6 +181,7 @@ function ConfigurarNotificaciones()
 					MOSTRAR_MENSAJE_NOTIFICACION=true;
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
+						alert('Buscando aca 03');
 						BuscarCookie();
 					}
 					else
