@@ -43,19 +43,18 @@ var app = {
 
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
-		ConfigurarNotificaciones();
+		ConfigurarNotificaciones(true);
 
     },
     receivedEvent: function(id) {
 		
     },
 	onResume: function() {
-		CerrarSplash();
-		ConfigurarNotificaciones();
+		ConfigurarNotificaciones(false);
 		//alert('Disparado');
 	}
 };
-function ConfigurarNotificaciones()
+function ConfigurarNotificaciones(Inicial)
 {
 	pushPlugin = PushNotification.init({
 			android: {
@@ -108,7 +107,7 @@ function ConfigurarNotificaciones()
 								}
 								
 								setTimeout(function () {
-									if($('#H_DESDE_NOTIFICACION').val()!='1')
+									if($('#H_DESDE_NOTIFICACION').val()!='1' && Inicial)
 									{
 										alert('Buscando aca 01');
 										BuscarCookie();
