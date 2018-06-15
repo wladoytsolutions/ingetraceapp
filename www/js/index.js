@@ -109,7 +109,7 @@ function ConfigurarNotificaciones(Inicial)
 								setTimeout(function () {
 									if($('#H_DESDE_NOTIFICACION').val()!='1' && Inicial)
 									{
-										alert('Buscando aca 01');
+										//alert('Buscando aca 01');
 										BuscarCookie();
 									}
 								}, 500);
@@ -126,7 +126,7 @@ function ConfigurarNotificaciones(Inicial)
 						setTimeout(function () {
 							if($('#H_DESDE_NOTIFICACION').val()!='1')
 							{
-								alert('Buscando aca 02');
+								//alert('Buscando aca 02');
 								BuscarCookie();
 							}
 						}, 500);
@@ -180,7 +180,7 @@ function ConfigurarNotificaciones(Inicial)
 					MOSTRAR_MENSAJE_NOTIFICACION=true;
 					if($('#H_SUCURSAL_CARGADA').val()!="1")
 					{
-						alert('Buscando aca 03');
+						//alert('Buscando aca 03');
 						BuscarCookie();
 					}
 					else
