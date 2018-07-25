@@ -70,7 +70,7 @@ function CargarDatosElectrico(Inicio,Termino)
 
 	var CuerpoDatos='';
 
-	alert('Enviada '+fecha_inicio);
+	//alert('Enviada '+fecha_inicio);
 
 	$.post(RUTACONTROL,{
 						accion 		 : 'DatosGraficoSensorElectrico',
