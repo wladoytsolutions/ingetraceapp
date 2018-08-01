@@ -193,7 +193,7 @@ function ConfigurarNotificaciones(Inicial)
 		});
 		pushPlugin.on('error', function(e) {
 			// e.message
-			alert("Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación");
+			MensajeAlerta('Error','Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación');
 		});
 }
 function MensajeAlerta(Titulo,Mensaje)

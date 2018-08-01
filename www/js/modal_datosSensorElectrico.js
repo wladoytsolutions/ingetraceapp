@@ -26,13 +26,13 @@ $(document).ready(function() {
 					{
 						$('#DivInicioOp').attr('class','form-group has-error');
 						$('#DivTerminoOp').attr('class','form-group has-error');
-						alert("La fecha de termino de operaciones("+$('#termino_filtroDatosSensorElectrico').val()+") es menor a la fecha de inicio de operaciones("+$('#inicio_filtroDatosSensorElectrico').val()+")");
+						MensajeAlerta('Error','La fecha de termino de operaciones('+$('#termino_filtroDatosSensorElectrico').val()+') es menor a la fecha de inicio de operaciones('+$('#inicio_filtroDatosSensorElectrico').val()+')');
 					}
 					if(ValOp=="exceso")
 					{
 						$('#DivInicioOp').attr('class','form-group has-error');
 						$('#DivTerminoOp').attr('class','form-group has-error');
-						alert("La diferencia de dias excede los 7 dias");
+						MensajeAlerta('Error','La diferencia de dias excede los 7 dias');
 					}
 				}
 			}
