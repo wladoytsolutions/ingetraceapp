@@ -624,7 +624,7 @@ function VerGraficoSensorTermico(HideSplash,IdCliente,NombreCliente,IdSucursal,N
 					$("#JSON_DATOS").html(response);
 					$("#TituloModalGrafico").html(NombreCliente+' - '+NombreSucursal+' - '+NombreEquipo+'('+IdSensor+')');
 
-					optionsLineal=GenerarGraficoSensor(json);
+					optionsLineal=GenerarGraficoSensor(json,false);
 
 					//Quitando footer de jquery para que se vea el footer original
 					$('#p3Body').find('.ui-footer').remove();
@@ -821,7 +821,7 @@ function VerSensorElectrico(HideSplash,IdSensor,NombreEquipo)
 		});
 	});
 }
-function GenerarGraficoSensor(json)
+function GenerarGraficoSensor(json,busqueda_manual)
 {
 	var optionsLineal;
 
@@ -846,15 +846,18 @@ function GenerarGraficoSensor(json)
 							//Fecha hoy
 							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
 							
-							$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-							var FecIni=e.FECHA_HOY;
-							var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
-							$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
-								
-							$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
-							var FecTerm=e.FECHA_HOY;
-							var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
-							$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
+							if(!busqueda_manual)
+							{
+								$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+								var FecIni=e.FECHA_HOY;
+								var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
+								$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+
+								$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+								var FecTerm=e.FECHA_HOY;
+								var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
+								$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
+							}
 
 							var Promedio=0;
 							var Limite=0;
