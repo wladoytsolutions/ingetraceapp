@@ -361,6 +361,7 @@ function CargarDatos(Inicio,Termino)
 			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
 			alert(fecha_inicio);
 			$('#inicio_filtroDatosSensor').datepicker('setDate', new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+			alert('seteado');
 
 			//Fecha termino
 			var FecTerm=Termino;
