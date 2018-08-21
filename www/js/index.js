@@ -50,12 +50,12 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			alert(token);
+			//alert(token);
 			ActualizarToken(token);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			alert(token);
+			//alert(token);
 			ActualizarToken(token);
 		});
 
@@ -151,6 +151,7 @@ function ActualizarToken(ID_device)
 				setIdDevice(ID_device);
 			}
 		}
+		CerrarSplash();
 	}, function(tx, error) {
 			
 	});
