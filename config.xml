@@ -27,9 +27,10 @@
   <preference name="SplashShowOnlyFirstTime" value="true"/>
   <preference name="ShowSplashScreenSpinner" value="false" />
   <!-- End of splashscreen config -->
+  <!--
   <platform name="android">
     <resource-file src="google-services.json" target="/google-services.json" />
-  </platform>
+  </platform>-->
   <plugin name="cordova-plugin-device" spec="2.0.2"/>
   <icon src="www/icon.png"/>
 	
