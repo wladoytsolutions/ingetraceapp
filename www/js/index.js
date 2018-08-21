@@ -30,9 +30,7 @@ var app = {
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
-			alert('Tabla creada');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
-				alert(res.rows.item(0).cnt);
 				if(res.rows.item(0).cnt=="0")
 			  	{
 					tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada');");
@@ -45,7 +43,8 @@ var app = {
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
 		app.pushNotification();
-
+		alert('Cerrando');
+		CerrarSplash();
     },
     receivedEvent: function(id) {
 		
