@@ -20,7 +20,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
-		document.addEventListener('resume', this.onResume, false);
+		//document.addEventListener('resume', this.onResume, false);
     },
     // deviceready Event Handler
     //
@@ -40,20 +40,64 @@ var app = {
 		app.receivedEvent('deviceready');
 
 		DEVICEPLATFORM = ""+device.platform;
-
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
 		ConfigurarNotificaciones(true);
+		app.pushNotification();
 
     },
     receivedEvent: function(id) {
 		
     },
 	onResume: function() {
-		ConfigurarNotificaciones(false);
 		//alert('Disparado');
 	}
 };
+
+app.initialize();
+
+function ActualizarToken(ID_device)
+{
+	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
+	BD_APP.transaction(function(tx) {
+		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+		var id_device_bd=""+rs.rows.item(0).id_device;
+		
+		if(id_device_bd!="Nada")
+		{
+			//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
+			//Si el id device cambio, se debe notificar el cambio al servidor
+			$.ajax({
+					url	: RUTACONTROL,
+					type: 'POST',
+					data: 
+					{
+						accion		: 'UpdateIdDevice',
+						NewId_device: ID_device,
+						OldId_device: id_device_bd,
+						CK			: getCK()
+					},
+					async: false
+			}). done(function(response) {
+				if(id_device_bd!=ID_device)
+				{
+					setIdDevice(ID_device);
+				}
+			});
+		}
+		else
+		{
+			//Si es nada se registrara en BD local
+			if(id_device_bd=="Nada")
+			{
+				setIdDevice(ID_device);
+			}
+		}
+	}, function(tx, error) {
+			
+	});
+	});
+}
 function ConfigurarNotificaciones(Inicial)
 {
 	pushPlugin = PushNotification.init({
@@ -72,129 +116,80 @@ function ConfigurarNotificaciones(Inicial)
 			windows: {}
 		});
 
-		pushPlugin.on('registration', function(data) {
-			$("#H_TEXT_DEVICE").html(data.registrationId);
+	FCMPlugin.getToken(function(token){
+		//alert(token);
+		ActualizarToken(token);
+	});
+	
+	FCMPlugin.onTokenRefresh(function(token){
+		//alert(token);
+		ActualizarToken(token);
+	});
+	
+	FCMPlugin.onNotification(function(data){
+		if(data.wasTapped)
+		{
+			// La notificación se recibió en la bandeja del dispositivo y el usuario la tocó.
+			alert('Tocada')
+			alert(JSON.stringify(data));
+			alert(data.param1);
+		}
+		else
+		{
+			// La notificación se recibió en primer plano.  Tal vez el usuario necesita ser notificado.
+			alert('Primerplano')
+			alert(JSON.stringify(data));
+			alert(data.param1);
+		}
+	});
+
+	FCMPlugin.onNotification(function(data){
+		var ID_CLIENTE;
+		var NOMBRE_CLIENTE;
+		var ID_SUCURSAL;
+		var NOMBRE_SUCURSAL;
+		var ID_SECCION;
+		var NOMBRE_SECCION;
+		var ID_EQUIPO;
+		var NOMBRE_EQUIPO;
+		var ID_SENSOR;
+		var TIPO_MODELO;
+
+		TITULO_NOTIFICACION=data.title;
+		MENSAJE_NOTIFICACION=data.message;
+
+		ID_CLIENTE=data.id_cliente;
+		NOMBRE_CLIENTE=data.nombre_cliente;
+		ID_SUCURSAL=data.id_sucursal;
+		NOMBRE_SUCURSAL=data.nombre_sucursal;
+		ID_SECCION=data.id_seccion;
+		NOMBRE_SECCION=data.nombre_seccion;
+		ID_EQUIPO=data.id_equipo;
+		NOMBRE_EQUIPO=data.nombre_equipo;
+		ID_SENSOR=data.id_sensor;
+		TIPO_MODELO=data.tipo_modelo;
 			
-			var ID_device=''+data.registrationId;
-			
-			//alert(ID_device);
-			
-			//Validando el Id device
-			BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
-			BD_APP.transaction(function(tx) {
-				tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
-					var id_device_bd=""+rs.rows.item(0).id_device;
-					
-					if(id_device_bd!="Nada")
-					{
-						//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
-						//Si el id device cambio, se debe notificar el cambio al servidor
-						$.ajax({
-								url	: RUTACONTROL,
-								type: 'POST',
-								data: 
-								{
-									accion		: 'UpdateIdDevice',
-									NewId_device: ID_device,
-									OldId_device: id_device_bd,
-									CK			: getCK()
-								},
-							  	async: false
-							}). done(function(response) {
-								if(id_device_bd!=ID_device)
-								{
-									setIdDevice(ID_device);
-								}
-								
-								setTimeout(function () {
-									if($('#H_DESDE_NOTIFICACION').val()!='1' && Inicial)
-									{
-										//alert('Buscando aca 01');
-										BuscarCookie();
-									}
-								}, 500);
-							});
-					}
-					else
-					{
-						//Si es nada se registrara en BD local
-						if(id_device_bd=="Nada")
-						{
-							setIdDevice(ID_device);
-						}
-						
-						setTimeout(function () {
-							if($('#H_DESDE_NOTIFICACION').val()!='1')
-							{
-								//alert('Buscando aca 02');
-								BuscarCookie();
-							}
-						}, 500);
-					}
-				}, function(tx, error) {
-				});
-			});
-		});
-
-		pushPlugin.on('notification', function(data) {
-			$('#H_DESDE_NOTIFICACION').val('1');
-
-			var ID_CLIENTE;
-			var NOMBRE_CLIENTE;
-			var ID_SUCURSAL;
-			var NOMBRE_SUCURSAL;
-			var ID_SECCION;
-			var NOMBRE_SECCION;
-			var ID_EQUIPO;
-			var NOMBRE_EQUIPO;
-			var ID_SENSOR;
-			var TIPO_MODELO;
-
-			TITULO_NOTIFICACION=''+data.title;
-			MENSAJE_NOTIFICACION=''+data.message;
-
-			ID_CLIENTE=data.additionalData.info.id_cliente;
-			NOMBRE_CLIENTE=data.additionalData.info.nombre_cliente;
-			ID_SUCURSAL=data.additionalData.info.id_sucursal;
-			NOMBRE_SUCURSAL=data.additionalData.info.nombre_sucursal;
-			ID_SECCION=data.additionalData.info.id_seccion;
-			NOMBRE_SECCION=data.additionalData.info.nombre_seccion;
-			ID_EQUIPO=data.additionalData.info.id_equipo;
-			NOMBRE_EQUIPO=data.additionalData.info.nombre_equipo;
-			ID_SENSOR=data.additionalData.info.id_sensor;
-			TIPO_MODELO=data.additionalData.info.tipo_modelo;
-			
-			//pushPlugin.off();
-			//alert('Des unsubscribe');
-			//push.unregister();
-			//push.unsubscribe();
-
-			pushPlugin.finish();
-			setTimeout(function () {
-				if(TIPO_MODELO!='M')
+		setTimeout(function () {
+			if(TIPO_MODELO!='M')
+			{
+				CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
+			}
+			else
+			{
+				MOSTRAR_MENSAJE_NOTIFICACION=true;
+				if($('#H_SUCURSAL_CARGADA').val()!="1")
 				{
-					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
+					//alert('Buscando aca 03');
+					BuscarCookie();
 				}
 				else
 				{
-					MOSTRAR_MENSAJE_NOTIFICACION=true;
-					if($('#H_SUCURSAL_CARGADA').val()!="1")
-					{
-						//alert('Buscando aca 03');
-						BuscarCookie();
-					}
-					else
-					{
-						MOSTRAR_MENSAJE_NOTIFICACION=false;
-						MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
-					}
+					MOSTRAR_MENSAJE_NOTIFICACION=false;
+					MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
 				}
-			}, 250);
-		});
-		pushPlugin.on('error', function(e) {
-			// e.message
-			MensajeAlerta('Error','Verifique el estado de la red para poder recibir notificaciones, luego reinicie la aplicación');
-		});
+			}
+		}, 250);
+	});
 }
 function MensajeAlerta(Titulo,Mensaje)
 {
@@ -825,435 +820,440 @@ function GenerarGraficoSensor(json,busqueda_manual)
 {
 	var optionsLineal;
 
-					//TENDENCIA
-					var CuerpoDatos='';
-					var CuerpoAlarmas='';
-					var IconoTendencia='';
-					var DataSensor = new Array();
-					var DataSensorHumedad = new Array();
-					var LimitesPuerta = new Array();
-					var LimiteSensor = new Array();
-					var PromedioSensor = new Array();
-					var Promedio=0;
-					var Limite=0;
-					var Promedio_Humedad=0;
-					var Limite_Humedad=0;
-					var Minimo=0;
+	//TENDENCIA
+	var CuerpoDatos='';
+	var CuerpoAlarmas='';
+	var IconoTendencia='';
+	var DataSensor = new Array();
+	var DataSensorHumedad = new Array();
+	var LimitesPuerta = new Array();
+	var LimiteSensor = new Array();
+	var PromedioSensor = new Array();
+	var Promedio=0;
+	var Limite=0;
+	var Promedio_Humedad=0;
+	var Limite_Humedad=0;
+	var Minimo=0;
 
-					if($("#H_TIPO_MODELO").val()=="1")
-					{
-						$.each(json, function(j, e) {
-							//Fecha hoy
-							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+	if($("#H_TIPO_MODELO").val()=="1")
+	{
+		$.each(json, function(j, e) {
+			//Fecha hoy
+			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
 							
-							if(!busqueda_manual)
-							{
-								$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-								var FecIni=e.FECHA_HOY;
-								var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
-								$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+			if(!busqueda_manual)
+			{
+				$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+				var FecIni=e.FECHA_HOY;
+				var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
+				$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
 
-								$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
-								var FecTerm=e.FECHA_HOY;
-								var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
-								$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
+				$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+				var FecTerm=e.FECHA_HOY;
+				var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
+				$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
+			}
+
+			var Promedio=0;
+			var Limite=0;
+			var BanderaGrafico=false;
+
+			//Tabla tendencia
+			$.each(e.JSON_DATOS, function(i, d) {
+				//Validando TENDENCIA en Iconos
+				if(!BanderaGrafico)
+				{
+					BanderaGrafico=true;
+					Promedio=parseFloat(d.VAR_PROMEDIO);
+					Limite=parseFloat(d.LIMSUPC);
+				}
+
+				var ValorSensor=parseFloat(d.TEMPERATURA);
+				var FECHAHORA=''+d.FECHA_HORA;
+
+				var anio=FECHAHORA.substring(0, 4);
+				var mes =FECHAHORA.substring(5, 7);
+				var dia =FECHAHORA.substring(8, 10);
+
+				var hora =FECHAHORA.substring(11, 13);
+				var min  =FECHAHORA.substring(14, 16);
+				var seg  =FECHAHORA.substring(17, 19);
+
+				if(ValorSensor == -1)
+				{
+					ValorSensor=0;
+				}
+
+				var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
+								DataSensor.push(item);
+			});
+
+			LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);
+
+			optionsLineal={
+				chart: {
+						zoomType: 'x',
+						renderTo: 'DivGraficoLineal',
+						events: {
+							load: function(){
+								this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);
 							}
-
-							var Promedio=0;
-							var Limite=0;
-							var BanderaGrafico=false;
-
-							//Tabla tendencia
-							$.each(e.JSON_DATOS, function(i, d) {
-								//Validando TENDENCIA en Iconos
-								if(!BanderaGrafico)
-								{
-									BanderaGrafico=true;
-									Promedio=parseFloat(d.VAR_PROMEDIO);
-									Limite=parseFloat(d.LIMSUPC);
-								}
-
-								var ValorSensor=parseFloat(d.TEMPERATURA);
-
-								var FECHAHORA=''+d.FECHA_HORA;
-
-								var anio=FECHAHORA.substring(0, 4);
-								var mes =FECHAHORA.substring(5, 7);
-								var dia =FECHAHORA.substring(8, 10);
-
-								var hora =FECHAHORA.substring(11, 13);
-								var min  =FECHAHORA.substring(14, 16);
-								var seg  =FECHAHORA.substring(17, 19);
-
-								if(ValorSensor == -1)
-								{
-									ValorSensor=0;
-								}
-
-								var item = [Date.UTC(parseInt(anio),parseInt(mes-1),parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), parseFloat(ValorSensor)];
-								DataSensor.push(item);
-							});
-
-							LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);
-
-							optionsLineal={
-								chart: {
-									zoomType: 'x',
-									renderTo: 'DivGraficoLineal',
-									events: {
-										load: function(){
-											this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);
-										}
-									}
-								},
-								title: {
-									text: [],
-									style: {
-										fontSize: '15px'
+						}
+						},
+						title: {
+							text: [],
+							style: {
+								fontSize: '15px'
+							},
+							align:'left',
+						},
+						subtitle: {
+							text:[],
+							useHTML: true,
+						},
+						xAxis: [],
+						yAxis: [],
+						legend: {
+							enabled: false
+						},
+						tooltip: {
+							headerFormat: '<b>{series.name}</b><br>',
+							pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
+							enabled: false
+						},
+						credits: {
+							enabled: false,
+						},
+						plotOptions: {
+							series: {
+								stickyTracking: false,
+								events: {
+									click: function(evt) {
+										this.chart.myTooltip.refresh(evt.point, evt);
 									},
-									align:'left',
-								},
-								subtitle: {
-									text:[],
-									useHTML: true,
-
-								},
-								xAxis: [],
-								yAxis: [],
-								legend: {
-										enabled: false
-									},
-								tooltip: {
-									headerFormat: '<b>{series.name}</b><br>',
-									pointFormat: '{point.x:%H:%M:%S} -> {point.y:.2f} °C',
-									enabled: false
-								},
-								credits: {
-									enabled: false,
-								},
-								plotOptions: {
-									series: {
-										stickyTracking: false,
-										events: {
-											click: function(evt) {
-												this.chart.myTooltip.refresh(evt.point, evt);
-											},
-											mouseOut: function() {
-												this.chart.myTooltip.hide();
-											}
-										}
-
+									mouseOut: function() {
+										this.chart.myTooltip.hide();
 									}
-								},
-								series: []
-							};
-
-							//Linea Eje X
-							var LineasX	= {
-								plotBands: LimitesPuerta,
-								type: 'datetime',
-								labels: {
-									overflow: 'justify'
-								},
-								dateTimeLabelFormats: { // don't display the dummy year
-									second: '%H:%M:%S'
 								}
-							};
+							}
+						},
+						series: []
+			};
 
-							var LineasY = {
-										title: {
-											text: 'T °'
-										},
-										plotLines: [{
-											value: Promedio,
-											color: 'green',
-											dashStyle: 'shortdash',
-											width: 2,
-											label: {
-												text: 'Prom.'
-											}
-										}, {
-											value: Limite,
-											color: 'red',
-											dashStyle: 'Solid',
-											width: 2,
-											label: {
-												text: 'Max.'
-											}
-											}]
-							};
+			//Linea Eje X
+			var LineasX	= {
+				plotBands: LimitesPuerta,
+				type: 'datetime',
+				labels: {
+					overflow: 'justify'
+				},
+				dateTimeLabelFormats: { 
+					// don't display the dummy year
+					second: '%H:%M:%S'
+				}
+			};
 
-							optionsLineal.yAxis.push(LineasY);
-							optionsLineal.xAxis.push(LineasX);
+			var LineasY = {
+				title: {
+					text: 'T °'
+				},
+				plotLines: [
+				{
+					value: Promedio,
+					color: 'green',
+					dashStyle: 'shortdash',
+					width: 2,
+					label: {
+						text: 'Prom.'
+					}
+				},
+				{
+					value: Limite,
+					color: 'red',
+					dashStyle: 'Solid',
+					width: 2,
+					label: {
+						text: 'Max.'
+					}
+				}]
+			};
 
-							//Datos
-							var cloneToolTip = null;
+			optionsLineal.yAxis.push(LineasY);
+			optionsLineal.xAxis.push(LineasX);
 
-							var newSeriesData = {
-								type: 'spline',
-								name: 'Sensor',
-								marker : {
-									enabled : true,
-									radius : 1
-								},
-								data: DataSensor
-							};
-							optionsLineal.series.push(newSeriesData);
+			//Datos
+			var cloneToolTip = null;
 
+			var newSeriesData = {
+				type: 'spline',
+				name: 'Sensor',
+				marker : {
+					enabled : true,
+					radius : 1
+				},
+				data: DataSensor
+			};
+			
+			optionsLineal.series.push(newSeriesData);
 
-							// Render the chart
-							optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
-						});
-					}//Fin $("#H_TIPO_MODELO").val()!="5"
+			// Render the chart
+			optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
+		});
+	}//Fin $("#H_TIPO_MODELO").val()!="5"
 
-					//Si es de humedad
-					if($("#H_TIPO_MODELO").val()=="5")
-					{
-						$.each(json, function(j, e) {
-							//Fecha hoy
-							$("#FechaBitacoraHoy").html(e.FECHA_HOY);
-							
-							$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
-							var FecIni=e.FECHA_HOY;
-							var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
-							$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
+	//Si es de humedad
+	if($("#H_TIPO_MODELO").val()=="5")
+	{
+		$.each(json, function(j, e) {
+			//Fecha hoy
+			$("#FechaBitacoraHoy").html(e.FECHA_HOY);
+			$("#inicio_filtroDatosSensor").val(e.FECHA_HOY);
+			var FecIni=e.FECHA_HOY;
+			var fecha_inicio=FecIni.substring(6, 10)+'-'+FecIni.substring(3, 5)+'-'+FecIni.substring(0, 2);
+			$('#inicio_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecIni.substring(6, 10)),parseInt(FecIni.substring(3, 5))-1,parseInt(FecIni.substring(0, 2))));
 								
-							$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
-							var FecTerm=e.FECHA_HOY;
-							var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
-							$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
+			$("#termino_filtroDatosSensor").val(e.FECHA_HOY);
+			var FecTerm=e.FECHA_HOY;
+			var fecha_termino=FecTerm.substring(6, 10)+'-'+FecTerm.substring(3, 5)+'-'+FecTerm.substring(0, 2);
+			$('#termino_filtroDatosSensor').datepicker("setDate", new Date(parseInt(FecTerm.substring(6, 10)),parseInt(FecTerm.substring(3, 5))-1,parseInt(FecTerm.substring(0, 2))));
 
-							var Promedio=0;
-							var Limite=0;
-							var BanderaGrafico=false;
+			var Promedio=0;
+			var Limite=0;
+			var BanderaGrafico=false;
 
-							//Tabla tendencia
-							$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
-								//Validando TENDENCIA en Iconos
-								if(!BanderaGrafico)
-								{
-									BanderaGrafico=true;
-									Promedio=parseFloat(d.VAR_PROMEDIO);
-									Limite=parseFloat(d.LIMSUPC);
-									Promedio_Humedad=parseFloat(d.VAR_HMD_PROMEDIO);
-									Limite_Humedad=parseFloat(d.VAR_HMD_LIMSUPC);
-								}
+			//Tabla tendencia
+			$.each(e.JSON_DATOS_TEMPERATURA_HUMEDAD, function(i, d) {
+				//Validando TENDENCIA en Iconos
+				if(!BanderaGrafico)
+				{
+					BanderaGrafico=true;
+					Promedio=parseFloat(d.VAR_PROMEDIO);
+					Limite=parseFloat(d.LIMSUPC);
+					Promedio_Humedad=parseFloat(d.VAR_HMD_PROMEDIO);
+					Limite_Humedad=parseFloat(d.VAR_HMD_LIMSUPC);
+				}
 
-								var ValorSensor=parseFloat(d.temperatura);
-								var ValorHumedad=parseFloat(d.humedad);
+				var ValorSensor=parseFloat(d.temperatura);
+				var ValorHumedad=parseFloat(d.humedad);
 
-								var FECHAHORA=''+d.fechaHora;
+				var FECHAHORA=''+d.fechaHora;
+				var anio=FECHAHORA.substring(0, 4);
+				var mes =FECHAHORA.substring(5, 7);
+				var dia =FECHAHORA.substring(8, 10);
 
-								var anio=FECHAHORA.substring(0, 4);
-								var mes =FECHAHORA.substring(5, 7);
-								var dia =FECHAHORA.substring(8, 10);
+				var hora =FECHAHORA.substring(11, 13);
+				var min  =FECHAHORA.substring(14, 16);
+				var seg  =FECHAHORA.substring(17, 19);
 
-								var hora =FECHAHORA.substring(11, 13);
-								var min  =FECHAHORA.substring(14, 16);
-								var seg  =FECHAHORA.substring(17, 19);
+				if(ValorSensor == -1)
+				{
+					ValorSensor=0;
+				}
+				if(ValorHumedad == -1)
+				{
+					ValorHumedad=0;
+				}
 
-								if(ValorSensor == -1)
-								{
-									ValorSensor=0;
-								}
-								if(ValorHumedad == -1)
-								{
-									ValorHumedad=0;
-								}
+				var mesmenos1=parseInt(mes-1);
 
-								var mesmenos1=parseInt(mes-1);
+				var item = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorSensor];
+				DataSensor.push(item);
 
-								var item = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorSensor];
-								DataSensor.push(item);
+				var item2 = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorHumedad];
+				DataSensorHumedad.push(item2);
 
-								var item2 = [Date.UTC(parseInt(anio),mesmenos1,parseInt(dia),parseInt(hora),parseInt(min),parseInt(seg)), ValorHumedad];
-								DataSensorHumedad.push(item2);
+			});
 
-							});
+			LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);
 
-							LimitesPuerta=GetLimitesPuerta(e.JSON_DATOS_PUERTA);
+			optionsLineal={
+				chart: {
+					zoomType: 'x',
+					renderTo: 'DivGraficoLineal',
+					events: {
+						load: function(){
+							this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);
+						}
+					}
+				},
+				title: {
+					text: [],
+					style: {
+						fontSize: '15px'
+					},
+					align:'left',
+				},
+				subtitle: {
+					text:[],
+					useHTML: true
+				},
+				xAxis: [],
+				yAxis: [],
+				tooltip: {
+					formatter:function(){
+						
+						var NombreSerie=''+this.series.name;
+						var Medida='';
+						var HtmlMensaje= '<label style="color:'+this.series.color+'; font-weight: bold;">'+NombreSerie+'</label><br>'+Highcharts.dateFormat('%H:%M:%S',this.x)+' -> '+Highcharts.numberFormat(this.y,2);
+						
+						if(NombreSerie.toUpperCase() =='HUMEDAD')
+						{
+							Medida='%';
+						}
+						else
+						{
+							Medida='°C';
+						}
+						
+						return HtmlMensaje+=' '+Medida;
+					},
+					enabled: false
+				},
+				credits: {
+					enabled: false,
+				},
+				plotOptions: {
+					series: {
+						stickyTracking: false,
+						events: {
+							click: function(evt) {
+								this.chart.myTooltip.refresh(evt.point, evt);
+							},
+							mouseOut: function() {
+								this.chart.myTooltip.hide();
+							}
+						}
 
-							optionsLineal={
-								chart: {
-									zoomType: 'x',
-									renderTo: 'DivGraficoLineal',
-									events: {
-										load: function(){
-											this.myTooltip = new Highcharts.Tooltip(this, this.options.tooltip);
-										}
-									}
-								},
-								title: {
-									text: [],
-									style: {
-										fontSize: '15px'
-									},
-									align:'left',
-								},
-								subtitle: {
-									text:[],
-									useHTML: true,
+					}
+				},
+				series: []
+			};
 
-								},
-								xAxis: [],
-								yAxis: [],
-								tooltip: {
-									formatter:function(){
-										var NombreSerie=''+this.series.name;
-										var Medida='';
-										var HtmlMensaje= '<label style="color:'+this.series.color+'; font-weight: bold;">'+NombreSerie+'</label><br>'+Highcharts.dateFormat('%H:%M:%S',this.x)+' -> '+Highcharts.numberFormat(this.y,2);
-										if(NombreSerie.toUpperCase() =='HUMEDAD')
-										{
-											Medida='%';
-										}
-										else
-										{
-											Medida='°C';
-										}
-										return HtmlMensaje+=' '+Medida;
-									},
-									enabled: false
-								},
-								credits: {
-									enabled: false,
-								},
-								plotOptions: {
-									series: {
-										stickyTracking: false,
-										events: {
-											click: function(evt) {
-												this.chart.myTooltip.refresh(evt.point, evt);
-											},
-											mouseOut: function() {
-												this.chart.myTooltip.hide();
-											}
-										}
+			//Datos temperatura
+			var SerieTemperatura = {
+				name: 'Temperatura',
+				type: 'spline',
+				color: Highcharts.getOptions().colors[1],
+				marker : {
+					enabled : false,
+				},
+				tooltip: {
+					valueSuffix: ' °C'
+				},
+				data: DataSensor
+			};
+			
+			optionsLineal.series.push(SerieTemperatura);
 
-									}
-								},
-								series: []
-							};
+			//Datos Humedad
+			var SerieHumedad = {
+				name: 'Humedad',
+				type: 'spline',
+				color: Highcharts.getOptions().colors[0],
+				yAxis: 1,
+				marker : {
+					enabled : false,
+				},
+				tooltip: {
+					valueSuffix: ' %'
+				},
+				data: DataSensorHumedad
+			};
+			
+			optionsLineal.series.push(SerieHumedad);
 
-							//Datos temperatura
-							var SerieTemperatura = {
-								name: 'Temperatura',
-								type: 'spline',
-								color: Highcharts.getOptions().colors[1],
-								marker : {
-									enabled : false,
-								},
-								tooltip: {
-									valueSuffix: ' °C'
-								},
-								data: DataSensor
-							};
-							optionsLineal.series.push(SerieTemperatura);
+			//Linea Eje X
+			var LineasX	= {
+				plotBands: LimitesPuerta,
+				type: 'datetime',
+				labels: {
+					overflow: 'justify'
+				},
+				dateTimeLabelFormats: { // don't display the dummy year
+					second: '%H:%M:%S'
+				}
+			};
 
-							//Datos Humedad
-							var SerieHumedad = {
-								name: 'Humedad',
-								type: 'spline',
-								color: Highcharts.getOptions().colors[0],
-								yAxis: 1,
-								marker : {
-									enabled : false,
-								},
-								tooltip: {
-									valueSuffix: ' %'
-								},
-								data: DataSensorHumedad
-							};
-							optionsLineal.series.push(SerieHumedad);
+			var LineasY = {
+				title: {
+					text: 'Temperatura',
+					style: {
+						color: Highcharts.getOptions().colors[1]
+					}
+				},
+				labels: {
+					format: '{value} °C',
+					style: {
+						color: Highcharts.getOptions().colors[1]
+					}
+				},
+				plotLines: [
+				{
+					//Promedio Temperatura
+					value: Promedio,
+					color: 'green',
+					dashStyle: 'shortdash',
+					width: 2,
+					label: {
+						text: 'Prom. Temp.'
+					}
+				},
+				{
+					//Limite Temperatura
+					value: Limite,
+					color: 'red',
+					dashStyle: 'Solid',
+					width: 2,
+					label: {
+						text: 'Max. Temp'
+					}
+				}]
+			};
 
-							//Linea Eje X
-							var LineasX	= {
-								plotBands: LimitesPuerta,
-								type: 'datetime',
-								labels: {
-									overflow: 'justify'
-								},
-								dateTimeLabelFormats: { // don't display the dummy year
-									second: '%H:%M:%S'
-								}
-							};
+			var LineasYDerecha = { // Secondary yAxis
+				title: {
+					text: 'Humedad',
+						style: {
+							color: Highcharts.getOptions().colors[0]
+						}
+				},
+				labels: {
+					format: '{value} %',
+					style: {
+							color: Highcharts.getOptions().colors[0]
+					}
+				},
+				opposite: true,
+				plotLines: [
+				{
+					//Promedio Humedad
+					value: Promedio_Humedad,
+					color: 'green',
+					dashStyle: 'ShortDot',
+					width: 2,
+					label: {
+						text: 'Prom. Hum.'
+					}
+				},
+				{
+					//Limite Humedad
+					value: Limite_Humedad,
+					color: 'red',
+					dashStyle: 'ShortDot',
+					width: 2,
+					label: {
+						text: 'Max. Hum'
+					}
+				}
+				]
+			};
 
-							var LineasY = {
-								title: {
-									text: 'Temperatura',
-									style: {
-										color: Highcharts.getOptions().colors[1]
-									}
-								},
-								labels: {
-									format: '{value} °C',
-									style: {
-										color: Highcharts.getOptions().colors[1]
-									}
-								},
-								plotLines: [{
-									//Promedio Temperatura
-									value: Promedio,
-									color: 'green',
-									dashStyle: 'shortdash',
-									width: 2,
-									label: {
-										text: 'Prom. Temp.'
-									}
-								},{
-									//Limite Temperatura
-									value: Limite,
-									color: 'red',
-									dashStyle: 'Solid',
-									width: 2,
-									label: {
-										text: 'Max. Temp'
-									}
-								}]
-							};
-
-							var LineasYDerecha = { // Secondary yAxis
-								title: {
-									text: 'Humedad',
-									style: {
-										color: Highcharts.getOptions().colors[0]
-									}
-								},
-								labels: {
-									format: '{value} %',
-									style: {
-										color: Highcharts.getOptions().colors[0]
-									}
-								},
-								opposite: true,
-								plotLines: [
-								{
-									//Promedio Humedad
-									value: Promedio_Humedad,
-									color: 'green',
-									dashStyle: 'ShortDot',
-									width: 2,
-									label: {
-										text: 'Prom. Hum.'
-									}
-								},{
-									//Limite Humedad
-									value: Limite_Humedad,
-									color: 'red',
-									dashStyle: 'ShortDot',
-									width: 2,
-									label: {
-										text: 'Max. Hum'
-									}
-								}
-								]
-							};
-
-							optionsLineal.yAxis.push(LineasY);
-							optionsLineal.yAxis.push(LineasYDerecha);
-							optionsLineal.xAxis.push(LineasX);
-							// Render the chart
-							optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
-						});
+			optionsLineal.yAxis.push(LineasY);
+			optionsLineal.yAxis.push(LineasYDerecha);
+			optionsLineal.xAxis.push(LineasX);
+			// Render the chart
+			optionsLineal.title.text.push($('#H_NOMBRE_EQUIPO').val());
+		});
 					}//Fin si es tipo 5
 	return optionsLineal;
 }
