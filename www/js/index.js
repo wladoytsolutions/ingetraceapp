@@ -38,11 +38,11 @@ var app = {
 			});
 		});
 		app.receivedEvent('deviceready');
-
-		DEVICEPLATFORM = ""+device.platform;
+		
+		DEVICEPLATFORM = device.platform;
+		alert(DEVICEPLATFORM);
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
-		ConfigurarNotificaciones(true);
 		app.pushNotification();
 
     },
@@ -154,10 +154,6 @@ function ActualizarToken(ID_device)
 			
 		});
 	});
-}
-function ConfigurarNotificaciones(Inicial)
-{
-
 }
 function MensajeAlerta(Titulo,Mensaje)
 {
