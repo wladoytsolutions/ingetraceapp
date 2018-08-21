@@ -233,7 +233,8 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 }
 function setIdDevice(IdDevice)
 {
-	alert('setIdDevice');
+	alert('setIdDevice->'+IdDevice);
+	$("#H_TEXT_DEVICE").html(IdDevice);
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";
