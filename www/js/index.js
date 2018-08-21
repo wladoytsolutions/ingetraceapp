@@ -49,13 +49,8 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			alert(token);
+			//alert(token);
 			ActualizarToken(token);
-			$("#H_TEXT_DEVICE").html(token);
-			setTimeout(function () {
-				alert('BuscarCookie');
-				BuscarCookie();
-			}, 500);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
@@ -64,6 +59,8 @@ var app = {
 		});
 
 		FCMPlugin.onNotification(function(data){
+			$('#H_DESDE_NOTIFICACION').val('1');
+			
 			var ID_CLIENTE;
 			var NOMBRE_CLIENTE;
 			var ID_SUCURSAL;
@@ -142,8 +139,29 @@ function ActualizarToken(ID_device)
 				{
 					setIdDevice(ID_device);
 				}
+				setTimeout(function () {
+					if($('#H_DESDE_NOTIFICACION').val()!='1')
+					{
+						BuscarCookie();
+					}
+				}, 500);
 			});
 		}
+		else
+		{
+			//Si es nada se registrara en BD local
+			if(id_device_bd=="Nada")
+			{
+				setIdDevice(ID_device);
+				setTimeout(function () {
+					if($('#H_DESDE_NOTIFICACION').val()!='1')
+					{
+						BuscarCookie();
+					}
+				}, 500);
+			}
+		}
+			
 		}, function(tx, error) {
 			
 		});
@@ -1460,13 +1478,12 @@ function login()
 	$(window).disablescroll();
 
 	$.post(RUTACONTROL,{
-								accion: "login",
-								Uss: $("#txtUsuario").val(),
-								Pass: $("#txtContrasena").val(),
-								Id_device: $("#H_TEXT_DEVICE").html(),
-								Plataforma: DEVICEPLATFORM
-								},
-	function(response) {
+		accion: "login",
+		Uss: $("#txtUsuario").val(),
+		Pass: $("#txtContrasena").val(),
+		Id_device: $("#H_TEXT_DEVICE").html(),
+		Plataforma: DEVICEPLATFORM
+	},function(response) {
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=="S")
@@ -1474,7 +1491,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
-				setIdDevice($("#H_TEXT_DEVICE").html());
+				//setIdDevice($("#H_TEXT_DEVICE").html());
 
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
