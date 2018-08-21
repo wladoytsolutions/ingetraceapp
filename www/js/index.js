@@ -35,14 +35,15 @@ var app = {
 			  	{
 					tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada');");
 			  	}
+				
+				app.receivedEvent('deviceready');
+				DEVICEPLATFORM = device.platform;
+				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
+				alert(DEVICEPLATFORM);
+				
+				app.pushNotification();
 			});
 		});
-		app.receivedEvent('deviceready');
-		
-		DEVICEPLATFORM = device.platform;
-		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
-		
-		app.pushNotification();
     },
     receivedEvent: function(id) {
 		
@@ -52,7 +53,7 @@ var app = {
 			//alert(token);
 			$("#H_TEXT_DEVICE").html(token);
 			setTimeout(function () {
-				alert('Buscando');
+				alert('BuscarCookie');
 				BuscarCookie();
 			}, 500);
 		});
