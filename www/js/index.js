@@ -39,7 +39,6 @@ var app = {
 				app.receivedEvent('deviceready');
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
-				alert(DEVICEPLATFORM);
 				
 				app.pushNotification();
 			});
@@ -50,7 +49,8 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			//alert(token);
+			alert(token);
+			ActualizarToken(token);
 			$("#H_TEXT_DEVICE").html(token);
 			setTimeout(function () {
 				alert('BuscarCookie');
