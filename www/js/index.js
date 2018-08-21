@@ -53,7 +53,7 @@ var app = {
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
 			//alert(token);
-			ActualizarToken(token);
+			$("#H_TEXT_DEVICE").html(token);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
@@ -116,13 +116,9 @@ var app = {
 function ActualizarToken(ID_device)
 {
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
-	alert('transaction');
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
-		alert('query ok');
 		var id_device_bd=""+rs.rows.item(0).id_device;
-		
-		alert(id_device_bd);
 			
 		if(id_device_bd!="Nada")
 		{
@@ -140,24 +136,12 @@ function ActualizarToken(ID_device)
 					},
 					async: false
 			}). done(function(response) {
-				alert(response);
 				if(id_device_bd!=ID_device)
 				{
 					setIdDevice(ID_device);
 				}
 			});
 		}
-		else
-		{
-			//Si es nada se registrara en BD local
-			if(id_device_bd=="Nada")
-			{
-				setIdDevice(ID_device);
-			}
-		}
-			//Cerrar splash
-			alert('CerrarSplash');
-			CerrarSplash();
 		}, function(tx, error) {
 			
 		});
@@ -1488,7 +1472,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
-				//setIdDevice($("#H_TEXT_DEVICE").html());
+				setIdDevice($("#H_TEXT_DEVICE").html());
 
 				//Cargando html
 				$("#p2").load( "inicio.html", function() {
