@@ -39,9 +39,10 @@ var app = {
 		});
 		app.receivedEvent('deviceready');
 
-		DEVICEPLATFORM = ''+device.platform;
+		DEVICEPLATFORM = ""+device.platform;
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
+		ConfigurarNotificaciones(true);
 		app.pushNotification();
 
     },
@@ -55,7 +56,7 @@ var app = {
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			//alert(token);
+			alert(token);
 			ActualizarToken(token);
 		});
 
@@ -111,16 +112,14 @@ var app = {
 		//alert('Disparado');
 	}
 };
-
-app.initialize();
-
 function ActualizarToken(ID_device)
 {
+	alert('ActualizarToken');
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 		var id_device_bd=""+rs.rows.item(0).id_device;
-		alert(id_device_bd);
+		
 		if(id_device_bd!="Nada")
 		{
 			//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
@@ -145,18 +144,20 @@ function ActualizarToken(ID_device)
 		}
 		else
 		{
-			alert('es nada se registrara en BD local');
 			//Si es nada se registrara en BD local
 			if(id_device_bd=="Nada")
 			{
 				setIdDevice(ID_device);
 			}
 		}
-		CerrarSplash();
-	}, function(tx, error) {
+		}, function(tx, error) {
 			
+		});
 	});
-	});
+}
+function ConfigurarNotificaciones(Inicial)
+{
+
 }
 function MensajeAlerta(Titulo,Mensaje)
 {
