@@ -43,8 +43,6 @@ var app = {
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
 		app.pushNotification();
-		alert('Cerrando');
-		CerrarSplash();
     },
     receivedEvent: function(id) {
 		
@@ -53,6 +51,10 @@ var app = {
 		FCMPlugin.getToken(function(token){
 			//alert(token);
 			$("#H_TEXT_DEVICE").html(token);
+			setTimeout(function () {
+				alert('Buscando');
+				BuscarCookie();
+			}, 500);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
