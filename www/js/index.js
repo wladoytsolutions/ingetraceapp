@@ -50,7 +50,7 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			//alert(token);
+			alert(token);
 			ActualizarToken(token);
 		});
 	
@@ -120,7 +120,7 @@ function ActualizarToken(ID_device)
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 		var id_device_bd=""+rs.rows.item(0).id_device;
-		
+		alert(id_device_bd);
 		if(id_device_bd!="Nada")
 		{
 			//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
@@ -145,6 +145,7 @@ function ActualizarToken(ID_device)
 		}
 		else
 		{
+			alert('es nada se registrara en BD local');
 			//Si es nada se registrara en BD local
 			if(id_device_bd=="Nada")
 			{
