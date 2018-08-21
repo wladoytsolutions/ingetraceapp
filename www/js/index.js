@@ -150,6 +150,7 @@ function ActualizarToken(ID_device)
 				setIdDevice(ID_device);
 			}
 		}
+			//Cerrar splash
 		}, function(tx, error) {
 			
 		});
