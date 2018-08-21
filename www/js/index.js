@@ -40,7 +40,6 @@ var app = {
 		app.receivedEvent('deviceready');
 		
 		DEVICEPLATFORM = device.platform;
-		alert(DEVICEPLATFORM);
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
 		app.pushNotification();
@@ -115,10 +114,13 @@ var app = {
 function ActualizarToken(ID_device)
 {
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
+	alert('transaction');
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
 		var id_device_bd=""+rs.rows.item(0).id_device;
 		
+		alert(id_device_bd);
+			
 		if(id_device_bd!="Nada")
 		{
 			//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
@@ -135,6 +137,7 @@ function ActualizarToken(ID_device)
 					},
 					async: false
 			}). done(function(response) {
+				alert(response);
 				if(id_device_bd!=ID_device)
 				{
 					setIdDevice(ID_device);
@@ -150,6 +153,7 @@ function ActualizarToken(ID_device)
 			}
 		}
 			//Cerrar splash
+			alert('CerrarSplash');
 			CerrarSplash();
 		}, function(tx, error) {
 			
@@ -222,6 +226,7 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 }
 function setIdDevice(IdDevice)
 {
+	alert('setIdDevice');
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";
