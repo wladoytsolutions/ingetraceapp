@@ -30,11 +30,13 @@ var app = {
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('CREATE TABLE IF NOT EXISTS tbl_datos (id_cliente VARCHAR (15),id_sucursal VARCHAR (4),json_sucursal TEXT,id_device TEXT)');
+			alert('Tabla creada');
 			tx.executeSql("select count(json_sucursal) as cnt from tbl_datos;", [], function(tx, res) {
-			  if(res.rows.item(0).cnt=="0")
-			  {
-				  tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada');");
-			  }
+				alert(res.rows.item(0).cnt);
+				if(res.rows.item(0).cnt=="0")
+			  	{
+					tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada');");
+			  	}
 			});
 		});
 		app.receivedEvent('deviceready');
@@ -116,7 +118,8 @@ function ActualizarToken(ID_device)
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	alert('transaction');
 	BD_APP.transaction(function(tx) {
-		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+		tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
+		alert('query ok');
 		var id_device_bd=""+rs.rows.item(0).id_device;
 		
 		alert(id_device_bd);
