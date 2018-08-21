@@ -39,15 +39,90 @@ var app = {
 		});
 		app.receivedEvent('deviceready');
 
-		DEVICEPLATFORM = ""+device.platform;
+		DEVICEPLATFORM = ''+device.platform;
 		DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 		
-		ConfigurarNotificaciones(true);
 		app.pushNotification();
 
     },
     receivedEvent: function(id) {
 		
+    },
+	pushNotification: function(){
+		FCMPlugin.getToken(function(token){
+			//alert(token);
+			ActualizarToken(token);
+		});
+	
+		FCMPlugin.onTokenRefresh(function(token){
+			//alert(token);
+			ActualizarToken(token);
+		});
+	
+		FCMPlugin.onNotification(function(data){
+			if(data.wasTapped)
+			{
+				// La notificación se recibió en la bandeja del dispositivo y el usuario la tocó.
+				alert('Tocada')
+				alert(JSON.stringify(data));
+				alert(data.param1);
+			}
+			else
+			{
+				// La notificación se recibió en primer plano.  Tal vez el usuario necesita ser notificado.
+				alert('Primerplano')
+				alert(JSON.stringify(data));
+				alert(data.param1);
+			}
+		});
+
+		FCMPlugin.onNotification(function(data){
+			var ID_CLIENTE;
+			var NOMBRE_CLIENTE;
+			var ID_SUCURSAL;
+			var NOMBRE_SUCURSAL;
+			var ID_SECCION;
+			var NOMBRE_SECCION;
+			var ID_EQUIPO;
+			var NOMBRE_EQUIPO;
+			var ID_SENSOR;
+			var TIPO_MODELO;
+
+			TITULO_NOTIFICACION=data.title;
+			MENSAJE_NOTIFICACION=data.message;
+
+			ID_CLIENTE=data.id_cliente;
+			NOMBRE_CLIENTE=data.nombre_cliente;
+			ID_SUCURSAL=data.id_sucursal;
+			NOMBRE_SUCURSAL=data.nombre_sucursal;
+			ID_SECCION=data.id_seccion;
+			NOMBRE_SECCION=data.nombre_seccion;
+			ID_EQUIPO=data.id_equipo;
+			NOMBRE_EQUIPO=data.nombre_equipo;
+			ID_SENSOR=data.id_sensor;
+			TIPO_MODELO=data.tipo_modelo;
+
+			setTimeout(function () {
+				if(TIPO_MODELO!='M')
+				{
+					CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
+				}
+				else
+				{
+					MOSTRAR_MENSAJE_NOTIFICACION=true;
+					if($('#H_SUCURSAL_CARGADA').val()!="1")
+					{
+						//alert('Buscando aca 03');
+						BuscarCookie();
+					}
+					else
+					{
+						MOSTRAR_MENSAJE_NOTIFICACION=false;
+						MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
+					}
+				}
+			}, 250);
+		});
     },
 	onResume: function() {
 		//alert('Disparado');
@@ -96,99 +171,6 @@ function ActualizarToken(ID_device)
 	}, function(tx, error) {
 			
 	});
-	});
-}
-function ConfigurarNotificaciones(Inicial)
-{
-	pushPlugin = PushNotification.init({
-			android: {
-				senderID: '570571190177',
-				sound: true,
-                forceShow: true,
-                vibrate: true,
-				iconColor: '#790000'
-			},
-			ios: {
-				alert: true,
-				badge: false,
-				sound: true
-			},
-			windows: {}
-		});
-
-	FCMPlugin.getToken(function(token){
-		//alert(token);
-		ActualizarToken(token);
-	});
-	
-	FCMPlugin.onTokenRefresh(function(token){
-		//alert(token);
-		ActualizarToken(token);
-	});
-	
-	FCMPlugin.onNotification(function(data){
-		if(data.wasTapped)
-		{
-			// La notificación se recibió en la bandeja del dispositivo y el usuario la tocó.
-			alert('Tocada')
-			alert(JSON.stringify(data));
-			alert(data.param1);
-		}
-		else
-		{
-			// La notificación se recibió en primer plano.  Tal vez el usuario necesita ser notificado.
-			alert('Primerplano')
-			alert(JSON.stringify(data));
-			alert(data.param1);
-		}
-	});
-
-	FCMPlugin.onNotification(function(data){
-		var ID_CLIENTE;
-		var NOMBRE_CLIENTE;
-		var ID_SUCURSAL;
-		var NOMBRE_SUCURSAL;
-		var ID_SECCION;
-		var NOMBRE_SECCION;
-		var ID_EQUIPO;
-		var NOMBRE_EQUIPO;
-		var ID_SENSOR;
-		var TIPO_MODELO;
-
-		TITULO_NOTIFICACION=data.title;
-		MENSAJE_NOTIFICACION=data.message;
-
-		ID_CLIENTE=data.id_cliente;
-		NOMBRE_CLIENTE=data.nombre_cliente;
-		ID_SUCURSAL=data.id_sucursal;
-		NOMBRE_SUCURSAL=data.nombre_sucursal;
-		ID_SECCION=data.id_seccion;
-		NOMBRE_SECCION=data.nombre_seccion;
-		ID_EQUIPO=data.id_equipo;
-		NOMBRE_EQUIPO=data.nombre_equipo;
-		ID_SENSOR=data.id_sensor;
-		TIPO_MODELO=data.tipo_modelo;
-			
-		setTimeout(function () {
-			if(TIPO_MODELO!='M')
-			{
-				CargarNotificacion(ID_CLIENTE,NOMBRE_CLIENTE,ID_SUCURSAL,NOMBRE_SUCURSAL,ID_SECCION,NOMBRE_SECCION,ID_EQUIPO,NOMBRE_EQUIPO,ID_SENSOR,TIPO_MODELO);
-			}
-			else
-			{
-				MOSTRAR_MENSAJE_NOTIFICACION=true;
-				if($('#H_SUCURSAL_CARGADA').val()!="1")
-				{
-					//alert('Buscando aca 03');
-					BuscarCookie();
-				}
-				else
-				{
-					MOSTRAR_MENSAJE_NOTIFICACION=false;
-					MensajeAlerta(TITULO_NOTIFICACION,MENSAJE_NOTIFICACION);
-				}
-			}
-		}, 250);
 	});
 }
 function MensajeAlerta(Titulo,Mensaje)
