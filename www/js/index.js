@@ -51,12 +51,12 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			alert(token);
+			//alert(token);
 			ActualizarToken(token);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			alert(token);
+			//alert(token);
 			ActualizarToken(token);
 		});
 
@@ -114,7 +114,6 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
-	alert('ActualizarToken');
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
@@ -151,6 +150,7 @@ function ActualizarToken(ID_device)
 			}
 		}
 			//Cerrar splash
+			CerrarSplash();
 		}, function(tx, error) {
 			
 		});
