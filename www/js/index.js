@@ -50,30 +50,13 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			//alert(token);
+			alert(token);
 			ActualizarToken(token);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			//alert(token);
+			alert(token);
 			ActualizarToken(token);
-		});
-	
-		FCMPlugin.onNotification(function(data){
-			if(data.wasTapped)
-			{
-				// La notificación se recibió en la bandeja del dispositivo y el usuario la tocó.
-				alert('Tocada')
-				alert(JSON.stringify(data));
-				alert(data.param1);
-			}
-			else
-			{
-				// La notificación se recibió en primer plano.  Tal vez el usuario necesita ser notificado.
-				alert('Primerplano')
-				alert(JSON.stringify(data));
-				alert(data.param1);
-			}
 		});
 
 		FCMPlugin.onNotification(function(data){
