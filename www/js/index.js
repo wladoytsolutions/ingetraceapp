@@ -49,12 +49,12 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			alert(token);
+			alert('getToken->'+token);
 			ActualizarToken(token);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			//alert(token);
+			alert('onTokenRefresh->'token);
 			ActualizarToken(token);
 		});
 
