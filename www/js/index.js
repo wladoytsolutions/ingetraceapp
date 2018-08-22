@@ -178,6 +178,12 @@ function ActualizarToken(ID_device)
 	else
 	{
 		alert('Viene null');
+		setTimeout(function () {
+			if($('#H_DESDE_NOTIFICACION').val()!='1')
+			{
+				BuscarCookie();
+			}
+		}, 500);
 	}
 }
 function MensajeAlerta(Titulo,Mensaje)
