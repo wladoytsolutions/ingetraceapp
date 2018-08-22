@@ -1497,7 +1497,7 @@ function login()
 		transition: 'pop'
 	});
 	$(window).disablescroll();
-
+	alert($("#H_TEXT_DEVICE").html());
 	$.post(RUTACONTROL,{
 		accion: "login",
 		Uss: $("#txtUsuario").val(),
