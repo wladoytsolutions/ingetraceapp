@@ -42,7 +42,7 @@ var app = {
 				
 				setTimeout(function () {
 					app.pushNotification();
-				}, 2000);
+				}, 3000);
 			});
 		});
     },
