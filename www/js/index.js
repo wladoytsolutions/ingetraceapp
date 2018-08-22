@@ -40,7 +40,9 @@ var app = {
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 				
-				app.pushNotification();
+				setTimeout(function () {
+					app.pushNotification();
+				}, 5000);
 			});
 		});
     },
