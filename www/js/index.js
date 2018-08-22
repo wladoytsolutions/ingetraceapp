@@ -114,9 +114,10 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
-	if(!!ID_device)
+	if(String(ID_device)!='null')
 	{
 		alert('No null');
+		alert(String(ID_device));
 		
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	BD_APP.transaction(function(tx) {
