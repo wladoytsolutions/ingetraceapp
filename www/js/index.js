@@ -40,9 +40,7 @@ var app = {
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase();
 				
-				setTimeout(function () {
-					app.pushNotification();
-				}, 5000);
+				app.pushNotification();
 			});
 		});
     },
@@ -116,11 +114,18 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
+	if(!!ID_device)
+	{
+		alert('No null');
+		
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 	BD_APP.transaction(function(tx) {
+		alert('transaction');
 		tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
+		alert('executeSql');
 		var id_device_bd=""+rs.rows.item(0).id_device;
-			
+		
+		alert('id_device_bd '+id_device_bd);
 		if(id_device_bd!="Nada")
 		{
 			//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
@@ -168,6 +173,12 @@ function ActualizarToken(ID_device)
 			
 		});
 	});
+	
+	}
+	else
+	{
+		alert('Viene null');
+	}
 }
 function MensajeAlerta(Titulo,Mensaje)
 {
@@ -235,6 +246,7 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 }
 function setIdDevice(IdDevice)
 {
+	alert('setIdDevice_>'+IdDevice);
 	$("#H_TEXT_DEVICE").html(IdDevice);
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
