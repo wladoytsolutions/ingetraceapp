@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>171050319695-h2j5lgj6msfr4992nht8dcpl7tehqqjg.apps.googleusercontent.com</string>
+	<string>311425347794-r8kb3kklqqfomef7se7ltpogu7c05p8b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.171050319695-h2j5lgj6msfr4992nht8dcpl7tehqqjg</string>
+	<string>com.googleusercontent.apps.311425347794-r8kb3kklqqfomef7se7ltpogu7c05p8b</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDMF0UY76LQ2O4kKZk0G-KHYSP2DX-o-Co</string>
+	<string>AIzaSyB2kT0FEuIBkJRZ1zSAOmXYnoRvH5ZFQ-c</string>
 	<key>GCM_SENDER_ID</key>
-	<string>171050319695</string>
+	<string>311425347794</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>es.phonegap.push.sample</string>
+	<string>com.phonegap.ingetrace</string>
 	<key>PROJECT_ID</key>
-	<string>phonegap-plugin-push-sam-e011d</string>
+	<string>ingetracespa</string>
 	<key>STORAGE_BUCKET</key>
-	<string>phonegap-plugin-push-sam-e011d.appspot.com</string>
+	<string>ingetracespa.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true></true>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:171050319695:ios:b71f283f00051af4</string>
+	<string>1:311425347794:ios:6743f6380cfd1ed6</string>
 	<key>DATABASE_URL</key>
-	<string>https://phonegap-plugin-push-sam-e011d.firebaseio.com</string>
+	<string>https://ingetracespa.firebaseio.com</string>
 </dict>
 </plist>
