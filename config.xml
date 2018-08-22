@@ -5,7 +5,7 @@
   <splash src="www/splash.png" />
   <content src="index.html"/>
   
-  <preference name="phonegap-version" value="cli-8.0.0" />
+  <preference name="phonegap-version" value="cli-7.1.0" />
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="Fullscreen" value="true"/>
@@ -29,7 +29,7 @@
   <!-- End of splashscreen config -->
   <!-- Firebase google-->
   <platform name="android">
-  	<resource-file src="google-services.json" target="app/google-services.json" />
+  	<resource-file src="google-services.json" target="google-services.json" />
   </platform>
   <plugin name="cordova-plugin-device" spec="2.0.2"/>
   <icon src="www/icon.png"/>
