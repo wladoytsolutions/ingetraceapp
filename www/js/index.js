@@ -1478,11 +1478,6 @@ function login()
 		transition: 'pop'
 	});
 	$(window).disablescroll();
-	
-	FCMPlugin.getToken(function(token){
-		alert(token);
-		ActualizarToken(token);
-	});
 
 	$.post(RUTACONTROL,{
 		accion: "login",
