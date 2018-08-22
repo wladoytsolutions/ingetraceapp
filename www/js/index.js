@@ -54,7 +54,7 @@ var app = {
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			alert('onTokenRefresh->'token);
+			alert('onTokenRefresh->'+token);
 			ActualizarToken(token);
 		});
 
