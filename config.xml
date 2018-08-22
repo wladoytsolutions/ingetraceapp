@@ -49,7 +49,6 @@
   <plugin name="cordova-plugin-fcm" spec="2.1.2"/>
   <plugin name="cordova-plugin-sqlite-2" spec="1.0.5"/>
   <plugin name="cordova-plugin-dialogs" spec="2.0.1"/>
-  <plugin name="cordova-plugin-IMEI" spec="1.1.0"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>

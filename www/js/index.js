@@ -115,16 +115,7 @@ var app = {
 function ActualizarToken(ID_device)
 {
 	if(String(ID_device)!='null')
-	{
-		window.plugins.imei.get(
-			function(imei) {
-				alert("got imei: " + imei);
-		  	},
-		  	function() {
-				alert("error loading imei");
-		  	}
-		);
-		
+	{	
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
