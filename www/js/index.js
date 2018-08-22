@@ -49,12 +49,12 @@ var app = {
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
-			alert('getToken->'+token);
+			//alert('getToken->'+token);
 			ActualizarToken(token);
 		});
 	
 		FCMPlugin.onTokenRefresh(function(token){
-			alert('onTokenRefresh->'+token);
+			//alert('onTokenRefresh->'+token);
 			ActualizarToken(token);
 		});
 
@@ -116,64 +116,57 @@ function ActualizarToken(ID_device)
 {
 	if(String(ID_device)!='null')
 	{
-		alert('No null');
-		alert(String(ID_device));
-		
-	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
-	BD_APP.transaction(function(tx) {
-		alert('transaction');
-		tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
-		alert('executeSql');
-		var id_device_bd=""+rs.rows.item(0).id_device;
-		
-		alert('id_device_bd '+id_device_bd);
-		if(id_device_bd!="Nada")
-		{
-			//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
-			//Si el id device cambio, se debe notificar el cambio al servidor
-			$.ajax({
-					url	: RUTACONTROL,
-					type: 'POST',
-					data: 
+		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
+		BD_APP.transaction(function(tx) {
+			tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
+			var id_device_bd=""+rs.rows.item(0).id_device;
+			if(id_device_bd!="Nada")
+			{
+				//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
+				//Si el id device cambio, se debe notificar el cambio al servidor
+				$.ajax({
+						url	: RUTACONTROL,
+						type: 'POST',
+						data: 
+						{
+							accion		: 'UpdateIdDevice',
+							NewId_device: ID_device,
+							OldId_device: id_device_bd,
+							CK			: getCK()
+						},
+						async: false
+				}). done(function(response) {
+					if(id_device_bd!=ID_device)
 					{
-						accion		: 'UpdateIdDevice',
-						NewId_device: ID_device,
-						OldId_device: id_device_bd,
-						CK			: getCK()
-					},
-					async: false
-			}). done(function(response) {
-				if(id_device_bd!=ID_device)
+						setIdDevice(ID_device);
+					}
+					setTimeout(function () {
+						if($('#H_DESDE_NOTIFICACION').val()!='1')
+						{
+							BuscarCookie();
+						}
+					}, 500);
+				});
+			}
+			else
+			{
+				//Si es nada se registrara en BD local
+				if(id_device_bd=="Nada")
 				{
 					setIdDevice(ID_device);
+					setTimeout(function () {
+						if($('#H_DESDE_NOTIFICACION').val()!='1')
+						{
+							BuscarCookie();
+						}
+					}, 500);
 				}
-				setTimeout(function () {
-					if($('#H_DESDE_NOTIFICACION').val()!='1')
-					{
-						BuscarCookie();
-					}
-				}, 500);
-			});
-		}
-		else
-		{
-			//Si es nada se registrara en BD local
-			if(id_device_bd=="Nada")
-			{
-				setIdDevice(ID_device);
-				setTimeout(function () {
-					if($('#H_DESDE_NOTIFICACION').val()!='1')
-					{
-						BuscarCookie();
-					}
-				}, 500);
 			}
-		}
-			
-		}, function(tx, error) {
-			
+
+			}, function(tx, error) {
+
+			});
 		});
-	});
 	
 	}
 }
@@ -243,7 +236,6 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 }
 function setIdDevice(IdDevice)
 {
-	alert('setIdDevice_>'+IdDevice);
 	$("#H_TEXT_DEVICE").html(IdDevice);
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
@@ -1487,7 +1479,6 @@ function login()
 		transition: 'pop'
 	});
 	$(window).disablescroll();
-	alert($("#H_TEXT_DEVICE").html());
 	$.post(RUTACONTROL,{
 		accion: "login",
 		Uss: $("#txtUsuario").val(),
