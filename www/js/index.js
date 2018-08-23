@@ -1401,7 +1401,6 @@ function ValidarCKIncial(CK)
 		},
 		async: false
 	}). done(function(response) {
-		alert(response);
 		var json = jQuery.parseJSON(response);
 		
 		$.each(json, function(i, d) {
@@ -1480,6 +1479,31 @@ function ValidarCKIncial(CK)
 						alert("ERROR : "+error.message);
 					});
 				});
+			}
+			else
+			{
+				// Devuelve true cuando se encuentra el cookie
+				BD_APP.transaction(function(tx) {
+					tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
+						var id_device=""+rs.rows.item(0).id_device;
+						var StringQuery="UPDATE tbl_datos SET id_device='Nada'";
+						tx.executeSql(StringQuery);
+
+						//Eliminando datos de device
+						$.post(RUTACONTROL,{
+								accion		: 'EliminarDevice',
+								Id_device	: id_device,
+								CK			: getCK()
+						},
+						function(response) {		
+							//alert(response);
+						}).done(function(response) {
+							setCK('');
+							//setIdDevice('Nada');
+							window.location.href = "index.html";
+						});
+					}, function(tx, error) {});
+				});	
 			}
 		});
 		
