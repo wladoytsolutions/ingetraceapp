@@ -295,7 +295,6 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
-	alert('BuscarCookie');
 	var ValCK=getCK();
 	//Es de notificacion
 	var UbicacionPage=''+window.location.hash;
@@ -1379,7 +1378,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 }
 function ValidarCKIncial(CK)
 {
-	alert('ValidarCKIncial');
 	navigator.splashscreen.show();
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
@@ -1388,10 +1386,35 @@ function ValidarCKIncial(CK)
 	var ID_SUCURSAL;
 	var NOMBRESUCURSAL;
 	var ESTADO="";
+	var RESULTADO_CK="";
 	var LOGO_CLIENTE="";
 	
+	//Validar cookie
+	$.ajax({
+		url	: RUTACONTROL,
+		type: 'POST',
+		data: 
+		{
+			accion		: 'ValidarCKIncial_Dispositivo',
+			CK			: getCK(),
+			Serie_device: getSerieDevice()
+		},
+		async: false
+	}). done(function(response) {
+		var json = jQuery.parseJSON(response);
+		
+		$.each(json, function(i, d) {
+			alert(d.RESULTADO)
+			if(d.RESULTADO=="S")
+			{
+				RESULTADO_CK=d.CK;
+			}
+		});
+		
+	});
+	
+	/**
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
-
 	BD_APP.transaction(function(tx) {
 		tx.executeSql('SELECT json_sucursal FROM tbl_datos', [], function(tx, rs) {
 
@@ -1399,6 +1422,7 @@ function ValidarCKIncial(CK)
 			Valor=Base64.decode(Valor);
 
 			var json = jQuery.parseJSON(Valor);
+			
 			$.each(json, function(i, d) {
 				ESTADO=d.ESTADO;
 				if(d.ESTADO=="S")
@@ -1460,6 +1484,7 @@ function ValidarCKIncial(CK)
 			alert("ERROR : "+error.message);
 		});
 	});
+	*/
 }
 function ValidarCampos()
 {
