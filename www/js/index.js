@@ -131,8 +131,7 @@ function ActualizarToken(ID_device)
 							accion		: 'UpdateIdDevice',
 							NewId_device: ID_device,
 							OldId_device: id_device_bd,
-							CK			: getCK(),
-							Serie_device: getSerieDevice()
+							CK			: getCK()
 						},
 						async: false
 				}). done(function(response) {
@@ -1388,6 +1387,7 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
+	alert('Validando si esta registrado el phone');
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 
 	BD_APP.transaction(function(tx) {
