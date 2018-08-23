@@ -40,6 +40,9 @@ var app = {
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
 				
+				alert(''+device.serial);
+				alert(''+device.uuid);
+				
 				app.pushNotification();
 			});
 		});
