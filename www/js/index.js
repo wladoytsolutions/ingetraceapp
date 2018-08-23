@@ -295,6 +295,7 @@ function getUrlVars() {
 }
 function BuscarCookie()
 {
+	alert('BuscarCookie');
 	var ValCK=getCK();
 	//Es de notificacion
 	var UbicacionPage=''+window.location.hash;
@@ -1378,6 +1379,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 }
 function ValidarCKIncial(CK)
 {
+	alert('ValidarCKIncial');
 	navigator.splashscreen.show();
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
@@ -1387,7 +1389,7 @@ function ValidarCKIncial(CK)
 	var NOMBRESUCURSAL;
 	var ESTADO="";
 	var LOGO_CLIENTE="";
-	alert('Validando si esta registrado el phone');
+	
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 
 	BD_APP.transaction(function(tx) {
