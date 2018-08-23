@@ -39,10 +39,6 @@ var app = {
 				app.receivedEvent('deviceready');
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
-				
-				alert(''+device.serial);
-				alert(''+device.uuid);
-				
 				app.pushNotification();
 			});
 		});
@@ -117,7 +113,7 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
-	if(String(ID_device)!='null')
+	if(String(ID_device).toLowerCase()!='null')
 	{	
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 		BD_APP.transaction(function(tx) {
@@ -135,7 +131,8 @@ function ActualizarToken(ID_device)
 							accion		: 'UpdateIdDevice',
 							NewId_device: ID_device,
 							OldId_device: id_device_bd,
-							CK			: getCK()
+							CK			: getCK(),
+							Serie_device: getSerieDevice()
 						},
 						async: false
 				}). done(function(response) {
@@ -226,7 +223,24 @@ function CerrarSplash()
 	catch(err) {
 		alert(err.message);
 	}
-
+}
+function getSerieDevice()
+{
+	var IdDevice = '';
+	var plataforma = device.platform;
+	plataforma = plataforma.toLowerCase();
+	
+	//Android serial del dispositivo
+	if(plataforma=='android')
+	{
+		IdDevice=device.serial;
+	}
+	//Ios el UUID
+	if(plataforma=='ios')
+	{
+		IdDevice=device.uuid;	
+	}
+	return IdDevice;
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
@@ -239,7 +253,7 @@ function setJsonSucursal(id_cliente,id_sucursal,json)
 }
 function setIdDevice(IdDevice)
 {
-	$("#H_TEXT_DEVICE").html(IdDevice);
+	$("#H_TEXT_TOKEN").html(IdDevice);
 	BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default', createFromLocation: 1});
 	BD_APP.transaction(function(tx) {
 		var StringQuery="UPDATE tbl_datos SET id_device='"+IdDevice+"'";
@@ -1482,38 +1496,40 @@ function login()
 		transition: 'pop'
 	});
 	$(window).disablescroll();
+	
 	$.post(RUTACONTROL,{
-		accion: "login",
-		Uss: $("#txtUsuario").val(),
-		Pass: $("#txtContrasena").val(),
-		Id_device: $("#H_TEXT_DEVICE").html(),
-		Plataforma: DEVICEPLATFORM
+		accion		: 'login',
+		Uss			: $('#txtUsuario').val(),
+		Pass		: $('#txtContrasena').val(),
+		Id_device	: $('#H_TEXT_TOKEN').html(),
+		Plataforma	: DEVICEPLATFORM,
+		Serie_device: getSerieDevice()
 	},function(response) {
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
-			if(d.ESTADO=="S")
+			if(d.ESTADO=='S')
 			{
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
-				//setIdDevice($("#H_TEXT_DEVICE").html());
+				//setIdDevice($("#H_TEXT_TOKEN").html());
 
 				//Cargando html
-				$("#p2").load( "inicio.html", function() {
-					$("#ModalCambioSuc3").load("html_parts/modal_cambioCliSuc.html");
-					$("#ModalClave3").load("html_parts/modal_cambioClave.html");
+				$('#p2').load('inicio.html', function() {
+					$('#ModalCambioSuc3').load('html_parts/modal_cambioCliSuc.html');
+					$('#ModalClave3').load('html_parts/modal_cambioClave.html');
 					//Agregando menu
-					$("#DivMenu").load("html_parts/menu_header.html",	function() {
+					$('#DivMenu').load('html_parts/menu_header.html',	function() {
 
 						$('#H_ID_CLIENTE_ACTUAL').val(d.ID_CLIENTE);
 						$('#H_ID_SUCURSAL_ACTUAL').val(d.ID_SUC);
 
 						//Estado de sucursal
-						$("#Estado_Sucursal").html(d.ESTADOSUCURSAL);
-						$("#IconoSucursal").html(d.ICONO_SUCURSAL);
-						$("#NombreSucusal").html(d.NOMBRE_SUCURSAL_ACTUAL);
-						LOGO_CLIENTE="http://www.ingetrace.cl/sct/img/logo/"+d.LOGO_CLIENTE;
-						$("#LogoCliente").attr("src",LOGO_CLIENTE);
+						$('#Estado_Sucursal').html(d.ESTADOSUCURSAL);
+						$('#IconoSucursal').html(d.ICONO_SUCURSAL);
+						$('#NombreSucusal').html(d.NOMBRE_SUCURSAL_ACTUAL);
+						LOGO_CLIENTE='http://www.ingetrace.cl/sct/img/logo/'+d.LOGO_CLIENTE;
+						$('#LogoCliente').attr('src',LOGO_CLIENTE);
 
 						GenerarHTMLSensores(d);
 
@@ -1525,13 +1541,13 @@ function login()
 							reverse: false,
 							showLoadMsg: false
 						});
-						$('#ModalPage1').popup( "close" );
+						$('#ModalPage1').popup('close');
 					}, 500);
 				});//Fin load cuerpo
 			}
 			else
 			{
-				$('#ModalPage1').popup( "close" );
+				$('#ModalPage1').popup('close');
 				setTimeout(function () {
 				MostrarModalErrorP1('Usuario y/o contraseña invalido');
 				}, 500);
@@ -1540,7 +1556,7 @@ function login()
 			}
 		});
 	}).done(function(response) {
-		$(window).disablescroll("undo");
+		$(window).disablescroll('undo');
 	});
 }
 function GetLimitesPuerta(Datos)
