@@ -1548,6 +1548,7 @@ function login()
 		Plataforma	: DEVICEPLATFORM,
 		Serie_device: getSerieDevice()
 	},function(response) {
+		alert(response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=='S')
