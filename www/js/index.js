@@ -1377,7 +1377,6 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 }
 function ValidarCKIncial(CK)
 {
-	alert(CK);
 	navigator.splashscreen.show();
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
@@ -1388,6 +1387,8 @@ function ValidarCKIncial(CK)
 	var ESTADO="";
 	var RESULTADO_CK="";
 	var LOGO_CLIENTE="";
+	
+	alert('ValidarCKIncial_Dispositivo');
 	
 	//Validar cookie
 	$.ajax({
@@ -1408,7 +1409,6 @@ function ValidarCKIncial(CK)
 			if(d.RESULTADO=="S")
 			{
 				RESULTADO_CK=d.CK;
-				alert(RESULTADO_CK);
 				
 				BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
 				BD_APP.transaction(function(tx) {
