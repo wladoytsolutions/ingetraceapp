@@ -119,7 +119,7 @@ function ActualizarToken(ID_device)
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
 			var id_device_bd=""+rs.rows.item(0).id_device;
-				alert(id_device_bd);
+				//alert(id_device_bd);
 			if(id_device_bd!="Nada")
 			{
 				//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
@@ -1388,8 +1388,6 @@ function ValidarCKIncial(CK)
 	var RESULTADO_CK="";
 	var LOGO_CLIENTE="";
 	
-	alert('ValidarCKIncial_Dispositivo');
-	
 	//Validar cookie
 	$.ajax({
 		url	: RUTACONTROL,
@@ -1402,7 +1400,6 @@ function ValidarCKIncial(CK)
 		},
 		async: false
 	}). done(function(response) {
-		alert(response);
 		var json = jQuery.parseJSON(response);
 		
 		$.each(json, function(i, d) {
@@ -1481,7 +1478,6 @@ function ValidarCKIncial(CK)
 			}
 			else
 			{
-				alert('Borrando');
 				// Devuelve true cuando se encuentra el cookie
 				BD_APP.transaction(function(tx) {
 					tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
@@ -1548,7 +1544,6 @@ function login()
 		Plataforma	: DEVICEPLATFORM,
 		Serie_device: getSerieDevice()
 	},function(response) {
-		alert(response);
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
 			if(d.ESTADO=='S')
