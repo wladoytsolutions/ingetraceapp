@@ -1,4 +1,4 @@
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.phonegap.ingetrace" version="1.2.0" versionCode="120">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.phonegap.ingetrace" version="1.2.0" versionCode="121">
   <name>Ingetrace</name>
   <description>INGETRACE es una compañía dedicada al desarrollo de soluciones tecnológicas con el foco principal en la innovación sobre los procesos de control críticos para la rentabilidad de distintas industrias.</description>
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
