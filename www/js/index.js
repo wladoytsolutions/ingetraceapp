@@ -1358,9 +1358,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 							}
 							else
 							{
-								setTimeout(function () {
-									MostrarModalErrorP1('Usuario y/o contraseña invalido');
-								}, 500);
+								MensajeAlerta('Error en auntentificación','Usuario y/o contraseña invalido');
 								//Cerrando dialogo
 								$('#DivIngresar').show();
 							}
@@ -1373,7 +1371,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 	else
 	{
 		CerrarSplash();
-		MostrarModalErrorP1('Debe volver a iniciar sesion en el dispositivo');
+		MensajeAlerta('Error en auntentificación','Debe volver a iniciar sesion en el dispositivo');
 	}
 }
 function ValidarCKIncial(CK)
@@ -1467,9 +1465,7 @@ function ValidarCKIncial(CK)
 							}
 							else
 							{
-								setTimeout(function () {
-									MostrarModalErrorP1('Usuario y/o contraseña invalido');
-								}, 500);
+								MensajeAlerta('Error en auntentificación','Usuario y/o contraseña invalido');
 								//Cerrando dialogo
 								$('#DivIngresar').show();
 							}
@@ -1517,15 +1513,8 @@ function ValidarCampos()
 	}
 	else
 	{
-		MostrarModalErrorP1('Debe ingresar usuario y contraseña');
+		MensajeAlerta('Error en auntentificación','Debe ingresar usuario y contraseña');
 	}
-}
-function MostrarModalErrorP1(Mensaje)
-{
-	$("#MensajeErrorTexto").html(Mensaje);
-	$('#ModalErrorp1').popup('open', {
-		transition: 'pop'
-	});
 }
 function MostrarModalNotificacionP1()
 {
@@ -1598,9 +1587,7 @@ function login()
 			else
 			{
 				$('#ModalPage1').popup('close');
-				setTimeout(function () {
-				MostrarModalErrorP1('Usuario y/o contraseña invalido');
-				}, 500);
+				MensajeAlerta('Error en auntentificación','Usuario y/o contraseña invalido');
 				//Cerrando dialogo
 				$('#DivIngresar').show();
 			}
