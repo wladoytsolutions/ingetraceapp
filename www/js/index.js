@@ -535,7 +535,7 @@ function GenerarHTMLSensores(DATOS)
 	CargarMarquee();
 	$('#H_SUCURSAL_CARGADA').val("1");
 
-	if(DEVICEPLATFORM == 'android')
+	if(DEVICEPLATFORM == 'android_20')
 	{
 		$('#top-nav-plataform').css('background-color','#222222');
 	}
