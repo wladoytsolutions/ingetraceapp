@@ -1481,6 +1481,7 @@ function ValidarCKIncial(CK)
 			}
 			else
 			{
+				alert('Borrando');
 				// Devuelve true cuando se encuentra el cookie
 				BD_APP.transaction(function(tx) {
 					tx.executeSql('SELECT id_device FROM tbl_datos', [], function(tx, rs) {
