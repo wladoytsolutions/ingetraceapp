@@ -119,6 +119,7 @@ function ActualizarToken(ID_device)
 		BD_APP.transaction(function(tx) {
 			tx.executeSql('SELECT id_device FROM tbl_datos;', [], function(tx, rs) {
 			var id_device_bd=""+rs.rows.item(0).id_device;
+				alert(id_device_bd);
 			if(id_device_bd!="Nada")
 			{
 				//Se actualizara el device ID y fecha para el dispositivo y tenerlo como activo
@@ -1376,6 +1377,7 @@ function CargarNotificacion(FUN_ID_CLIENTE,FUN_NOMBRE_CLIENTE,FUN_ID_SUCURSAL,FU
 }
 function ValidarCKIncial(CK)
 {
+	alert(CK);
 	navigator.splashscreen.show();
 	$('#DivIngresar').hide();
 	$(window).disablescroll();
@@ -1399,6 +1401,7 @@ function ValidarCKIncial(CK)
 		},
 		async: false
 	}). done(function(response) {
+		alert(response);
 		var json = jQuery.parseJSON(response);
 		
 		$.each(json, function(i, d) {
