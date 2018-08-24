@@ -35,7 +35,7 @@
     <resource-file src="GoogleService-Info.plist" target="GoogleService-Info.plist" />
   </platform>
   <plugin name="cordova-plugin-device" spec="2.0.2"/>
-  <!--<icon src="www/icon.png"/>-->
+  <icon src="www/icon.png"/>
 	
   <!-- Other -->
   <icon src="www/res/icon/webos/icon-64.png" gap:platform="webos"/>
