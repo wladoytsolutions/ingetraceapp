@@ -8,7 +8,12 @@ $( document ).ready(function() {
 		e.preventDefault();
 		CambiarClave();
 		$('#btnMenuMobil').trigger( "click" );
-	});	
+	});
+	$("#LinkAcercaDe").click(function(e) {
+		e.preventDefault();
+		AcercaDeIngetraceApp();
+		$('#btnMenuMobil').trigger( "click" );
+	});
 	$("#LinkLogout").click(function(e) {
 		e.preventDefault();
 		Logout();
@@ -184,6 +189,18 @@ function CambiarClave()
 	$('#ModalClave3').popup('open', {
 		transition: 'pop'
 	});
+}
+function AcercaDeIngetraceApp()
+{
+	$('#ModalAcercaDe3').popup('open', {
+		transition: 'pop'
+	});
+}
+function CerrarModalAcercaDe(e)
+{
+	e.preventDefault();	
+	$(window).disablescroll("undo");
+	$('#ModalAcercaDe3').popup( "close" );
 }
 function CambiarSucursal(Id_cliente,Id_sucursal)
 {
