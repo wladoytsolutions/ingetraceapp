@@ -113,6 +113,7 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
+	$("#H_TEXT_TOKEN").html(ID_device);
 	if(String(ID_device).toLowerCase()!='null')
 	{	
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
@@ -1542,7 +1543,7 @@ function login()
 	if(TOKEN.trim()=='')
 	{
 		$('#ModalPage1').popup('close');
-		MensajeAlerta('Error en Conexión','No se ha podido conectar correctamente para recibir notificaciones, se recomienda cerrar la aplicación y verificar conectividad de su dispositivo');
+		MensajeAlerta('Error en Conexión','No se ha podido conectar correctamente para recibir notificaciones, se recomienda cerrar la aplicación y verificar conectividad de su dispositivo, si el problema persiste, reinicie su dispositivo y verifique nuevamente la conectividad');
 		//Cerrando dialogo
 		$('#DivIngresar').show();
 		return;
