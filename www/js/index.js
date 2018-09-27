@@ -9,10 +9,6 @@ var MOSTRAR_MENSAJE_NOTIFICACION=false;
 var TITULO_NOTIFICACION="";
 var MENSAJE_NOTIFICACION="";
 
-var Footer = getUrlVars()["Footer"];
-
-alert(Footer);
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -321,6 +317,7 @@ function BuscarCookie()
 		else
 		{
 			setTimeout(function () {
+				alert('Aqui')
 				CerrarSplash();
 			}, 750);
 		}
@@ -1500,7 +1497,7 @@ function ValidarCKIncial(CK)
 						}).done(function(response) {
 							setCK('');
 							//setIdDevice('Nada');
-							window.location.href = "index.html?Footer=1";
+							window.location.href = "index.html";
 						});
 					}, function(tx, error) {});
 				});	
