@@ -113,7 +113,6 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
-	alert(ID_device);
 	if(String(ID_device).toLowerCase()!='null')
 	{	
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
@@ -1538,9 +1537,16 @@ function login()
 	});
 	$(window).disablescroll();
 	
+	var TOKEN = $('#H_TEXT_TOKEN').html();
 	
-	alert('TOKEN_>'+$('#H_TEXT_TOKEN').html());
-	alert('Serie_device_>'+getSerieDevice());
+	if(TOKEN.trim()=='')
+	{
+		$('#ModalPage1').popup('close');
+		MensajeAlerta('Error en Conexión','No se ha podido conectar correctamente para recibir notificaciones, se recomienda cerrar la aplicación y verificar conectividad de su dispositivo');
+		//Cerrando dialogo
+		$('#DivIngresar').show();
+		return;
+	}
 	
 	$.post(RUTACONTROL,{
 		accion		: 'login',
