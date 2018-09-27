@@ -1537,6 +1537,10 @@ function login()
 	});
 	$(window).disablescroll();
 	
+	
+	alert('TOKEN_>'+$('#H_TEXT_TOKEN').html());
+	alert('Serie_device_>'+getSerieDevice());
+	
 	$.post(RUTACONTROL,{
 		accion		: 'login',
 		Uss			: $('#txtUsuario').val(),
