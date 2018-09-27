@@ -9,6 +9,10 @@ var MOSTRAR_MENSAJE_NOTIFICACION=false;
 var TITULO_NOTIFICACION="";
 var MENSAJE_NOTIFICACION="";
 
+var Footer = getUrlVars()["Footer"];
+
+alert(Footer);
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -1496,7 +1500,7 @@ function ValidarCKIncial(CK)
 						}).done(function(response) {
 							setCK('');
 							//setIdDevice('Nada');
-							window.location.href = "index.html";
+							window.location.href = "index.html?Footer=1";
 						});
 					}, function(tx, error) {});
 				});	
