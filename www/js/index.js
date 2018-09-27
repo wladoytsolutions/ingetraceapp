@@ -1391,6 +1391,7 @@ function ValidarCKIncial(CK)
 	
 	//Validar cookie
 	alert(getCK());
+	alert(getSerieDevice());
 	$.ajax({
 		url	: RUTACONTROL,
 		type: 'POST',
