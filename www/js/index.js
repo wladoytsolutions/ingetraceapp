@@ -113,6 +113,7 @@ var app = {
 };
 function ActualizarToken(ID_device)
 {
+	alert(ID_device);
 	if(String(ID_device).toLowerCase()!='null')
 	{	
 		BD_APP = window.sqlitePlugin.openDatabase({name: "ingetrace.db", location: 'default'});
