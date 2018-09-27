@@ -317,7 +317,8 @@ function BuscarCookie()
 		else
 		{
 			setTimeout(function () {
-				alert('Aqui')
+				$('#FooterApp').show();
+				FooterApp
 				CerrarSplash();
 			}, 750);
 		}
