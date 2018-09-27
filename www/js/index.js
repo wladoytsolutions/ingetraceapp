@@ -318,7 +318,6 @@ function BuscarCookie()
 		{
 			setTimeout(function () {
 				$('#FooterApp').show();
-				FooterApp
 				CerrarSplash();
 			}, 750);
 		}
