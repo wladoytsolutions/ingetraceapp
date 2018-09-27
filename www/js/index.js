@@ -1405,7 +1405,6 @@ function ValidarCKIncial(CK)
 		var json = jQuery.parseJSON(response);
 		
 		$.each(json, function(i, d) {
-			alert(d.RESULTADO);
 			if(d.RESULTADO=="S")
 			{
 				RESULTADO_CK=d.CK;
