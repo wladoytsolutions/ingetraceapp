@@ -1403,6 +1403,7 @@ function ValidarCKIncial(CK)
 		},
 		async: false
 	}). done(function(response) {
+		alert(response);
 		var json = jQuery.parseJSON(response);
 		
 		$.each(json, function(i, d) {
