@@ -1552,6 +1552,7 @@ function login()
 				//Cookie
 				setCK(''+d.CK);
 				setJsonSucursal(d.ID_CLIENTE,d.ID_SUC,response);
+				$('#FooterApp').hide();
 				//setIdDevice($("#H_TEXT_TOKEN").html());
 
 				//Cargando html
