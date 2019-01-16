@@ -44,7 +44,7 @@ var app = {
 		});
     },
     receivedEvent: function(id) {
-		
+		alert(""+device.serial);
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
