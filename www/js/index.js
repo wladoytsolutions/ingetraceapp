@@ -56,8 +56,9 @@ var app = {
     receivedEvent: function(id) {
 		alert('aca');
 		// Get UUID
-		alert(""+window.plugins.uniqueDeviceID);
-		window.plugins.uniqueDeviceID.get(successID, failID);
+		window.plugins.uniqueDeviceID.get(function(uuid){
+			alert("successID_>"+uuid);
+		}, function(){});
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
