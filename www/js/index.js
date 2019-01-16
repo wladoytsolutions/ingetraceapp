@@ -68,7 +68,6 @@ var app = {
 				
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
-				ObtenerSerieDevice();
 				app.pushNotification();
 			});
 		});
@@ -138,7 +137,7 @@ var app = {
 		//alert('Disparado');
 	}
 };
-
+ObtenerSerieDevice();
 function ActualizarToken(ID_device)
 {
 	$("#H_TEXT_TOKEN").html(ID_device);
