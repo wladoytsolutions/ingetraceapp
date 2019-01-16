@@ -9,6 +9,16 @@ var MOSTRAR_MENSAJE_NOTIFICACION=false;
 var TITULO_NOTIFICACION="";
 var MENSAJE_NOTIFICACION="";
 
+function successID(uuid)
+{
+    alert(uuid);
+}
+function failID()
+{
+    alert('Fail');
+}
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -44,8 +54,9 @@ var app = {
 		});
     },
     receivedEvent: function(id) {
-		alert(""+device.serial);
-		alert(""+device.uuid);
+		alert('aca');
+		// Get UUID
+		window.plugins.uniqueDeviceID.get(successID, failID);
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
