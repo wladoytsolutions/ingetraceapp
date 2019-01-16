@@ -11,7 +11,7 @@ var MENSAJE_NOTIFICACION="";
 
 function successID(uuid)
 {
-    alert(uuid);
+    alert("successID_>"+uuid);
 }
 function failID()
 {
