@@ -6,18 +6,9 @@ var BD_APP=null;
 var pushPlugin;
 var DEVICEPLATFORM;
 var MOSTRAR_MENSAJE_NOTIFICACION=false;
-var TITULO_NOTIFICACION="";
-var MENSAJE_NOTIFICACION="";
-
-function successID(uuid)
-{
-    alert("successID_>"+uuid);
-}
-function failID()
-{
-    alert('Fail');
-}
-
+var TITULO_NOTIFICACION='';
+var MENSAJE_NOTIFICACION='';
+var ID_DEVICE = '';
 
 var app = {
     // Application Constructor
@@ -54,11 +45,7 @@ var app = {
 		});
     },
     receivedEvent: function(id) {
-		alert('aca');
-		// Get UUID
-		window.plugins.uniqueDeviceID.get(function(uuid){
-			alert("successID_>"+uuid);
-		}, function(){});
+		alert(''+getSerieDevice());
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
@@ -125,6 +112,17 @@ var app = {
 		//alert('Disparado');
 	}
 };
+
+function UuidIOS(uuid)
+{
+    ID_DEVICE=''+uuid;
+}
+
+function failIDUuidIOS()
+{
+    //alert('Fail');
+}
+
 function ActualizarToken(ID_device)
 {
 	$("#H_TEXT_TOKEN").html(ID_device);
@@ -241,21 +239,22 @@ function CerrarSplash()
 }
 function getSerieDevice()
 {
-	var IdDevice = '';
 	var plataforma = device.platform;
 	plataforma = plataforma.toLowerCase();
 	
 	//Android serial del dispositivo
 	if(plataforma=='android')
 	{
-		IdDevice=device.serial;
+		ID_DEVICE=device.serial;
 	}
+	
 	//Ios el UUID
 	if(plataforma=='ios')
 	{
-		IdDevice=device.uuid;	
+		window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 	}
-	return IdDevice;
+	
+	return ID_DEVICE;
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
