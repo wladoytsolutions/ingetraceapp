@@ -249,7 +249,7 @@ function ObtenerSerieDevice()
 	//Ios el UUID
 	if(plataforma=='ios')
 	{
-		window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
+		//window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 	}
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
