@@ -10,6 +10,35 @@ var TITULO_NOTIFICACION='';
 var MENSAJE_NOTIFICACION='';
 var ID_DEVICE = '';
 
+function UuidIOS(uuid)
+{
+    ID_DEVICE=''+uuid;
+	alert(ID_DEVICE);
+}
+
+function failIDUuidIOS()
+{
+    alert('Fail');
+}
+
+function ObtenerSerieDevice()
+{
+	var plataforma = device.platform;
+	plataforma = plataforma.toLowerCase();
+	
+	//Android serial del dispositivo
+	if(plataforma=='android')
+	{
+		ID_DEVICE=device.serial;
+	}
+	
+	//Ios el UUID
+	if(plataforma=='ios')
+	{
+		window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
+	}
+}
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -39,7 +68,7 @@ var app = {
 				
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
-				//ObtenerSerieDevice();
+				ObtenerSerieDevice();
 				app.pushNotification();
 			});
 		});
@@ -109,17 +138,6 @@ var app = {
 		//alert('Disparado');
 	}
 };
-
-function UuidIOS(uuid)
-{
-    ID_DEVICE=''+uuid;
-	alert(ID_DEVICE);
-}
-
-function failIDUuidIOS()
-{
-    alert('Fail');
-}
 
 function ActualizarToken(ID_device)
 {
@@ -233,23 +251,6 @@ function CerrarSplash()
 	}
 	catch(err) {
 		alert(err.message);
-	}
-}
-function ObtenerSerieDevice()
-{
-	var plataforma = device.platform;
-	plataforma = plataforma.toLowerCase();
-	
-	//Android serial del dispositivo
-	if(plataforma=='android')
-	{
-		ID_DEVICE=device.serial;
-	}
-	
-	//Ios el UUID
-	if(plataforma=='ios')
-	{
-		//window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 	}
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
