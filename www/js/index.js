@@ -113,11 +113,12 @@ var app = {
 function UuidIOS(uuid)
 {
     ID_DEVICE=''+uuid;
+	alert(ID_DEVICE);
 }
 
 function failIDUuidIOS()
 {
-    //alert('Fail');
+    alert('Fail');
 }
 
 function ActualizarToken(ID_device)
