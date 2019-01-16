@@ -45,6 +45,7 @@ var app = {
     },
     receivedEvent: function(id) {
 		alert(""+device.serial);
+		alert(""+device.uuid);
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
