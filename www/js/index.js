@@ -39,7 +39,7 @@ var app = {
 				
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
-				ObtenerSerieDevice();
+				//ObtenerSerieDevice();
 				app.pushNotification();
 			});
 		});
