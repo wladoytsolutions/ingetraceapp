@@ -37,15 +37,12 @@ var app = {
 					tx.executeSql("INSERT INTO tbl_datos (id_cliente,id_sucursal,json_sucursal,id_device) VALUES ('Nada','Nada','Nada','Nada')");
 			  	}
 				
-				app.receivedEvent('deviceready');
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
+				ObtenerSerieDevice();
 				app.pushNotification();
 			});
 		});
-    },
-    receivedEvent: function(id) {
-		alert(''+getSerieDevice());
     },
 	pushNotification: function(){
 		FCMPlugin.getToken(function(token){
@@ -237,7 +234,7 @@ function CerrarSplash()
 		alert(err.message);
 	}
 }
-function getSerieDevice()
+function ObtenerSerieDevice()
 {
 	var plataforma = device.platform;
 	plataforma = plataforma.toLowerCase();
@@ -253,8 +250,6 @@ function getSerieDevice()
 	{
 		window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 	}
-	
-	return ID_DEVICE;
 }
 function setJsonSucursal(id_cliente,id_sucursal,json)
 {
@@ -1411,7 +1406,7 @@ function ValidarCKIncial(CK)
 		{
 			accion		: 'ValidarCKIncial_Dispositivo',
 			CK			: getCK(),
-			Serie_device: getSerieDevice()
+			Serie_device: ID_DEVICE
 		},
 		async: false
 	}). done(function(response) {
@@ -1568,7 +1563,7 @@ function login()
 		Pass		: $('#txtContrasena').val(),
 		Id_device	: $('#H_TEXT_TOKEN').html(),
 		Plataforma	: DEVICEPLATFORM,
-		Serie_device: getSerieDevice()
+		Serie_device: ID_DEVICE
 	},function(response) {
 		var json = jQuery.parseJSON(response);
 		$.each(json, function(i, d) {
