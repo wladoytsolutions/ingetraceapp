@@ -13,12 +13,11 @@ var ID_DEVICE = '';
 function UuidIOS(uuid)
 {
     ID_DEVICE=''+uuid;
-	alert(ID_DEVICE);
 }
 
 function failIDUuidIOS()
 {
-    alert('Fail');
+    //alert('Fail');
 }
 
 var app = {
@@ -53,7 +52,7 @@ var app = {
 				
 				var plataforma = device.platform;
 				plataforma = plataforma.toLowerCase();
-				alert(plataforma);
+				
 				//Android serial del dispositivo
 				if(plataforma=='android')
 				{
@@ -135,6 +134,7 @@ var app = {
 		//alert('Disparado');
 	}
 };
+
 function ActualizarToken(ID_device)
 {
 	$("#H_TEXT_TOKEN").html(ID_device);
