@@ -21,24 +21,6 @@ function failIDUuidIOS()
     alert('Fail');
 }
 
-function ObtenerSerieDevice()
-{
-	var plataforma = device.platform;
-	plataforma = plataforma.toLowerCase();
-	
-	//Android serial del dispositivo
-	if(plataforma=='android')
-	{
-		ID_DEVICE=device.serial;
-	}
-	
-	//Ios el UUID
-	if(plataforma=='ios')
-	{
-		window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
-	}
-}
-
 var app = {
     // Application Constructor
     initialize: function() {
@@ -68,6 +50,22 @@ var app = {
 				
 				DEVICEPLATFORM = device.platform;
 				DEVICEPLATFORM = DEVICEPLATFORM.toLowerCase()+'_20';
+				
+				var plataforma = device.platform;
+				plataforma = plataforma.toLowerCase();
+				alert(plataforma);
+				//Android serial del dispositivo
+				if(plataforma=='android')
+				{
+				  ID_DEVICE=device.serial;
+				}
+
+				//Ios el UUID
+				if(plataforma=='ios')
+				{
+					window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
+				}
+				
 				app.pushNotification();
 			});
 		});
@@ -137,7 +135,6 @@ var app = {
 		//alert('Disparado');
 	}
 };
-ObtenerSerieDevice();
 function ActualizarToken(ID_device)
 {
 	$("#H_TEXT_TOKEN").html(ID_device);
