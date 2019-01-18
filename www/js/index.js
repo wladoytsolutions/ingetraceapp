@@ -58,13 +58,11 @@ var app = {
 				{
 				  ID_DEVICE=device.serial;
 				}
-				alert(plataforma);
+				
 				//Ios el UUID
 				if(plataforma=='ios')
 				{
-					alert(''+device.serial);
-					alert(''+device.uuid);
-					//window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
+					window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 				}
 				
 				app.pushNotification();
