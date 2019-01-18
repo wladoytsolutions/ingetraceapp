@@ -62,7 +62,7 @@ var app = {
 				//Ios el UUID
 				if(plataforma=='ios')
 				{
-					window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
+					//window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 				}
 				
 				app.pushNotification();
