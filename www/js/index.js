@@ -58,7 +58,7 @@ var app = {
 				{
 				  ID_DEVICE=device.serial;
 				}
-
+				alert(plataforma);
 				//Ios el UUID
 				if(plataforma=='ios')
 				{
