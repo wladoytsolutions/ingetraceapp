@@ -62,7 +62,7 @@ var app = {
 				//Ios el UUID
 				if(plataforma=='ios')
 				{
-					alert(''+cordova.plugins.uid.ICCID);
+					alert(''+device.uuid);
 					//window.plugins.uniqueDeviceID.get(UuidIOS,failIDUuidIOS);
 				}
 				
