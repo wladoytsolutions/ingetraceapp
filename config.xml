@@ -49,7 +49,7 @@
   <plugin name="cordova-plugin-splashscreen" spec="5.0.2" />
   <plugin name="cordova-plugin-whitelist" spec="1.3.3"/>
   <plugin name="cordova-plugin-fcm-with-dependecy-updated" spec="4.2.0"/>
-  <plugin name="cordova-plugin-sqlite-2" spec="1.0.5"/>
+  <plugin name="cordova-sqlite-storage" spec="5.0.0"/>
   <plugin name="cordova-plugin-dialogs" spec="2.0.1"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
