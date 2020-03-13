@@ -5,9 +5,9 @@
   <splash src="www/splash.png" />
   <content src="index.html"/>
   
-  <preference name="phonegap-version" value="cli-9.0.0" />
+  <preference name="phonegap-version" value="cli-8.1.1" />
   <preference name="pgb-builder-version" value="2" />
-  <engine name="android" spec="8.0.0" />
+  <engine name="android" spec="7.1.2" />
   <preference name="orientation" value="default"/>
   <preference name="target-device" value="universal"/>
   <preference name="Fullscreen" value="true"/>
