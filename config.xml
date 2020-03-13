@@ -4,16 +4,10 @@
   <author href="http://www.ingetrace.cl/" email="contacto@ingetrace.cl">Ingetrace</author>
   <splash src="www/splash.png" />
   <content src="index.html"/>
-  
-<<<<<<< HEAD
+ 
   <preference name="phonegap-version" value="cli-8.1.1" />
   <preference name="orientation" value="default" />
-=======
-  <preference name="phonegap-version" value="cli-7.1.0" />
-  <preference name="pgb-builder-version" value="2" />
-  <engine name="android" spec="7.0.0" />
-  <preference name="orientation" value="default"/>
->>>>>>> 0ab2697f6beaa51476d4f1b9cf617596fe5d116f
+ 
   <preference name="target-device" value="universal"/>
   <preference name="Fullscreen" value="true"/>
   <preference name="webviewbounce" value="true"/>
